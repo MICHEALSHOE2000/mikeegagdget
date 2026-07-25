@@ -280,7 +280,7 @@ export const landingPages = [
     whatsappMessage: "Hello, I’m looking for an iPhone shop in Ikeja. Please send today’s available iPhone models, prices, storage options and store pickup details.",
     seoTitle: "iPhone Shop in Ikeja, Lagos | FORMEX Communication",
     metaDescription: "Visit FORMEX Communication, an iPhone shop at 1 Ola Ayeni Street, Ikeja. Ask about current models, prices, inspection, pickup and delivery.",
-    conversionEventName: "click_directions",
+    conversionEventName: "click_whatsapp",
     leadType: "store_visit",
     pageType: "location",
     heroImage: "/images/shop.webp",
