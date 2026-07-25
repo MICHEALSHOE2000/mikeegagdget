@@ -121,7 +121,7 @@ const heroSlides = document.querySelectorAll(".hero-slide");
 const heroDots = document.querySelectorAll(".carousel-dot");
 const menuToggle = document.querySelector(".menu-toggle");
 const navActions = document.querySelector(".nav-actions");
-const categoryCards = document.querySelectorAll(".category-card");
+const categoryCards = document.querySelectorAll(".category-card[data-category]");
 const faqItems = document.querySelectorAll(".faq-item");
 
 let activeFilter = "All";
@@ -307,9 +307,44 @@ categoryCards.forEach((card) => {
 faqItems.forEach((item) => {
   const button = item.querySelector("button");
   button.addEventListener("click", () => {
-    item.classList.toggle("open");
+    const isOpen = item.classList.toggle("open");
+    button.setAttribute("aria-expanded", String(isOpen));
   });
 });
+
+const swapForm = document.querySelector("#swapForm");
+
+if (swapForm) {
+  swapForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const brand = document.querySelector("#swapBrand").value.trim();
+    const model = document.querySelector("#swapModel").value.trim();
+    const storage = document.querySelector("#swapStorage").value.trim() || "Not supplied";
+    const condition = document.querySelector("#swapCondition").value.trim();
+    const battery = document.querySelector("#swapBattery").value.trim() || "Not supplied";
+    const contact = document.querySelector("#swapContact").value.trim();
+
+    const message = [
+      "Hello FORMEX Communication, I want to swap my current phone and upgrade.",
+      `Phone: ${brand} ${model}`,
+      `Storage: ${storage}`,
+      `Condition: ${condition}`,
+      `Battery health: ${battery}`,
+      `My WhatsApp number: ${contact}`,
+      "Please explain the inspection process and help me discuss an initial valuation. I understand the final value is confirmed after physical inspection."
+    ].join("\n");
+
+    window.FormexTracking?.pushEvent("begin_phone_swap", {
+      form_name: "phone_swap_valuation",
+      lead_type: "phone_swap",
+      phone_model: `${brand} ${model}`.trim(),
+      device_condition: condition
+    });
+
+    window.location.href = `https://wa.me/2349060699096?text=${encodeURIComponent(message)}`;
+  });
+}
 
 shopImages.forEach((image, index) => {
   image.addEventListener("error", () => {

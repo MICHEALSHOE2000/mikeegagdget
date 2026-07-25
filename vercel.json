@@ -1,0 +1,19 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/shop", "destination": "/#products", "permanent": false },
+    { "source": "/iphone", "destination": "/used-iphones-lagos", "permanent": true },
+    { "source": "/samsung", "destination": "/samsung-shop-ikeja-lagos", "permanent": true },
+    { "source": "/buy-iphone-in-lagos", "destination": "/used-iphones-lagos", "permanent": true },
+    { "source": "/uk-used-iphone-lagos", "destination": "/used-iphones-lagos", "permanent": true },
+    { "source": "/iphone-store-ikeja", "destination": "/iphone-shop-ikeja-lagos", "permanent": true },
+    { "source": "/samsung-phone-store-lagos", "destination": "/samsung-shop-ikeja-lagos", "permanent": true },
+    { "source": "/phone-swap-lagos", "destination": "/phone-swap", "permanent": true },
+    { "source": "/iphone-swap-lagos", "destination": "/phone-swap", "permanent": true },
+    { "source": "/easy-buy-phone-lagos", "destination": "/easy-buy/iphone", "permanent": true },
+    { "source": "/pay-small-small-phone-lagos", "destination": "/easy-buy/iphone", "permanent": true },
+    { "source": "/installment-phone-lagos", "destination": "/easy-buy/iphone", "permanent": true },
+    { "source": "/phone-store-computer-village", "destination": "/phone-shop-ikeja", "permanent": true }
+  ]
+}
