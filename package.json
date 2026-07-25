@@ -1,0 +1,12 @@
+{
+  "name": "formex-communication",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/generate-landing-pages.mjs",
+    "lint": "node --check script.js && node --check easy-buy/easy-buy.js && node --check easy-buy/easy-buy-core.mjs && node --check assets/landing-page.js && node --check landing-pages/config.mjs && node --check scripts/generate-landing-pages.mjs && node --check scripts/validate-site.mjs",
+    "test": "node scripts/validate-site.mjs",
+    "check": "npm run lint && npm run build && npm run test"
+  }
+}
