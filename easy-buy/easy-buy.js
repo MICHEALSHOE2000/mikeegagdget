@@ -1,4 +1,4 @@
-const whatsappNumber = "2348039248231";
+const whatsappNumber = "2349060699096";
 
 const easyBuyPhones = [
   { id: "iphone-11-64", model: "iPhone 11", storage: "64GB", price: 230000, series: 11, depositRate: 0.4, image: "../images/11-1.jpeg" },
