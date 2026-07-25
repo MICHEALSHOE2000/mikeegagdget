@@ -83,7 +83,7 @@ const localBusinessSchema = {
   areaServed: "Nigeria"
 };
 
-const renderHeader = () => `
+const renderHeader = (page) => `
   <aside class="intent-topbar" aria-label="FORMEX store highlights">
     <span>FORMEX Communication</span>
     <span>Physical store in Ikeja</span>
@@ -104,7 +104,7 @@ const renderHeader = () => `
         <a href="/samsung-shop-ikeja-lagos">Samsung shop</a>
         <a href="/easy-buy/iphone">Easy Buy</a>
         <a href="/phone-shop-ikeja">Visit store</a>
-        <a class="intent-nav-cta" data-track="whatsapp" href="https://wa.me/${site.whatsappNumber}" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="intent-nav-cta" data-track="whatsapp" href="${whatsappHref(page)}" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </nav>
   </header>`;
@@ -246,7 +246,7 @@ const renderFinalCta = (page) => `
     </div>
   </section>`;
 
-const renderFooter = () => `
+const renderFooter = (page) => `
   <footer class="intent-footer">
     <div>
       <a class="intent-brand intent-brand-footer" href="/">
@@ -270,7 +270,7 @@ const renderFooter = () => `
   </footer>
   <div class="intent-mobile-bar" aria-label="Quick contact actions">
     <a data-track="call" href="tel:${site.telephoneHref}"><span>Call</span><strong>${site.telephoneDisplay}</strong></a>
-    <a data-track="whatsapp" href="https://wa.me/${site.whatsappNumber}" target="_blank" rel="noopener"><span>WhatsApp</span><strong>Ask FORMEX</strong></a>
+    <a data-track="whatsapp" href="${whatsappHref(page)}" target="_blank" rel="noopener"><span>WhatsApp</span><strong>Ask FORMEX</strong></a>
   </div>`;
 
 const renderPage = (page) => {
@@ -319,7 +319,7 @@ const renderPage = (page) => {
   data-device-condition="${escapeHtml(page.condition || "Confirm with FORMEX")}"
   data-lead-type="${page.leadType}"
 >
-  ${renderHeader()}
+  ${renderHeader(page)}
   <main id="main-content">
     ${renderBreadcrumbs(page)}
     ${renderHero(page, localHeroImage)}
@@ -330,7 +330,7 @@ const renderPage = (page) => {
     ${renderRelated(page)}
     ${renderFinalCta(page)}
   </main>
-  ${renderFooter()}
+  ${renderFooter(page)}
   <script src="${localRoot}assets/landing-page.js" defer></script>
 </body>
 </html>

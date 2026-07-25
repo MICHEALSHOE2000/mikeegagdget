@@ -76,6 +76,9 @@ for (const page of landingPages) {
   assert(html.includes(`"@type":"FAQPage"`), `${page.adGroupId}: FAQPage schema is missing.`);
   assert(count(html, /<details(?:\s|>)/g) >= 4 && count(html, /<details(?:\s|>)/g) <= 6, `${page.adGroupId}: expected four to six visible FAQs.`);
   assert(html.includes(`wa.me/${site.whatsappNumber}`), `${page.adGroupId}: correct WhatsApp number is missing.`);
+  const trackedWhatsAppLinks = [...html.matchAll(/<a[^>]*data-track="whatsapp"[^>]*href="([^"]+)"/g)].map((match) => match[1]);
+  assert(trackedWhatsAppLinks.length >= 4, `${page.adGroupId}: expected WhatsApp entry points are missing.`);
+  assert(trackedWhatsAppLinks.every((href) => href.includes(`wa.me/${site.whatsappNumber}?text=`)), `${page.adGroupId}: every tracked WhatsApp link must use the model-specific prefilled message.`);
   assert(html.includes(`tel:${site.telephoneHref}`), `${page.adGroupId}: correct telephone link is missing.`);
   assert(html.includes(`data-ad-group-id="${page.adGroupId}"`), `${page.adGroupId}: tracking context is missing.`);
   assert(!/data-select-phone="(?:true|false)\s+href=/.test(html), `${page.adGroupId}: malformed data-select-phone attribute is present.`);
