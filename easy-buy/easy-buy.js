@@ -1,3 +1,5 @@
+import { allowedFrequencies, calculatePlan } from "./easy-buy-core.mjs";
+
 const whatsappNumber = "2349060699096";
 
 const easyBuyPhones = [
@@ -13,31 +15,29 @@ const easyBuyPhones = [
   { id: "iphone-12-pro-256", model: "iPhone 12 Pro", storage: "256GB", price: 395000, series: 12, depositRate: 0.4, image: "../images/12pro-1.jpeg" },
   { id: "iphone-12-pro-max-128", model: "iPhone 12 Pro Max", storage: "128GB", price: 430000, series: 12, depositRate: 0.4, image: "../images/12promax-1.jpeg" },
   { id: "iphone-12-pro-max-256", model: "iPhone 12 Pro Max", storage: "256GB", price: 490000, series: 12, depositRate: 0.4, image: "../images/12promax-1.jpeg" },
-  { id: "iphone-13-128", model: "iPhone 13", storage: "128GB", price: 380000, series: 13, depositRate: 0.5, image: "../images/13-1.jpeg" },
-  { id: "iphone-13-256", model: "iPhone 13", storage: "256GB", price: 410000, series: 13, depositRate: 0.5, image: "../images/13-1.jpeg" },
-  { id: "iphone-13-pro-128", model: "iPhone 13 Pro", storage: "128GB", price: 500000, series: 13, depositRate: 0.5, image: "../images/13pro-1.jpeg" },
-  { id: "iphone-13-pro-256", model: "iPhone 13 Pro", storage: "256GB", price: 530000, series: 13, depositRate: 0.5, image: "../images/13pro-1.jpeg" },
-  { id: "iphone-14-128", model: "iPhone 14", storage: "128GB", price: 460000, series: 14, depositRate: 0.5, image: "../images/14-1.jpeg" },
-  { id: "iphone-14-256", model: "iPhone 14", storage: "256GB", price: 520000, series: 14, depositRate: 0.5, image: "../images/14-1.jpeg" },
-  { id: "iphone-14-pro-128", model: "iPhone 14 Pro", storage: "128GB", price: 640000, series: 14, depositRate: 0.5, image: "../images/14pro-1.jpeg" },
-  { id: "iphone-14-pro-256", model: "iPhone 14 Pro", storage: "256GB", price: 700000, series: 14, depositRate: 0.5, image: "../images/14pro-1.jpeg" },
-  { id: "iphone-14-pro-max-128", model: "iPhone 14 Pro Max", storage: "128GB", price: 770000, series: 14, depositRate: 0.5, image: "../images/14promax-1.jpeg" },
-  { id: "iphone-14-pro-max-256", model: "iPhone 14 Pro Max", storage: "256GB", price: 835000, series: 14, depositRate: 0.5, image: "../images/14promax-1.jpeg" },
-  { id: "iphone-15-128", model: "iPhone 15", storage: "128GB", price: 625000, series: 15, depositRate: 0.5, image: "../images/15-1.jpeg" },
-  { id: "iphone-15-256", model: "iPhone 15", storage: "256GB", price: 670000, series: 15, depositRate: 0.5, image: "../images/15-1.jpeg" },
-  { id: "iphone-15-pro-128", model: "iPhone 15 Pro", storage: "128GB", price: 800000, series: 15, depositRate: 0.5, image: "../images/15pro-1.jpeg" },
-  { id: "iphone-15-pro-256", model: "iPhone 15 Pro", storage: "256GB", price: 840000, series: 15, depositRate: 0.5, image: "../images/15pro-1.jpeg" },
-  { id: "iphone-15-pro-512", model: "iPhone 15 Pro", storage: "512GB", price: 510000, series: 15, depositRate: 0.5, image: "../images/15pro-1.jpeg", confirmPrice: true },
-  { id: "iphone-16-128", model: "iPhone 16", storage: "128GB", price: 840000, series: 16, depositRate: 0.5, image: "../images/16-1.jpg" },
-  { id: "iphone-16-256", model: "iPhone 16", storage: "256GB", price: 925000, series: 16, depositRate: 0.5, image: "../images/16-1.jpg" },
-  { id: "iphone-16-512", model: "iPhone 16", storage: "512GB", price: 1000000, series: 16, depositRate: 0.5, image: "../images/16-1.jpg" },
-  { id: "iphone-16-pro-128", model: "iPhone 16 Pro", storage: "128GB", price: 1030000, series: 16, depositRate: 0.5, image: "../images/16pro-1.jpg" },
-  { id: "iphone-16-pro-256", model: "iPhone 16 Pro", storage: "256GB", price: 1160000, series: 16, depositRate: 0.5, image: "../images/16pro-1.jpg" },
-  { id: "iphone-16-plus-128", model: "iPhone 16 Plus", storage: "128GB", price: 940000, series: 16, depositRate: 0.5, image: "../images/16plus-1.jpg" },
-  { id: "iphone-17-air", model: "iPhone 17 Air", storage: "Storage to confirm", price: 1140000, series: 17, depositRate: 0.7, image: "../images/17air-1.jpg" }
+  { id: "iphone-13-128", model: "iPhone 13", storage: "128GB", price: 380000, series: 13, depositRate: 0.4, image: "../images/13-1.jpeg" },
+  { id: "iphone-13-256", model: "iPhone 13", storage: "256GB", price: 410000, series: 13, depositRate: 0.4, image: "../images/13-1.jpeg" },
+  { id: "iphone-13-pro-128", model: "iPhone 13 Pro", storage: "128GB", price: 500000, series: 13, depositRate: 0.4, image: "../images/13pro-1.jpeg" },
+  { id: "iphone-13-pro-256", model: "iPhone 13 Pro", storage: "256GB", price: 530000, series: 13, depositRate: 0.4, image: "../images/13pro-1.jpeg" },
+  { id: "iphone-14-128", model: "iPhone 14", storage: "128GB", price: 460000, series: 14, depositRate: 0.4, image: "../images/14-1.jpeg" },
+  { id: "iphone-14-256", model: "iPhone 14", storage: "256GB", price: 520000, series: 14, depositRate: 0.4, image: "../images/14-1.jpeg" },
+  { id: "iphone-14-pro-128", model: "iPhone 14 Pro", storage: "128GB", price: 640000, series: 14, depositRate: 0.4, image: "../images/14pro-1.jpeg" },
+  { id: "iphone-14-pro-256", model: "iPhone 14 Pro", storage: "256GB", price: 700000, series: 14, depositRate: 0.4, image: "../images/14pro-1.jpeg" },
+  { id: "iphone-14-pro-max-128", model: "iPhone 14 Pro Max", storage: "128GB", price: 770000, series: 14, depositRate: 0.4, image: "../images/14promax-1.jpeg" },
+  { id: "iphone-14-pro-max-256", model: "iPhone 14 Pro Max", storage: "256GB", price: 835000, series: 14, depositRate: 0.4, image: "../images/14promax-1.jpeg" },
+  { id: "iphone-15-128", model: "iPhone 15", storage: "128GB", price: 625000, series: 15, depositRate: 0.4, image: "../images/15-1.jpeg" },
+  { id: "iphone-15-256", model: "iPhone 15", storage: "256GB", price: 670000, series: 15, depositRate: 0.4, image: "../images/15-1.jpeg" },
+  { id: "iphone-15-pro-128", model: "iPhone 15 Pro", storage: "128GB", price: 800000, series: 15, depositRate: 0.4, image: "../images/15pro-1.jpeg" },
+  { id: "iphone-15-pro-256", model: "iPhone 15 Pro", storage: "256GB", price: 840000, series: 15, depositRate: 0.4, image: "../images/15pro-1.jpeg" },
+  { id: "iphone-15-pro-512", model: "iPhone 15 Pro", storage: "512GB", price: 510000, series: 15, depositRate: 0.4, image: "../images/15pro-1.jpeg", confirmPrice: true },
+  { id: "iphone-16-128", model: "iPhone 16", storage: "128GB", price: 840000, series: 16, depositRate: 0.4, image: "../images/16-1.jpg" },
+  { id: "iphone-16-256", model: "iPhone 16", storage: "256GB", price: 925000, series: 16, depositRate: 0.4, image: "../images/16-1.jpg" },
+  { id: "iphone-16-512", model: "iPhone 16", storage: "512GB", price: 1000000, series: 16, depositRate: 0.4, image: "../images/16-1.jpg" },
+  { id: "iphone-16-pro-128", model: "iPhone 16 Pro", storage: "128GB", price: 1030000, series: 16, depositRate: 0.4, image: "../images/16pro-1.jpg" },
+  { id: "iphone-16-pro-256", model: "iPhone 16 Pro", storage: "256GB", price: 1160000, series: 16, depositRate: 0.4, image: "../images/16pro-1.jpg" },
+  { id: "iphone-16-plus-128", model: "iPhone 16 Plus", storage: "128GB", price: 940000, series: 16, depositRate: 0.4, image: "../images/16plus-1.jpg" },
+  { id: "iphone-17-air", model: "iPhone 17 Air", storage: "Storage to confirm", price: 1140000, series: 17, depositRate: 0.4, image: "../images/17air-1.jpg" }
 ];
-
-const durationFactors = { 1: 1.2, 2: 1.4, 3: 1.6 };
 
 const menuToggle = document.querySelector(".menu-toggle");
 const navActions = document.querySelector(".nav-actions");
@@ -90,7 +90,6 @@ const financedTotal = document.querySelector("#financedTotal");
 const repaymentAmount = document.querySelector("#repaymentAmount");
 const paymentLabel = document.querySelector("#paymentLabel");
 const paymentCount = document.querySelector("#paymentCount");
-const totalPaid = document.querySelector("#totalPaid");
 const frequencyHelp = document.querySelector("#frequencyHelp");
 const weeklyOption = frequencySelect ? frequencySelect.querySelector('option[value="weekly"]') : null;
 const biweeklyOption = frequencySelect ? frequencySelect.querySelector('option[value="biweekly"]') : null;
@@ -238,6 +237,11 @@ function selectPhone(phoneId, scrollToCalculator = false) {
   updateCalculator();
 
   if (scrollToCalculator) {
+    window.FormexTracking?.pushEvent("select_phone", {
+      phone_model: phone.model,
+      product_name: phoneLabel(phone),
+      lead_type: "easy_buy"
+    });
     window.requestAnimationFrame(() => {
       document.querySelector("#calculator").scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -253,18 +257,18 @@ function syncFrequencyAvailability(phone) {
   weeklyOption.hidden = !isIphone11Or12;
   biweeklyOption.disabled = !isIphone11Or12;
   biweeklyOption.hidden = !isIphone11Or12;
-  monthlyOption.disabled = isIphone11Or12;
-  monthlyOption.hidden = isIphone11Or12;
+  monthlyOption.disabled = false;
+  monthlyOption.hidden = false;
 
-  const allowedFrequencies = isIphone11Or12 ? ["weekly", "biweekly"] : ["monthly"];
-  if (!allowedFrequencies.includes(frequencySelect.value)) {
-    frequencySelect.value = isIphone11Or12 ? "weekly" : "monthly";
+  const frequencies = allowedFrequencies(phone.series);
+  if (!frequencies.includes(frequencySelect.value)) {
+    frequencySelect.value = "monthly";
   }
 
   if (frequencyHelp) {
     frequencyHelp.textContent = isIphone11Or12
-      ? "This iPhone can be repaid weekly or every 14 days."
-      : "This iPhone series is repaid monthly.";
+      ? "Monthly is the default. Eligible iPhone 11 and 12 offers may also use weekly or bi-weekly repayment."
+      : "This iPhone series uses monthly repayment.";
   }
 }
 
@@ -278,15 +282,21 @@ function updateCalculator() {
   const rate = phone.depositRate;
   const selectedDuration = document.querySelector('input[name="duration"]:checked');
   const duration = Number(selectedDuration ? selectedDuration.value : 1);
-  const factor = durationFactors[duration];
-  const paymentsPerMonth = Number(selectedFrequency.dataset.perMonth);
-  const repayments = Math.max(1, duration * paymentsPerMonth);
-  const deposit = price * rate;
-  const balance = Math.max(0, price - deposit);
-  const balanceRepayment = balance * factor;
-  const additionalCost = balanceRepayment - balance;
-  const installment = balanceRepayment / repayments;
-  const overallTotal = deposit + balanceRepayment;
+  const {
+    factor,
+    deposit,
+    balance,
+    balanceRepayment,
+    additionalCost,
+    installment,
+    repayments
+  } = calculatePlan({
+    price,
+    duration,
+    frequency: selectedFrequency.value,
+    series: phone.series,
+    depositRate: rate
+  });
   const frequencyName = selectedFrequency.textContent.trim().toLowerCase();
 
   depositRate.textContent = `${Math.round(rate * 100)}% initial deposit`;
@@ -298,7 +308,6 @@ function updateCalculator() {
   repaymentAmount.textContent = naira.format(installment);
   paymentLabel.textContent = `Estimated ${frequencyName} instalment`;
   paymentCount.textContent = `${repayments} payment${repayments === 1 ? "" : "s"}`;
-  totalPaid.textContent = naira.format(overallTotal);
   if (selectedPhonePrice) selectedPhonePrice.textContent = `Price used: ${naira.format(price)}`;
 
   const message = [
@@ -311,7 +320,6 @@ function updateCalculator() {
     `Additional plan cost on balance: ${naira.format(additionalCost)}`,
     `Total balance repayment: ${naira.format(balanceRepayment)}`,
     `Preferred schedule: ${selectedFrequency.textContent.trim()} — ${naira.format(installment)} × ${repayments} payments`,
-    `Total paid overall: ${naira.format(overallTotal)}`,
     "Please confirm the current phone price, stock, eligibility, exact due dates, and complete terms before I pay."
   ].join("\n");
 
@@ -320,7 +328,15 @@ function updateCalculator() {
 
 if (modelSelect && priceInput && frequencySelect && durationInputs.length) {
   populateModelSelect();
-  modelSelect.addEventListener("change", () => selectPhone(modelSelect.value));
+  modelSelect.addEventListener("change", () => {
+    selectPhone(modelSelect.value);
+    const phone = selectedPhone();
+    window.FormexTracking?.pushEvent("select_phone", {
+      phone_model: phone.model,
+      product_name: phoneLabel(phone),
+      lead_type: "easy_buy"
+    });
+  });
   frequencySelect.addEventListener("change", updateCalculator);
   durationInputs.forEach((field) => field.addEventListener("change", updateCalculator));
   priceInput.addEventListener("input", updateCalculator);

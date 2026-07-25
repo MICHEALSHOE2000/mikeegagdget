@@ -1,4 +1,4 @@
-const whatsappNumber = "2348039248231";
+const whatsappNumber = "2349060699096";
 
 const modelStorage = {
   "iPhone 17": "128GB, 256GB, 512GB",
@@ -81,7 +81,7 @@ const modelImageOverrides = {
   "iPhone 17 Pro": ["images/17pro-1.jpg", "images/17pro-2.jpg", "images/17pro-3.jpg"],
   "iPhone 17 Pro Max": ["images/17promax-1.jpg", "images/17promax-2.jpg"],
   "iPhone 16": ["images/16-1.jpg", "images/16-2.jpg", "images/16-3.jpg"],
-  "iPhone 16 Plus": ["images/16plus-1.jpg", "images/16plus-2.png", "images/16plus-3.jpg"],
+  "iPhone 16 Plus": ["images/16plus-1.jpg", "images/16plus-2.webp", "images/16plus-3.jpg"],
   "iPhone 16 Pro": ["images/16pro-1.jpg", "images/16pro-2.jpg", "images/16pro-3.jpg"],
   "iPhone 16 Pro Max": ["images/16promax-1.jpg", "images/16promax-2.jpg", "images/16promax-3.jpg"]
 };
@@ -159,7 +159,7 @@ function createPlaceholderImage(model, condition) {
 }
 
 function createShopPlaceholderImage(index) {
-  const label = `Formex Communications Shop ${index}`;
+  const label = `Formex Communication Shop ${index}`;
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675">
       <defs>
@@ -189,7 +189,7 @@ function createShopPlaceholderImage(index) {
 }
 
 function buildWhatsappLink(product) {
-  const message = `Hello Formex Communications, I’m interested in buying the ${product.condition} ${product.model}. Is it available and what is the current price?`;
+  const message = `Hello Formex Communication, I’m interested in the ${product.condition} ${product.model}. Please confirm today’s price, available storage, colour, exact condition and pickup or delivery options.`;
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
@@ -235,16 +235,16 @@ function renderProducts() {
       <div class="card-body">
         <span class="condition ${conditionClass}">${product.condition}</span>
         <h3>${product.model}</h3>
-        <div class="card-badges" aria-label="Product quality badges"><span>Verified</span><span>Quality Checked</span></div>
+        <div class="card-badges" aria-label="Product enquiry details"><span>Price on request</span><span>Condition confirmed per device</span></div>
         <ul class="detail-list">
           <li><strong>Storage:</strong> ${product.storage}</li>
           <li><strong>Condition:</strong> ${product.condition}</li>
           <li><strong>Battery health:</strong> Available on request before payment</li>
-          ${product.condition === "Brand New" ? "<li><strong>Warranty:</strong> Sealed or fresh stock confirmed on request</li>" : "<li><strong>Warranty:</strong> Quality support confirmed on WhatsApp</li>"}
-          <li>Pickup in Computer Village &bull; Nationwide delivery</li>
+          <li><strong>Warranty:</strong> Ask for the written terms that apply to the exact unit</li>
+          <li>Pickup in Computer Village &bull; Delivery in Lagos or across Nigeria</li>
         </ul>
-        <p class="price-note">Best current price - confirm on WhatsApp</p>
-        <a class="whatsapp-btn" href="${buildWhatsappLink(product)}" target="_blank" rel="noopener">Order on WhatsApp</a>
+        <p class="price-note">Request today’s price and availability</p>
+        <a class="whatsapp-btn" data-track="whatsapp" data-select-phone="true" href="${buildWhatsappLink(product)}" target="_blank" rel="noopener">Ask about this phone</a>
       </div>
     `;
 
