@@ -110,6 +110,27 @@ for (const page of landingPages) {
   assert(sitemap.includes(`<loc>${site.baseUrl}${page.route}</loc>`), `${page.adGroupId}: route is missing from sitemap.xml.`);
 }
 
+const coreRoutes = [
+  "/about",
+  "/android-phones",
+  "/contact",
+  "/laptops",
+  "/phone-swap",
+  "/reviews"
+];
+for (const route of coreRoutes) {
+  assert(sitemap.includes(`<loc>${site.baseUrl}${route}</loc>`), `${route}: route is missing from sitemap.xml.`);
+}
+
+const homepage = await readFile(join(root, "index.html"), "utf8");
+assert(count(homepage, /<h1(?:\s|>)/g) === 1, "Homepage must contain exactly one H1.");
+assert(homepage.includes("buy outright, pay small-small or swap your current phone"), "Homepage hero must explain all three buying paths.");
+assert(homepage.includes("40% initial deposit"), "Homepage must make the verified Easy Buy deposit visible.");
+assert(homepage.includes('id="swapForm"'), "Homepage phone-swap form is missing.");
+assert(homepage.includes(site.address), "Homepage physical-store address is missing.");
+assert(homepage.includes(`wa.me/${site.whatsappNumber}`), "Homepage correct WhatsApp number is missing.");
+assert(homepage.includes(`tel:${site.telephoneHref}`), "Homepage correct telephone link is missing.");
+
 const tracking = await readFile(join(root, "assets", "landing-page.js"), "utf8");
 [
   "view_landing_page",
@@ -126,6 +147,11 @@ const tracking = await readFile(join(root, "assets", "landing-page.js"), "utf8")
 ["gclid", "wbraid", "gbraid", "utm_source", "utm_campaign", "utm_term"].forEach((parameter) => {
   assert(tracking.includes(`"${parameter}"`), `Attribution parameter ${parameter} is not preserved.`);
 });
+
+const homepageScript = await readFile(join(root, "script.js"), "utf8");
+const phoneSwapScript = await readFile(join(root, "assets", "phone-swap.js"), "utf8");
+assert(homepageScript.includes('"begin_phone_swap"'), "Homepage phone-swap tracking event is missing.");
+assert(phoneSwapScript.includes('"begin_phone_swap"'), "Dedicated phone-swap tracking event is missing.");
 
 await collectHtml(root);
 for (const filePath of htmlFiles) {

@@ -365,6 +365,12 @@ await writeFile(
 const existingRoutes = [
   "/",
   "/easy-buy/",
+  "/android-phones",
+  "/laptops",
+  "/phone-swap",
+  "/about",
+  "/reviews",
+  "/contact",
   "/blog/best-uk-used-iphone-shop",
   "/blog/where-to-buy-original-samsung-phones",
   "/blog/best-phone-under-250000",
