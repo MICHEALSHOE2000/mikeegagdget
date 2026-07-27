@@ -2,6 +2,7 @@ import { access, readFile, readdir } from "node:fs/promises";
 import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { landingPages, site } from "../landing-pages/config.mjs";
+import { categoryPages, commerceSite, products } from "../commerce/catalog.mjs";
 import { allowedFrequencies, calculatePlan, DEPOSIT_RATE } from "../easy-buy/easy-buy-core.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -94,6 +95,61 @@ for (const page of landingPages) {
   }
 }
 
+assert(products.length >= 40, `Expected at least 40 reusable product pages, found ${products.length}.`);
+assert(categoryPages.length >= 11, `Expected at least 11 commerce category pages, found ${categoryPages.length}.`);
+assert(new Set(products.map((product) => product.slug)).size === products.length, "Product slugs must be unique.");
+assert(new Set(products.map((product) => product.seoTitle)).size === products.length, "Product SEO titles must be unique.");
+assert(new Set(products.map((product) => product.metaDescription)).size === products.length, "Product meta descriptions must be unique.");
+assert(new Set(categoryPages.map((category) => category.route)).size === categoryPages.length, "Commerce category routes must be unique.");
+
+for (const product of products) {
+  const filePath = join(root, product.slug, "index.html");
+  let html = "";
+  try {
+    html = await readFile(filePath, "utf8");
+  } catch {
+    errors.push(`${product.slug}: generated product page is missing.`);
+    continue;
+  }
+
+  assert(count(html, /<h1(?:\s|>)/g) === 1, `${product.slug}: product page must contain exactly one H1.`);
+  assert(html.includes(`<h1>Buy ${escapeHtml(product.model)} in Nigeria</h1>`), `${product.slug}: model-specific H1 is missing.`);
+  assert(html.includes(`<title>${escapeHtml(product.seoTitle)}</title>`), `${product.slug}: SEO title does not match product data.`);
+  assert(html.includes(`content="${escapeHtml(product.metaDescription)}"`), `${product.slug}: product meta description does not match.`);
+  assert(html.includes(`rel="canonical" href="${commerceSite.baseUrl}${product.route}"`), `${product.slug}: canonical URL is incorrect.`);
+  assert(html.includes(`property="og:title"`), `${product.slug}: Open Graph title is missing.`);
+  assert(html.includes(`"@type":"Product"`), `${product.slug}: Product schema is missing.`);
+  assert(html.includes(`"@type":"BreadcrumbList"`), `${product.slug}: Breadcrumb schema is missing.`);
+  assert(html.includes(`"@type":"FAQPage"`), `${product.slug}: FAQ schema is missing.`);
+  assert(html.includes(`class="mobile-purchase-bar"`), `${product.slug}: sticky mobile purchase bar is missing.`);
+  assert(html.includes(`data-action="buy"`), `${product.slug}: outright purchase path is missing.`);
+  assert(html.includes(`data-action="easyBuy"`), `${product.slug}: Easy Buy purchase path is missing.`);
+  assert(html.includes(`data-action="swap"`), `${product.slug}: swap enquiry path is missing.`);
+  assert(html.includes(`wa.me/${commerceSite.whatsappNumber}?text=`), `${product.slug}: prefilled WhatsApp link is missing.`);
+  assert(count(html, /data-storage="/g) === product.variants.length, `${product.slug}: rendered storage selector does not match product data.`);
+  assert(count(html, /data-variant-card="/g) === product.variants.length, `${product.slug}: rendered variant cards do not match product data.`);
+  assert(count(html, /<details(?:\s|>)/g) === 7, `${product.slug}: expected seven visible product FAQs.`);
+  assert(!html.includes("InStock"), `${product.slug}: schema must not invent a stock availability claim.`);
+  assert(!html.includes("aggregateRating"), `${product.slug}: page must not invent product reviews or ratings.`);
+}
+
+for (const category of categoryPages) {
+  const filePath = join(root, category.route.slice(1), "index.html");
+  let html = "";
+  try {
+    html = await readFile(filePath, "utf8");
+  } catch {
+    errors.push(`${category.route}: generated commerce category page is missing.`);
+    continue;
+  }
+
+  assert(count(html, /<h1(?:\s|>)/g) === 1, `${category.route}: category page must contain exactly one H1.`);
+  assert(html.includes(`<h1>${escapeHtml(category.h1)}</h1>`), `${category.route}: category H1 does not match configuration.`);
+  assert(html.includes(`<title>${escapeHtml(category.title)}</title>`), `${category.route}: category SEO title does not match.`);
+  assert(html.includes(`rel="canonical" href="${commerceSite.baseUrl}${category.route}"`), `${category.route}: category canonical URL is incorrect.`);
+  assert(html.includes(`wa.me/${commerceSite.whatsappNumber}?text=`), `${category.route}: category WhatsApp path is missing.`);
+}
+
 const mapping = JSON.parse(await readFile(join(root, "landing-pages", "ad-group-map.json"), "utf8"));
 assert(mapping.length === landingPages.length, "Ad-group mapping row count does not match the landing-page count.");
 for (const page of landingPages) {
@@ -108,6 +164,23 @@ for (const page of landingPages) {
 const sitemap = await readFile(join(root, "sitemap.xml"), "utf8");
 for (const page of landingPages) {
   assert(sitemap.includes(`<loc>${site.baseUrl}${page.route}</loc>`), `${page.adGroupId}: route is missing from sitemap.xml.`);
+}
+for (const product of products) {
+  assert(sitemap.includes(`<loc>${commerceSite.baseUrl}${product.route}</loc>`), `${product.slug}: product route is missing from sitemap.xml.`);
+}
+for (const category of categoryPages) {
+  assert(sitemap.includes(`<loc>${commerceSite.baseUrl}${category.route}</loc>`), `${category.route}: category route is missing from sitemap.xml.`);
+}
+
+const catalogSearch = JSON.parse(await readFile(join(root, "assets", "catalog-search.json"), "utf8"));
+for (const product of products) {
+  const row = catalogSearch.find((item) => item.route === product.route);
+  assert(Boolean(row), `${product.slug}: product is missing from the search index.`);
+  if (row) {
+    for (const variant of product.variants) {
+      assert(row.storage.includes(variant.storage), `${product.slug}: ${variant.storage} is missing from search data.`);
+    }
+  }
 }
 
 const tracking = await readFile(join(root, "assets", "landing-page.js"), "utf8");

@@ -121,7 +121,7 @@ const heroSlides = document.querySelectorAll(".hero-slide");
 const heroDots = document.querySelectorAll(".carousel-dot");
 const menuToggle = document.querySelector(".menu-toggle");
 const navActions = document.querySelector(".nav-actions");
-const categoryCards = document.querySelectorAll(".category-card");
+const categoryCards = document.querySelectorAll(".category-card[data-category]");
 const faqItems = document.querySelectorAll(".faq-item");
 
 let activeFilter = "All";
