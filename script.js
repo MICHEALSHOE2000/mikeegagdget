@@ -1,4 +1,4 @@
-const whatsappNumber = "2349060699096";
+const whatsappNumber = "2347086865133";
 
 const modelStorage = {
   "iPhone 17": "128GB, 256GB, 512GB",
@@ -159,7 +159,7 @@ function createPlaceholderImage(model, condition) {
 }
 
 function createShopPlaceholderImage(index) {
-  const label = `Formex Communication Shop ${index}`;
+  const label = `Mikee Gadget Plug Shop ${index}`;
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675">
       <defs>
@@ -175,7 +175,7 @@ function createShopPlaceholderImage(index) {
       <rect width="900" height="675" fill="url(#bg)"/>
       <rect x="112" y="154" width="676" height="366" rx="28" fill="#f6f7f9"/>
       <rect x="112" y="154" width="676" height="84" rx="28" fill="#111318"/>
-      <text x="450" y="209" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff">FORMEX COMMUNICATIONS</text>
+      <text x="450" y="209" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff">MIKEE GADGET PLUG</text>
       <rect x="162" y="278" width="250" height="194" rx="16" fill="url(#glass)"/>
       <rect x="488" y="278" width="250" height="194" rx="16" fill="url(#glass)"/>
       <rect x="235" y="326" width="104" height="146" rx="22" fill="#151923"/>
@@ -189,7 +189,7 @@ function createShopPlaceholderImage(index) {
 }
 
 function buildWhatsappLink(product) {
-  const message = `Hello Formex Communication, I’m interested in the ${product.condition} ${product.model}. Please confirm today’s price, available storage, colour, exact condition and pickup or delivery options.`;
+  const message = `Hello Mikee Gadget Plug, I’m interested in the ${product.condition} ${product.model}. Please confirm today’s price, available storage, colour, exact condition and pickup or delivery options.`;
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
@@ -352,7 +352,7 @@ heroDots.forEach((dot) => {
 
 document.querySelectorAll(".hero-slide img").forEach((image, index) => {
   image.addEventListener("error", () => {
-    image.src = createPlaceholderImage(`Hero iPhone ${index + 1}`, "Formex");
+    image.src = createPlaceholderImage(`Hero iPhone ${index + 1}`, "Mikee Gadget Plug");
   }, { once: true });
 });
 

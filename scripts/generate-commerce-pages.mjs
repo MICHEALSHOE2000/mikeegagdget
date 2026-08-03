@@ -30,7 +30,7 @@ const whatsappHref = (message) =>
   `https://wa.me/${commerceSite.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
 const communityHref = commerceSite.communityUrl || whatsappHref(
-  "Hello Formex Communication, I want to join your WhatsApp Gadget Community for new arrivals, price drops, swap deals, Easy Buy offers and limited-stock alerts. Please send me the group link."
+  "Hello Mikee Gadget Plug, I want to join your WhatsApp Gadget Community for new arrivals, price drops, swap deals, Easy Buy offers and limited-stock alerts. Please send me the group link."
 );
 
 const productMessage = (product, storage = product.defaultStorage, intent = "buy") => {
@@ -50,13 +50,13 @@ const productFaqs = (product) => {
     ? `Do you sell UK-used ${product.model}?`
     : `What condition is the ${product.model} available in?`;
   const conditionAnswer = product.brand === "Apple"
-    ? `FORMEX lists UK-used and brand-new iPhone enquiries. Ask which ${product.model} units are available today and request the exact condition before payment.`
-    : `Condition depends on the current device available. Ask FORMEX whether the exact ${product.model} offered is new or used and request inspection details.`;
+    ? `Mikee Gadget Plug lists UK-used and brand-new iPhone enquiries. Ask which ${product.model} units are available today and request the exact condition before payment.`
+    : `Condition depends on the current device available. Ask Mikee Gadget Plug whether the exact ${product.model} offered is new or used and request inspection details.`;
 
   return [
     {
       question: `What is the price of ${product.model} in Nigeria?`,
-      answer: `The price depends on storage, condition, colour and current market availability. This page shows supplied guide prices where FORMEX has provided them; confirm today’s exact price before payment.`
+      answer: `The price depends on storage, condition, colour and current market availability. This page shows supplied guide prices where Mikee Gadget Plug has provided them; confirm today’s exact price before payment.`
     },
     {
       question: `How much is ${product.model} ${exampleStorage}?`,
@@ -64,7 +64,7 @@ const productFaqs = (product) => {
     },
     {
       question: `Can I buy ${product.model} and pay in installments?`,
-      answer: `Ask FORMEX to confirm Easy Buy eligibility for the exact device. The calculator is an estimate only; approval, deposit, due dates and complete terms are confirmed before commitment.`
+      answer: `Ask Mikee Gadget Plug to confirm Easy Buy eligibility for the exact device. The calculator is an estimate only; approval, deposit, due dates and complete terms are confirmed before commitment.`
     },
     {
       question: conditionQuestion,
@@ -72,7 +72,7 @@ const productFaqs = (product) => {
     },
     {
       question: `Can I swap my old phone for ${product.model}?`,
-      answer: `You can request a valuation on WhatsApp. FORMEX must inspect or review your current phone before confirming a swap value or balance.`
+      answer: `You can request a valuation on WhatsApp. Mikee Gadget Plug must inspect or review your current phone before confirming a swap value or balance.`
     },
     {
       question: "Do you deliver outside Lagos?",
@@ -152,9 +152,9 @@ const renderHeader = () => `
   </aside>
   <header class="commerce-header">
     <nav class="commerce-nav" aria-label="Main navigation">
-      <a class="commerce-brand" href="/" aria-label="Formex Communication home">
+      <a class="commerce-brand" href="/" aria-label="Mikee Gadget Plug home">
         <span class="commerce-brand-mark" aria-hidden="true">F</span>
-        <span><strong>FORMEX</strong><small>Communication</small></span>
+        <span><strong>MIKEE</strong><small>Gadget Plug</small></span>
       </a>
       <button class="commerce-menu-button" type="button" aria-expanded="false" aria-controls="commerce-menu" aria-label="Open navigation">
         <span></span><span></span>
@@ -171,7 +171,7 @@ const renderHeader = () => `
         <button class="commerce-search-trigger" type="button" data-search-open aria-label="Search phones">
           <span aria-hidden="true">⌕</span> Search
         </button>
-        <a class="commerce-nav-whatsapp" href="${whatsappHref("Hello Formex Communication, I want to buy a phone. Please help me find the right model.")}" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="commerce-nav-whatsapp" href="${whatsappHref("Hello Mikee Gadget Plug, I want to buy a phone. Please help me find the right model.")}" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </nav>
   </header>
@@ -194,7 +194,7 @@ const renderProductArtwork = (product) => {
     return `
       <div class="product-gallery" data-product-gallery>
         <div class="product-main-image">
-          <img src="${escapeHtml(product.images[0])}" alt="${escapeHtml(product.model)} available from FORMEX" data-main-image>
+          <img src="${escapeHtml(product.images[0])}" alt="${escapeHtml(product.model)} available from Mikee Gadget Plug" data-main-image>
         </div>
         <div class="product-thumbnails" aria-label="${escapeHtml(product.model)} images">
           ${product.images.map((image, index) => `
@@ -262,7 +262,7 @@ const renderVariantSelector = (product) => `
       <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="${whatsappHref(productMessage(product, product.defaultStorage, "easyBuy"))}" target="_blank" rel="noopener">Buy With Easy Buy</a>
       <a class="commerce-button commerce-button-ghost" data-action="price" href="${whatsappHref(productMessage(product, product.defaultStorage, "price"))}" target="_blank" rel="noopener">Chat on WhatsApp</a>
     </div>
-    <p class="purchase-safety">Confirm the exact unit, current price, warranty terms and payment details with FORMEX before sending money.</p>
+    <p class="purchase-safety">Confirm the exact unit, current price, warranty terms and payment details with Mikee Gadget Plug before sending money.</p>
   </div>`;
 
 const renderVariantCards = (product) => `
@@ -298,7 +298,7 @@ const renderPaymentPaths = (product) => `
         <span class="payment-number">01</span>
         <p class="commerce-eyebrow">Pay outright</p>
         <h3>Ready to own your device today?</h3>
-        <p>Ask FORMEX to confirm the exact phone, final price and collection or delivery arrangement, then pay the full amount.</p>
+        <p>Ask Mikee Gadget Plug to confirm the exact phone, final price and collection or delivery arrangement, then pay the full amount.</p>
         <div>
           <a class="commerce-button commerce-button-primary" data-action="buy" href="${whatsappHref(productMessage(product))}" target="_blank" rel="noopener">Buy Now</a>
           <a class="text-link" data-action="price" href="${whatsappHref(productMessage(product, product.defaultStorage, "price"))}" target="_blank" rel="noopener">Chat with us on WhatsApp →</a>
@@ -357,11 +357,11 @@ const renderCalculator = (product) => `
     <div class="calculator-copy">
       <p class="commerce-eyebrow">Easy Buy estimate</p>
       <h2>Plan the initial payment before you apply</h2>
-      <p>Where a supplied guide price exists, the calculator starts with it. You can replace it with the current price FORMEX confirms.</p>
+      <p>Where a supplied guide price exists, the calculator starts with it. You can replace it with the current price Mikee Gadget Plug confirms.</p>
       <ul>
         <li>40% initial-deposit estimate</li>
         <li>Balance factor: ×1.2 for one month, ×1.4 for two, ×1.6 for three</li>
-        <li>Final eligibility, price, dates and terms are confirmed by FORMEX</li>
+        <li>Final eligibility, price, dates and terms are confirmed by Mikee Gadget Plug</li>
       </ul>
     </div>
     <form class="mini-calculator" data-easy-buy-calculator>
@@ -389,7 +389,7 @@ const renderSwapAndCommunity = (product) => `
       <span class="conversion-icon">↻</span>
       <p class="commerce-eyebrow">Swap and upgrade</p>
       <h2>Have an old phone?</h2>
-      <p>Send the model, storage, condition, battery information and clear photos. FORMEX will explain the inspection and valuation process.</p>
+      <p>Send the model, storage, condition, battery information and clear photos. Mikee Gadget Plug will explain the inspection and valuation process.</p>
       <a class="commerce-button commerce-button-primary" data-action="swap" href="${whatsappHref(productMessage(product, product.defaultStorage, "swap"))}" target="_blank" rel="noopener">Get a Swap Quote on WhatsApp</a>
     </article>
     <article class="community-card">
@@ -477,15 +477,15 @@ const renderFooter = () => `
     <div class="footer-intro">
       <a class="commerce-brand commerce-brand-footer" href="/">
         <span class="commerce-brand-mark" aria-hidden="true">F</span>
-        <span><strong>FORMEX</strong><small>Communication</small></span>
+        <span><strong>MIKEE</strong><small>Gadget Plug</small></span>
       </a>
       <p>Model-specific phone pages built to help Nigerian buyers choose, confirm and order the exact device they want.</p>
-      <a class="commerce-button commerce-button-light" href="${whatsappHref("Hello Formex Communication, I need help choosing a phone.")}" target="_blank" rel="noopener">Ask FORMEX on WhatsApp</a>
+      <a class="commerce-button commerce-button-light" href="${whatsappHref("Hello Mikee Gadget Plug, I need help choosing a phone.")}" target="_blank" rel="noopener">Ask Mikee Gadget Plug on WhatsApp</a>
     </div>
     <div><strong>Shop phones</strong><a href="/iphones">All iPhones</a><a href="/samsung-phones">Samsung phones</a><a href="/google-pixel-phones">Google Pixel</a><a href="/uk-used-iphones">UK-used iPhones</a></div>
     <div><strong>Ways to buy</strong><a href="/easy-buy/">Easy Buy calculator</a><a href="/phones-on-installment">Phones on installment</a><a href="/phone-swap">Swap your phone</a><a href="${escapeHtml(communityHref)}" target="_blank" rel="noopener">WhatsApp community</a></div>
     <address><strong>Visit or call</strong><span>${escapeHtml(commerceSite.address)}</span><a href="tel:${commerceSite.telephoneHref}">${commerceSite.telephoneDisplay}</a><a href="${commerceSite.directionsUrl}" target="_blank" rel="noopener">Get directions</a></address>
-    <p class="footer-legal">© 2026 Formex Communication. Prices, stock, warranty and Easy Buy terms must be confirmed before payment.</p>
+    <p class="footer-legal">© 2026 Mikee Gadget Plug. Prices, stock, warranty and Easy Buy terms must be confirmed before payment.</p>
   </footer>`;
 
 const renderProductPage = (product) => {
@@ -569,7 +569,7 @@ const renderProductPage = (product) => {
     <section class="commerce-section seo-copy">
       <p class="commerce-eyebrow">${escapeHtml(product.model)} price in Nigeria</p>
       <h2>What changes the price of ${escapeHtml(product.model)}?</h2>
-      <p>The current price depends on storage, condition, colour, exchange-rate movement and the exact unit available. Supplied guide prices are shown on this page where FORMEX has provided them. Select your preferred storage, then request today’s final price and availability before paying.</p>
+      <p>The current price depends on storage, condition, colour, exchange-rate movement and the exact unit available. Supplied guide prices are shown on this page where Mikee Gadget Plug has provided them. Select your preferred storage, then request today’s final price and availability before paying.</p>
       <div class="seo-variant-list">${product.variants.map((variant) => `<span>${escapeHtml(product.model)} ${escapeHtml(variant.storage)} — ${variant.price ? formatNaira(variant.price) : "price on request"}</span>`).join("")}</div>
     </section>
     ${renderFaq(faqs)}
@@ -628,7 +628,7 @@ const renderContentOnly = (category) => {
 
   return `<div class="content-only-grid">
     <article><span>01</span><h2>Tell us what you need</h2><p>Share your preferred brand, processor, RAM, storage, screen size, condition and budget.</p></article>
-    <article><span>02</span><h2>Get current options</h2><p>FORMEX will send the laptops currently available with their exact specifications and prices.</p></article>
+    <article><span>02</span><h2>Get current options</h2><p>Mikee Gadget Plug will send the laptops currently available with their exact specifications and prices.</p></article>
     <article><span>03</span><h2>Confirm before payment</h2><p>Ask for photos, condition, battery information where relevant, warranty terms and delivery arrangements.</p></article>
   </div>`;
 };
@@ -638,12 +638,12 @@ const renderCategoryPage = (category) => {
   const canonical = `${commerceSite.baseUrl}${category.route}`;
   const breadcrumbs = [{ name: "Home", href: "/" }, { name: category.h1, href: category.route }];
   const categoryMessage = category.contentOnly === "laptops"
-    ? "Hello Formex Communication, please send me the laptops currently available, including specifications, condition and prices."
+    ? "Hello Mikee Gadget Plug, please send me the laptops currently available, including specifications, condition and prices."
     : category.contentOnly === "accessories"
-      ? "Hello Formex Communication, please send me the gadget accessories currently available and their prices."
+      ? "Hello Mikee Gadget Plug, please send me the gadget accessories currently available and their prices."
       : category.swap
-        ? "Hello Formex Communication, I want to swap my current phone. Please explain how to get a valuation and send eligible upgrade options."
-        : `Hello Formex Communication, I’m browsing ${category.h1}. Please send current models, prices, condition and payment options.`;
+        ? "Hello Mikee Gadget Plug, I want to swap my current phone. Please explain how to get a valuation and send eligible upgrade options."
+        : `Hello Mikee Gadget Plug, I’m browsing ${category.h1}. Please send current models, prices, condition and payment options.`;
 
   return `<!doctype html>
 <html lang="en-NG">
@@ -678,7 +678,7 @@ const renderCategoryPage = (category) => {
         <h1>${escapeHtml(category.h1)}</h1>
         <p>${escapeHtml(category.description)}</p>
         <div class="category-actions">
-          <a class="commerce-button commerce-button-primary" href="${whatsappHref(categoryMessage)}" target="_blank" rel="noopener">Ask FORMEX on WhatsApp</a>
+          <a class="commerce-button commerce-button-primary" href="${whatsappHref(categoryMessage)}" target="_blank" rel="noopener">Ask Mikee Gadget Plug on WhatsApp</a>
           ${category.easyBuy ? `<a class="commerce-button commerce-button-dark" href="/easy-buy/#calculator">Open Easy Buy Calculator</a>` : ""}
         </div>
       </div>
@@ -693,7 +693,7 @@ const renderCategoryPage = (category) => {
         ${renderContentOnly(category)}
         <div class="content-only-cta">
           <h2>Get the current list on WhatsApp</h2>
-          <p>FORMEX will confirm the exact products, specifications, condition, price and pickup or delivery arrangement.</p>
+          <p>Mikee Gadget Plug will confirm the exact products, specifications, condition, price and pickup or delivery arrangement.</p>
           <a class="commerce-button commerce-button-dark" href="${whatsappHref(categoryMessage)}" target="_blank" rel="noopener">Request Current Options</a>
         </div>
       </section>` : `
@@ -716,7 +716,7 @@ const renderCategoryPage = (category) => {
       <a href="/phone-swap"><span>Upgrade</span><strong>Swap your phone</strong></a>
     </section>
     <section class="commerce-section community-banner">
-      <div><p class="commerce-eyebrow">Not ready to buy?</p><h2>Join the FORMEX gadget deals community</h2><p>Get arrival alerts, price drops, UK-used deals, swap updates, Easy Buy offers and accessory deals.</p></div>
+      <div><p class="commerce-eyebrow">Not ready to buy?</p><h2>Join the Mikee Gadget Plug gadget deals community</h2><p>Get arrival alerts, price drops, UK-used deals, swap updates, Easy Buy offers and accessory deals.</p></div>
       <a class="commerce-button commerce-button-light" href="${escapeHtml(communityHref)}" target="_blank" rel="noopener">${commerceSite.communityUrl ? "Join the WhatsApp Group" : "Request the Group Link"}</a>
     </section>
   </main>
@@ -763,7 +763,7 @@ const searchIndex = [
     type: "category",
     label: category.h1,
     route: category.route,
-    brand: category.brand || "FORMEX",
+    brand: category.brand || "Mikee Gadget Plug",
     storage: [],
     price: null,
     image: null,

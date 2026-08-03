@@ -694,7 +694,7 @@
 .schedule-card p { color: var(--muted); line-height: 1.65; }
 .schedule-card-dark p { color: rgba(255, 255, 255, 0.6); }
 
-.formex-store {
+.mikee-gadget-plug-store {
   display: grid;
   grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
   align-items: center;
@@ -804,7 +804,7 @@
   .easy-hero,
   .calculator-section,
   .requirements-card,
-  .formex-store {
+  .mikee-gadget-plug-store {
     grid-template-columns: 1fr;
   }
 
@@ -819,7 +819,7 @@
   .how-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .schedule-grid { grid-template-columns: 1fr; }
   .schedule-card-dark { transform: none; }
-  .formex-store { padding-top: 40px; }
+  .mikee-gadget-plug-store { padding-top: 40px; }
   .easy-final { grid-template-columns: 1fr; }
   .easy-final .btn { justify-self: start; }
   .easy-buy-page .footer { grid-template-columns: repeat(2, minmax(0, 1fr)); }

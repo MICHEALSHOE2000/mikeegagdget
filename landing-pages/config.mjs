@@ -1,10 +1,10 @@
 export const site = {
-  name: "FORMEX COMMUNICATION",
-  displayName: "Formex Communication",
-  baseUrl: "https://www.formexcommunication.com.ng",
-  whatsappNumber: "2349060699096",
-  telephoneHref: "+2349060699096",
-  telephoneDisplay: "0906 069 9096",
+  name: "MIKEE GADGET PLUG",
+  displayName: "Mikee Gadget Plug",
+  baseUrl: "https://www.mikeegagdget.vercel.app",
+  whatsappNumber: "2347086865133",
+  telephoneHref: "+2347086865133",
+  telephoneDisplay: "0708 686 5133",
   address: "1 Ola Ayeni Street, Off Simbiat Abiola Way, Ikeja, Computer Village, Lagos, Nigeria",
   delivery: "Delivery is available in Lagos and across Nigeria. Confirm the delivery fee and timing before payment.",
   directionsUrl: "https://www.google.com/maps/search/?api=1&query=1%20Ola%20Ayeni%20Street%2C%20Off%20Simbiat%20Abiola%20Way%2C%20Ikeja%2C%20Computer%20Village%2C%20Lagos%2C%20Nigeria"
@@ -20,7 +20,7 @@ const iphoneConditions = [
 const priceAvailabilityFaq = (model) => [
   {
     question: `How do I get today’s ${model} price?`,
-    answer: `Use the WhatsApp button on this page. FORMEX will confirm the current price for the storage, colour and condition you request.`
+    answer: `Use the WhatsApp button on this page. Mikee Gadget Plug will confirm the current price for the storage, colour and condition you request.`
   },
   {
     question: `Is the ${model} currently available?`,
@@ -28,15 +28,15 @@ const priceAvailabilityFaq = (model) => [
   },
   {
     question: `Can I choose the storage and colour?`,
-    answer: `Tell FORMEX your preferred storage and colour. The team will confirm which combinations are available today.`
+    answer: `Tell Mikee Gadget Plug your preferred storage and colour. The team will confirm which combinations are available today.`
   },
   {
     question: `Can I inspect the ${model} before buying?`,
     answer: `You can request store pickup at 1 Ola Ayeni Street in Ikeja and inspect the exact device offered before payment.`
   },
   {
-    question: `Can FORMEX deliver outside Lagos?`,
-    answer: `Delivery is available in Lagos and across Nigeria. Confirm the fee, timing and delivery arrangement with FORMEX before payment.`
+    question: `Can Mikee Gadget Plug deliver outside Lagos?`,
+    answer: `Delivery is available in Lagos and across Nigeria. Confirm the fee, timing and delivery arrangement with Mikee Gadget Plug before payment.`
   }
 ];
 
@@ -47,7 +47,7 @@ const seriesFaq = (series) => [
   },
   {
     question: `Can I compare new and UK-used ${series} phones?`,
-    answer: `Yes. Ask FORMEX to confirm the conditions available for the exact model and to explain the condition before you choose.`
+    answer: `Yes. Ask Mikee Gadget Plug to confirm the conditions available for the exact model and to explain the condition before you choose.`
   },
   {
     question: `How do I check battery health on a used ${series} phone?`,
@@ -59,18 +59,18 @@ const seriesFaq = (series) => [
   },
   {
     question: `Can I collect my phone in Ikeja?`,
-    answer: `Yes. Ask FORMEX to reserve the confirmed device for pickup at 1 Ola Ayeni Street, off Simbiat Abiola Way, Ikeja.`
+    answer: `Yes. Ask Mikee Gadget Plug to reserve the confirmed device for pickup at 1 Ola Ayeni Street, off Simbiat Abiola Way, Ikeja.`
   }
 ];
 
 const samsungFaq = (subject) => [
   {
     question: `How do I get today’s ${subject} price?`,
-    answer: `Send the prefilled WhatsApp message and state the model, storage, colour and condition you want. FORMEX will confirm today’s price.`
+    answer: `Send the prefilled WhatsApp message and state the model, storage, colour and condition you want. Mikee Gadget Plug will confirm today’s price.`
   },
   {
     question: `Is ${subject} available in different colours or storage sizes?`,
-    answer: `Options depend on current stock. Ask FORMEX to send the exact colours and storage sizes available before you choose.`
+    answer: `Options depend on current stock. Ask Mikee Gadget Plug to send the exact colours and storage sizes available before you choose.`
   },
   {
     question: `Can I inspect the Samsung phone before payment?`,
@@ -82,7 +82,7 @@ const samsungFaq = (subject) => [
   },
   {
     question: `Is delivery available outside Lagos?`,
-    answer: `FORMEX offers delivery in Lagos and across Nigeria. Confirm the fee, timing and handover process before payment.`
+    answer: `Mikee Gadget Plug offers delivery in Lagos and across Nigeria. Confirm the fee, timing and handover process before payment.`
   }
 ];
 
@@ -101,11 +101,11 @@ const easyBuyFaq = (deviceType) => [
   },
   {
     question: "What may be needed for verification?",
-    answer: "Verification may involve a BVN or NIN. FORMEX will explain the current requirements and review the application."
+    answer: "Verification may involve a BVN or NIN. Mikee Gadget Plug will explain the current requirements and review the application."
   },
   {
     question: "Does the calculator or page guarantee approval?",
-    answer: "No. Every amount is an estimate until FORMEX confirms the device price, eligibility, repayment dates and complete terms."
+    answer: "No. Every amount is an estimate until Mikee Gadget Plug confirms the device price, eligibility, repayment dates and complete terms."
   }
 ];
 
@@ -119,7 +119,7 @@ const intentCards = {
     {
       kicker: "Storage",
       title: storage,
-      text: "These storage choices are listed in the existing FORMEX catalogue. Confirm which one is available today."
+      text: "These storage choices are listed in the existing Mikee Gadget Plug catalogue. Confirm which one is available today."
     },
     {
       kicker: "Condition",
@@ -131,7 +131,7 @@ const intentCards = {
     {
       kicker: "Models",
       title: models,
-      text: `Compare the ${series} models in the existing FORMEX catalogue, then confirm the exact model in stock.`
+      text: `Compare the ${series} models in the existing Mikee Gadget Plug catalogue, then confirm the exact model in stock.`
     },
     {
       kicker: "Storage",
@@ -158,16 +158,16 @@ export const landingPages = [
     primaryCta: "Apply for iPhone Easy Buy",
     secondaryCta: { label: "Use the iPhone calculator", href: "/easy-buy/#calculator" },
     whatsappMessage: "Hello, I want to buy an iPhone through Easy Buy. Please send me the 40% deposit, repayment options, eligible phones and verification requirements.",
-    seoTitle: "iPhone Easy Buy in Lagos | 40% Deposit | FORMEX",
+    seoTitle: "iPhone Easy Buy in Lagos | 40% Deposit | Mikee Gadget Plug",
     metaDescription: "Apply for iPhone Easy Buy in Lagos with a 40% initial deposit and estimated 1–3 month repayment. Confirm eligibility and current iPhone prices.",
     conversionEventName: "begin_easy_buy_application",
     leadType: "easy_buy",
     pageType: "easy-buy",
     heroImage: "/images/15promax-1.jpeg",
-    heroAlt: "iPhone available to enquire about through FORMEX Easy Buy",
+    heroAlt: "iPhone available to enquire about through Mikee Gadget Plug Easy Buy",
     badge: "40% initial deposit",
     infoTitle: "See the deposit before the repayments",
-    infoText: "The initial deposit is calculated from the confirmed device price. Repayment figures remain estimates until FORMEX reviews the application.",
+    infoText: "The initial deposit is calculated from the confirmed device price. Repayment figures remain estimates until Mikee Gadget Plug reviews the application.",
     cards: [
       { kicker: "First", title: "40% initial deposit", text: "Confirmed phone price × 40%. This is the first and most important amount to plan for." },
       { kicker: "Second", title: "60% remaining balance", text: "The balance is used to estimate repayments over the selected 1–3 month duration." },
@@ -176,13 +176,13 @@ export const landingPages = [
     buyerTitle: "Before you apply",
     buyerItems: [
       "Choose the exact iPhone model, storage and condition.",
-      "Ask FORMEX to confirm today’s price before calculating.",
+      "Ask Mikee Gadget Plug to confirm today’s price before calculating.",
       "Select a one-, two- or three-month duration; monthly is the default.",
       "Prepare for verification that may involve your BVN or NIN."
     ],
     faqs: easyBuyFaq("iPhone"),
     finalTitle: "Start your iPhone Easy Buy request",
-    finalText: "Send the model you want and ask FORMEX to confirm today’s price, your 40% deposit and the application requirements.",
+    finalText: "Send the model you want and ask Mikee Gadget Plug to confirm today’s price, your 40% deposit and the application requirements.",
     related: ["/iphone/iphone-11-series", "/iphone/iphone-12-series", "/iphone/iphone-13-series"]
   },
   {
@@ -194,24 +194,24 @@ export const landingPages = [
     eyebrow: "Samsung Easy Buy enquiry",
     heroText: "Request an eligibility check for a Samsung phone plan. The estimate starts with a 40% initial deposit, with monthly repayment over 1–3 months as the default.",
     primaryCta: "Check Samsung Easy Buy Eligibility",
-    secondaryCta: { label: "Call FORMEX", href: "tel:+2349060699096" },
+    secondaryCta: { label: "Call Mikee Gadget Plug", href: "tel:+2347086865133" },
     whatsappMessage: "Hello, I want to buy a Samsung phone through Easy Buy. Please confirm eligible Samsung models, today’s price, the 40% deposit, monthly repayment estimate and verification requirements.",
-    seoTitle: "Samsung Easy Buy in Lagos | Ask FORMEX About Eligibility",
+    seoTitle: "Samsung Easy Buy in Lagos | Ask Mikee Gadget Plug About Eligibility",
     metaDescription: "Ask about Samsung Easy Buy in Lagos. Request eligible models, today’s price, a 40% initial-deposit estimate and 1–3 month monthly options.",
     conversionEventName: "begin_easy_buy_application",
     leadType: "easy_buy",
     pageType: "easy-buy",
     heroImage: "/images/shop.webp",
-    heroAlt: "FORMEX Communication store in Ikeja for Samsung Easy Buy enquiries",
+    heroAlt: "Mikee Gadget Plug Communication store in Ikeja for Samsung Easy Buy enquiries",
     badge: "40% initial-deposit estimate",
     infoTitle: "Confirm Samsung eligibility before planning",
-    infoText: "No Samsung model or approval is promised on this page. FORMEX must confirm the eligible model, device price and complete plan terms.",
+    infoText: "No Samsung model or approval is promised on this page. Mikee Gadget Plug must confirm the eligible model, device price and complete plan terms.",
     cards: [
       { kicker: "First", title: "40% initial deposit", text: "Once the phone price is confirmed, 40% is the starting deposit used for the estimate." },
       { kicker: "Second", title: "60% remaining balance", text: "The remaining balance is used to estimate the monthly repayment amount." },
       { kicker: "Duration", title: "1–3 months", text: "Monthly repayment is the default. Final dates and terms are confirmed during review." }
     ],
-    buyerTitle: "What to confirm with FORMEX",
+    buyerTitle: "What to confirm with Mikee Gadget Plug",
     buyerItems: [
       "Which Samsung models are currently eligible for Easy Buy.",
       "The exact model, storage, colour, condition and confirmed price.",
@@ -220,7 +220,7 @@ export const landingPages = [
     ],
     faqs: easyBuyFaq("Samsung"),
     finalTitle: "Request a Samsung Easy Buy check",
-    finalText: "Tell FORMEX the Samsung model and budget you have in mind. The team will confirm whether it is eligible and explain the next steps.",
+    finalText: "Tell Mikee Gadget Plug the Samsung model and budget you have in mind. The team will confirm whether it is eligible and explain the next steps.",
     related: ["/samsung/galaxy-a-series", "/samsung/galaxy-s25-series", "/samsung-shop-ikeja-lagos"]
   },
   {
@@ -230,24 +230,24 @@ export const landingPages = [
     primaryKeywordTheme: "UK used iPhones in Lagos",
     h1: "UK-Used iPhones in Lagos",
     eyebrow: "Used iPhone buying",
-    heroText: "Compare FORMEX’s listed iPhone models, then request today’s price, available storage, exact condition and battery-health information for the unit offered.",
+    heroText: "Compare Mikee Gadget Plug’s listed iPhone models, then request today’s price, available storage, exact condition and battery-health information for the unit offered.",
     primaryCta: "Check Used iPhone Availability",
     secondaryCta: { label: "Visit the Ikeja store", href: "#store" },
     whatsappMessage: "Hello, I’m looking for a UK-used iPhone in Lagos. Please send today’s available models, prices, storage options, exact condition and battery-health information.",
-    seoTitle: "UK-Used iPhones in Lagos | FORMEX Ikeja",
-    metaDescription: "Find UK-used iPhones in Lagos. Ask FORMEX for today’s models, prices, storage, condition and battery health, with pickup in Ikeja or delivery.",
+    seoTitle: "UK-Used iPhones in Lagos | Mikee Gadget Plug Ikeja",
+    metaDescription: "Find UK-used iPhones in Lagos. Ask Mikee Gadget Plug for today’s models, prices, storage, condition and battery health, with pickup in Ikeja or delivery.",
     conversionEventName: "click_whatsapp",
     leadType: "price_availability",
     pageType: "used",
     heroImage: "/images/15promax-1.jpeg",
-    heroAlt: "UK-used iPhone available to enquire about from FORMEX in Lagos",
+    heroAlt: "UK-used iPhone available to enquire about from Mikee Gadget Plug in Lagos",
     badge: "Condition confirmed per device",
     infoTitle: "Choose the exact used iPhone, not just the model name",
     infoText: "A used phone’s value depends on its specific storage, body condition, battery health and working features. Ask for details for the exact unit offered.",
     cards: [
       { kicker: "Condition", title: "Request exact device details", text: "Ask for current photos or a video and confirm the screen, body, cameras, charging and Face ID where applicable." },
       { kicker: "Battery", title: "Ask for battery health", text: "Request the reading for the exact iPhone and confirm it again during pickup or before delivery." },
-      { kicker: "Choice", title: "iPhone 11 through 17", text: "These series appear in the existing FORMEX catalogue. Current stock and condition must be confirmed." }
+      { kicker: "Choice", title: "iPhone 11 through 17", text: "These series appear in the existing Mikee Gadget Plug catalogue. Current stock and condition must be confirmed." }
     ],
     buyerTitle: "Used iPhone inspection checklist",
     buyerItems: [
@@ -257,7 +257,7 @@ export const landingPages = [
       "Ask for the written warranty or support terms for the exact unit."
     ],
     faqs: [
-      { question: "Which UK-used iPhones does FORMEX list?", answer: "The existing catalogue covers iPhone 11 through iPhone 17 series. Ask which exact models and conditions are available today." },
+      { question: "Which UK-used iPhones does Mikee Gadget Plug list?", answer: "The existing catalogue covers iPhone 11 through iPhone 17 series. Ask which exact models and conditions are available today." },
       { question: "Will I see the battery health before buying?", answer: "Ask for the battery-health reading for the exact device offered and confirm it before payment." },
       { question: "Can I inspect a used iPhone in person?", answer: "Yes. Arrange pickup at 1 Ola Ayeni Street in Ikeja and inspect the exact phone offered." },
       { question: "Are used iPhone prices fixed?", answer: "Prices can vary by model, storage and condition. Use WhatsApp to request today’s price." },
@@ -273,21 +273,21 @@ export const landingPages = [
     route: "/iphone-shop-ikeja-lagos",
     primaryKeywordTheme: "iPhone shop in Ikeja Lagos",
     h1: "iPhone Shop in Ikeja, Lagos",
-    eyebrow: "Visit FORMEX in Computer Village",
-    heroText: "Visit FORMEX to ask about brand-new and UK-used iPhones, inspect the exact device offered, confirm today’s price and arrange pickup or delivery.",
+    eyebrow: "Visit Mikee Gadget Plug in Computer Village",
+    heroText: "Visit Mikee Gadget Plug to ask about brand-new and UK-used iPhones, inspect the exact device offered, confirm today’s price and arrange pickup or delivery.",
     primaryCta: "Ask About Available iPhones",
     secondaryCta: { label: "Get store directions", href: "#store" },
     whatsappMessage: "Hello, I’m looking for an iPhone shop in Ikeja. Please send today’s available iPhone models, prices, storage options and store pickup details.",
-    seoTitle: "iPhone Shop in Ikeja, Lagos | FORMEX Communication",
-    metaDescription: "Visit FORMEX Communication, an iPhone shop at 1 Ola Ayeni Street, Ikeja. Ask about current models, prices, inspection, pickup and delivery.",
+    seoTitle: "iPhone Shop in Ikeja, Lagos | Mikee Gadget Plug Communication",
+    metaDescription: "Visit Mikee Gadget Plug Communication, an iPhone shop at 1 Ola Ayeni Street, Ikeja. Ask about current models, prices, inspection, pickup and delivery.",
     conversionEventName: "click_whatsapp",
     leadType: "store_visit",
     pageType: "location",
     heroImage: "/images/shop.webp",
-    heroAlt: "FORMEX Communication phone shop in Ikeja Lagos",
+    heroAlt: "Mikee Gadget Plug Communication phone shop in Ikeja Lagos",
     badge: "Physical store in Ikeja",
     infoTitle: "Plan your iPhone purchase before visiting",
-    infoText: "Send the model, storage and condition you want so FORMEX can confirm availability before you travel to Computer Village.",
+    infoText: "Send the model, storage and condition you want so Mikee Gadget Plug can confirm availability before you travel to Computer Village.",
     cards: [
       { kicker: "Address", title: "1 Ola Ayeni Street, Ikeja", text: "Off Simbiat Abiola Way, in the Computer Village area of Lagos." },
       { kicker: "Before pickup", title: "Confirm the exact device", text: "Ask for the model, storage, colour, condition and current price before visiting." },
@@ -301,14 +301,14 @@ export const landingPages = [
       "Whether you prefer store pickup or delivery."
     ],
     faqs: [
-      { question: "Where is FORMEX Communication in Ikeja?", answer: "The store address is 1 Ola Ayeni Street, off Simbiat Abiola Way, Ikeja, Computer Village, Lagos." },
-      { question: "Should I confirm stock before visiting?", answer: "Yes. Send the exact iPhone model and storage on WhatsApp so FORMEX can confirm current availability." },
-      { question: "Does FORMEX sell both brand-new and UK-used iPhones?", answer: "Both conditions appear in the existing FORMEX catalogue. Confirm the condition available for your model today." },
+      { question: "Where is Mikee Gadget Plug Communication in Ikeja?", answer: "The store address is 1 Ola Ayeni Street, off Simbiat Abiola Way, Ikeja, Computer Village, Lagos." },
+      { question: "Should I confirm stock before visiting?", answer: "Yes. Send the exact iPhone model and storage on WhatsApp so Mikee Gadget Plug can confirm current availability." },
+      { question: "Does Mikee Gadget Plug sell both brand-new and UK-used iPhones?", answer: "Both conditions appear in the existing Mikee Gadget Plug catalogue. Confirm the condition available for your model today." },
       { question: "Can I ask about Easy Buy in the store?", answer: "Yes. Ask for the current eligible devices, 40% initial deposit, repayment estimate and verification requirements." },
-      { question: "Can FORMEX arrange delivery?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing before payment." }
+      { question: "Can Mikee Gadget Plug arrange delivery?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing before payment." }
     ],
     finalTitle: "Check stock before you visit",
-    finalText: "Tell FORMEX which iPhone you want, then ask for today’s price and pickup details.",
+    finalText: "Tell Mikee Gadget Plug which iPhone you want, then ask for today’s price and pickup details.",
     related: ["/used-iphones-lagos", "/deals/iphones", "/phone-shop-ikeja"]
   },
   {
@@ -317,21 +317,21 @@ export const landingPages = [
     route: "/samsung-shop-ikeja-lagos",
     primaryKeywordTheme: "Samsung phone shop in Ikeja Lagos",
     h1: "Samsung Phone Shop in Ikeja, Lagos",
-    eyebrow: "Samsung enquiries at FORMEX",
-    heroText: "Ask about currently available Samsung phones, today’s price, storage, colour and condition before visiting the FORMEX store in Ikeja.",
+    eyebrow: "Samsung enquiries at Mikee Gadget Plug",
+    heroText: "Ask about currently available Samsung phones, today’s price, storage, colour and condition before visiting the Mikee Gadget Plug store in Ikeja.",
     primaryCta: "Get Today’s Samsung Options",
     secondaryCta: { label: "Get store directions", href: "#store" },
     whatsappMessage: "Hello, I’m looking for a Samsung phone shop in Ikeja. Please send today’s available Samsung models, prices, storage options, colours and pickup details.",
-    seoTitle: "Samsung Phone Shop in Ikeja, Lagos | FORMEX",
-    metaDescription: "Ask FORMEX in Ikeja about current Samsung phones, prices, storage, colours and condition. Visit the Computer Village store or arrange delivery.",
+    seoTitle: "Samsung Phone Shop in Ikeja, Lagos | Mikee Gadget Plug",
+    metaDescription: "Ask Mikee Gadget Plug in Ikeja about current Samsung phones, prices, storage, colours and condition. Visit the Computer Village store or arrange delivery.",
     conversionEventName: "click_whatsapp",
     leadType: "store_visit",
     pageType: "location",
     heroImage: "/images/shop.webp",
-    heroAlt: "FORMEX Communication store in Ikeja for Samsung phone enquiries",
+    heroAlt: "Mikee Gadget Plug Communication store in Ikeja for Samsung phone enquiries",
     badge: "Confirm Samsung stock before visiting",
     infoTitle: "Start with the model and budget you have in mind",
-    infoText: "The repository does not contain a verified Samsung price list, so this page asks FORMEX to confirm current models and prices rather than displaying assumptions.",
+    infoText: "The repository does not contain a verified Samsung price list, so this page asks Mikee Gadget Plug to confirm current models and prices rather than displaying assumptions.",
     cards: [
       { kicker: "Flagship", title: "Galaxy S and Fold enquiries", text: "Ask whether the S25 series, S25 Ultra or Fold 7 is available in your preferred configuration." },
       { kicker: "Value", title: "Galaxy A-series enquiries", text: "Share your budget and ask which A-series models are currently available." },
@@ -345,7 +345,7 @@ export const landingPages = [
       "Pickup time or delivery fee and timing."
     ],
     faqs: samsungFaq("Samsung phone"),
-    finalTitle: "Ask FORMEX for today’s Samsung options",
+    finalTitle: "Ask Mikee Gadget Plug for today’s Samsung options",
     finalText: "Send the Samsung model or budget you have in mind and request current price and availability.",
     related: ["/samsung/galaxy-s25-series", "/samsung/galaxy-a-series", "/deals/samsung-phones"]
   },
@@ -355,18 +355,18 @@ export const landingPages = [
     route: "/phone-shop-ikeja",
     primaryKeywordTheme: "phone shop near me Ikeja",
     h1: "Phone Shop in Ikeja, Computer Village",
-    eyebrow: "Find FORMEX Communication",
-    heroText: "Visit FORMEX at 1 Ola Ayeni Street for iPhone, Samsung and other device enquiries, or message first to confirm current availability and price.",
-    primaryCta: "Get Directions to FORMEX",
-    secondaryCta: { label: "Call 0906 069 9096", href: "tel:+2349060699096" },
+    eyebrow: "Find Mikee Gadget Plug Communication",
+    heroText: "Visit Mikee Gadget Plug at 1 Ola Ayeni Street for iPhone, Samsung and other device enquiries, or message first to confirm current availability and price.",
+    primaryCta: "Get Directions to Mikee Gadget Plug",
+    secondaryCta: { label: "Call 0708 686 5133", href: "tel:+2347086865133" },
     whatsappMessage: "Hello, I found your phone shop in Ikeja. Please send today’s available phone brands, prices and store pickup details.",
-    seoTitle: "Phone Shop in Ikeja, Computer Village | FORMEX",
-    metaDescription: "Find FORMEX Communication at 1 Ola Ayeni Street, Ikeja, Computer Village. Call, WhatsApp, get directions or ask about pickup and delivery.",
+    seoTitle: "Phone Shop in Ikeja, Computer Village | Mikee Gadget Plug",
+    metaDescription: "Find Mikee Gadget Plug Communication at 1 Ola Ayeni Street, Ikeja, Computer Village. Call, WhatsApp, get directions or ask about pickup and delivery.",
     conversionEventName: "click_directions",
     leadType: "directions",
     pageType: "location",
     heroImage: "/images/shop.webp",
-    heroAlt: "FORMEX Communication phone shop in Computer Village Ikeja",
+    heroAlt: "Mikee Gadget Plug Communication phone shop in Computer Village Ikeja",
     badge: "1 Ola Ayeni Street, Ikeja",
     infoTitle: "Contact the store before you travel",
     infoText: "Ask for the exact product, current price and pickup timing so the team can respond to your need directly.",
@@ -383,14 +383,14 @@ export const landingPages = [
       "Ask about delivery in Lagos or across Nigeria."
     ],
     faqs: [
-      { question: "What is the FORMEX store address?", answer: "1 Ola Ayeni Street, off Simbiat Abiola Way, Ikeja, Computer Village, Lagos, Nigeria." },
-      { question: "What phone number can I call?", answer: "Call 0906 069 9096. You can also use the WhatsApp button on this page." },
-      { question: "Which brands can I ask about?", answer: "The existing FORMEX site lists iPhone, Samsung and Google Pixel phones, plus laptops, accessories and smartwatches." },
-      { question: "Can I arrange store pickup?", answer: "Yes. Confirm the exact device, price and pickup time with FORMEX before visiting." },
-      { question: "Does FORMEX deliver outside Ikeja?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing before payment." }
+      { question: "What is the Mikee Gadget Plug store address?", answer: "1 Ola Ayeni Street, off Simbiat Abiola Way, Ikeja, Computer Village, Lagos, Nigeria." },
+      { question: "What phone number can I call?", answer: "Call 0708 686 5133. You can also use the WhatsApp button on this page." },
+      { question: "Which brands can I ask about?", answer: "The existing Mikee Gadget Plug site lists iPhone, Samsung and Google Pixel phones, plus laptops, accessories and smartwatches." },
+      { question: "Can I arrange store pickup?", answer: "Yes. Confirm the exact device, price and pickup time with Mikee Gadget Plug before visiting." },
+      { question: "Does Mikee Gadget Plug deliver outside Ikeja?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing before payment." }
     ],
     finalTitle: "Get directions or check a phone first",
-    finalText: "Open directions to the store, or message FORMEX with the exact phone you want before travelling.",
+    finalText: "Open directions to the store, or message Mikee Gadget Plug with the exact phone you want before travelling.",
     related: ["/iphone-shop-ikeja-lagos", "/samsung-shop-ikeja-lagos", "/used-iphones-lagos"]
   },
   {
@@ -404,18 +404,18 @@ export const landingPages = [
     primaryCta: "Check iPhone 17 Pro Max Availability",
     secondaryCta: { label: "Compare the iPhone 17 series", href: "/iphone/iphone-17-series" },
     whatsappMessage: "Hello, I’m interested in the iPhone 17 Pro Max. Please send me today’s price, available storage options, colours and condition.",
-    seoTitle: "iPhone 17 Pro Max Price in Lagos | FORMEX",
-    metaDescription: "Check iPhone 17 Pro Max price and availability in Lagos. Ask FORMEX about 128GB, 256GB, 512GB or 1TB, colours, condition and pickup.",
+    seoTitle: "iPhone 17 Pro Max Price in Lagos | Mikee Gadget Plug",
+    metaDescription: "Check iPhone 17 Pro Max price and availability in Lagos. Ask Mikee Gadget Plug about 128GB, 256GB, 512GB or 1TB, colours, condition and pickup.",
     conversionEventName: "click_whatsapp",
     leadType: "price_availability",
     pageType: "product",
     productName: "iPhone 17 Pro Max",
     condition: "Confirm new or UK-used",
     heroImage: "/images/17promax-1.jpg",
-    heroAlt: "iPhone 17 Pro Max available to enquire about from FORMEX",
+    heroAlt: "iPhone 17 Pro Max available to enquire about from Mikee Gadget Plug",
     badge: "128GB · 256GB · 512GB · 1TB",
     infoTitle: "Confirm the exact iPhone 17 Pro Max you want",
-    infoText: "The FORMEX catalogue lists four storage choices. Price and availability depend on the exact unit and must be confirmed.",
+    infoText: "The Mikee Gadget Plug catalogue lists four storage choices. Price and availability depend on the exact unit and must be confirmed.",
     cards: intentCards.price("iPhone 17 Pro Max", "128GB, 256GB, 512GB or 1TB"),
     buyerTitle: "Your buying checklist",
     buyerItems: iphoneConditions,
@@ -435,18 +435,18 @@ export const landingPages = [
     primaryCta: "Compare Available iPhone 17 Models",
     secondaryCta: { label: "See iPhone 17 Pro Max", href: "/iphone/iphone-17-pro-max" },
     whatsappMessage: "Hello, I want to compare the iPhone 17 series. Please send today’s prices and available models, storage options, colours and conditions.",
-    seoTitle: "Compare iPhone 17 Series in Lagos | FORMEX",
-    metaDescription: "Compare iPhone 17, 17 Air, 17 Pro and 17 Pro Max in Lagos. Ask FORMEX for today’s prices, storage, colours and availability.",
+    seoTitle: "Compare iPhone 17 Series in Lagos | Mikee Gadget Plug",
+    metaDescription: "Compare iPhone 17, 17 Air, 17 Pro and 17 Pro Max in Lagos. Ask Mikee Gadget Plug for today’s prices, storage, colours and availability.",
     conversionEventName: "select_phone",
     leadType: "comparison",
     pageType: "series",
     productName: "iPhone 17 Series",
     condition: "Confirm new or UK-used",
     heroImage: "/images/17pro-1.jpg",
-    heroAlt: "iPhone 17 series model available to enquire about from FORMEX",
+    heroAlt: "iPhone 17 series model available to enquire about from Mikee Gadget Plug",
     badge: "17 · 17 Air · 17 Pro · 17 Pro Max",
     infoTitle: "Choose by size, storage and budget",
-    infoText: "The existing catalogue lists four iPhone 17 models. Ask FORMEX to confirm which models and configurations are available.",
+    infoText: "The existing catalogue lists four iPhone 17 models. Ask Mikee Gadget Plug to confirm which models and configurations are available.",
     cards: intentCards.series("iPhone 17 series", "17, 17 Air, 17 Pro and 17 Pro Max", "128GB through 1TB, depending on model"),
     buyerTitle: "How to narrow your choice",
     buyerItems: [
@@ -457,7 +457,7 @@ export const landingPages = [
     ],
     faqs: seriesFaq("iPhone 17 series"),
     finalTitle: "Compare today’s iPhone 17 options",
-    finalText: "Tell FORMEX which models you want compared and request the current configurations and prices.",
+    finalText: "Tell Mikee Gadget Plug which models you want compared and request the current configurations and prices.",
     related: ["/iphone/iphone-17-pro-max", "/iphone/iphone-16-series", "/deals/iphones"]
   },
   {
@@ -471,15 +471,15 @@ export const landingPages = [
     primaryCta: "Check iPhone 16 Pro Max Availability",
     secondaryCta: { label: "Compare the iPhone 16 series", href: "/iphone/iphone-16-series" },
     whatsappMessage: "Hello, I’m interested in the iPhone 16 Pro Max. Please send me today’s price, available storage options, colours and condition.",
-    seoTitle: "iPhone 16 Pro Max Price in Lagos | FORMEX",
-    metaDescription: "Check iPhone 16 Pro Max price and availability in Lagos. Ask FORMEX about 128GB, 256GB, 512GB or 1TB, colour and condition.",
+    seoTitle: "iPhone 16 Pro Max Price in Lagos | Mikee Gadget Plug",
+    metaDescription: "Check iPhone 16 Pro Max price and availability in Lagos. Ask Mikee Gadget Plug about 128GB, 256GB, 512GB or 1TB, colour and condition.",
     conversionEventName: "click_whatsapp",
     leadType: "price_availability",
     pageType: "product",
     productName: "iPhone 16 Pro Max",
     condition: "Confirm new or UK-used",
     heroImage: "/images/16promax-1.jpg",
-    heroAlt: "iPhone 16 Pro Max available to enquire about from FORMEX",
+    heroAlt: "iPhone 16 Pro Max available to enquire about from Mikee Gadget Plug",
     badge: "128GB · 256GB · 512GB · 1TB",
     infoTitle: "Match the price to the exact configuration",
     infoText: "Storage and condition affect the offer. Ask for the price attached to the exact unit you are considering.",
@@ -502,18 +502,18 @@ export const landingPages = [
     primaryCta: "Compare Available iPhone 16 Models",
     secondaryCta: { label: "See iPhone 16 Pro Max", href: "/iphone/iphone-16-pro-max" },
     whatsappMessage: "Hello, I want to compare the iPhone 16 series. Please send today’s prices and available models, storage options, colours and conditions.",
-    seoTitle: "Compare iPhone 16 Series in Lagos | FORMEX",
-    metaDescription: "Compare iPhone 16, 16 Plus, 16 Pro and 16 Pro Max in Lagos. Ask FORMEX for today’s prices, storage, colours and availability.",
+    seoTitle: "Compare iPhone 16 Series in Lagos | Mikee Gadget Plug",
+    metaDescription: "Compare iPhone 16, 16 Plus, 16 Pro and 16 Pro Max in Lagos. Ask Mikee Gadget Plug for today’s prices, storage, colours and availability.",
     conversionEventName: "select_phone",
     leadType: "comparison",
     pageType: "series",
     productName: "iPhone 16 Series",
     condition: "Confirm new or UK-used",
     heroImage: "/images/16-1.jpg",
-    heroAlt: "iPhone 16 series model available to enquire about from FORMEX",
+    heroAlt: "iPhone 16 series model available to enquire about from Mikee Gadget Plug",
     badge: "16 · 16 Plus · 16 Pro · 16 Pro Max",
     infoTitle: "Compare the four listed iPhone 16 models",
-    infoText: "Ask FORMEX to price the exact storage and condition you want so you can compare like with like.",
+    infoText: "Ask Mikee Gadget Plug to price the exact storage and condition you want so you can compare like with like.",
     cards: intentCards.series("iPhone 16 series", "16, 16 Plus, 16 Pro and 16 Pro Max", "128GB through 1TB, depending on model"),
     buyerTitle: "How to narrow your choice",
     buyerItems: [
@@ -524,7 +524,7 @@ export const landingPages = [
     ],
     faqs: seriesFaq("iPhone 16 series"),
     finalTitle: "Compare iPhone 16 models with today’s prices",
-    finalText: "Ask FORMEX for the current configurations and prices of the iPhone 16 models you are considering.",
+    finalText: "Ask Mikee Gadget Plug for the current configurations and prices of the iPhone 16 models you are considering.",
     related: ["/iphone/iphone-16-pro-max", "/iphone/iphone-15-series", "/easy-buy/iphone"]
   },
   {
@@ -538,7 +538,7 @@ export const landingPages = [
     primaryCta: "Check iPhone 15 Pro Max Availability",
     secondaryCta: { label: "Compare the iPhone 15 series", href: "/iphone/iphone-15-series" },
     whatsappMessage: "Hello, I’m interested in the iPhone 15 Pro Max. Please send me today’s price, available storage options, colours, condition and battery health if UK-used.",
-    seoTitle: "iPhone 15 Pro Max Price in Lagos | FORMEX",
+    seoTitle: "iPhone 15 Pro Max Price in Lagos | Mikee Gadget Plug",
     metaDescription: "Check iPhone 15 Pro Max price and availability in Lagos. Ask about 256GB, 512GB or 1TB, colour, condition and used-device battery health.",
     conversionEventName: "click_whatsapp",
     leadType: "price_availability",
@@ -546,7 +546,7 @@ export const landingPages = [
     productName: "iPhone 15 Pro Max",
     condition: "Confirm new or UK-used",
     heroImage: "/images/15promax-1.jpeg",
-    heroAlt: "iPhone 15 Pro Max available to enquire about from FORMEX",
+    heroAlt: "iPhone 15 Pro Max available to enquire about from Mikee Gadget Plug",
     badge: "256GB · 512GB · 1TB",
     infoTitle: "Ask for the offer that matches your exact phone",
     infoText: "The existing catalogue lists three storage choices. For a used unit, request the current condition and battery-health reading.",
@@ -565,19 +565,19 @@ export const landingPages = [
     primaryKeywordTheme: "iPhone 15 series price Lagos",
     h1: "Compare the iPhone 15 Series in Lagos",
     eyebrow: "iPhone 15 series comparison",
-    heroText: "Compare the iPhone 15, iPhone 15 Pro and iPhone 15 Pro Max models listed by FORMEX, then request current prices and availability.",
+    heroText: "Compare the iPhone 15, iPhone 15 Pro and iPhone 15 Pro Max models listed by Mikee Gadget Plug, then request current prices and availability.",
     primaryCta: "Compare Available iPhone 15 Models",
     secondaryCta: { label: "See iPhone 15 Pro Max", href: "/iphone/iphone-15-pro-max" },
     whatsappMessage: "Hello, I want to compare the iPhone 15 series. Please send today’s prices and available models, storage options, colours and conditions.",
-    seoTitle: "Compare iPhone 15 Series in Lagos | FORMEX",
-    metaDescription: "Compare iPhone 15, 15 Pro and 15 Pro Max in Lagos. Ask FORMEX for today’s prices, storage, colours, condition and availability.",
+    seoTitle: "Compare iPhone 15 Series in Lagos | Mikee Gadget Plug",
+    metaDescription: "Compare iPhone 15, 15 Pro and 15 Pro Max in Lagos. Ask Mikee Gadget Plug for today’s prices, storage, colours, condition and availability.",
     conversionEventName: "select_phone",
     leadType: "comparison",
     pageType: "series",
     productName: "iPhone 15 Series",
     condition: "Confirm new or UK-used",
     heroImage: "/images/15-1.jpeg",
-    heroAlt: "iPhone 15 series model available to enquire about from FORMEX",
+    heroAlt: "iPhone 15 series model available to enquire about from Mikee Gadget Plug",
     badge: "15 · 15 Pro · 15 Pro Max",
     infoTitle: "Compare the listed iPhone 15 models",
     infoText: "Use one message to request prices for the exact models and storage choices you want to compare.",
@@ -605,15 +605,15 @@ export const landingPages = [
     primaryCta: "Check iPhone 14 Pro Max Details",
     secondaryCta: { label: "Compare the iPhone 14 series", href: "/iphone/iphone-14-series" },
     whatsappMessage: "Hello, I’m interested in the iPhone 14 Pro Max. Please send today’s price, available storage, colours, exact condition and battery health for the unit offered.",
-    seoTitle: "iPhone 14 Pro Max Price & Battery Health | FORMEX",
-    metaDescription: "Check iPhone 14 Pro Max price, condition and battery health in Lagos. Ask FORMEX about 128GB, 256GB, 512GB or 1TB and availability.",
+    seoTitle: "iPhone 14 Pro Max Price & Battery Health | Mikee Gadget Plug",
+    metaDescription: "Check iPhone 14 Pro Max price, condition and battery health in Lagos. Ask Mikee Gadget Plug about 128GB, 256GB, 512GB or 1TB and availability.",
     conversionEventName: "click_whatsapp",
     leadType: "price_availability",
     pageType: "product",
     productName: "iPhone 14 Pro Max",
     condition: "New or UK-used; confirm exact unit",
     heroImage: "/images/14promax-1.jpeg",
-    heroAlt: "iPhone 14 Pro Max available to enquire about from FORMEX",
+    heroAlt: "iPhone 14 Pro Max available to enquire about from Mikee Gadget Plug",
     badge: "Condition and battery health on request",
     infoTitle: "The exact used unit matters",
     infoText: "Two phones of the same model can differ in condition and battery health. Ask for details tied to the exact iPhone offered.",
@@ -640,15 +640,15 @@ export const landingPages = [
     primaryCta: "Compare Available iPhone 14 Models",
     secondaryCta: { label: "See iPhone 14 Pro Max", href: "/iphone/iphone-14-pro-max" },
     whatsappMessage: "Hello, I want to compare the iPhone 14 series. Please send today’s prices, available models, storage options, conditions and battery health for used units.",
-    seoTitle: "Compare iPhone 14 Series in Lagos | FORMEX",
-    metaDescription: "Compare iPhone 14, 14 Pro and 14 Pro Max in Lagos. Ask FORMEX for today’s prices, storage, condition and used-device battery health.",
+    seoTitle: "Compare iPhone 14 Series in Lagos | Mikee Gadget Plug",
+    metaDescription: "Compare iPhone 14, 14 Pro and 14 Pro Max in Lagos. Ask Mikee Gadget Plug for today’s prices, storage, condition and used-device battery health.",
     conversionEventName: "select_phone",
     leadType: "comparison",
     pageType: "series",
     productName: "iPhone 14 Series",
     condition: "Confirm new or UK-used",
     heroImage: "/images/14-1.jpeg",
-    heroAlt: "iPhone 14 series model available to enquire about from FORMEX",
+    heroAlt: "iPhone 14 series model available to enquire about from Mikee Gadget Plug",
     badge: "14 · 14 Pro · 14 Pro Max",
     infoTitle: "Compare model and condition together",
     infoText: "Ask for the exact configuration and condition so the price comparison reflects the phone you would actually receive.",
@@ -676,7 +676,7 @@ export const landingPages = [
     primaryCta: "Compare iPhone 13 Purchase Options",
     secondaryCta: { label: "Open Easy Buy calculator", href: "/easy-buy/#calculator" },
     whatsappMessage: "Hello, I want to compare iPhone 13 models for outright purchase or Easy Buy. Please send today’s prices, available storage, condition and a 40% deposit estimate.",
-    seoTitle: "iPhone 13 Series Price or Easy Buy in Lagos | FORMEX",
+    seoTitle: "iPhone 13 Series Price or Easy Buy in Lagos | Mikee Gadget Plug",
     metaDescription: "Compare iPhone 13, 13 Pro and 13 Pro Max in Lagos. Request today’s outright price or a 40% initial-deposit Easy Buy estimate.",
     conversionEventName: "select_phone",
     leadType: "comparison",
@@ -684,12 +684,12 @@ export const landingPages = [
     productName: "iPhone 13 Series",
     condition: "Confirm new or UK-used",
     heroImage: "/images/13-1.jpeg",
-    heroAlt: "iPhone 13 series model available to enquire about from FORMEX",
+    heroAlt: "iPhone 13 series model available to enquire about from Mikee Gadget Plug",
     badge: "Outright or Easy Buy enquiry",
     infoTitle: "Compare the phone and the payment path",
     infoText: "First confirm the exact phone price. For Easy Buy, the 40% deposit comes first and all repayment amounts are estimates until approved.",
     cards: [
-      { kicker: "Models", title: "13, 13 Pro and 13 Pro Max", text: "These models appear in the FORMEX catalogue. Confirm the current model and condition." },
+      { kicker: "Models", title: "13, 13 Pro and 13 Pro Max", text: "These models appear in the Mikee Gadget Plug catalogue. Confirm the current model and condition." },
       { kicker: "Outright", title: "Request today’s full price", text: "Ask for the price tied to the storage, colour and condition you want." },
       { kicker: "Easy Buy", title: "Start with a 40% deposit estimate", text: "Monthly repayment over one to three months is the default, subject to review." }
     ],
@@ -703,7 +703,7 @@ export const landingPages = [
     faqs: [
       ...seriesFaq("iPhone 13 series").slice(0, 3),
       { question: "Can I ask for an iPhone 13 Easy Buy estimate?", answer: "Yes. Ask for today’s confirmed phone price first, then calculate the 40% initial deposit and estimated monthly repayments." },
-      { question: "Does an Easy Buy estimate guarantee approval?", answer: "No. FORMEX must confirm eligibility, repayment dates and complete terms after reviewing the application." }
+      { question: "Does an Easy Buy estimate guarantee approval?", answer: "No. Mikee Gadget Plug must confirm eligibility, repayment dates and complete terms after reviewing the application." }
     ],
     finalTitle: "Compare outright and Easy Buy for iPhone 13",
     finalText: "Send the model you want and request both today’s outright price and the 40% deposit estimate.",
@@ -720,7 +720,7 @@ export const landingPages = [
     primaryCta: "Find an iPhone 12 for My Budget",
     secondaryCta: { label: "Open Easy Buy calculator", href: "/easy-buy/#calculator" },
     whatsappMessage: "Hello, I’m looking for an iPhone 12 series phone within my budget. Please send available models, storage, condition, today’s prices and eligible payment options.",
-    seoTitle: "iPhone 12 Series Prices by Budget in Lagos | FORMEX",
+    seoTitle: "iPhone 12 Series Prices by Budget in Lagos | Mikee Gadget Plug",
     metaDescription: "Find an iPhone 12, 12 Pro or 12 Pro Max for your budget in Lagos. Ask about current price, storage, condition and Easy Buy options.",
     conversionEventName: "select_phone",
     leadType: "budget_match",
@@ -728,7 +728,7 @@ export const landingPages = [
     productName: "iPhone 12 Series",
     condition: "Confirm new or UK-used",
     heroImage: "/images/12.jpeg",
-    heroAlt: "iPhone 12 series model available to enquire about from FORMEX",
+    heroAlt: "iPhone 12 series model available to enquire about from Mikee Gadget Plug",
     badge: "12 · 12 Pro · 12 Pro Max",
     infoTitle: "Send your budget and non-negotiables",
     infoText: "A useful recommendation needs your budget, preferred model, minimum storage and whether you are open to a UK-used phone.",
@@ -746,7 +746,7 @@ export const landingPages = [
     ],
     faqs: [
       ...seriesFaq("iPhone 12 series").slice(0, 3),
-      { question: "Can iPhone 12 offers have weekly or bi-weekly repayments?", answer: "Eligible iPhone 12 offers may show weekly or bi-weekly options in addition to the monthly default. FORMEX must confirm eligibility and terms." },
+      { question: "Can iPhone 12 offers have weekly or bi-weekly repayments?", answer: "Eligible iPhone 12 offers may show weekly or bi-weekly options in addition to the monthly default. Mikee Gadget Plug must confirm eligibility and terms." },
       { question: "How much is the Easy Buy deposit?", answer: "The initial deposit estimate is 40% of the confirmed phone price." }
     ],
     finalTitle: "Find an iPhone 12 that fits your budget",
@@ -764,7 +764,7 @@ export const landingPages = [
     primaryCta: "Check iPhone 11 Buying Options",
     secondaryCta: { label: "Open Easy Buy calculator", href: "/easy-buy/#calculator" },
     whatsappMessage: "Hello, I’m interested in an iPhone 11 series phone. Please send today’s outright prices, available storage and condition, plus eligible Easy Buy repayment options.",
-    seoTitle: "Buy iPhone 11 Outright or Easy Buy in Lagos | FORMEX",
+    seoTitle: "Buy iPhone 11 Outright or Easy Buy in Lagos | Mikee Gadget Plug",
     metaDescription: "Compare iPhone 11, 11 Pro and 11 Pro Max in Lagos. Request outright prices or a 40% initial-deposit Easy Buy estimate.",
     conversionEventName: "select_phone",
     leadType: "comparison",
@@ -772,7 +772,7 @@ export const landingPages = [
     productName: "iPhone 11 Series",
     condition: "Confirm new or UK-used",
     heroImage: "/images/11-1.jpeg",
-    heroAlt: "iPhone 11 series model available to enquire about from FORMEX",
+    heroAlt: "iPhone 11 series model available to enquire about from Mikee Gadget Plug",
     badge: "Outright · monthly · eligible weekly/bi-weekly",
     infoTitle: "Compare price, condition and repayment schedule",
     infoText: "Eligible iPhone 11 offers can show weekly or bi-weekly repayment choices in addition to the monthly default. Approval is never guaranteed.",
@@ -786,12 +786,12 @@ export const landingPages = [
       "Compare the iPhone 11 models and storage choices.",
       "For used units, request condition and battery health.",
       "Ask for the outright price and 40% deposit estimate.",
-      "Review only the repayment schedules FORMEX confirms as eligible."
+      "Review only the repayment schedules Mikee Gadget Plug confirms as eligible."
     ],
     faqs: [
       ...seriesFaq("iPhone 11 series").slice(0, 3),
       { question: "Can an iPhone 11 plan be weekly or bi-weekly?", answer: "Eligible iPhone 11 offers may include weekly or bi-weekly repayment in addition to the monthly default." },
-      { question: "Is approval automatic after I pay 40%?", answer: "No. Do not treat an estimate as approval. FORMEX must review and confirm eligibility and complete terms." }
+      { question: "Is approval automatic after I pay 40%?", answer: "No. Do not treat an estimate as approval. Mikee Gadget Plug must review and confirm eligibility and complete terms." }
     ],
     finalTitle: "Check today’s iPhone 11 buying options",
     finalText: "Ask for the outright price, exact device details and any eligible Easy Buy schedule.",
@@ -804,22 +804,22 @@ export const landingPages = [
     primaryKeywordTheme: "Samsung Galaxy S25 Ultra price Lagos",
     h1: "Galaxy S25 Ultra Price & Availability in Lagos",
     eyebrow: "Galaxy S25 Ultra enquiry",
-    heroText: "Ask FORMEX to confirm today’s Galaxy S25 Ultra price and the storage, colour and condition currently available.",
+    heroText: "Ask Mikee Gadget Plug to confirm today’s Galaxy S25 Ultra price and the storage, colour and condition currently available.",
     primaryCta: "Get Today’s S25 Ultra Price",
     secondaryCta: { label: "Compare the Galaxy S25 series", href: "/samsung/galaxy-s25-series" },
     whatsappMessage: "Hello, I’m interested in the Samsung Galaxy S25 Ultra. Please send today’s price, available storage options, colours and condition.",
-    seoTitle: "Galaxy S25 Ultra Price in Lagos | FORMEX",
-    metaDescription: "Check Samsung Galaxy S25 Ultra price and availability in Lagos. Ask FORMEX about current storage, colours, condition, pickup and delivery.",
+    seoTitle: "Galaxy S25 Ultra Price in Lagos | Mikee Gadget Plug",
+    metaDescription: "Check Samsung Galaxy S25 Ultra price and availability in Lagos. Ask Mikee Gadget Plug about current storage, colours, condition, pickup and delivery.",
     conversionEventName: "click_whatsapp",
     leadType: "price_availability",
     pageType: "product",
     productName: "Samsung Galaxy S25 Ultra",
     condition: "Confirm current condition",
     heroImage: "/images/shop.webp",
-    heroAlt: "FORMEX Communication store for Galaxy S25 Ultra enquiries in Lagos",
+    heroAlt: "Mikee Gadget Plug Communication store for Galaxy S25 Ultra enquiries in Lagos",
     badge: "Request today’s exact configuration",
     infoTitle: "Match the price to the exact S25 Ultra",
-    infoText: "No Samsung price or stock list exists in the repository. FORMEX will confirm the available storage, colour, condition and price.",
+    infoText: "No Samsung price or stock list exists in the repository. Mikee Gadget Plug will confirm the available storage, colour, condition and price.",
     cards: [
       { kicker: "Price", title: "Request today’s price", text: "Ask for the price attached to the exact storage, colour and condition offered." },
       { kicker: "Configuration", title: "Confirm storage and colour", text: "Do not assume a variant is in stock; request the options currently available." },
@@ -834,7 +834,7 @@ export const landingPages = [
     ],
     faqs: samsungFaq("Galaxy S25 Ultra"),
     finalTitle: "Get today’s Galaxy S25 Ultra offer",
-    finalText: "Ask for the exact configurations and price currently available from FORMEX.",
+    finalText: "Ask for the exact configurations and price currently available from Mikee Gadget Plug.",
     related: ["/samsung/galaxy-s25-series", "/samsung-shop-ikeja-lagos", "/deals/samsung-phones"]
   },
   {
@@ -844,22 +844,22 @@ export const landingPages = [
     primaryKeywordTheme: "Samsung Galaxy S25 series price Lagos",
     h1: "Compare the Samsung Galaxy S25 Series in Lagos",
     eyebrow: "Galaxy S25 comparison",
-    heroText: "Ask FORMEX which Galaxy S25 models, storage options, colours and conditions are available, then compare today’s prices.",
+    heroText: "Ask Mikee Gadget Plug which Galaxy S25 models, storage options, colours and conditions are available, then compare today’s prices.",
     primaryCta: "Compare Available Galaxy S25 Models",
     secondaryCta: { label: "See Galaxy S25 Ultra", href: "/samsung/galaxy-s25-ultra" },
     whatsappMessage: "Hello, I want to compare the Samsung Galaxy S25 series. Please send today’s available models, prices, storage options, colours and conditions.",
-    seoTitle: "Compare Samsung Galaxy S25 Series in Lagos | FORMEX",
-    metaDescription: "Compare currently available Samsung Galaxy S25 series phones in Lagos. Ask FORMEX for models, prices, storage, colours and condition.",
+    seoTitle: "Compare Samsung Galaxy S25 Series in Lagos | Mikee Gadget Plug",
+    metaDescription: "Compare currently available Samsung Galaxy S25 series phones in Lagos. Ask Mikee Gadget Plug for models, prices, storage, colours and condition.",
     conversionEventName: "select_phone",
     leadType: "comparison",
     pageType: "series",
     productName: "Samsung Galaxy S25 Series",
     condition: "Confirm current condition",
     heroImage: "/images/shop.webp",
-    heroAlt: "FORMEX Communication store for Galaxy S25 series enquiries",
+    heroAlt: "Mikee Gadget Plug Communication store for Galaxy S25 series enquiries",
     badge: "Compare current S25 options",
     infoTitle: "Build a comparison from confirmed stock",
-    infoText: "Rather than assuming every variant is available, ask FORMEX to list the current S25 models and configurations side by side.",
+    infoText: "Rather than assuming every variant is available, ask Mikee Gadget Plug to list the current S25 models and configurations side by side.",
     cards: [
       { kicker: "Models", title: "Request the current S25 lineup", text: "Ask which Galaxy S25 models are available today, including whether S25 Ultra stock is present." },
       { kicker: "Configuration", title: "Compare storage and colour", text: "Request the price for each exact configuration you are considering." },
@@ -874,7 +874,7 @@ export const landingPages = [
     ],
     faqs: samsungFaq("Galaxy S25 series"),
     finalTitle: "Compare today’s Galaxy S25 options",
-    finalText: "Ask FORMEX to send a model-by-model list of current configurations and prices.",
+    finalText: "Ask Mikee Gadget Plug to send a model-by-model list of current configurations and prices.",
     related: ["/samsung/galaxy-s25-ultra", "/samsung/galaxy-z-fold-7", "/deals/samsung-phones"]
   },
   {
@@ -886,20 +886,20 @@ export const landingPages = [
     eyebrow: "Galaxy Z Fold 7 enquiry",
     heroText: "Request today’s Galaxy Z Fold 7 price and ask which storage, colour and condition is available before arranging pickup or delivery.",
     primaryCta: "Check Galaxy Z Fold 7 Availability",
-    secondaryCta: { label: "Call FORMEX", href: "tel:+2349060699096" },
+    secondaryCta: { label: "Call Mikee Gadget Plug", href: "tel:+2347086865133" },
     whatsappMessage: "Hello, I’m interested in the Samsung Galaxy Z Fold 7. Please send today’s price and the available storage options, colours and condition.",
-    seoTitle: "Galaxy Z Fold 7 Price in Lagos | FORMEX",
-    metaDescription: "Check Samsung Galaxy Z Fold 7 price and availability in Lagos. Ask FORMEX about current storage, colours, condition, pickup and delivery.",
+    seoTitle: "Galaxy Z Fold 7 Price in Lagos | Mikee Gadget Plug",
+    metaDescription: "Check Samsung Galaxy Z Fold 7 price and availability in Lagos. Ask Mikee Gadget Plug about current storage, colours, condition, pickup and delivery.",
     conversionEventName: "click_whatsapp",
     leadType: "price_availability",
     pageType: "product",
     productName: "Samsung Galaxy Z Fold 7",
     condition: "Confirm current condition",
     heroImage: "/images/shop.webp",
-    heroAlt: "FORMEX Communication store for Galaxy Z Fold 7 enquiries",
+    heroAlt: "Mikee Gadget Plug Communication store for Galaxy Z Fold 7 enquiries",
     badge: "Confirm colour and storage",
     infoTitle: "Ask about the exact Fold 7 configuration",
-    infoText: "Current price depends on the unit offered. FORMEX must confirm storage, colour, condition and availability.",
+    infoText: "Current price depends on the unit offered. Mikee Gadget Plug must confirm storage, colour, condition and availability.",
     cards: [
       { kicker: "Price", title: "Request today’s price", text: "Ask for the price tied to the exact configuration offered." },
       { kicker: "Options", title: "Confirm storage and colour", text: "Request only current options; no stock combination is assumed on this page." },
@@ -914,7 +914,7 @@ export const landingPages = [
     ],
     faqs: samsungFaq("Galaxy Z Fold 7"),
     finalTitle: "Check today’s Galaxy Z Fold 7 stock",
-    finalText: "Ask FORMEX which storage and colour combinations are available and request the matching price.",
+    finalText: "Ask Mikee Gadget Plug which storage and colour combinations are available and request the matching price.",
     related: ["/samsung/galaxy-s25-series", "/samsung-shop-ikeja-lagos", "/deals/samsung-phones"]
   },
   {
@@ -924,28 +924,28 @@ export const landingPages = [
     primaryKeywordTheme: "affordable Samsung Galaxy A series Lagos",
     h1: "Find an Affordable Samsung Galaxy A-Series Phone",
     eyebrow: "Galaxy A-series budget match",
-    heroText: "Share your budget and ask FORMEX which Galaxy A-series models, storage options, colours and conditions are available today.",
+    heroText: "Share your budget and ask Mikee Gadget Plug which Galaxy A-series models, storage options, colours and conditions are available today.",
     primaryCta: "Find a Galaxy A-Series Phone",
     secondaryCta: { label: "Ask about Samsung Easy Buy", href: "/easy-buy/samsung" },
     whatsappMessage: "Hello, I’m looking for an affordable Samsung Galaxy A-series phone. My budget is ____. Please send available models, prices, storage options, colours and condition.",
-    seoTitle: "Affordable Samsung Galaxy A Series in Lagos | FORMEX",
-    metaDescription: "Find a Samsung Galaxy A-series phone for your budget in Lagos. Ask FORMEX for today’s available models, prices, storage, colours and condition.",
+    seoTitle: "Affordable Samsung Galaxy A Series in Lagos | Mikee Gadget Plug",
+    metaDescription: "Find a Samsung Galaxy A-series phone for your budget in Lagos. Ask Mikee Gadget Plug for today’s available models, prices, storage, colours and condition.",
     conversionEventName: "select_phone",
     leadType: "budget_match",
     pageType: "series",
     productName: "Samsung Galaxy A Series",
     condition: "Confirm current condition",
     heroImage: "/images/shop.webp",
-    heroAlt: "FORMEX Communication store for Galaxy A-series enquiries",
+    heroAlt: "Mikee Gadget Plug Communication store for Galaxy A-series enquiries",
     badge: "Start with your budget",
     infoTitle: "A useful recommendation begins with your budget",
-    infoText: "The repository does not contain a verified A-series stock list. Send your budget so FORMEX can respond with current options only.",
+    infoText: "The repository does not contain a verified A-series stock list. Send your budget so Mikee Gadget Plug can respond with current options only.",
     cards: [
       { kicker: "Step 1", title: "Set your maximum budget", text: "Include your budget in the WhatsApp message so unsuitable options can be removed." },
       { kicker: "Step 2", title: "Choose storage and condition", text: "Say what storage you need and whether you have a condition preference." },
-      { kicker: "Step 3", title: "Compare confirmed models", text: "Review only the models, prices and colours FORMEX confirms as available." }
+      { kicker: "Step 3", title: "Compare confirmed models", text: "Review only the models, prices and colours Mikee Gadget Plug confirms as available." }
     ],
-    buyerTitle: "Tell FORMEX what matters",
+    buyerTitle: "Tell Mikee Gadget Plug what matters",
     buyerItems: [
       "Your maximum budget.",
       "Minimum storage and preferred colour.",
@@ -953,11 +953,11 @@ export const landingPages = [
       "Outright purchase or a request for Easy Buy eligibility."
     ],
     faqs: [
-      { question: "Which Galaxy A-series phone fits my budget?", answer: "Send your budget, preferred storage and condition. FORMEX will confirm which current A-series options match." },
-      { question: "Are prices displayed on this page?", answer: "No verified Samsung price list exists in the repository, so the page asks FORMEX for today’s price instead of inventing one." },
+      { question: "Which Galaxy A-series phone fits my budget?", answer: "Send your budget, preferred storage and condition. Mikee Gadget Plug will confirm which current A-series options match." },
+      { question: "Are prices displayed on this page?", answer: "No verified Samsung price list exists in the repository, so the page asks Mikee Gadget Plug for today’s price instead of inventing one." },
       { question: "Can I ask for Samsung Easy Buy?", answer: "Yes. Ask which Samsung models are currently eligible. The estimate starts with a 40% deposit, but approval is not guaranteed." },
-      { question: "Can I inspect the phone in Ikeja?", answer: "Yes. Arrange pickup at the FORMEX store and inspect the exact device offered before payment." },
-      { question: "Can FORMEX deliver the phone?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing first." }
+      { question: "Can I inspect the phone in Ikeja?", answer: "Yes. Arrange pickup at the Mikee Gadget Plug store and inspect the exact device offered before payment." },
+      { question: "Can Mikee Gadget Plug deliver the phone?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing first." }
     ],
     finalTitle: "Find a Galaxy A-series phone for your budget",
     finalText: "Add your budget to the message and ask for the current models and prices that match.",
@@ -970,17 +970,17 @@ export const landingPages = [
     primaryKeywordTheme: "Samsung phone deals Lagos",
     h1: "Current Samsung Phone Deals in Lagos",
     eyebrow: "Samsung deal enquiry",
-    heroText: "Ask FORMEX for today’s Samsung offers. Every deal must be confirmed with the exact model, storage, colour, condition and current price.",
+    heroText: "Ask Mikee Gadget Plug for today’s Samsung offers. Every deal must be confirmed with the exact model, storage, colour, condition and current price.",
     primaryCta: "Get Today’s Samsung Deals",
     secondaryCta: { label: "Browse Samsung buying options", href: "/samsung-shop-ikeja-lagos" },
     whatsappMessage: "Hello, please send me today’s Samsung phone deals, including the exact models, prices, storage options, colours and condition.",
-    seoTitle: "Samsung Phone Deals in Lagos | Today’s FORMEX Offers",
-    metaDescription: "Request today’s Samsung phone deals in Lagos. FORMEX will confirm exact models, prices, storage, colours, condition, pickup and delivery.",
+    seoTitle: "Samsung Phone Deals in Lagos | Today’s Mikee Gadget Plug Offers",
+    metaDescription: "Request today’s Samsung phone deals in Lagos. Mikee Gadget Plug will confirm exact models, prices, storage, colours, condition, pickup and delivery.",
     conversionEventName: "click_whatsapp",
     leadType: "deal",
     pageType: "deal",
     heroImage: "/images/shop.webp",
-    heroAlt: "FORMEX Communication store for current Samsung phone deal enquiries",
+    heroAlt: "Mikee Gadget Plug Communication store for current Samsung phone deal enquiries",
     badge: "Offers confirmed on request",
     infoTitle: "A real deal needs an exact phone and price",
     infoText: "No countdown, fake discount or assumed stock is used. Ask for the current offer and compare the exact device configuration.",
@@ -998,13 +998,13 @@ export const landingPages = [
     ],
     faqs: [
       { question: "Which Samsung phones are on offer today?", answer: "Offers can change. Use the WhatsApp button to request current Samsung models, configurations and prices." },
-      { question: "Are the deals guaranteed to stay available?", answer: "No. FORMEX must confirm the exact price and availability when you enquire." },
+      { question: "Are the deals guaranteed to stay available?", answer: "No. Mikee Gadget Plug must confirm the exact price and availability when you enquire." },
       { question: "Can I compare two Samsung deals?", answer: "Yes. Ask for model, storage, colour, condition and price for each phone so you can compare fairly." },
       { question: "Can I collect a deal in Ikeja?", answer: "Yes. Confirm the exact device and pickup time before visiting 1 Ola Ayeni Street." },
       { question: "Can a Samsung deal be delivered?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing before payment." }
     ],
     finalTitle: "Get today’s confirmed Samsung offers",
-    finalText: "Ask FORMEX to send only current deals with the exact model, configuration, condition and price.",
+    finalText: "Ask Mikee Gadget Plug to send only current deals with the exact model, configuration, condition and price.",
     related: ["/samsung/galaxy-s25-series", "/samsung/galaxy-a-series", "/easy-buy/samsung"]
   },
   {
@@ -1014,20 +1014,20 @@ export const landingPages = [
     primaryKeywordTheme: "iPhone deals Lagos",
     h1: "Current iPhone Deals in Lagos",
     eyebrow: "iPhone deal enquiry",
-    heroText: "Request today’s FORMEX iPhone offers and compare exact model, storage, condition, battery health for used units and current price.",
+    heroText: "Request today’s Mikee Gadget Plug iPhone offers and compare exact model, storage, condition, battery health for used units and current price.",
     primaryCta: "Get Today’s iPhone Deals",
     secondaryCta: { label: "Browse UK-used iPhones", href: "/used-iphones-lagos" },
     whatsappMessage: "Hello, please send me today’s iPhone deals, including the exact models, prices, storage options, condition and battery health for used units.",
-    seoTitle: "iPhone Deals in Lagos | Today’s FORMEX Offers",
+    seoTitle: "iPhone Deals in Lagos | Today’s Mikee Gadget Plug Offers",
     metaDescription: "Request today’s iPhone deals in Lagos. Compare exact models, prices, storage, condition and battery health for used units before buying.",
     conversionEventName: "click_whatsapp",
     leadType: "deal",
     pageType: "deal",
     heroImage: "/images/14promax-1.jpeg",
-    heroAlt: "iPhone available to enquire about in FORMEX current deals",
+    heroAlt: "iPhone available to enquire about in Mikee Gadget Plug current deals",
     badge: "Today’s price on request",
     infoTitle: "Compare the real device, not just a deal label",
-    infoText: "FORMEX must confirm the current price and exact unit. For used iPhones, include condition and battery health in the comparison.",
+    infoText: "Mikee Gadget Plug must confirm the current price and exact unit. For used iPhones, include condition and battery health in the comparison.",
     cards: [
       { kicker: "Value", title: "Ask about iPhone 11–13 deals", text: "Send your budget and ask which current models and conditions fit." },
       { kicker: "Pro", title: "Ask about Pro Max offers", text: "Request current Pro Max models, storage choices and prices." },
@@ -1043,9 +1043,9 @@ export const landingPages = [
     faqs: [
       { question: "Which iPhone deals are available today?", answer: "Use WhatsApp to request the current models, storage, condition and prices. No stock is assumed on this page." },
       { question: "Do deal prices change?", answer: "They can. Confirm today’s price for the exact unit before making a payment." },
-      { question: "Will a used iPhone deal include battery health?", answer: "Ask FORMEX for the battery-health reading and condition of the exact used iPhone offered." },
+      { question: "Will a used iPhone deal include battery health?", answer: "Ask Mikee Gadget Plug for the battery-health reading and condition of the exact used iPhone offered." },
       { question: "Can I use Easy Buy on an iPhone deal?", answer: "Ask whether the exact phone is eligible. Easy Buy estimates start with a 40% deposit, but approval is not guaranteed." },
-      { question: "Can I pick up the phone in Ikeja?", answer: "Yes. Confirm the device and pickup time before visiting the FORMEX store." }
+      { question: "Can I pick up the phone in Ikeja?", answer: "Yes. Confirm the device and pickup time before visiting the Mikee Gadget Plug store." }
     ],
     finalTitle: "Get today’s confirmed iPhone deals",
     finalText: "Ask for current offers with the exact model, storage, condition and price you can compare.",

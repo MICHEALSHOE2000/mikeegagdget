@@ -12,7 +12,7 @@
     "utm_term",
     "utm_content"
   ];
-  const attributionStorageKey = "formex_ad_attribution";
+  const attributionStorageKey = "mikee-gadget-plug_ad_attribution";
   const context = {
     ad_group_id: body.dataset.adGroupId || "",
     ad_group_name: body.dataset.adGroupName || "",
@@ -77,7 +77,7 @@
     const values = Object.entries(attribution).filter(([, value]) => value);
     if (!values.length) return;
 
-    const existing = url.searchParams.get("text") || `Hello ${body.dataset.adGroupName || "FORMEX Communication"}.`;
+    const existing = url.searchParams.get("text") || `Hello ${body.dataset.adGroupName || "Mikee Gadget Plug Communication"}.`;
     const source = values.map(([key, value]) => `${key}: ${value}`).join(" | ");
     if (!existing.includes("Campaign reference:")) {
       url.searchParams.set("text", `${existing}\nCampaign reference: ${source}`);
@@ -130,7 +130,7 @@
     }
   });
 
-  document.addEventListener("formex:lead-success", (event) => {
+  document.addEventListener("mikee-gadget-plug:lead-success", (event) => {
     pushEvent("submit_lead", {
       form_name: event.detail?.form_name || "lead_form",
       lead_type: event.detail?.lead_type || context.lead_type
@@ -142,10 +142,10 @@
     pushEvent("view_product");
   }
 
-  window.FormexTracking = Object.freeze({
+  window.MikeeGadgetPlugTracking = Object.freeze({
     pushEvent,
     submitLead(detail = {}) {
-      document.dispatchEvent(new CustomEvent("formex:lead-success", { detail }));
+      document.dispatchEvent(new CustomEvent("mikee-gadget-plug:lead-success", { detail }));
     }
   });
 })();

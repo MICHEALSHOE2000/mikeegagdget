@@ -1,10 +1,10 @@
 export const commerceSite = Object.freeze({
-  name: "Formex Communication",
-  legalName: "FORMEX COMMUNICATION",
-  baseUrl: "https://www.formexcommunication.com.ng",
-  whatsappNumber: "2349060699096",
-  telephoneHref: "+2349060699096",
-  telephoneDisplay: "0906 069 9096",
+  name: "Mikee Gadget Plug",
+  legalName: "MIKEE GADGET PLUG",
+  baseUrl: "https://www.mikeegagdget.vercel.app",
+  whatsappNumber: "2347086865133",
+  telephoneHref: "+2347086865133",
+  telephoneDisplay: "0708 686 5133",
   address: "1 Ola Ayeni Street, Off Simbiat Abiola Way, Ikeja, Computer Village, Lagos, Nigeria",
   directionsUrl: "https://www.google.com/maps/search/?api=1&query=1%20Ola%20Ayeni%20Street%2C%20Off%20Simbiat%20Abiola%20Way%2C%20Ikeja%2C%20Computer%20Village%2C%20Lagos%2C%20Nigeria",
   communityUrl: "",
@@ -313,8 +313,8 @@ const makeIphone = ([model, slug, storage, defaultStorage, specKey]) => ({
   warranty: commerceSite.warranty,
   batteryHealth: commerceSite.usedIphoneBattery,
   specifications: iphoneSpecs[specKey],
-  description: `Choose ${storage.join(", ")} storage where available, then confirm today’s price, colour and condition with FORMEX.`,
-  seoTitle: `Buy ${model} in Nigeria | Storage & Easy Buy | FORMEX`,
+  description: `Choose ${storage.join(", ")} storage where available, then confirm today’s price, colour and condition with Mikee Gadget Plug.`,
+  seoTitle: `Buy ${model} in Nigeria | Storage & Easy Buy | Mikee Gadget Plug`,
   metaDescription: `Buy ${model} in Nigeria. Compare ${storage.join(", ")}, request today’s price, pay outright or ask about Easy Buy, swap and nationwide delivery.`
 });
 
@@ -342,8 +342,8 @@ const makeGalaxy = ({ model, slug, storage, specs }) => ({
     security: specs[4],
     sim: "SIM options vary by unit and market; confirm before buying"
   },
-  description: `Choose your preferred ${model} storage, condition and payment option, then ask FORMEX to confirm current price and availability.`,
-  seoTitle: `Buy ${model} in Nigeria | FORMEX`,
+  description: `Choose your preferred ${model} storage, condition and payment option, then ask Mikee Gadget Plug to confirm current price and availability.`,
+  seoTitle: `Buy ${model} in Nigeria | Mikee Gadget Plug`,
   metaDescription: `Buy ${model} in Nigeria. Check storage, condition and current price, then pay outright or ask about Easy Buy, swap and nationwide delivery.`
 });
 
@@ -371,8 +371,8 @@ const makePixel = ([model, slug, storage, specs]) => ({
     security: specs[4],
     sim: "Physical SIM and eSIM support can vary by unit; confirm before buying"
   },
-  description: `Compare ${model} storage options and ask FORMEX to confirm today’s price, colour, condition and delivery arrangement.`,
-  seoTitle: `Buy ${model} in Nigeria | Price & Storage | FORMEX`,
+  description: `Compare ${model} storage options and ask Mikee Gadget Plug to confirm today’s price, colour, condition and delivery arrangement.`,
+  seoTitle: `Buy ${model} in Nigeria | Price & Storage | Mikee Gadget Plug`,
   metaDescription: `Buy ${model} in Nigeria. Check storage, condition and current price, then ask about outright payment, Easy Buy, swap and nationwide delivery.`
 });
 
@@ -396,7 +396,7 @@ export const categoryPages = Object.freeze([
     route: "/iphones",
     eyebrow: "Apple iPhone catalogue",
     h1: "Buy iPhones in Nigeria",
-    title: "Buy iPhones in Nigeria | UK Used, New & Easy Buy | FORMEX",
+    title: "Buy iPhones in Nigeria | UK Used, New & Easy Buy | Mikee Gadget Plug",
     description: "Compare iPhone models, storage and supplied guide prices. Pay outright, ask about Easy Buy, swap a phone or order through WhatsApp.",
     brand: "Apple"
   },
@@ -404,8 +404,8 @@ export const categoryPages = Object.freeze([
     route: "/uk-used-iphones",
     eyebrow: "Inspected-device enquiries",
     h1: "Shop UK-Used iPhones in Nigeria",
-    title: "UK-Used iPhones in Nigeria | Battery Health Above 83% | FORMEX",
-    description: "Compare UK-used iPhones from FORMEX. Ask for the exact unit, supplied price, battery health above 83%, condition and delivery options.",
+    title: "UK-Used iPhones in Nigeria | Battery Health Above 83% | Mikee Gadget Plug",
+    description: "Compare UK-used iPhones from Mikee Gadget Plug. Ask for the exact unit, supplied price, battery health above 83%, condition and delivery options.",
     brand: "Apple",
     condition: "UK Used"
   },
@@ -413,7 +413,7 @@ export const categoryPages = Object.freeze([
     route: "/cheap-iphones",
     eyebrow: "Lower-price iPhone options",
     h1: "Find a More Affordable iPhone",
-    title: "Affordable iPhones in Nigeria | Compare Supplied Prices | FORMEX",
+    title: "Affordable iPhones in Nigeria | Compare Supplied Prices | Mikee Gadget Plug",
     description: "Start with iPhone options that have lower supplied guide prices, then confirm today’s condition, storage, price and Easy Buy terms.",
     brand: "Apple",
     sort: "price-ascending"
@@ -422,8 +422,8 @@ export const categoryPages = Object.freeze([
     route: "/iphone-easy-buy",
     eyebrow: "Pay in stages",
     h1: "Get an iPhone With Easy Buy",
-    title: "iPhone Easy Buy Nigeria | Calculator & Models | FORMEX",
-    description: "Choose an iPhone, review the 40% initial-deposit estimate and continue to FORMEX Easy Buy for final eligibility and terms.",
+    title: "iPhone Easy Buy Nigeria | Calculator & Models | Mikee Gadget Plug",
+    description: "Choose an iPhone, review the 40% initial-deposit estimate and continue to Mikee Gadget Plug Easy Buy for final eligibility and terms.",
     brand: "Apple",
     easyBuy: true
   },
@@ -431,23 +431,23 @@ export const categoryPages = Object.freeze([
     route: "/phones-on-installment",
     eyebrow: "Flexible payment enquiries",
     h1: "Phones on Installment in Nigeria",
-    title: "Phones on Installment in Nigeria | Easy Buy Options | FORMEX",
-    description: "Compare phones and ask FORMEX which models qualify for Easy Buy. Final prices, eligibility, dates and terms must be confirmed.",
+    title: "Phones on Installment in Nigeria | Easy Buy Options | Mikee Gadget Plug",
+    description: "Compare phones and ask Mikee Gadget Plug which models qualify for Easy Buy. Final prices, eligibility, dates and terms must be confirmed.",
     easyBuy: true
   },
   {
     route: "/samsung-phones",
     eyebrow: "Samsung Galaxy catalogue",
     h1: "Buy Samsung Phones in Nigeria",
-    title: "Buy Samsung Phones in Nigeria | Galaxy Price Enquiries | FORMEX",
-    description: "Compare Samsung Galaxy models and storage, then ask FORMEX for today’s condition, current price, Easy Buy eligibility and delivery.",
+    title: "Buy Samsung Phones in Nigeria | Galaxy Price Enquiries | Mikee Gadget Plug",
+    description: "Compare Samsung Galaxy models and storage, then ask Mikee Gadget Plug for today’s condition, current price, Easy Buy eligibility and delivery.",
     brand: "Samsung"
   },
   {
     route: "/uk-used-samsung",
     eyebrow: "Used Samsung enquiries",
     h1: "Ask About UK-Used Samsung Phones",
-    title: "UK-Used Samsung Phones in Nigeria | FORMEX",
+    title: "UK-Used Samsung Phones in Nigeria | Mikee Gadget Plug",
     description: "Compare Samsung models and ask which UK-used units are available, including exact condition, storage, battery information and price.",
     brand: "Samsung",
     condition: "UK Used"
@@ -456,32 +456,32 @@ export const categoryPages = Object.freeze([
     route: "/google-pixel-phones",
     eyebrow: "Google Pixel catalogue",
     h1: "Buy Google Pixel Phones in Nigeria",
-    title: "Buy Google Pixel Phones in Nigeria | FORMEX",
-    description: "Compare Google Pixel models and storage, then ask FORMEX for today’s condition, current price, swap and delivery options.",
+    title: "Buy Google Pixel Phones in Nigeria | Mikee Gadget Plug",
+    description: "Compare Google Pixel models and storage, then ask Mikee Gadget Plug for today’s condition, current price, swap and delivery options.",
     brand: "Google"
   },
   {
     route: "/phone-swap",
     eyebrow: "Trade in and upgrade",
     h1: "Swap Your Current Phone for an Upgrade",
-    title: "Phone Swap in Lagos, Nigeria | Get a WhatsApp Quote | FORMEX",
-    description: "Send your current phone details to FORMEX, request a valuation and compare eligible upgrade options before accepting a swap quote.",
+    title: "Phone Swap in Lagos, Nigeria | Get a WhatsApp Quote | Mikee Gadget Plug",
+    description: "Send your current phone details to Mikee Gadget Plug, request a valuation and compare eligible upgrade options before accepting a swap quote.",
     swap: true
   },
   {
     route: "/laptops",
     eyebrow: "Work, school and business",
-    h1: "Ask About Laptops Available From FORMEX",
-    title: "Laptops in Computer Village, Ikeja | FORMEX",
-    description: "Ask FORMEX for currently available laptops, specifications, condition, price, pickup and nationwide delivery options.",
+    h1: "Ask About Laptops Available From Mikee Gadget Plug",
+    title: "Laptops in Computer Village, Ikeja | Mikee Gadget Plug",
+    description: "Ask Mikee Gadget Plug for currently available laptops, specifications, condition, price, pickup and nationwide delivery options.",
     contentOnly: "laptops"
   },
   {
     route: "/gadget-accessories",
     eyebrow: "Complete your setup",
     h1: "Phone and Gadget Accessories",
-    title: "Phone & Gadget Accessories in Ikeja | FORMEX",
-    description: "Ask about chargers, phone cases, screen protectors, power banks, earbuds and smartwatches available from FORMEX.",
+    title: "Phone & Gadget Accessories in Ikeja | Mikee Gadget Plug",
+    description: "Ask about chargers, phone cases, screen protectors, power banks, earbuds and smartwatches available from Mikee Gadget Plug.",
     contentOnly: "accessories"
   }
 ]);

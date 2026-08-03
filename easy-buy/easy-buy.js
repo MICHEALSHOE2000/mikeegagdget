@@ -1,6 +1,6 @@
 import { allowedFrequencies, calculatePlan } from "./easy-buy-core.mjs";
 
-const whatsappNumber = "2349060699096";
+const whatsappNumber = "2347086865133";
 
 const easyBuyPhones = [
   { id: "iphone-11-64", model: "iPhone 11", storage: "64GB", price: 230000, series: 11, depositRate: 0.4, image: "../images/11-1.jpeg" },
@@ -155,7 +155,7 @@ function renderPriceList() {
     card.className = "easy-price-card";
     card.innerHTML = `
       <div class="easy-price-card-media">
-        <img src="${phone.image}" alt="${phoneLabel(phone)} available on Formex Easy Buy" loading="lazy">
+        <img src="${phone.image}" alt="${phoneLabel(phone)} available on Mikee Gadget Plug Easy Buy" loading="lazy">
         <span>${Math.round(phone.depositRate * 100)}% initial deposit</span>
       </div>
       <div class="easy-price-card-body">
@@ -201,7 +201,7 @@ function formatInputPrice() {
 
 function rememberSelectedPhone(phoneId, moveToCalculator = false) {
   try {
-    window.sessionStorage.setItem("formexEasyBuyPhone", phoneId);
+    window.sessionStorage.setItem("mikee-gadget-plugEasyBuyPhone", phoneId);
   } catch (error) {
     // The URL still preserves the selection when storage is unavailable.
   }
@@ -237,7 +237,7 @@ function selectPhone(phoneId, scrollToCalculator = false) {
   updateCalculator();
 
   if (scrollToCalculator) {
-    window.FormexTracking?.pushEvent("select_phone", {
+    window.MikeeGadgetPlugTracking?.pushEvent("select_phone", {
       phone_model: phone.model,
       product_name: phoneLabel(phone),
       lead_type: "easy_buy"
@@ -311,7 +311,7 @@ function updateCalculator() {
   if (selectedPhonePrice) selectedPhonePrice.textContent = `Price used: ${naira.format(price)}`;
 
   const message = [
-    "Hello Formex Communication, I want to apply for Easy Buy.",
+    "Hello Mikee Gadget Plug, I want to apply for Easy Buy.",
     `Phone: ${phoneLabel(phone)}`,
     `Price used for estimate: ${naira.format(price)}`,
     `Initial deposit: ${naira.format(deposit)} (${Math.round(rate * 100)}%)`,
@@ -331,7 +331,7 @@ if (modelSelect && priceInput && frequencySelect && durationInputs.length) {
   modelSelect.addEventListener("change", () => {
     selectPhone(modelSelect.value);
     const phone = selectedPhone();
-    window.FormexTracking?.pushEvent("select_phone", {
+    window.MikeeGadgetPlugTracking?.pushEvent("select_phone", {
       phone_model: phone.model,
       product_name: phoneLabel(phone),
       lead_type: "easy_buy"
@@ -348,7 +348,7 @@ if (modelSelect && priceInput && frequencySelect && durationInputs.length) {
   const phoneFromUrl = new URLSearchParams(window.location.search).get("phone");
   let savedPhone = "";
   try {
-    savedPhone = window.sessionStorage.getItem("formexEasyBuyPhone") || "";
+    savedPhone = window.sessionStorage.getItem("mikee-gadget-plugEasyBuyPhone") || "";
   } catch (error) {
     savedPhone = "";
   }

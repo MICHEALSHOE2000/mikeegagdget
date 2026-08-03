@@ -84,16 +84,16 @@ const localBusinessSchema = {
 };
 
 const renderHeader = (page) => `
-  <aside class="intent-topbar" aria-label="FORMEX store highlights">
-    <span>FORMEX Communication</span>
+  <aside class="intent-topbar" aria-label="Mikee Gadget Plug store highlights">
+    <span>Mikee Gadget Plug Communication</span>
     <span>Physical store in Ikeja</span>
     <span>Delivery in Lagos and across Nigeria</span>
   </aside>
   <header class="intent-header">
     <nav class="intent-nav" aria-label="Main navigation">
-      <a class="intent-brand" href="/" aria-label="FORMEX Communication home">
+      <a class="intent-brand" href="/" aria-label="Mikee Gadget Plug Communication home">
         <span class="intent-brand-mark" aria-hidden="true"></span>
-        <span><strong>FORMEX</strong><small>Communication</small></span>
+        <span><strong>MIKEE</strong><small>Gadget Plug</small></span>
       </a>
       <button class="intent-menu-button" type="button" aria-expanded="false" aria-controls="intent-menu">
         <span class="sr-only">Open navigation</span><span></span><span></span>
@@ -142,7 +142,7 @@ const renderHero = (page, localHeroImage) => `
       <div class="intent-availability">
         <span>What to confirm</span>
         <strong>${escapeHtml(page.badge)}</strong>
-        <small>Price and availability confirmed by FORMEX</small>
+        <small>Price and availability confirmed by Mikee Gadget Plug</small>
       </div>
     </div>
   </section>`;
@@ -160,7 +160,7 @@ const renderOfferInformation = (page) => `
           <span>${escapeHtml(card.kicker)}</span>
           <h3>${escapeHtml(card.title)}</h3>
           <p>${escapeHtml(card.text)}</p>
-          <a data-track="whatsapp" data-select-phone="${page.pageType === "series" ? "true" : "false"}" href="${whatsappHref(page)}" target="_blank" rel="noopener">Ask FORMEX <span aria-hidden="true">→</span></a>
+          <a data-track="whatsapp" data-select-phone="${page.pageType === "series" ? "true" : "false"}" href="${whatsappHref(page)}" target="_blank" rel="noopener">Ask Mikee Gadget Plug <span aria-hidden="true">→</span></a>
         </article>`).join("")}
     </div>
   </section>`;
@@ -182,7 +182,7 @@ const renderBuyerDecision = (page) => `
 const renderTrust = (page) => `
   <section class="intent-section intent-store" id="store" aria-labelledby="store-details">
     <div class="intent-store-card">
-      <p class="intent-eyebrow">FORMEX store details</p>
+      <p class="intent-eyebrow">Mikee Gadget Plug store details</p>
       <h2 id="store-details">Speak with the store or visit in Ikeja</h2>
       <address>${escapeHtml(site.address)}</address>
       <div class="intent-contact-grid">
@@ -197,7 +197,7 @@ const renderTrust = (page) => `
         </a>
       </div>
       <p class="intent-delivery-note">${escapeHtml(site.delivery)}</p>
-      <p class="intent-terms-note">Ask FORMEX to confirm stock, the exact device condition, current price, delivery details and any written warranty or after-sales terms before payment.</p>
+      <p class="intent-terms-note">Ask Mikee Gadget Plug to confirm stock, the exact device condition, current price, delivery details and any written warranty or after-sales terms before payment.</p>
     </div>
   </section>`;
 
@@ -251,7 +251,7 @@ const renderFooter = (page) => `
     <div>
       <a class="intent-brand intent-brand-footer" href="/">
         <span class="intent-brand-mark" aria-hidden="true"></span>
-        <span><strong>FORMEX</strong><small>Communication</small></span>
+        <span><strong>MIKEE</strong><small>Gadget Plug</small></span>
       </a>
       <p>Phone and device enquiries from a physical store in Ikeja, Lagos.</p>
     </div>
@@ -266,11 +266,11 @@ const renderFooter = (page) => `
       <a href="tel:${site.telephoneHref}">${site.telephoneDisplay}</a>
       <span>${escapeHtml(site.address)}</span>
     </div>
-    <small>© 2026 FORMEX Communication.</small>
+    <small>© 2026 Mikee Gadget Plug Communication.</small>
   </footer>
   <div class="intent-mobile-bar" aria-label="Quick contact actions">
     <a data-track="call" href="tel:${site.telephoneHref}"><span>Call</span><strong>${site.telephoneDisplay}</strong></a>
-    <a data-track="whatsapp" href="${whatsappHref(page)}" target="_blank" rel="noopener"><span>WhatsApp</span><strong>Ask FORMEX</strong></a>
+    <a data-track="whatsapp" href="${whatsappHref(page)}" target="_blank" rel="noopener"><span>WhatsApp</span><strong>Ask Mikee Gadget Plug</strong></a>
   </div>`;
 
 const renderPage = (page) => {
@@ -316,7 +316,7 @@ const renderPage = (page) => {
   data-page-type="${page.pageType}"
   data-product-name="${escapeHtml(page.productName || page.adGroupName)}"
   data-phone-model="${escapeHtml(page.productName || "")}"
-  data-device-condition="${escapeHtml(page.condition || "Confirm with FORMEX")}"
+  data-device-condition="${escapeHtml(page.condition || "Confirm with Mikee Gadget Plug")}"
   data-lead-type="${page.leadType}"
 >
   ${renderHeader(page)}

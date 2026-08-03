@@ -41,7 +41,7 @@ input {
   font: inherit;
 }
 
-.why-formex-bar {
+.why-mikee-gadget-plug-bar {
   position: sticky;
   top: 0;
   z-index: 40;
@@ -60,7 +60,7 @@ input {
   overflow: hidden;
 }
 
-.why-formex-bar strong {
+.why-mikee-gadget-plug-bar strong {
   position: relative;
   z-index: 2;
   display: inline-flex;
@@ -78,21 +78,21 @@ input {
   white-space: nowrap;
 }
 
-.why-formex-marquee {
+.why-mikee-gadget-plug-marquee {
   position: relative;
   min-width: 0;
   overflow: hidden;
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 
-.why-formex-track {
+.why-mikee-gadget-plug-track {
   display: flex;
   width: max-content;
   gap: 10px;
-  animation: whyFormexMarquee 46s linear infinite;
+  animation: whyMikeeGadgetPlugMarquee 46s linear infinite;
 }
 
-.why-formex-track span {
+.why-mikee-gadget-plug-track span {
   display: inline-flex;
   align-items: center;
   min-height: 30px;
@@ -106,7 +106,7 @@ input {
   white-space: nowrap;
 }
 
-.why-formex-bar:hover .why-formex-track {
+.why-mikee-gadget-plug-bar:hover .why-mikee-gadget-plug-track {
   animation-play-state: paused;
 }
 
@@ -1207,7 +1207,7 @@ address {
   }
 }
 
-@keyframes whyFormexMarquee {
+@keyframes whyMikeeGadgetPlugMarquee {
   from {
     transform: translateX(0);
   }
@@ -1280,24 +1280,24 @@ address {
 }
 
 @media (max-width: 680px) {
-  .why-formex-bar {
+  .why-mikee-gadget-plug-bar {
     grid-template-columns: 1fr;
     gap: 6px;
     min-height: 76px;
     padding-block: 8px;
   }
 
-  .why-formex-bar strong {
+  .why-mikee-gadget-plug-bar strong {
     width: fit-content;
     min-height: 26px;
     font-size: 0.7rem;
   }
 
-  .why-formex-track {
+  .why-mikee-gadget-plug-track {
     animation-duration: 58s;
   }
 
-  .why-formex-track span {
+  .why-mikee-gadget-plug-track span {
     min-height: 28px;
     font-size: 0.76rem;
   }
@@ -1459,7 +1459,7 @@ address {
   }
 }
 
-/* Formex Communications premium local SEO sections */
+/* Mikee Gadget Plug premium local SEO sections */
 .local-section,
 .map-section {
   max-width: 1180px;
@@ -1713,7 +1713,7 @@ address {
 }
 
 /* Premium polish pass */
-.why-formex-bar {
+.why-mikee-gadget-plug-bar {
   min-height: 54px;
   gap: 24px;
   background:
@@ -1722,7 +1722,7 @@ address {
   border-bottom: 1px solid rgba(246, 229, 168, 0.18);
 }
 
-.why-formex-bar strong {
+.why-mikee-gadget-plug-bar strong {
   min-height: 34px;
   padding: 8px 16px;
   color: #15120a;
@@ -1731,12 +1731,12 @@ address {
   box-shadow: 0 0 0 4px rgba(216, 180, 90, 0.13), 0 10px 26px rgba(216, 180, 90, 0.24);
 }
 
-.why-formex-track {
+.why-mikee-gadget-plug-track {
   gap: 18px;
   animation-duration: 64s;
 }
 
-.why-formex-track span {
+.why-mikee-gadget-plug-track span {
   min-height: 34px;
   padding: 8px 16px;
   color: rgba(255, 255, 255, 0.94);
@@ -1745,7 +1745,7 @@ address {
   box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
 }
 
-.why-formex-track span::before {
+.why-mikee-gadget-plug-track span::before {
   content: "✦";
   margin-right: 9px;
   color: #f6e5a8;
@@ -1874,7 +1874,7 @@ address {
 }
 
 @media (max-width: 680px) {
-  .why-formex-bar {
+  .why-mikee-gadget-plug-bar {
     min-height: 82px;
   }
 
@@ -1882,12 +1882,12 @@ address {
     top: 82px;
   }
 
-  .why-formex-track {
+  .why-mikee-gadget-plug-track {
     gap: 14px;
     animation-duration: 72s;
   }
 
-  .why-formex-track span {
+  .why-mikee-gadget-plug-track span {
     padding-inline: 14px;
     font-size: .78rem;
   }

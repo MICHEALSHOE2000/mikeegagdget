@@ -246,7 +246,7 @@ if (productDataElement) {
     totalOutput.textContent = naira.format(totalAfterDeposit);
 
     const message = [
-      "Hello Formex Communication, I want to apply for Easy Buy.",
+      "Hello Mikee Gadget Plug, I want to apply for Easy Buy.",
       `Phone: ${product.model} ${selectedStorage}`,
       `Preferred colour: ${selectedColor()}`,
       `Condition: ${selectedCondition()}`,
@@ -281,7 +281,7 @@ if (productDataElement) {
     if (productPrice) productPrice.textContent = variant.price ? naira.format(variant.price) : "Request today’s price";
     if (priceNote) {
       priceNote.textContent = variant.priceNeedsExtraConfirmation
-        ? "This supplied guide price needs extra confirmation. Ask FORMEX for today’s exact price before planning."
+        ? "This supplied guide price needs extra confirmation. Ask Mikee Gadget Plug for today’s exact price before planning."
         : variant.price
           ? "Supplied guide price. Confirm today’s exact price, condition and availability before payment."
           : "No price was supplied for this variant. Request today’s exact price before payment.";
@@ -300,7 +300,7 @@ if (productDataElement) {
       window.history.replaceState({}, "", url);
     }
 
-    window.FormexTracking?.pushEvent("select_phone", {
+    window.MikeeGadgetPlugTracking?.pushEvent("select_phone", {
       phone_model: product.model,
       product_name: `${product.model} ${selectedStorage}`,
       storage: selectedStorage,
