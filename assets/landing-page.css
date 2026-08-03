@@ -422,7 +422,7 @@ summary:focus-visible {
   transition: transform 800ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.intent-image-frame img[src$="shop.webp"] {
+.intent-image-frame img[src$="shop.jpeg"] {
   transform: scale(1.55);
   transform-origin: center bottom;
 }
@@ -431,7 +431,7 @@ summary:focus-visible {
   transform: scale(1.025);
 }
 
-.intent-hero-media:hover img[src$="shop.webp"] {
+.intent-hero-media:hover img[src$="shop.jpeg"] {
   transform: scale(1.6);
 }
 

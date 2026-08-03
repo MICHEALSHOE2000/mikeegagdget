@@ -505,7 +505,7 @@ const renderProductPage = (product) => {
     conditions: product.conditions,
     whatsappNumber: commerceSite.whatsappNumber
   };
-  const firstImage = product.images[0] || "/images/shop.webp";
+  const firstImage = product.images[0] || "/images/shop.jpeg";
 
   return `<!doctype html>
 <html lang="en-NG">
@@ -659,7 +659,7 @@ const renderCategoryPage = (category) => {
   <meta property="og:title" content="${escapeHtml(category.title)}">
   <meta property="og:description" content="${escapeHtml(category.description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${commerceSite.baseUrl}/images/shop.webp">
+  <meta property="og:image" content="${commerceSite.baseUrl}/images/shop.jpeg">
   <meta name="theme-color" content="#f7f8fb">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
