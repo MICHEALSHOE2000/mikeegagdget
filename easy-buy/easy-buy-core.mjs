@@ -24,6 +24,9 @@ export function calculatePlan({ price, duration, frequency = "monthly", series, 
     throw new RangeError("That repayment schedule is not available for the selected iPhone.");
   }
 
+  if (!Number.isFinite(depositRate) || depositRate <= 0 || depositRate > 1) {
+    throw new RangeError("Deposit rate must be greater than zero and no more than one.");
+  }
   const deposit = numericPrice * depositRate;
   const balance = Math.max(0, numericPrice - deposit);
   const balanceRepayment = balance * factor;

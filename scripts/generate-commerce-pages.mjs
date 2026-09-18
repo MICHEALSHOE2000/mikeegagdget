@@ -153,7 +153,7 @@ const renderHeader = () => `
   <header class="commerce-header">
     <nav class="commerce-nav" aria-label="Main navigation">
       <a class="commerce-brand" href="/" aria-label="Mikee Gadget Plug home">
-        <span class="commerce-brand-mark" aria-hidden="true">F</span>
+        <span class="commerce-brand-mark" aria-hidden="true">M</span>
         <span><strong>MIKEE</strong><small>Gadget Plug</small></span>
       </a>
       <button class="commerce-menu-button" type="button" aria-expanded="false" aria-controls="commerce-menu" aria-label="Open navigation">
@@ -165,6 +165,7 @@ const renderHeader = () => `
         <a href="/google-pixel-phones">Google Pixel</a>
         <a href="/easy-buy/">Easy Buy</a>
         <a href="/phone-swap">Swap</a>
+        <a href="/deals/">Deals</a>
         <a href="/phone-shop-ikeja">Visit store</a>
       </div>
       <div class="commerce-nav-actions">
@@ -310,7 +311,7 @@ const renderPaymentPaths = (product) => `
         <h3>Don’t have the full payment?</h3>
         <ul><li>Start with an initial deposit</li><li>Review a 1–3 month estimate</li><li>Complete the required verification</li><li>Get final terms before commitment</li></ul>
         <div>
-          <a class="commerce-button commerce-button-light" href="/easy-buy/?phone=${escapeHtml(product.slug)}#calculator">Check Easy Buy Options</a>
+          <a class="commerce-button commerce-button-light" data-action="easyBuy" href="/easy-buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}#calculator">Check Easy Buy Options</a>
           <a class="text-link text-link-light" data-action="easyBuy" href="${whatsappHref(productMessage(product, product.defaultStorage, "easyBuy"))}" target="_blank" rel="noopener">Ask about eligibility →</a>
         </div>
       </article>
@@ -476,7 +477,7 @@ const renderFooter = () => `
   <footer class="commerce-footer">
     <div class="footer-intro">
       <a class="commerce-brand commerce-brand-footer" href="/">
-        <span class="commerce-brand-mark" aria-hidden="true">F</span>
+        <span class="commerce-brand-mark" aria-hidden="true">M</span>
         <span><strong>MIKEE</strong><small>Gadget Plug</small></span>
       </a>
       <p>Model-specific phone pages built to help Nigerian buyers choose, confirm and order the exact device they want.</p>
@@ -787,6 +788,7 @@ await writeFile(
 );
 
 const fixedRoutes = [
+  "/deals/",
   "/",
   "/easy-buy/",
   "/blog/best-uk-used-iphone-shop",
