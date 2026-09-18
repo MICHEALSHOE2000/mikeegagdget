@@ -218,9 +218,9 @@ if (productDataElement) {
 
   function updateActionLinks() {
     document.querySelectorAll("[data-action]").forEach((link) => {
-      if (['swap', 'easyBuy'].includes(link.dataset.action)) {
+      if (['swap', 'easyBuy', 'buy'].includes(link.dataset.action)) {
         const choiceId = `${product.slug}|${selectedStorage}`;
-        link.href = link.dataset.action === 'swap' ? `/phone-swap/?target=${encodeURIComponent(choiceId)}` : `/easy-buy/?phone=${encodeURIComponent(choiceId)}`;
+        link.href = `/buy/?phone=${encodeURIComponent(choiceId)}` + (link.dataset.action === 'swap' ? '&purchase=swap' : link.dataset.action === 'easyBuy' ? '&payment=easy' : '');
         link.removeAttribute('target');
         link.removeAttribute('data-track');
         if (link.dataset.action === 'swap') link.textContent = 'Estimate my swap →';

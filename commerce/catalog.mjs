@@ -1,3 +1,4 @@
+import { priceList, suppliedPrices } from "./price-list.mjs";
 export const commerceSite = Object.freeze({
   name: "Mikee Gadget Plug",
   legalName: "MIKEE GADGET PLUG",
@@ -15,44 +16,7 @@ export const commerceSite = Object.freeze({
   easyBuyDepositRate: 0.4
 });
 
-const suppliedPrices = {
-  "iPhone 11|64GB": 230000,
-  "iPhone 11|128GB": 280000,
-  "iPhone 11 Pro|64GB": 275000,
-  "iPhone 11 Pro|256GB": 315000,
-  "iPhone 11 Pro Max|64GB": 320000,
-  "iPhone 11 Pro Max|256GB": 355000,
-  "iPhone 12|64GB": 260000,
-  "iPhone 12|128GB": 295000,
-  "iPhone 12 Pro|128GB": 365000,
-  "iPhone 12 Pro|256GB": 395000,
-  "iPhone 12 Pro Max|128GB": 430000,
-  "iPhone 12 Pro Max|256GB": 490000,
-  "iPhone 13|128GB": 380000,
-  "iPhone 13|256GB": 410000,
-  "iPhone 13 Pro|128GB": 500000,
-  "iPhone 13 Pro|256GB": 530000,
-  "iPhone 14|128GB": 460000,
-  "iPhone 14|256GB": 520000,
-  "iPhone 14 Pro|128GB": 640000,
-  "iPhone 14 Pro|256GB": 700000,
-  "iPhone 14 Pro Max|128GB": 770000,
-  "iPhone 14 Pro Max|256GB": 835000,
-  "iPhone 15|128GB": 625000,
-  "iPhone 15|256GB": 670000,
-  "iPhone 15 Pro|128GB": 800000,
-  "iPhone 15 Pro|256GB": 840000,
-  "iPhone 15 Pro|512GB": 510000,
-  "iPhone 16|128GB": 840000,
-  "iPhone 16|256GB": 925000,
-  "iPhone 16|512GB": 1000000,
-  "iPhone 16 Plus|128GB": 940000,
-  "iPhone 16 Pro|128GB": 1030000,
-  "iPhone 16 Pro|256GB": 1160000,
-  "iPhone 17 Air|To confirm": 1140000
-};
-
-const priceNeedsExtraConfirmation = new Set(["iPhone 15 Pro|512GB"]);
+const priceNeedsExtraConfirmation = new Set();
 
 const iphoneImages = {
   "iPhone 11": ["/images/11-1.jpeg", "/images/11-2.jpeg", "/images/11-3.jpeg"],
@@ -187,7 +151,7 @@ const iphoneSpecs = {
   }
 };
 
-const iphoneDefinitions = [
+const legacyIphoneDefinitions = [
   ["iPhone 11", "iphone-11", ["64GB", "128GB", "256GB"], "128GB", "11"],
   ["iPhone 11 Pro", "iphone-11-pro", ["64GB", "256GB", "512GB"], "256GB", "11-pro"],
   ["iPhone 11 Pro Max", "iphone-11-pro-max", ["64GB", "256GB", "512GB"], "256GB", "11-pro"],
@@ -211,6 +175,15 @@ const iphoneDefinitions = [
   ["iPhone 17 Air", "iphone-17-air", ["To confirm"], "To confirm", "17"],
   ["iPhone 17 Pro", "iphone-17-pro", ["128GB", "256GB", "512GB"], "256GB", "17"],
   ["iPhone 17 Pro Max", "iphone-17-pro-max", ["128GB", "256GB", "512GB", "1TB"], "256GB", "17"]
+];
+
+const iphoneDefinitions = [
+  ...priceList.map(([model, slug, variants]) => {
+    const previous = legacyIphoneDefinitions.find(item => item[1] === slug);
+    const storage = variants.map(([size]) => size);
+    return [model, slug, storage, storage.includes(previous?.[3]) ? previous[3] : storage[0], previous?.[4] || 'confirm'];
+  }),
+  ...legacyIphoneDefinitions.filter(item => !priceList.some(([,slug]) => item[1] === slug))
 ];
 
 const galaxyDefinitions = [
@@ -312,7 +285,12 @@ const makeIphone = ([model, slug, storage, defaultStorage, specKey]) => ({
   swapEligible: true,
   warranty: commerceSite.warranty,
   batteryHealth: commerceSite.usedIphoneBattery,
-  specifications: iphoneSpecs[specKey],
+  specifications: iphoneSpecs[specKey] || {
+    display: "Confirm the exact unit’s display", camera: "Ask for camera condition and specifications",
+    processor: "Confirm the exact model", network: "Confirm network compatibility",
+    security: /iphone-(6|7|8|se)/.test(slug) ? "Touch ID — confirm it works" : "Face ID — confirm it works",
+    sim: "Confirm available SIM and network options"
+  },
   description: `Choose ${storage.join(", ")} storage where available, then confirm today’s price, colour and condition with Mikee Gadget Plug.`,
   seoTitle: `Buy ${model} in Nigeria | Storage & Easy Buy | Mikee Gadget Plug`,
   metaDescription: `Buy ${model} in Nigeria. Compare ${storage.join(", ")}, request today’s price, pay outright or ask about Easy Buy, swap and nationwide delivery.`

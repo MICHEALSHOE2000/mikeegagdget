@@ -1,28 +1,41 @@
-# Buy, swap and finance experience
+# Simple buying flow
 
-Run `npm run check` to regenerate pages and validate the catalogue, local links and quote calculations. This is a static website. WhatsApp enquiries are prepared in the browser and sent only when the customer opens WhatsApp and sends them. No loan is approved, payment collected or customer application stored by this website.
+The homepage and deals cards lead to `/buy/`. Existing `/phone-swap/` and `/easy-buy/` links open the same flow with the relevant choice selected. Product pages preserve model and storage when entering the flow.
 
-## Editing the site
+1. Choose a phone model and storage/colour offer.
+2. Buy, or swap and answer the phone-condition questions.
+3. Pay outright, or choose a 7.5% credit-check / 20% no-credit-check Easy Buy plan.
 
-- `scripts/generate-upgrade-pages.mjs`: homepage, `/phone-swap`, `/easy-buy/`, `/deals/`, explanatory copy and shared navigation. These HTML files are generated; edit the generator, not its output.
-- `assets/upgrade.css`: responsive visual design.
-- `assets/upgrade.js`: selections, filters, result panels, payment schedule and WhatsApp handoff.
-- `commerce/catalog.mjs`: catalogue prices, images, models and store contact details. Prices needing extra confirmation are excluded from the new tools and deals cards. Missing prices/finance eligibility use manual enquiries.
-- `commerce/upgrade-core.mjs`: indicative swap assumptions and finance schedule reconciliation.
-- `easy-buy/easy-buy-core.mjs`: existing deposit and repayment factors. Product calculators now import this calculation too.
+Customers send the prepared quote themselves through WhatsApp. The site does not run credit checks, approve loans, collect payments or store applications. On mobile the quote appears before the final action, avoiding a separate calculator page.
 
-## Confirm before launch
+## Merchant rules
 
-The repository's existing **40% deposit and 20% monthly flat cost on the financed balance** are preserved. Factors are 1.2 / 1.4 / 1.6 for 1 / 2 / 3 months. These conflict with a previously discussed 7.5% offer; this draft does not silently replace them. Confirm the final offer, deposit tiers and any additional fees, then update the shared core, explanatory copy and legacy campaign pages together. Changing financial terms needs corresponding calculation test updates.
+`commerce/price-list.mjs` contains all 85 supplied price options across 36 models, converted from thousands to naira. iPhone 13 256GB is split into Pink / White (₦400,000) and Other colours (₦390,000). Models without supplied prices remain enquiry-only. The list replaces old prices, including the erroneous older iPhone 15 Pro 512GB entry. There are no invented sale discounts or persistent low-stock claims.
 
-The swap model is an explicitly labelled **planning assumption, not an approved buy-back price list**: excellent 65–75%, good 55–65%, fair 40–50% of the catalogue guide price; low battery deducts eight percentage points. Values are rounded down to thousands. Replace with approved variant-specific buying prices when supplied. No quote is calculated for known faults, repairs, locks, unknown battery condition or missing prices. Inspection may produce a value outside the estimated range. Surplus value does not promise cash back.
+Swap calculation: original listed price × (100% − total deductions).
 
-Deals are catalogue budget/upgrade picks, without invented discounts, stock levels, countdowns or crossed-out prices. Confirm present-day price and condition on WhatsApp. Samsung and Pixel remain available through manual price/finance enquiries.
+- Used phone: 40%.
+- Changed screen: another 10 percentage points.
+- Changed battery: another 5 points.
+- Changed back glass: another 2 points.
+- Face ID not working: another 8 points.
 
-Finance and swap estimates are separate: combining trade-in credit and financing requires an approved agreement. Financing shows deposit, flat cost, balance repayment, total paid and a reconciled instalment schedule. Four weekly or two twice-monthly payments per planning month are illustrative; actual due dates are confirmed after approval. The last instalment absorbs whole-naira rounding.
+Deductions are additive against the original listed price, not compounded. The iPhone X 64GB at ₦140,000 is valued at ₦84,000 normally, ₦70,000 with a changed screen, ₦63,000 with changed screen and battery, ₦60,200 with a changed back glass too, and ₦49,000 with all those plus failed Face ID. Phones manufactured without Face ID do not incur that deduction; phones without glass backs do not incur a back-glass deduction. Cracks need a manual quote because no crack deduction was supplied. Values remain subject to inspection. A negative top-up is never displayed; any surplus needs an explicit agreement.
 
-## Validation
+Financing options: 7.5% monthly with a credit score check and 20% monthly without one. Both apply flat monthly interest to the remaining financed balance after the deposit. The calculator retains the existing 40% starting deposit and 1–3 month duration from the repository, allows a larger deposit, and labels them as planning terms subject to platform confirmation. Provider names and an API were not supplied, so applications go through WhatsApp. No-credit-check is not represented as guaranteed approval.
 
-`npm run check` covers JavaScript syntax, generation, 82 HTML pages and local asset/link references, plus swap and financial edge cases. Browser interaction checks, when available, should cover 320px, 390px and desktop viewports; model/storage deep links; filter reset and empty states; faulty/locked phone fallback; changing finance eligibility/frequency; and WhatsApp quote contents.
+For swap + finance, the planning calculation subtracts trade-in value first and then applies the deposit to the remaining top-up. Combining swap and financing requires confirmation by the platform; this qualification is shown in the flow. Delivery and separately quoted fees are excluded. Whole-naira repayments reconcile exactly, with rounding adjusted in the final instalment.
 
-Browser validation completed at 1440px, 390px and 320px using Chromium: no horizontal overflow, broken images or JavaScript exceptions; swap ranges and faults/locks; finance schedule totals and unsupported-model fallback; search, budget, sorting and reset; selected storage carried from product pages; mobile navigation and Escape close all passed.
+## Editing and building
+
+- `commerce/price-list.mjs`: supplied prices and colour-specific offers.
+- `commerce/catalog.mjs`: product catalogue, specs, imagery and store contact details.
+- `commerce/upgrade-core.mjs`: exact swap and financing calculations.
+- `easy-buy/easy-buy-core.mjs`: platform rates and legacy calculator compatibility.
+- `scripts/generate-upgrade-pages.mjs`: home, deals and shared three-step markup.
+- `assets/buy-flow.js`: step navigation, selections, validation, live quote and WhatsApp message.
+- `assets/upgrade.js` / `assets/upgrade.css`: shared navigation, deal filters and visual styling.
+
+Run `npm run check` to regenerate and validate the site. Edit generators rather than generated HTML. Tests cover the supplied valuation example, all deduction combinations, old-model exclusions, cracks, missing prices, colour pricing, finance calculations, invalid deposits and reconciliation across the priced catalogue.
+
+Validation completed: `npm run check` passed (97 HTML pages, 9 quote/price tests). Chromium checks passed at 1440px, 390px and 320px for all new routes and wizard stages, with no JavaScript errors, broken images or horizontal overflow. Checked condition validation, the exact cumulative X example, older models without Face ID, cracks/manual prices, both platforms, deposit errors, colour pricing, product deep links, deal filtering/reset and WhatsApp contents including campaign attribution.

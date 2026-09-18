@@ -1,4 +1,9 @@
 export const DEPOSIT_RATE = 0.4;
+export const FINANCE_PLATFORMS = Object.freeze({
+  credit: Object.freeze({ label: "Credit-check plan", rate: 0.075, creditCheck: true }),
+  noCredit: Object.freeze({ label: "No credit-check plan", rate: 0.20, creditCheck: false })
+});
+// Legacy callers explicitly retain the no-credit plan; new journey offers both.
 export const DURATION_FACTORS = Object.freeze({ 1: 1.2, 2: 1.4, 3: 1.6 });
 export const PAYMENTS_PER_MONTH = Object.freeze({ monthly: 1, weekly: 4, biweekly: 2 });
 
@@ -8,10 +13,12 @@ export function allowedFrequencies(series) {
     : ["monthly"];
 }
 
-export function calculatePlan({ price, duration, frequency = "monthly", series, depositRate = DEPOSIT_RATE }) {
+export function calculatePlan({ price, duration, frequency = "monthly", series, depositRate = DEPOSIT_RATE, platform = "noCredit" }) {
   const numericPrice = Number(price);
   const numericDuration = Number(duration);
-  const factor = DURATION_FACTORS[numericDuration];
+  const policy = FINANCE_PLATFORMS[platform];
+  if (!policy) throw new RangeError("Choose a financing platform.");
+  const factor = [1,2,3].includes(numericDuration) ? 1 + policy.rate * numericDuration : null;
   const paymentsPerMonth = PAYMENTS_PER_MONTH[frequency];
 
   if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
