@@ -1,48 +1,6 @@
 [
   {
     "type": "product",
-    "label": "iPhone 18 Pro Max",
-    "route": "/iphone-18-pro-max",
-    "brand": "Apple",
-    "storage": [
-      "Storage to confirm"
-    ],
-    "price": null,
-    "image": null,
-    "keywords": [
-      "iPhone 18 Pro Max",
-      "Apple",
-      "iPhone",
-      "iPhone 18 Pro Max Storage to confirm",
-      "Storage to confirm",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "iPhone 18 Pro",
-    "route": "/iphone-18-pro",
-    "brand": "Apple",
-    "storage": [
-      "Storage to confirm"
-    ],
-    "price": null,
-    "image": null,
-    "keywords": [
-      "iPhone 18 Pro",
-      "Apple",
-      "iPhone",
-      "iPhone 18 Pro Storage to confirm",
-      "Storage to confirm",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
     "label": "iPhone 17 Pro Max",
     "route": "/iphone-17-pro-max",
     "brand": "Apple",
@@ -309,7 +267,7 @@
       "256GB",
       "512GB"
     ],
-    "price": 640500,
+    "price": 512400,
     "image": "/images/store/15-1-720.webp",
     "keywords": [
       "iPhone 15",
@@ -337,7 +295,7 @@
       "512GB",
       "1TB"
     ],
-    "price": 782250,
+    "price": 625800,
     "image": "/images/store/14promax-1-720.webp",
     "keywords": [
       "iPhone 14 Pro Max",
@@ -430,36 +388,6 @@
   },
   {
     "type": "product",
-    "label": "iPhone 13 Pro Max",
-    "route": "/iphone-13-pro-max",
-    "brand": "Apple",
-    "storage": [
-      "128GB",
-      "256GB",
-      "512GB",
-      "1TB"
-    ],
-    "price": null,
-    "image": "/images/13promax-1.jpeg",
-    "keywords": [
-      "iPhone 13 Pro Max",
-      "Apple",
-      "iPhone",
-      "iPhone 13 Pro Max 128GB",
-      "iPhone 13 Pro Max 256GB",
-      "iPhone 13 Pro Max 512GB",
-      "iPhone 13 Pro Max 1TB",
-      "128GB",
-      "256GB",
-      "512GB",
-      "1TB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
     "label": "iPhone 13 Pro",
     "route": "/iphone-13-pro",
     "brand": "Apple",
@@ -492,7 +420,7 @@
       "256GB — Pink / White",
       "256GB — Other colours"
     ],
-    "price": 388500,
+    "price": 310800,
     "image": "/images/store/13-1-720.webp",
     "keywords": [
       "iPhone 13",
@@ -573,7 +501,7 @@
       "128GB",
       "256GB"
     ],
-    "price": 262500,
+    "price": 210000,
     "image": "/images/store/12-720.webp",
     "keywords": [
       "iPhone 12",
@@ -969,6 +897,78 @@
       "32GB",
       "64GB",
       "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "iPhone 18 Pro Max",
+    "route": "/iphone-18-pro-max",
+    "brand": "Apple",
+    "storage": [
+      "Storage to confirm"
+    ],
+    "price": null,
+    "image": null,
+    "keywords": [
+      "iPhone 18 Pro Max",
+      "Apple",
+      "iPhone",
+      "iPhone 18 Pro Max Storage to confirm",
+      "Storage to confirm",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "iPhone 18 Pro",
+    "route": "/iphone-18-pro",
+    "brand": "Apple",
+    "storage": [
+      "Storage to confirm"
+    ],
+    "price": null,
+    "image": null,
+    "keywords": [
+      "iPhone 18 Pro",
+      "Apple",
+      "iPhone",
+      "iPhone 18 Pro Storage to confirm",
+      "Storage to confirm",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "iPhone 13 Pro Max",
+    "route": "/iphone-13-pro-max",
+    "brand": "Apple",
+    "storage": [
+      "128GB",
+      "256GB",
+      "512GB",
+      "1TB"
+    ],
+    "price": null,
+    "image": "/images/13promax-1.jpeg",
+    "keywords": [
+      "iPhone 13 Pro Max",
+      "Apple",
+      "iPhone",
+      "iPhone 13 Pro Max 128GB",
+      "iPhone 13 Pro Max 256GB",
+      "iPhone 13 Pro Max 512GB",
+      "iPhone 13 Pro Max 1TB",
+      "128GB",
+      "256GB",
+      "512GB",
+      "1TB",
       "price in Nigeria",
       "Easy Buy",
       "swap"

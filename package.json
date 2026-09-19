@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/generate-landing-pages.mjs && node scripts/generate-commerce-pages.mjs && node scripts/generate-upgrade-pages.mjs && node scripts/generate-storefront.mjs",
-    "lint": "node --check script.js && node --check easy-buy/easy-buy.js && node --check easy-buy/easy-buy-core.mjs && node --check assets/landing-page.js && node --check assets/commerce.js && node --check landing-pages/config.mjs && node --check commerce/catalog.mjs && node --check scripts/generate-landing-pages.mjs && node --check scripts/generate-commerce-pages.mjs && node --check scripts/validate-site.mjs && node --check commerce/upgrade-core.mjs && node --check assets/upgrade.js && node --check scripts/generate-upgrade-pages.mjs && node --check commerce/price-list.mjs && node --check assets/buy-flow.js && node --check assets/storefront.js && node --check assets/storefront-ui.mjs && node --check commerce/catalog-order.mjs && node --check scripts/generate-storefront.mjs",
-    "test": "node scripts/validate-site.mjs && node --test tests/upgrade.test.mjs",
+    "lint": "node --check script.js && node --check easy-buy/easy-buy.js && node --check easy-buy/easy-buy-core.mjs && node --check assets/landing-page.js && node --check assets/commerce.js && node --check landing-pages/config.mjs && node --check commerce/catalog.mjs && node --check scripts/generate-landing-pages.mjs && node --check scripts/generate-commerce-pages.mjs && node --check scripts/validate-site.mjs && node --check commerce/upgrade-core.mjs && node --check assets/upgrade.js && node --check scripts/generate-upgrade-pages.mjs && node --check commerce/price-list.mjs && node --check assets/buy-flow.js && node --check assets/storefront.js && node --check assets/storefront-ui.mjs && node --check commerce/catalog-order.mjs && node --check scripts/generate-storefront.mjs && node --check assets/journey.js && node --check assets/sales.js && node --check commerce/offers.mjs",
+    "test": "node scripts/validate-site.mjs && node --test tests/*.test.mjs",
     "check": "npm run lint && npm run build && npm run test"
   }
 }

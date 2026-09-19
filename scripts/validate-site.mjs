@@ -114,7 +114,7 @@ for (const product of products) {
   }
 
   assert(count(html, /<h1(?:\s|>)/g) === 1, `${product.slug}: product page must contain exactly one H1.`);
-  assert(html.includes(`<h1>Buy ${escapeHtml(product.model)} in Nigeria</h1>`), `${product.slug}: model-specific H1 is missing.`);
+  assert(html.includes(`<h1>${escapeHtml(product.model)}</h1>`), `${product.slug}: model-specific H1 is missing.`);
   assert(html.includes(`<title>${escapeHtml(product.seoTitle)}</title>`), `${product.slug}: SEO title does not match product data.`);
   assert(html.includes(`content="${escapeHtml(product.metaDescription)}"`), `${product.slug}: product meta description does not match.`);
   assert(html.includes(`rel="canonical" href="${commerceSite.baseUrl}${product.route}"`), `${product.slug}: canonical URL is incorrect.`);
@@ -145,7 +145,7 @@ for (const category of categoryPages) {
   }
 
   assert(count(html, /<h1(?:\s|>)/g) === 1, `${category.route}: category page must contain exactly one H1.`);
-  assert(html.includes(`<h1>${escapeHtml(category.h1)}</h1>`), `${category.route}: category H1 does not match configuration.`);
+  assert(html.includes(`<h1>${category.swap ? "Know what to add." : escapeHtml(category.h1)}</h1>`), `${category.route}: category H1 does not match configuration.`);
   assert(html.includes(`<title>${escapeHtml(category.title)}</title>`), `${category.route}: category SEO title does not match.`);
   assert(html.includes(`rel="canonical" href="${commerceSite.baseUrl}${category.route}"`), `${category.route}: category canonical URL is incorrect.`);
   assert(html.includes(`wa.me/${commerceSite.whatsappNumber}?text=`), `${category.route}: category WhatsApp path is missing.`);

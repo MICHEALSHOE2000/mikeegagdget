@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.mikeegagdget.vercel.app/easybuy/</loc></url>
+  <url><loc>https://www.mikeegagdget.vercel.app/swap/</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/buy/</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/deals/</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/</loc></url>
@@ -99,12 +101,12 @@
   <url><loc>https://www.mikeegagdget.vercel.app/phone-swap</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/laptops</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/gadget-accessories</loc></url>
+  <url><loc>https://www.mikeegagdget.vercel.app/shop/laptops/</loc></url>
+  <url><loc>https://www.mikeegagdget.vercel.app/shop/ps5/</loc></url>
+  <url><loc>https://www.mikeegagdget.vercel.app/shop/accessories/</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/shop/macbooks/</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/shop/ipads/</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/shop/watches/</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/shop/airpods/</loc></url>
-  <url><loc>https://www.mikeegagdget.vercel.app/shop/ps5/</loc></url>
   <url><loc>https://www.mikeegagdget.vercel.app/shop/games/</loc></url>
-  <url><loc>https://www.mikeegagdget.vercel.app/shop/laptops/</loc></url>
-  <url><loc>https://www.mikeegagdget.vercel.app/shop/accessories/</loc></url>
 </urlset>

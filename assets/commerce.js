@@ -223,12 +223,13 @@ if (productDataElement) {
   function updateActionLinks() {
     document.querySelectorAll("[data-action]").forEach((link) => {
       if (['swap', 'easyBuy', 'buy'].includes(link.dataset.action)) {
-        const choiceId = `${product.slug}|${selectedStorage}`;
-        link.href = `/buy/?phone=${encodeURIComponent(choiceId)}` + (link.dataset.action === 'swap' ? '&purchase=swap' : link.dataset.action === 'easyBuy' ? '&payment=easy' : '');
-        link.href += `&condition=${encodeURIComponent(selectedCondition())}`;
+        const variant=product.variants.find(v=>v.storage===selectedStorage), price=variant?.price;
+        const q=new URLSearchParams({phone:`${product.slug}|${selectedStorage}`,condition:selectedCondition(),color:selectedColor()});
+        if(link.dataset.action==='buy') {link.href=whatsappHref(product.whatsappNumber,`${messageFor('buy')}\nListed price: ${price?naira.format(price):'Please confirm'}${variant?.offerId?' (20% promotion)':''}`);link.textContent=price?`BUY — ${naira.format(price)}`:'ASK FOR PRICE';}
+        if(link.dataset.action==='easyBuy'){link.href=`/easybuy/?${q}`;link.textContent=price?`EASYBUY — FROM ${naira.format(Math.round(price*.4))} TODAY`:'EASYBUY — CONFIRM PRICE';}
+        if(link.dataset.action==='swap'){q.set('target',q.get('phone'));link.href=`/swap/?${q}`;link.textContent='SWAP — SEE WHAT YOU’LL ADD';}
         link.removeAttribute('target');
-        link.removeAttribute('data-track');
-        link.href += `&color=${encodeURIComponent(selectedColor())}`;
+
       } else {
         link.href = whatsappHref(product.whatsappNumber, messageFor(link.dataset.action));
       }
@@ -297,7 +298,7 @@ if (productDataElement) {
       priceNote.textContent = variant.priceNeedsExtraConfirmation
         ? "This supplied guide price needs extra confirmation. Ask Mikee Gadget Plug for today’s exact price before planning."
         : variant.price
-          ? "Confirm today’s price, condition and stock before payment."
+          ? (variant.offerId ? `20% off ${naira.format(variant.regularPrice)}. Confirm the exact unit before payment.` : "Confirm today’s price, condition and stock before payment.")
           : "No price was supplied for this variant. Request today’s exact price before payment.";
     }
 
@@ -314,7 +315,7 @@ if (productDataElement) {
       window.history.replaceState({}, "", url);
     }
 
-    window.MikeeGadgetPlugTracking?.pushEvent("select_phone", {
+    window.MikeeGadgetPlugTracking?.pushEvent("select_storage", {
       phone_model: product.model,
       product_name: `${product.model} ${selectedStorage}`,
       storage: selectedStorage,
@@ -340,6 +341,7 @@ if (productDataElement) {
   });
 
   conditionSelect?.addEventListener("change", () => {
+    window.MikeeGadgetPlugTracking?.pushEvent("select_condition",{product_name:product.model,device_condition:selectedCondition()});
     updateActionLinks();
     updateCalculator();
   });

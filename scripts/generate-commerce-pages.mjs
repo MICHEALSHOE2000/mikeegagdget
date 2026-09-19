@@ -8,9 +8,11 @@ import {
   accessories,
   categoryPages,
   commerceSite,
-  products
+  products as baseProducts
 } from "../commerce/catalog.mjs";
 
+import {offerProduct,isComplete} from '../commerce/offers.mjs';
+const products=baseProducts.map(offerProduct);
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const escapeHtml = (value = "") => String(value)
@@ -264,9 +266,9 @@ const renderVariantSelector = (product) => `
       <small data-price-note>Confirm today’s price, condition and stock before payment.</small>
     </div>
     <div class="purchase-actions">
-      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy outright →</a>
-      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}&payment=easy">EasyBuy →</a>
-      <a class="commerce-button commerce-button-ghost" data-action="swap" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}&purchase=swap">Swap & upgrade →</a>
+      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">BUY — ${product.variants.find(v=>v.storage===product.defaultStorage)?.price ? formatNaira(product.variants.find(v=>v.storage===product.defaultStorage).price) : "ASK FOR PRICE"}</a>
+      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">EASYBUY — FROM ${product.variants.find(v=>v.storage===product.defaultStorage)?.price ? formatNaira(Math.round(product.variants.find(v=>v.storage===product.defaultStorage).price*.4)) : "CONFIRM DEPOSIT"} TODAY</a>
+      <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">SWAP — SEE WHAT YOU’LL ADD</a>
     </div>
     <p class="purchase-safety"><a data-action="price" href="${whatsappHref(productMessage(product, product.defaultStorage, 'price'))}" target="_blank" rel="noopener">Have a question? Chat on WhatsApp ↗</a></p>
   </div>`;
@@ -309,7 +311,7 @@ const renderDetails = (product) => `
   </section>`;
 
 const relatedProducts = (product) => {
-  const sameBrand = products.filter((item) => item.brand === product.brand);
+  const sameBrand = products.filter((item) => item.brand === product.brand && isComplete(item));
   const index = sameBrand.findIndex((item) => item.slug === product.slug);
   const candidates = [
     sameBrand[index - 2],
@@ -423,7 +425,7 @@ const renderProductPage = (product) => {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/media.css"><link rel="stylesheet" href="/assets/commerce.css">
+  <link rel="stylesheet" href="/assets/media.css"><link rel="stylesheet" href="/assets/commerce.css"><link rel="stylesheet" href="/assets/sales.css">
   <script type="application/ld+json">${escapeJson(productSchema(product))}</script>
   <script type="application/ld+json">${escapeJson(breadcrumbSchema(breadcrumbs))}</script>
   <script type="application/ld+json">${escapeJson(faqSchema(faqs))}</script>
@@ -442,14 +444,14 @@ const renderProductPage = (product) => {
       </div>
       <div class="product-hero-copy">
         <p class="commerce-eyebrow">${escapeHtml(product.brand)} · Buy in Nigeria</p>
-        <h1>Buy ${escapeHtml(product.model)} in Nigeria</h1>
-        <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : "Choose your storage and condition. Pay outright, spread your payment or bring a phone to swap."}</p>
+        <h1>${escapeHtml(product.model)}</h1>
+        <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : "UK Used &amp; Brand New. Confirm the condition of your exact unit."}</p>
         <div class="hero-fact-row">
           <span><strong>Storage</strong>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</span>
           <span><strong>Delivery</strong>Lagos & nationwide</span>
           <span><strong>Payment</strong>${product.listingPending ? "Options pending" : "Outright or Easy Buy"}</span>
         </div>
-        ${renderVariantSelector(product)}
+        ${renderVariantSelector(product)}<div class="product-trust"><span>Inspect before payment</span><span>Computer Village store</span><span>Nationwide delivery</span><span>Device checked before payment</span></div>
       </div>
     </section>
     ${renderVariantCards(product)}
@@ -461,13 +463,13 @@ const renderProductPage = (product) => {
   ${renderFooter()}
   <div class="mobile-purchase-bar" aria-label="Quick purchase actions">
     <a data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>₦</span>Buy outright</a>
-    <a data-action="easyBuy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}&payment=easy"><span>◷</span>EasyBuy</a>
-    <a data-action="swap" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}&purchase=swap"><span>↔</span>Swap</a>
+    <a data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>◷</span>EasyBuy</a>
+    <a data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>↔</span>Swap</a>
   </div>
   <script type="application/json" id="product-data">${escapeJson(productData)}</script>
   <script type="module" src="/assets/commerce.js"></script>
   <script src="/assets/landing-page.js" defer></script>
-</body>
+<script type="module" src="/assets/sales.js"></script></body>
 </html>`;
 };
 
@@ -477,7 +479,7 @@ const minimumKnownPrice = (product) => {
 };
 
 const categoryProducts = (category) => {
-  let matches = category.contentOnly ? [] : [...products];
+  let matches = category.contentOnly ? [] : [...products].sort((a,b)=>Number(isComplete(b))-Number(isComplete(a)));
   if (category.brand) matches = matches.filter((product) => product.brand === category.brand);
   if (category.easyBuy) matches = matches.filter((product) => Boolean(product.easyBuyEligible));
   if (category.swap) matches = matches.filter((product) => product.swapEligible);
@@ -548,7 +550,7 @@ const renderCategoryPage = (category) => {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/media.css"><link rel="stylesheet" href="/assets/commerce.css">
+  <link rel="stylesheet" href="/assets/media.css"><link rel="stylesheet" href="/assets/commerce.css"><link rel="stylesheet" href="/assets/sales.css">
   <script type="application/ld+json">${escapeJson(breadcrumbSchema(breadcrumbs))}</script>
 </head>
 <body data-page-type="category" data-landing-page="${escapeHtml(category.route)}">
@@ -606,7 +608,7 @@ const renderCategoryPage = (category) => {
   ${renderFooter()}
   <script type="module" src="/assets/commerce.js"></script>
   <script src="/assets/landing-page.js" defer></script>
-</body>
+<script type="module" src="/assets/sales.js"></script></body>
 </html>`;
 };
 
@@ -623,7 +625,7 @@ for (const category of categoryPages) {
 }
 
 const searchIndex = [
-  ...products.map((product) => ({
+  ...products.slice().sort((a,b)=>Number(isComplete(b))-Number(isComplete(a))).map((product) => ({
     type: "product",
     label: product.model,
     route: product.route,
@@ -670,6 +672,8 @@ await writeFile(
 );
 
 const fixedRoutes = [
+  "/easybuy/",
+  "/swap/",
   "/buy/",
   "/deals/",
   "/",

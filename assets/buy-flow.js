@@ -1,7 +1,9 @@
 import {media,activateImages} from './storefront-ui.mjs';
-import { choices, money, estimateSwap, financePlan, FINANCE_PLATFORMS } from '../commerce/upgrade-core.mjs';
+import { choices as baseChoices, money, estimateSwap, financePlan, FINANCE_PLATFORMS } from '../commerce/upgrade-core.mjs';
 import { commerceSite } from '../commerce/catalog.mjs';
 import { DEPOSIT_RATE } from '../easy-buy/easy-buy-core.mjs';
+import {offerChoice} from '../commerce/offers.mjs';
+const choices=baseChoices.map(offerChoice);
 const $ = id => document.getElementById(id);
 const form = $('buy-flow');
 if (form) {

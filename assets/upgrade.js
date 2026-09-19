@@ -11,7 +11,8 @@ if($('buy-flow')) await import('./buy-flow.js');
 if($('deal-filters')){
  const {choices}=await import('../commerce/upgrade-core.mjs');
  const {DEPOSIT_RATE}=await import('../easy-buy/easy-buy-core.mjs');
- const catalogue=choices.filter(p=>p.price);
+ const {offerChoice}=await import('../commerce/offers.mjs');
+ const catalogue=choices.map(offerChoice).filter(p=>p.price&&p.image&&p.offerId);
  const normalized=text=>text.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
  let limit=12;
  function filterDeals(reset=true){
