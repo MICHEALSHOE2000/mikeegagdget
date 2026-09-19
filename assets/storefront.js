@@ -1,0 +1,22 @@
+import { choices, money } from '../commerce/upgrade-core.mjs';
+const popular=['iphone-13','iphone-11','iphone-14','iphone-15-pro-max','iphone-12-pro-max','iphone-17-pro-max'];
+const phones=choices.filter(p=>p.price).sort((a,b)=>{const rank=p=>popular.includes(p.slug)?popular.indexOf(p.slug):99;return rank(a)-rank(b)}), $=id=>document.getElementById(id);
+const match=(p,q)=>q.trim().toLowerCase().split(/\s+/).every(t=>`${p.model} ${p.storage}`.toLowerCase().includes(t));
+const url=p=>`/buy/?phone=${encodeURIComponent(p.id)}`;
+const image=p=>`<img src="${p.image}" alt="${p.model}" loading="lazy" width="400" height="400">`;
+const search=$('homePhoneSearch'), results=document.querySelector('[data-catalog-results]');
+search.addEventListener('input',()=>{ const term=search.value.trim(); const found=phones.filter(p=>match(p,term)); results.innerHTML=!term?'':found.length?found.slice(0,8).map(p=>`<a class="instant-phone" href="${url(p)}">${image(p)}<span><strong>${p.model}</strong><small>${p.storage} · ${money(p.price)}</small><small>Buy outright · EasyBuy · Swap ↗</small></span></a>`).join(''):'<p>No matching phone. Try a model like “13 Pro”.</p>'; });
+search.addEventListener('keydown',e=>{if(e.key==='Escape'){results.innerHTML='';} if(e.key==='ArrowDown'){e.preventDefault();results.querySelector('a')?.focus();}});
+const storage=p=>p.storage.split(' —')[0], series=p=>p.model.replace(/^iPhone /,'').split(' ')[0];
+for(const [id,values] of [['storageFilter',[...new Set(phones.map(storage))]],['seriesFilter',[...new Set(phones.map(series))]]]) for(const v of values) $(id).add(new Option(id==='seriesFilter'?`iPhone ${v} series`:v,v));
+let limit=8;
+function render(){const [min,max]=$('budgetFilter').value==='all'?[0,Infinity]:$('budgetFilter').value.split('-').map(Number); const found=phones.filter(p=>match(p,$('searchInput').value)&&p.price>=min&&p.price<max&&(!$('storageFilter').value||storage(p)===$('storageFilter').value)&&(!$('seriesFilter').value||series(p)===$('seriesFilter').value));
+$('resultsCount').textContent=`${found.length} phone options · confirm availability before payment`;
+$('productGrid').innerHTML=found.length?found.slice(0,limit).map(p=>`<article class="store-phone"><a href="/${p.slug}/">${image(p)}</a><div><span class="store-badge">${p.model==='iPhone 7 Plus'?'Few pieces — confirm stock':'EasyBuy & swap available'}</span><h3>${p.model}</h3><p>${p.storage}</p><strong>${money(p.price)}</strong><a class="btn btn-primary" href="${url(p)}">Buy / Swap ↗</a></div></article>`).join(''):'<p>No phones match those filters. Try another budget or storage.</p>';
+$('showMore').hidden=found.length<=limit; }
+for(const id of ['searchInput','budgetFilter','storageFilter','seriesFilter']) $(id).addEventListener('input',()=>{limit=8;render();});
+$('showMore').addEventListener('click',()=>{limit+=8;render();}); render();
+const menu=document.querySelector('.menu-toggle'), nav=document.querySelector('.nav-actions');menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',open);menu.classList.toggle('open',open);nav.classList.toggle('open',open);});
+nav?.addEventListener('click',e=>{if(e.target.closest('a')){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}});
+let slide=0;const slides=[...document.querySelectorAll('.hero-slide')],dots=[...document.querySelectorAll('.carousel-dot')];function show(n){slide=n;slides.forEach((el,i)=>el.classList.toggle('active',i===n));dots.forEach((el,i)=>{el.classList.toggle('active',i===n);el.setAttribute('aria-pressed',i===n);});}dots.forEach((el,i)=>el.addEventListener('click',()=>show(i)));if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>show((slide+1)%slides.length),5000);
+document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));

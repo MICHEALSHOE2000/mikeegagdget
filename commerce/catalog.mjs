@@ -1,3 +1,5 @@
+import { productImages } from "./product-images.mjs";
+import { getSellingPrice } from "./pricing.mjs";
 import { priceList, suppliedPrices } from "./price-list.mjs";
 export const commerceSite = Object.freeze({
   name: "Mikee Gadget Plug",
@@ -263,7 +265,11 @@ const makeVariant = (model, storage) => {
   const key = `${model}|${storage}`;
   return {
     storage,
-    price: suppliedPrices[key] ?? null,
+    basePrice: suppliedPrices[key] ?? null,
+    sellingPrice: suppliedPrices[key] ? getSellingPrice(suppliedPrices[key]) : null,
+    price: suppliedPrices[key] ? getSellingPrice(suppliedPrices[key]) : null,
+    color: storage.includes('—') ? storage.split('—')[1].trim() : null,
+    availability: model === 'iPhone 7 Plus' ? 'Few pieces — confirm availability' : 'Confirm availability', 
     priceNeedsExtraConfirmation: priceNeedsExtraConfirmation.has(key),
     oldPrice: null
   };
@@ -279,7 +285,7 @@ const makeIphone = ([model, slug, storage, defaultStorage, specKey]) => ({
   defaultStorage,
   colors: ["Ask for today’s available colours"],
   conditions: ["UK Used", "Brand New"],
-  images: iphoneImages[model] ?? [],
+  images: productImages[model] ? [productImages[model].image, ...(iphoneImages[model] ?? [])] : iphoneImages[model] ?? [],
   stockStatus: "Available to enquire about — confirm the exact variant",
   easyBuyEligible: true,
   swapEligible: true,
