@@ -10,8 +10,8 @@
       "64GB",
       "128GB"
     ],
-    "price": 25000,
-    "image": null,
+    "price": 26250,
+    "image": "/images/catalog/iphone-6.webp",
     "keywords": [
       "iPhone 6",
       "Apple",
@@ -38,8 +38,8 @@
       "16GB",
       "32GB"
     ],
-    "price": 45000,
-    "image": null,
+    "price": 47250,
+    "image": "/images/catalog/iphone-6s.webp",
     "keywords": [
       "iPhone 6s",
       "Apple",
@@ -64,8 +64,8 @@
       "64GB",
       "128GB"
     ],
-    "price": 57000,
-    "image": null,
+    "price": 59850,
+    "image": "/images/catalog/iphone-6s-plus.webp",
     "keywords": [
       "iPhone 6s Plus",
       "Apple",
@@ -93,8 +93,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 65000,
-    "image": null,
+    "price": 68250,
+    "image": "/images/catalog/iphone-7.webp",
     "keywords": [
       "iPhone 7",
       "Apple",
@@ -119,8 +119,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 98000,
-    "image": null,
+    "price": 102900,
+    "image": "/images/catalog/iphone-7-plus.webp",
     "keywords": [
       "iPhone 7 Plus",
       "Apple",
@@ -142,8 +142,8 @@
     "storage": [
       "64GB"
     ],
-    "price": 78000,
-    "image": null,
+    "price": 81900,
+    "image": "/images/catalog/iphone-8.webp",
     "keywords": [
       "iPhone 8",
       "Apple",
@@ -163,8 +163,8 @@
     "storage": [
       "64GB"
     ],
-    "price": 105000,
-    "image": null,
+    "price": 110250,
+    "image": "/images/catalog/iphone-8-plus.webp",
     "keywords": [
       "iPhone 8 Plus",
       "Apple",
@@ -186,8 +186,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 100000,
-    "image": null,
+    "price": 105000,
+    "image": "/images/catalog/iphone-se-2.webp",
     "keywords": [
       "iPhone SE (2nd generation)",
       "Apple",
@@ -212,8 +212,8 @@
       "64GB",
       "256GB"
     ],
-    "price": 140000,
-    "image": null,
+    "price": 147000,
+    "image": "/images/catalog/iphone-x.webp",
     "keywords": [
       "iPhone X",
       "Apple",
@@ -237,8 +237,8 @@
       "256GB",
       "512GB"
     ],
-    "price": 155000,
-    "image": null,
+    "price": 162750,
+    "image": "/images/catalog/iphone-xs.webp",
     "keywords": [
       "iPhone XS",
       "Apple",
@@ -263,8 +263,8 @@
       "64GB",
       "128GB"
     ],
-    "price": 175000,
-    "image": null,
+    "price": 183750,
+    "image": "/images/catalog/iphone-xr.webp",
     "keywords": [
       "iPhone XR",
       "Apple",
@@ -287,8 +287,8 @@
       "64GB",
       "256GB"
     ],
-    "price": 198000,
-    "image": null,
+    "price": 207900,
+    "image": "/images/catalog/iphone-xs-max.webp",
     "keywords": [
       "iPhone XS Max",
       "Apple",
@@ -312,8 +312,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 210000,
-    "image": "/images/11-1.jpeg",
+    "price": 220500,
+    "image": "/images/catalog/iphone-11.webp",
     "keywords": [
       "iPhone 11",
       "Apple",
@@ -339,8 +339,8 @@
       "256GB",
       "512GB"
     ],
-    "price": 260000,
-    "image": "/images/11pro-1.jpeg",
+    "price": 273000,
+    "image": "/images/catalog/iphone-11-pro.webp",
     "keywords": [
       "iPhone 11 Pro",
       "Apple",
@@ -366,8 +366,8 @@
       "256GB",
       "512GB"
     ],
-    "price": 295000,
-    "image": "/images/11promax-1.jpeg",
+    "price": 309750,
+    "image": "/images/catalog/iphone-11-pro-max.webp",
     "keywords": [
       "iPhone 11 Pro Max",
       "Apple",
@@ -393,8 +393,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 250000,
-    "image": "/images/12.jpeg",
+    "price": 262500,
+    "image": "/images/catalog/iphone-12.webp",
     "keywords": [
       "iPhone 12",
       "Apple",
@@ -420,8 +420,8 @@
       "256GB",
       "512GB"
     ],
-    "price": 350000,
-    "image": "/images/12pro-1.jpeg",
+    "price": 367500,
+    "image": "/images/catalog/iphone-12-pro.webp",
     "keywords": [
       "iPhone 12 Pro",
       "Apple",
@@ -447,8 +447,8 @@
       "256GB",
       "512GB"
     ],
-    "price": 435000,
-    "image": "/images/12promax-1.jpeg",
+    "price": 456750,
+    "image": "/images/catalog/iphone-12-pro-max.webp",
     "keywords": [
       "iPhone 12 Pro Max",
       "Apple",
@@ -474,8 +474,8 @@
       "256GB — Pink / White",
       "256GB — Other colours"
     ],
-    "price": 370000,
-    "image": "/images/13-1.jpeg",
+    "price": 388500,
+    "image": "/images/catalog/iphone-13.webp",
     "keywords": [
       "iPhone 13",
       "Apple",
@@ -500,8 +500,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 470000,
-    "image": "/images/13pro-1.jpeg",
+    "price": 493500,
+    "image": "/images/catalog/iphone-13-pro.webp",
     "keywords": [
       "iPhone 13 Pro",
       "Apple",
@@ -524,8 +524,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 430000,
-    "image": "/images/14-1.jpeg",
+    "price": 451500,
+    "image": "/images/catalog/iphone-14.webp",
     "keywords": [
       "iPhone 14",
       "Apple",
@@ -548,8 +548,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 470000,
-    "image": null,
+    "price": 493500,
+    "image": "/images/catalog/iphone-14-plus.webp",
     "keywords": [
       "iPhone 14 Plus",
       "Apple",
@@ -572,8 +572,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 625000,
-    "image": "/images/14pro-1.jpeg",
+    "price": 656250,
+    "image": "/images/catalog/iphone-14-pro.webp",
     "keywords": [
       "iPhone 14 Pro",
       "Apple",
@@ -598,8 +598,8 @@
       "512GB",
       "1TB"
     ],
-    "price": 745000,
-    "image": "/images/14promax-1.jpeg",
+    "price": 782250,
+    "image": "/images/catalog/iphone-14-pro-max.webp",
     "keywords": [
       "iPhone 14 Pro Max",
       "Apple",
@@ -627,8 +627,8 @@
       "256GB",
       "512GB"
     ],
-    "price": 610000,
-    "image": "/images/15-1.jpeg",
+    "price": 640500,
+    "image": "/images/catalog/iphone-15.webp",
     "keywords": [
       "iPhone 15",
       "Apple",
@@ -654,8 +654,8 @@
       "256GB",
       "512GB"
     ],
-    "price": 625000,
-    "image": null,
+    "price": 656250,
+    "image": "/images/catalog/iphone-15-plus.webp",
     "keywords": [
       "iPhone 15 Plus",
       "Apple",
@@ -680,8 +680,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 785000,
-    "image": "/images/15pro-1.jpeg",
+    "price": 824250,
+    "image": "/images/catalog/iphone-15-pro.webp",
     "keywords": [
       "iPhone 15 Pro",
       "Apple",
@@ -703,8 +703,8 @@
     "storage": [
       "256GB"
     ],
-    "price": 990000,
-    "image": "/images/15promax-1.jpeg",
+    "price": 1039500,
+    "image": "/images/catalog/iphone-15-pro-max.webp",
     "keywords": [
       "iPhone 15 Pro Max",
       "Apple",
@@ -724,8 +724,8 @@
     "storage": [
       "128GB"
     ],
-    "price": 830000,
-    "image": "/images/16-1.jpg",
+    "price": 871500,
+    "image": "/images/catalog/iphone-16.webp",
     "keywords": [
       "iPhone 16",
       "Apple",
@@ -746,8 +746,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 895000,
-    "image": "/images/16plus-1.jpg",
+    "price": 939750,
+    "image": "/images/catalog/iphone-16-plus.webp",
     "keywords": [
       "iPhone 16 Plus",
       "Apple",
@@ -770,8 +770,8 @@
       "128GB",
       "256GB"
     ],
-    "price": 1020000,
-    "image": "/images/16pro-1.jpg",
+    "price": 1071000,
+    "image": "/images/catalog/iphone-16-pro.webp",
     "keywords": [
       "iPhone 16 Pro",
       "Apple",
@@ -793,8 +793,8 @@
     "storage": [
       "256GB"
     ],
-    "price": 1190000,
-    "image": "/images/16promax-1.jpg",
+    "price": 1249500,
+    "image": "/images/catalog/iphone-16-pro-max.webp",
     "keywords": [
       "iPhone 16 Pro Max",
       "Apple",
@@ -814,8 +814,8 @@
     "storage": [
       "256GB"
     ],
-    "price": 1010000,
-    "image": "/images/17-1.jpg",
+    "price": 1060500,
+    "image": "/images/catalog/iphone-17.webp",
     "keywords": [
       "iPhone 17",
       "Apple",
@@ -837,8 +837,8 @@
       "512GB",
       "1TB"
     ],
-    "price": 1060000,
-    "image": "/images/17air-1.jpg",
+    "price": 1113000,
+    "image": "/images/catalog/iphone-17-air.webp",
     "keywords": [
       "iPhone 17 Air",
       "Apple",
@@ -863,8 +863,8 @@
       "256GB",
       "512GB"
     ],
-    "price": 1530000,
-    "image": "/images/17pro-1.jpg",
+    "price": 1606500,
+    "image": "/images/catalog/iphone-17-pro.webp",
     "keywords": [
       "iPhone 17 Pro",
       "Apple",
@@ -887,8 +887,8 @@
       "256GB",
       "512GB"
     ],
-    "price": 1775000,
-    "image": "/images/17promax-1.jpg",
+    "price": 1863750,
+    "image": "/images/catalog/iphone-17-pro-max.webp",
     "keywords": [
       "iPhone 17 Pro Max",
       "Apple",

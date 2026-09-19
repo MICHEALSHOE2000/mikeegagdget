@@ -34,28 +34,16 @@ if (form) {
   const previous = find(query.get('current')) || find('iphone-x|64GB');
   modelOptions($('swap-model'),models,previous.slug); variants('swap',previous.id);
   if (query.get('purchase') === 'swap' || location.pathname.includes('phone-swap')) setRadio('purchase','swap');
-  if (query.get('payment') === 'easy' || location.pathname.includes('easy-buy')) setRadio('payment','easy');
+  if (query.get('payment') === 'easy' || location.pathname.includes('easy-buy')) { setRadio('payment','easy'); if(radio('purchase') !== 'swap') setRadio('purchase','easy'); }
   function selected() { return find($('buy-variant').value); }
   function oldPhone() { return find($('swap-variant').value); }
-  function conditionNames() {
-    const phone = oldPhone();
-    return ['batteryChanged','screenChanged','screenCracked',...(phone?.hasFaceId ? ['faceId'] : []),...(phone?.hasGlassBack ? ['backChanged','backCracked'] : [])];
-  }
+  function conditionNames() { const phone = oldPhone(); return ['batteryChanged','screenChanged','screenCracked',...(phone?.hasFaceId ? ['faceId'] : []),...(phone?.hasGlassBack ? ['backChanged','backCracked'] : [])]; }
   function missingAnswers() { return conditionNames().filter(name => !radio(name)); }
   function quote() {
     const target = selected();
     if (!target) return { pending:true };
-    if (radio('purchase') === 'buy') return { amount:target.price, manual:!target.price };
-    if (missingAnswers().length) return { pending:true };
-    const swap = estimateSwap({
-      current:oldPhone(),target,
-      faceIdBroken:radio('faceId') === 'no',
-      batteryChanged:radio('batteryChanged') === 'yes',
-      screenChanged:radio('screenChanged') === 'yes',
-      screenCracked:radio('screenCracked') === 'yes',
-      backChanged:radio('backChanged') === 'yes',
-      backCracked:radio('backCracked') === 'yes'
-    });
+    if (radio('purchase') !== 'swap') return { amount:target.price, manual:!target.price };
+    const swap = estimateSwap({current:oldPhone(),target,faceIdBroken:radio('faceId') === 'no', batteryChanged:radio('batteryChanged') === 'yes',screenChanged:radio('screenChanged') === 'yes',backChanged:radio('backChanged') === 'yes',screenCracked:radio('screenCracked') === 'yes',backCracked:radio('backCracked') === 'yes'});
     return { ...swap, amount:swap.manual ? null : swap.topUp, swap:true };
   }
   const photo = phone => phone?.image ? `<img src="${phone.image}" alt="${phone.model}">` : '<span class="mini-phone" aria-hidden="true">m.</span>';
@@ -85,7 +73,7 @@ if (form) {
       if (Number(button.dataset.step) === step) button.setAttribute('aria-current','step'); else button.removeAttribute('aria-current');
     });
     $('flow-back').hidden = step === 1; $('flow-next').hidden = step === 3;
-    $('flow-next').textContent = step === 1 ? 'Next: buy or swap →' : 'Next: choose payment →';
+    $('flow-next').textContent = step === 1 ? 'Next: choose how to buy →' : 'See my price →';
     render();
     const heading = form.querySelector(`[data-screen="${step}"] h2`); heading.tabIndex = -1; heading.focus({preventScroll:true});
     document.querySelector('.flow-main').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',block:'start'});
@@ -94,9 +82,7 @@ if (form) {
     const phone = selected(), old = oldPhone();
     const isSwap = radio('purchase') === 'swap', easy = radio('payment') === 'easy';
     $('swap-fields').hidden = !isSwap;
-    $('row-faceId').hidden = !old?.hasFaceId;
-    $('row-backChanged').hidden = !old?.hasGlassBack;
-    $('row-backCracked').hidden = !old?.hasGlassBack;
+    $('row-faceId').hidden = !old?.hasFaceId; $('row-backChanged').hidden = !old?.hasGlassBack; $('row-backCracked').hidden = !old?.hasGlassBack;
     $('easy-fields').hidden = !easy;
     if (!phone) {
       $('selected-device').innerHTML = '<p>No matching model. Clear your search or try another model.</p>';
@@ -106,6 +92,7 @@ if (form) {
     $('flow-next').disabled = false;
     $('selected-device').innerHTML = `${photo(phone)}<div><strong>${phone.model}</strong><span>${phone.storage}</span><b>${phone.price ? money(phone.price) : 'Ask for today’s price'}</b></div>`;
     $('model-feedback').textContent = phone.price ? 'Listed price. Confirm the exact unit and availability before payment.' : 'This model needs a current price from us. You can still send your selection.';
+    if (isSwap && !old) { $('order-summary').innerHTML='<p>No matching current phone. Clear the search to continue.</p>'; $('flow-next').disabled=true; $('order-whatsapp').hidden=true; return; }
     const q = quote();
     let summary = `<div class="summary-device">${photo(phone)}<div><h2>${phone.model}</h2><p>${phone.storage}</p></div></div>`;
     summary += rows([['Phone price',phone.price ? money(phone.price) : 'To confirm']]);
@@ -114,19 +101,13 @@ if (form) {
       message.push(`Swapping from: ${old.label}`);
       if (q.pending) summary += '<div class="summary-hint">Tell us your current phone’s condition to see its swap value.</div>';
       else {
-        message.push(
-          `Screen changed: ${radio('screenChanged')}`,
-          `Screen cracked: ${radio('screenCracked')}`,
-          `Battery changed: ${radio('batteryChanged')}`,
-          `Back glass changed: ${old.hasGlassBack ? radio('backChanged') : 'Not applicable'}`,
-          `Back glass cracked: ${old.hasGlassBack ? radio('backCracked') : 'Not applicable'}`,
-          `Face ID working: ${old.hasFaceId ? radio('faceId') : 'Not applicable to this model'}`
-        );
-        if (q.manual) summary += '<div class="summary-hint"><strong>Let’s confirm your swap value.</strong><p>We need a confirmed price for this phone before valuing the swap. Send the selection on WhatsApp and we’ll complete the quote.</p></div>';
+        message.push(`Screen changed: ${radio('screenChanged')}`,`Battery changed: ${radio('batteryChanged')}`,`Back glass changed: ${old.hasGlassBack ? radio('backChanged') : 'Not applicable'}`,`Face ID working: ${old.hasFaceId ? radio('faceId') : 'Not applicable to this model'}`,`Screen cracked: ${radio('screenCracked') || 'Not answered'}`,`Back glass cracked: ${old.hasGlassBack ? radio('backCracked') || 'Not answered' : 'Not applicable'}`);
+        if (q.manual) summary += `<div class="summary-hint"><strong>${q.reason === 'crack' ? 'Cracks need a personal quote.' : 'Let’s confirm your swap value.'}</strong><p>${q.reason === 'crack' ? 'Send clear photos on WhatsApp. We’ll assess the damage and confirm the amount to add.' : 'We need a confirmed price for this phone before valuing the swap.'}</p></div>`;
         else {
-          summary += rows([['Your phone’s listed price',money(old.price)],['Your swap value',`− ${money(q.value)}`]]);
-          summary += `<details class="swap-breakdown"><summary>How we got ${money(q.value)}</summary><p>${old.label}</p>${rows(q.deductions.map(item => [item.label,`${item.percent}% · ${money(old.price*item.percent/100)}`]))}<p>${money(old.price)} − ${q.deductionPercent}% = <strong>${money(q.value)}</strong></p></details>`;
-          message.push(`Swap price basis: ${money(old.price)}`,`Deductions: ${q.deductions.map(d => `${d.label} ${d.percent}%`).join(' + ')}`,`Estimated swap value: ${money(q.value)}`);
+          if (missingAnswers().length) summary += '<p class="summary-hint">Provisional estimate. Answer all condition questions to continue.</p>';
+          summary += rows([['Market reference',money(old.basePrice)],['Your swap value',`− ${money(q.value)}`]]);
+          summary += `<details class="swap-breakdown"><summary>How we got ${money(q.value)}</summary><p>${old.label}</p>${rows(q.deductions.map(item => [item.label,`${item.percent}% · ${money(old.basePrice*item.percent/100)}`]))}<p>${money(old.basePrice)} − ${q.deductionPercent}% = <strong>${money(q.value)}</strong></p></details>`;
+          message.push(`Swap price basis: ${money(old.basePrice)}`,`Deductions: ${q.deductions.map(d => `${d.label} ${d.percent}%`).join(' + ')}`,`Estimated swap value: ${money(q.value)}`);
           if (q.surplus > 0) { summary += `<p class="fine">Your estimate is ${money(q.surplus)} above the target price. Any cash difference needs a separate agreement; a payout is not guaranteed.</p>`; message.push(`Estimated surplus: ${money(q.surplus)} — please confirm any cash-difference arrangement.`); }
         }
       }
@@ -160,7 +141,7 @@ if (form) {
       if (refs.length) message.push(`Campaign reference: ${refs.map(([key,value]) => `${key}: ${value}`).join(' | ')}`);
     } catch { /* Enquiries still work when storage is unavailable. */ }
     $('order-summary').innerHTML = summary;
-    const ready = step === 3 && !q.pending && !depositError;
+    const ready = step === 3 && !q.pending && !depositError && (!isSwap || !missingAnswers().length);
     $('order-whatsapp').hidden = !ready;
     $('order-whatsapp').href = `https://wa.me/${commerceSite.whatsappNumber}?text=${encodeURIComponent(message.join('\n'))}`;
     $('order-whatsapp').textContent = q.manual ? 'Ask for my final quote ↗' : 'Send my selection on WhatsApp ↗';
@@ -173,9 +154,10 @@ if (form) {
     const filtered = models.filter(p => term.split(/\s+/).every(token => p.model.toLowerCase().includes(token)));
     modelOptions($('buy-model'),filtered,selected()?.slug); variants('buy',previousId); render();
   });
+  $('swap-search').addEventListener('input',()=>{const term=$('swap-search').value.toLowerCase().trim();const filtered=models.filter(p=>term.split(/\s+/).every(t=>p.model.toLowerCase().includes(t))); modelOptions($('swap-model'),filtered,oldPhone()?.slug);variants('swap');render();});
   $('buy-model').addEventListener('change',() => { variants('buy'); render(); });
   $('swap-model').addEventListener('change',() => { variants('swap'); form.querySelectorAll('.condition-row input').forEach(input => input.checked = false); render(); });
-  form.addEventListener('change',() => { error(''); render(); });
+  form.addEventListener('change',event => { if (event.target.name === 'purchase') setRadio('payment',event.target.value === 'easy' ? 'easy' : 'outright'); error(''); render(); });
   $('plan-deposit').addEventListener('input',render);
   $('flow-next').addEventListener('click',() => showStep(Math.min(3,step+1)));
   $('flow-back').addEventListener('click',() => { error(''); showStep(Math.max(1,step-1)); });
@@ -183,4 +165,5 @@ if (form) {
   $('order-whatsapp').addEventListener('click',event => { if (!validate(3)) event.preventDefault(); });
   form.addEventListener('submit',event => { event.preventDefault(); if (step < 3) showStep(step+1); });
   render();
+  if (legacyId || query.get('target')) showStep(2);
 }

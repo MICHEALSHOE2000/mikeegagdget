@@ -535,12 +535,10 @@ const renderProductPage = (product) => {
     </section>
     ${renderVariantCards(product)}
     ${renderPaymentPaths(product)}
-    ${renderTrust()}
     ${renderDetails(product)}
     ${renderCalculator(product)}
     ${renderSwapAndCommunity(product)}
     ${renderRelated(product)}
-    ${renderAccessories()}
     ${renderDelivery()}
     <section class="commerce-section seo-copy">
       <p class="commerce-eyebrow">${escapeHtml(product.model)} price in Nigeria</p>
