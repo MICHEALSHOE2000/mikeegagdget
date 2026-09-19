@@ -174,6 +174,7 @@ document.querySelectorAll("[data-gallery-image]").forEach((button) => {
     const gallery = button.closest("[data-product-gallery]");
     const mainImage = gallery?.querySelector("[data-main-image]");
     if (!gallery || !mainImage) return;
+    mainImage.closest('.device-media')?.classList.add('is-loading');
     mainImage.removeAttribute('srcset');
     mainImage.src = button.dataset.galleryImage;
     gallery.querySelectorAll("[data-gallery-image]").forEach((item) => {

@@ -11,7 +11,11 @@ export const categories = [
  ['games','Games','Sony','/images/store/games.webp'],
  ['accessories','Accessories','Various','/images/store/accessories.webp']
 ].map(([id,name,brand,image])=>({id,name,brand,image}));
+export const shopCategories = categories.slice(3).map(category => ({
+ ...category,
+ route: `/shop/${category.id}/`
+}));
 export const storeItems = [
  ...products.map(p=>({slug:p.slug,model:p.model,brand:p.brand,category:p.brand==='Apple'?'iphones':p.brand==='Samsung'?'samsung':'pixel',image:p.images[0] || '',route:p.route,conditions:p.brand==='Apple'?['UK Used','Brand New']:['Confirm condition'],availability:'Confirm stock',easy:p.easyBuyEligible===true,swap:p.swapEligible,variants:p.variants.map(v=>({storage:v.storage,price:v.price}))})),
- ...categories.slice(3).map(c=>({slug:c.id,model:c.name,brand:c.brand,category:c.id,image:c.image,route:`/shop/${c.id}/`,conditions:['Confirm condition'],availability:'Enquire for options',easy:false,swap:false,variants:[{storage:'Options on request',price:null}]}))
+ ...shopCategories.map(c=>({slug:c.id,model:c.name,brand:c.brand,category:c.id,image:c.image,route:c.route,conditions:['Confirm condition'],availability:'Enquire for options',easy:false,swap:false,variants:[{storage:'Options on request',price:null}]}))
 ];

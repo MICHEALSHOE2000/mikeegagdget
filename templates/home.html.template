@@ -17,7 +17,7 @@
   <meta name="geo.placename" content="Ikeja, Lagos, Nigeria">
   <meta name="geo.position" content="6.6018;3.3515">
   <meta name="ICBM" content="6.6018, 3.3515">
-  <meta property="og:image" content="images/shop.jpeg">
+  <meta property="og:image" content="https://www.mikeegagdget.vercel.app/images/store/shop-720.webp">
   <meta property="og:locale" content="en_NG">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

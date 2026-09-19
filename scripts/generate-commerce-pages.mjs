@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { landingPages } from "../landing-pages/config.mjs";
 import {media} from '../assets/storefront-ui.mjs';
+import {shopCategories} from '../commerce/storefront-data.mjs';
 import {
   accessories,
   categoryPages,
@@ -663,7 +664,7 @@ await writeFile(
   join(root, "commerce", "route-manifest.json"),
   `${JSON.stringify({
     products: products.map((product) => product.route),
-    categories: categoryPages.map((category) => category.route)
+    categories: [...categoryPages, ...shopCategories].map((category) => category.route)
   }, null, 2)}\n`,
   "utf8"
 );
@@ -684,7 +685,8 @@ const sitemapRoutes = [
     ...fixedRoutes,
     ...landingPages.map((page) => page.route),
     ...products.map((product) => product.route),
-    ...categoryPages.map((category) => category.route)
+    ...categoryPages.map((category) => category.route),
+    ...shopCategories.map((category) => category.route)
   ])
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
