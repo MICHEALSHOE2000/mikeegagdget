@@ -15,12 +15,12 @@ Customers send the prepared quote themselves through WhatsApp. The site does not
 Swap calculation: original listed price × (100% − total deductions).
 
 - Used phone: 40%.
-- Changed screen: another 10 percentage points.
+- Changed or cracked screen: another 10 percentage points.
 - Changed battery: another 5 points.
-- Changed back glass: another 2 points.
+- Changed or cracked back glass: another 2 points.
 - Face ID not working: another 8 points.
 
-Deductions are additive against the original listed price, not compounded. The iPhone X 64GB at ₦140,000 is valued at ₦84,000 normally, ₦70,000 with a changed screen, ₦63,000 with changed screen and battery, ₦60,200 with a changed back glass too, and ₦49,000 with all those plus failed Face ID. Phones manufactured without Face ID do not incur that deduction; phones without glass backs do not incur a back-glass deduction. Cracks need a manual quote because no crack deduction was supplied. Values remain subject to inspection. A negative top-up is never displayed; any surplus needs an explicit agreement.
+Deductions are additive against the original listed price, not compounded. The iPhone X 64GB at ₦140,000 is valued at ₦84,000 normally, ₦70,000 with a changed or cracked screen, ₦63,000 with screen damage and a changed battery, ₦60,200 with changed or cracked back glass too, and ₦49,000 with all those plus failed Face ID. A crack and a changed-part answer for the same screen or back glass count as one deduction, not two. Phones manufactured without Face ID do not incur that deduction; phones without glass backs do not incur a back-glass deduction. Values remain subject to inspection. A negative top-up is never displayed; any surplus needs an explicit agreement.
 
 Financing options: 7.5% monthly with a credit score check and 20% monthly without one. Both apply flat monthly interest to the remaining financed balance after the deposit. The calculator retains the existing 40% starting deposit and 1–3 month duration from the repository, allows a larger deposit, and labels them as planning terms subject to platform confirmation. Provider names and an API were not supplied, so applications go through WhatsApp. No-credit-check is not represented as guaranteed approval.
 
@@ -36,6 +36,6 @@ For swap + finance, the planning calculation subtracts trade-in value first and 
 - `assets/buy-flow.js`: step navigation, selections, validation, live quote and WhatsApp message.
 - `assets/upgrade.js` / `assets/upgrade.css`: shared navigation, deal filters and visual styling.
 
-Run `npm run check` to regenerate and validate the site. Edit generators rather than generated HTML. Tests cover the supplied valuation example, all deduction combinations, old-model exclusions, cracks, missing prices, colour pricing, finance calculations, invalid deposits and reconciliation across the priced catalogue.
+Run `npm run check` to regenerate and validate the site. Edit generators rather than generated HTML. Tests cover the supplied valuation example, all deduction combinations, old-model exclusions, screen/back crack de-duplication, missing prices, colour pricing, finance calculations, invalid deposits and reconciliation across the priced catalogue.
 
-Validation completed: `npm run check` passed (97 HTML pages, 9 quote/price tests). Chromium checks passed at 1440px, 390px and 320px for all new routes and wizard stages, with no JavaScript errors, broken images or horizontal overflow. Checked condition validation, the exact cumulative X example, older models without Face ID, cracks/manual prices, both platforms, deposit errors, colour pricing, product deep links, deal filtering/reset and WhatsApp contents including campaign attribution.
+Previous full validation: `npm run check` passed (97 HTML pages, 9 quote/price tests). Chromium checks passed at 1440px, 390px and 320px for all new routes and wizard stages, with no JavaScript errors, broken images or horizontal overflow. The crack handling was subsequently aligned to the merchant rule: screen cracks use the screen deduction, back-glass cracks use the back-glass deduction, and the same part is never deducted twice.
