@@ -128,7 +128,7 @@ for (const product of products) {
   assert(html.includes(`wa.me/${commerceSite.whatsappNumber}?text=`), `${product.slug}: prefilled WhatsApp link is missing.`);
   assert(count(html, /data-storage="/g) === product.variants.length, `${product.slug}: rendered storage selector does not match product data.`);
   assert(count(html, /data-variant-card="/g) === product.variants.length, `${product.slug}: rendered variant cards do not match product data.`);
-  assert(count(html, /<details(?:\s|>)/g) === 7, `${product.slug}: expected seven visible product FAQs.`);
+  assert(count(html, /<details class="product-faq"/g) === 7, `${product.slug}: expected seven product FAQs.`);
   assert(!html.includes("InStock"), `${product.slug}: schema must not invent a stock availability claim.`);
   assert(!html.includes("aggregateRating"), `${product.slug}: page must not invent product reviews or ratings.`);
 }

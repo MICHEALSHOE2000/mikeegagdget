@@ -1,4 +1,9 @@
+// `preferred` points to the merchant's compressed storefront photo. Replace that
+// path when a better Mikee product photo is ready; the catalogue and page layout
+// will keep using the same responsive 360/720 WebP variants automatically.
 export const productImages = {
+  "iPhone 18 Pro Max": {"image":"/images/store/iphone-18-pro-max.webp"},
+  "iPhone 18 Pro": {"image":"/images/store/iphone-18-pro.webp"},
   "iPhone 6": {
     "image": "/images/catalog/iphone-6.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-iphone6-colors.jpg"
@@ -48,38 +53,47 @@ export const productImages = {
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-xs-max-colors.jpg"
   },
   "iPhone 11": {
+    "preferred": "/images/store/11-1-720.webp",
     "image": "/images/catalog/iphone-11.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/identify-iphone-11-colors.jpg"
   },
   "iPhone 11 Pro": {
+    "preferred": "/images/store/11pro-1-720.webp",
     "image": "/images/catalog/iphone-11-pro.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/identify-iphone-11pro.jpg"
   },
   "iPhone 11 Pro Max": {
+    "preferred": "/images/store/11promax-1-720.webp",
     "image": "/images/catalog/iphone-11-pro-max.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/identify-iphone-11pro-max.jpg"
   },
   "iPhone 12": {
+    "preferred": "/images/store/12-720.webp",
     "image": "/images/catalog/iphone-12.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/2021-iphone12-colors.png"
   },
   "iPhone 12 Pro": {
+    "preferred": "/images/store/12pro-1-720.webp",
     "image": "/images/catalog/iphone-12-pro.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-12-pro/iphone12-pro-colors.jpg"
   },
   "iPhone 12 Pro Max": {
+    "preferred": "/images/store/12promax-1-720.webp",
     "image": "/images/catalog/iphone-12-pro-max.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-12-pro-max/iphone12-pro-max-colors.jpg"
   },
   "iPhone 13": {
+    "preferred": "/images/store/13-1-720.webp",
     "image": "/images/catalog/iphone-13.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/2022-spring-iphone13-colors.png"
   },
   "iPhone 13 Pro": {
+    "preferred": "/images/store/13pro-1-720.webp",
     "image": "/images/catalog/iphone-13-pro.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/2022-spring-iphone13-pro-colors.png"
   },
   "iPhone 14": {
+    "preferred": "/images/store/14-1-720.webp",
     "image": "/images/catalog/iphone-14.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-14-colors-spring-2023.png"
   },
@@ -88,14 +102,17 @@ export const productImages = {
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-14-plus-colors-spring-2023.png"
   },
   "iPhone 14 Pro": {
+    "preferred": "/images/store/14pro-1-720.webp",
     "image": "/images/catalog/iphone-14-pro.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-14-pro-colors.png"
   },
   "iPhone 14 Pro Max": {
+    "preferred": "/images/store/14promax-1-720.webp",
     "image": "/images/catalog/iphone-14-pro-max.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-14-pro-max-colors.png"
   },
   "iPhone 15": {
+    "preferred": "/images/store/15-1-720.webp",
     "image": "/images/catalog/iphone-15.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/fall-2023-iphone-colors-iphone-15.png"
   },
@@ -104,42 +121,52 @@ export const productImages = {
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/fall-2023-iphone-colors-iphone-15-plus.png"
   },
   "iPhone 15 Pro": {
+    "preferred": "/images/store/15pro-1-720.webp",
     "image": "/images/catalog/iphone-15-pro.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/fall-2023-iphone-colors-iphone-15-pro.png"
   },
   "iPhone 15 Pro Max": {
+    "preferred": "/images/store/15promax-1-720.webp",
     "image": "/images/catalog/iphone-15-pro-max.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/fall-2023-iphone-colors-iphone-15-pro-max.png"
   },
   "iPhone 16": {
+    "preferred": "/images/store/16-1-720.webp",
     "image": "/images/catalog/iphone-16.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-16-colors.png"
   },
   "iPhone 16 Plus": {
+    "preferred": "/images/store/16plus-1-720.webp",
     "image": "/images/catalog/iphone-16-plus.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-16-plus-colors.png"
   },
   "iPhone 16 Pro": {
+    "preferred": "/images/store/16pro-1-720.webp",
     "image": "/images/catalog/iphone-16-pro.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-16-pro-colors.png"
   },
   "iPhone 16 Pro Max": {
+    "preferred": "/images/store/16promax-1-720.webp",
     "image": "/images/catalog/iphone-16-pro-max.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-16-pro-max-colors.png"
   },
   "iPhone 17": {
+    "preferred": "/images/store/17-1-720.webp",
     "image": "/images/catalog/iphone-17.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-17-colors.png"
   },
   "iPhone 17 Air": {
+    "preferred": "/images/store/17air-1-720.webp",
     "image": "/images/catalog/iphone-17-air.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-air-colors.png"
   },
   "iPhone 17 Pro": {
+    "preferred": "/images/store/17pro-1-720.webp",
     "image": "/images/catalog/iphone-17-pro.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-17-pro-colors.png"
   },
   "iPhone 17 Pro Max": {
+    "preferred": "/images/store/17promax-1-720.webp",
     "image": "/images/catalog/iphone-17-pro-max.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-17-pro-max-colors.png"
   }

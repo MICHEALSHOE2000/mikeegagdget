@@ -1,3 +1,4 @@
+import { newestFirst } from "./catalog-order.mjs";
 import { productImages } from "./product-images.mjs";
 import { getSellingPrice } from "./pricing.mjs";
 import { priceList, suppliedPrices } from "./price-list.mjs";
@@ -180,6 +181,8 @@ const legacyIphoneDefinitions = [
 ];
 
 const iphoneDefinitions = [
+  ["iPhone 18 Pro Max", "iphone-18-pro-max", ["Storage to confirm"], "Storage to confirm", "confirm"],
+  ["iPhone 18 Pro", "iphone-18-pro", ["Storage to confirm"], "Storage to confirm", "confirm"],
   ...priceList.map(([model, slug, variants]) => {
     const previous = legacyIphoneDefinitions.find(item => item[1] === slug);
     const storage = variants.map(([size]) => size);
@@ -285,7 +288,7 @@ const makeIphone = ([model, slug, storage, defaultStorage, specKey]) => ({
   defaultStorage,
   colors: ["Ask for today’s available colours"],
   conditions: ["UK Used", "Brand New"],
-  images: productImages[model] ? [productImages[model].image, ...(iphoneImages[model] ?? [])] : iphoneImages[model] ?? [],
+  images: productImages[model]?.preferred ? [productImages[model].preferred, ...(iphoneImages[model] ?? []).slice(1)] : productImages[model] ? [productImages[model].image, ...(iphoneImages[model] ?? [])] : iphoneImages[model] ?? [],
   stockStatus: "Available to enquire about — confirm the exact variant",
   easyBuyEligible: true,
   swapEligible: true,
@@ -364,7 +367,7 @@ export const products = Object.freeze([
   ...iphoneDefinitions.map(makeIphone),
   ...galaxyDefinitions.map(makeGalaxy),
   ...pixelDefinitions.map(makePixel)
-]);
+].sort(newestFirst));
 
 export const accessories = Object.freeze([
   { name: "Compatible charger", detail: "Ask which charger is recommended for this exact phone." },
