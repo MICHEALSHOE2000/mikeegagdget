@@ -1,3 +1,4 @@
+import {media,activateImages} from './storefront-ui.mjs';
 import { choices, money, estimateSwap, financePlan, FINANCE_PLATFORMS } from '../commerce/upgrade-core.mjs';
 import { commerceSite } from '../commerce/catalog.mjs';
 import { DEPOSIT_RATE } from '../easy-buy/easy-buy-core.mjs';
@@ -28,13 +29,13 @@ if (form) {
   function modelOptions(field, list = models, preferred) { options(field,list.map(p => [p.slug,p.model]),preferred); }
   function variants(prefix,preferred) {
     const rows = choices.filter(p => p.slug === $(`${prefix}-model`).value);
-    options($(`${prefix}-variant`),rows.map(p => [p.id,`${p.storage}${p.price ? ` · ${money(p.price)}` : ' · ask for price'}`]),preferred);
+    options($(`${prefix}-variant`),rows.map(p => [p.id,`${p.storage}${prefix === "buy" ? (p.price ? ` · ${money(p.price)}` : " · confirm price") : ""}`]),preferred);
   }
   modelOptions($('buy-model'),models,initial.slug); variants('buy',initial.id);
   const previous = find(query.get('current')) || find('iphone-x|64GB');
   modelOptions($('swap-model'),models,previous.slug); variants('swap',previous.id);
-  if (query.get('purchase') === 'swap' || location.pathname.includes('phone-swap')) setRadio('purchase','swap');
-  if (query.get('payment') === 'easy' || location.pathname.includes('easy-buy')) { setRadio('payment','easy'); if(radio('purchase') !== 'swap') setRadio('purchase','easy'); }
+  if (query.get('method') === 'swap' || query.get('purchase') === 'swap' || location.pathname.includes('phone-swap')) setRadio('purchase','swap');
+  if (query.get('method') === 'easy' || query.get('payment') === 'easy' || location.pathname.includes('easy-buy')) { setRadio('payment','easy'); if(radio('purchase') !== 'swap') setRadio('purchase','easy'); }
   function selected() { return find($('buy-variant').value); }
   function oldPhone() { return find($('swap-variant').value); }
   function conditionNames() { const phone = oldPhone(); return ['batteryChanged','screenChanged','screenCracked',...(phone?.hasFaceId ? ['faceId'] : []),...(phone?.hasGlassBack ? ['backChanged','backCracked'] : [])]; }
@@ -46,7 +47,7 @@ if (form) {
     const swap = estimateSwap({current:oldPhone(),target,faceIdBroken:radio('faceId') === 'no', batteryChanged:radio('batteryChanged') === 'yes',screenChanged:radio('screenChanged') === 'yes',backChanged:radio('backChanged') === 'yes',screenCracked:radio('screenCracked') === 'yes',backCracked:radio('backCracked') === 'yes'});
     return { ...swap, amount:swap.manual ? null : swap.topUp, swap:true };
   }
-  const photo = phone => phone?.image ? `<img src="${phone.image}" alt="${phone.model}">` : '<span class="mini-phone" aria-hidden="true">m.</span>';
+  const photo = phone => media(phone?.image,phone?.model || 'Your phone');
   const rows = entries => `<dl class="order-lines">${entries.map(([label,value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
   function error(message) { $('flow-error').textContent = message; $('flow-error').hidden = !message; }
   function invalidDeposit(q) {
@@ -79,6 +80,7 @@ if (form) {
     document.querySelector('.flow-main').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',block:'start'});
   }
   function render() {
+    queueMicrotask(() => activateImages(form.parentElement.parentElement));
     const phone = selected(), old = oldPhone();
     const isSwap = radio('purchase') === 'swap', easy = radio('payment') === 'easy';
     $('swap-fields').hidden = !isSwap;
@@ -96,7 +98,7 @@ if (form) {
     const q = quote();
     let summary = `<div class="summary-device">${photo(phone)}<div><h2>${phone.model}</h2><p>${phone.storage}</p></div></div>`;
     summary += rows([['Phone price',phone.price ? money(phone.price) : 'To confirm']]);
-    const message = ['Hello Mikee Gadget Plug, here is my phone selection.',`Phone: ${phone.label}`,`Listed price: ${phone.price ? money(phone.price) : 'Please confirm'}`,`Purchase: ${isSwap ? 'Swap' : 'Buy'}`];
+    const message = ['Hello Mikee Gadget Plug, here is my phone selection.',`Phone: ${phone.label}`,`Listed price: ${phone.price ? money(phone.price) : 'Please confirm'}`,`Purchase: ${isSwap ? 'Swap' : 'Buy'}`,`Preferred condition: ${query.get('condition') || 'Please confirm'}`, `Preferred colour: ${query.get('color') || 'Please confirm'}`];
     if (isSwap) {
       message.push(`Swapping from: ${old.label}`);
       if (q.pending) summary += '<div class="summary-hint">Tell us your current phone’s condition to see its swap value.</div>';
@@ -154,7 +156,7 @@ if (form) {
     const filtered = models.filter(p => term.split(/\s+/).every(token => p.model.toLowerCase().includes(token)));
     modelOptions($('buy-model'),filtered,selected()?.slug); variants('buy',previousId); render();
   });
-  $('swap-search').addEventListener('input',()=>{const term=$('swap-search').value.toLowerCase().trim();const filtered=models.filter(p=>term.split(/\s+/).every(t=>p.model.toLowerCase().includes(t))); modelOptions($('swap-model'),filtered,oldPhone()?.slug);variants('swap');render();});
+  $('swap-search').addEventListener('input',()=>{const term=$('swap-search').value.toLowerCase().trim();const filtered=models.filter(p=>term.split(/\s+/).every(t=>p.model.toLowerCase().includes(t))); const previous=oldPhone()?.slug;modelOptions($('swap-model'),filtered,previous);variants('swap');if(previous!==oldPhone()?.slug)form.querySelectorAll('.condition-row input').forEach(input=>input.checked=false);render();});
   $('buy-model').addEventListener('change',() => { variants('buy'); render(); });
   $('swap-model').addEventListener('change',() => { variants('swap'); form.querySelectorAll('.condition-row input').forEach(input => input.checked = false); render(); });
   form.addEventListener('change',event => { if (event.target.name === 'purchase') setRadio('payment',event.target.value === 'easy' ? 'easy' : 'outright'); error(''); render(); });

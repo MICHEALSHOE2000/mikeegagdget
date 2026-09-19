@@ -1,3 +1,5 @@
+import {activateImages} from './storefront-ui.mjs';
+activateImages();
 import { calculatePlan } from "../easy-buy/easy-buy-core.mjs";
 
 const naira = new Intl.NumberFormat("en-NG", {
@@ -132,9 +134,9 @@ function activateSearch(root) {
 }
 
 if (searchDialog) {
-  activateSearch(searchDialog);
   searchOpenButtons.forEach((button) => {
     button.addEventListener("click", () => {
+      if (!searchDialog.dataset.ready) { activateSearch(searchDialog); searchDialog.dataset.ready = 'true'; }
       searchDialog.showModal();
       window.requestAnimationFrame(() => searchDialog.querySelector("input")?.focus());
     });
@@ -172,6 +174,8 @@ document.querySelectorAll("[data-gallery-image]").forEach((button) => {
     const gallery = button.closest("[data-product-gallery]");
     const mainImage = gallery?.querySelector("[data-main-image]");
     if (!gallery || !mainImage) return;
+    mainImage.closest('.device-media')?.classList.add('is-loading');
+    mainImage.removeAttribute('srcset');
     mainImage.src = button.dataset.galleryImage;
     gallery.querySelectorAll("[data-gallery-image]").forEach((item) => {
       item.classList.toggle("is-active", item === button);
@@ -221,9 +225,10 @@ if (productDataElement) {
       if (['swap', 'easyBuy', 'buy'].includes(link.dataset.action)) {
         const choiceId = `${product.slug}|${selectedStorage}`;
         link.href = `/buy/?phone=${encodeURIComponent(choiceId)}` + (link.dataset.action === 'swap' ? '&purchase=swap' : link.dataset.action === 'easyBuy' ? '&payment=easy' : '');
+        link.href += `&condition=${encodeURIComponent(selectedCondition())}`;
         link.removeAttribute('target');
         link.removeAttribute('data-track');
-        if (link.dataset.action === 'swap') link.textContent = 'Estimate my swap →';
+        link.href += `&color=${encodeURIComponent(selectedColor())}`;
       } else {
         link.href = whatsappHref(product.whatsappNumber, messageFor(link.dataset.action));
       }
@@ -287,12 +292,12 @@ if (productDataElement) {
     });
 
     if (variantLabel) variantLabel.textContent = `${product.model} ${selectedStorage}`;
-    if (productPrice) productPrice.textContent = variant.price ? naira.format(variant.price) : "Request today’s price";
+    if (productPrice) productPrice.textContent = variant.price ? naira.format(variant.price) : "Confirm price";
     if (priceNote) {
       priceNote.textContent = variant.priceNeedsExtraConfirmation
         ? "This supplied guide price needs extra confirmation. Ask Mikee Gadget Plug for today’s exact price before planning."
         : variant.price
-          ? "Supplied guide price. Confirm today’s exact price, condition and availability before payment."
+          ? "Confirm today’s price, condition and stock before payment."
           : "No price was supplied for this variant. Request today’s exact price before payment.";
     }
 

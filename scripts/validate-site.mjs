@@ -3,6 +3,7 @@ import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { landingPages, site } from "../landing-pages/config.mjs";
 import { categoryPages, commerceSite, products } from "../commerce/catalog.mjs";
+import { shopCategories } from "../commerce/storefront-data.mjs";
 import { allowedFrequencies, calculatePlan, DEPOSIT_RATE } from "../easy-buy/easy-buy-core.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -128,7 +129,7 @@ for (const product of products) {
   assert(html.includes(`wa.me/${commerceSite.whatsappNumber}?text=`), `${product.slug}: prefilled WhatsApp link is missing.`);
   assert(count(html, /data-storage="/g) === product.variants.length, `${product.slug}: rendered storage selector does not match product data.`);
   assert(count(html, /data-variant-card="/g) === product.variants.length, `${product.slug}: rendered variant cards do not match product data.`);
-  assert(count(html, /<details(?:\s|>)/g) === 7, `${product.slug}: expected seven visible product FAQs.`);
+  assert(count(html, /<details class="product-faq"/g) === 7, `${product.slug}: expected seven product FAQs.`);
   assert(!html.includes("InStock"), `${product.slug}: schema must not invent a stock availability claim.`);
   assert(!html.includes("aggregateRating"), `${product.slug}: page must not invent product reviews or ratings.`);
 }
@@ -170,6 +171,22 @@ for (const product of products) {
 }
 for (const category of categoryPages) {
   assert(sitemap.includes(`<loc>${commerceSite.baseUrl}${category.route}</loc>`), `${category.route}: category route is missing from sitemap.xml.`);
+}
+
+const routeManifest = JSON.parse(await readFile(join(root, "commerce", "route-manifest.json"), "utf8"));
+for (const category of shopCategories) {
+  const html = await readFile(join(root, category.route, "index.html"), "utf8");
+  const url = `${commerceSite.baseUrl}${category.route}`;
+  assert(sitemap.includes(`<loc>${url}</loc>`), `${category.route}: shop route is missing from sitemap.xml.`);
+  assert(routeManifest.categories.includes(category.route), `${category.route}: shop route is missing from the route manifest.`);
+  assert(html.includes(`data-landing-page="${category.route}" data-page-type="category"`), `${category.route}: analytics must use the category route.`);
+  assert(html.includes(`<meta property="og:url" content="${url}">`), `${category.route}: sharing URL must match the category.`);
+  assert(html.includes(`<link rel="canonical" href="${url}" />`), `${category.route}: incorrect canonical URL.`);
+  for (const property of ["og:title", "og:description"]) {
+    const content = html.match(new RegExp(`<meta property="${property}" content="([^"]+)"`))?.[1];
+    assert(content?.includes(category.name), `${category.route}: ${property} must describe the category.`);
+  }
+  assert(html.includes(`<meta property="og:image" content="${commerceSite.baseUrl}${category.image}">`), `${category.route}: sharing image must be an absolute category image URL.`);
 }
 
 const catalogSearch = JSON.parse(await readFile(join(root, "assets", "catalog-search.json"), "utf8"));

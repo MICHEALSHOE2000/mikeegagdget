@@ -1,3 +1,4 @@
+import { newestFirst } from "./catalog-order.mjs";
 import { productImages } from "./product-images.mjs";
 import { getSellingPrice } from "./pricing.mjs";
 import { priceList, suppliedPrices } from "./price-list.mjs";
@@ -180,6 +181,8 @@ const legacyIphoneDefinitions = [
 ];
 
 const iphoneDefinitions = [
+  ["iPhone 18 Pro Max", "iphone-18-pro-max", ["Storage to confirm"], "Storage to confirm", "confirm"],
+  ["iPhone 18 Pro", "iphone-18-pro", ["Storage to confirm"], "Storage to confirm", "confirm"],
   ...priceList.map(([model, slug, variants]) => {
     const previous = legacyIphoneDefinitions.find(item => item[1] === slug);
     const storage = variants.map(([size]) => size);
@@ -281,17 +284,18 @@ const makeIphone = ([model, slug, storage, defaultStorage, specKey]) => ({
   slug,
   route: `/${slug}`,
   family: "iPhone",
+  listingPending: slug.startsWith("iphone-18-"),
   variants: storage.map((value) => makeVariant(model, value)),
   defaultStorage,
-  colors: ["Ask for today’s available colours"],
-  conditions: ["UK Used", "Brand New"],
-  images: productImages[model] ? [productImages[model].image, ...(iphoneImages[model] ?? [])] : iphoneImages[model] ?? [],
-  stockStatus: "Available to enquire about — confirm the exact variant",
-  easyBuyEligible: true,
-  swapEligible: true,
+  colors: slug.startsWith("iphone-18-") ? ["Details coming soon"] : ["Choose with your device"],
+  conditions: slug.startsWith("iphone-18-") ? ["Details coming soon"] : ["UK Used", "Brand New"],
+  images: productImages[model]?.image === "" ? [] : productImages[model]?.preferred ? [productImages[model].preferred, ...(iphoneImages[model] ?? []).slice(1)] : productImages[model] ? [productImages[model].image, ...(iphoneImages[model] ?? [])] : iphoneImages[model] ?? [],
+  stockStatus: slug.startsWith("iphone-18-") ? "Listing preview — price and availability not yet supplied" : "Stock and condition checked before payment",
+  easyBuyEligible: slug.startsWith("iphone-18-") ? "confirm" : true,
+  swapEligible: slug.startsWith("iphone-18-") ? false : true,
   warranty: commerceSite.warranty,
   batteryHealth: commerceSite.usedIphoneBattery,
-  specifications: iphoneSpecs[specKey] || {
+  specifications: slug.startsWith("iphone-18-") ? Object.fromEntries(["display","camera","processor","network","security","sim"].map(key=>[key,"Details coming soon"])) : iphoneSpecs[specKey] || {
     display: "Confirm the exact unit’s display", camera: "Ask for camera condition and specifications",
     processor: "Confirm the exact model", network: "Confirm network compatibility",
     security: /iphone-(6|7|8|se)/.test(slug) ? "Touch ID — confirm it works" : "Face ID — confirm it works",
@@ -364,7 +368,7 @@ export const products = Object.freeze([
   ...iphoneDefinitions.map(makeIphone),
   ...galaxyDefinitions.map(makeGalaxy),
   ...pixelDefinitions.map(makePixel)
-]);
+].sort(newestFirst));
 
 export const accessories = Object.freeze([
   { name: "Compatible charger", detail: "Ask which charger is recommended for this exact phone." },
