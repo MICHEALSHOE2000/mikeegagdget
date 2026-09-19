@@ -18,8 +18,12 @@ test('phones without Face ID or glass backs never receive those deductions', () 
   assert.equal(estimateSwap({current:phone('iphone-6|16GB'),target,backChanged:true}).value,15000);
   assert.equal(estimateSwap({...base,backChanged:true}).value,81200);
 });
-test('cracks and missing prices require manual quotes and never invent a deduction', () => {
-  assert.deepEqual(estimateSwap({...base,cracked:true}),{manual:true,reason:'crack'});
+test('screen and back-glass cracks use their matching deduction once, while missing prices require manual quotes', () => {
+  assert.equal(estimateSwap({...base,screenCracked:true}).value,70000);
+  assert.equal(estimateSwap({...base,screenChanged:true,screenCracked:true}).value,70000);
+  assert.equal(estimateSwap({...base,backCracked:true}).value,81200);
+  assert.equal(estimateSwap({...base,backChanged:true,backCracked:true}).value,81200);
+  assert.equal(estimateSwap({...base,screenCracked:true,backCracked:true}).deductionPercent,52);
   assert.equal(estimateSwap({...base,current:phone('iphone-13-pro-max|128GB')}).manual,true);
   assert.equal(estimateSwap({...base,target:phone('samsung-s23|128GB')}).manual,true);
 });
