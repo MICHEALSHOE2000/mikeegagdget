@@ -1,3 +1,5 @@
+import { calculatePlan } from "../easy-buy/easy-buy-core.mjs";
+
 const naira = new Intl.NumberFormat("en-NG", {
   style: "currency",
   currency: "NGN",
@@ -216,7 +218,15 @@ if (productDataElement) {
 
   function updateActionLinks() {
     document.querySelectorAll("[data-action]").forEach((link) => {
-      link.href = whatsappHref(product.whatsappNumber, messageFor(link.dataset.action));
+      if (['swap', 'easyBuy', 'buy'].includes(link.dataset.action)) {
+        const choiceId = `${product.slug}|${selectedStorage}`;
+        link.href = `/buy/?phone=${encodeURIComponent(choiceId)}` + (link.dataset.action === 'swap' ? '&purchase=swap' : link.dataset.action === 'easyBuy' ? '&payment=easy' : '');
+        link.removeAttribute('target');
+        link.removeAttribute('data-track');
+        if (link.dataset.action === 'swap') link.textContent = 'Estimate my swap →';
+      } else {
+        link.href = whatsappHref(product.whatsappNumber, messageFor(link.dataset.action));
+      }
     });
   }
 
@@ -236,11 +246,10 @@ if (productDataElement) {
     }
 
     const duration = Number(durationSelect.value);
-    const factor = { 1: 1.2, 2: 1.4, 3: 1.6 }[duration];
-    const deposit = price * 0.4;
-    const balance = price - deposit;
-    const totalAfterDeposit = balance * factor;
-    const monthlyPayment = totalAfterDeposit / duration;
+    const plan = calculatePlan({ price, duration, series: Number(product.model.match(/iPhone (\d+)/)?.[1]) });
+    const deposit = plan.deposit;
+    const totalAfterDeposit = plan.balanceRepayment;
+    const monthlyPayment = plan.installment;
     depositOutput.textContent = naira.format(deposit);
     paymentOutput.textContent = naira.format(monthlyPayment);
     totalOutput.textContent = naira.format(totalAfterDeposit);
