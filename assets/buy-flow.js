@@ -37,14 +37,25 @@ if (form) {
   if (query.get('payment') === 'easy' || location.pathname.includes('easy-buy')) setRadio('payment','easy');
   function selected() { return find($('buy-variant').value); }
   function oldPhone() { return find($('swap-variant').value); }
-  function conditionNames() { const phone = oldPhone(); return ['batteryChanged','screenChanged','cracked',...(phone?.hasFaceId ? ['faceId'] : []),...(phone?.hasGlassBack ? ['backChanged'] : [])]; }
+  function conditionNames() {
+    const phone = oldPhone();
+    return ['batteryChanged','screenChanged','screenCracked',...(phone?.hasFaceId ? ['faceId'] : []),...(phone?.hasGlassBack ? ['backChanged','backCracked'] : [])];
+  }
   function missingAnswers() { return conditionNames().filter(name => !radio(name)); }
   function quote() {
     const target = selected();
     if (!target) return { pending:true };
     if (radio('purchase') === 'buy') return { amount:target.price, manual:!target.price };
     if (missingAnswers().length) return { pending:true };
-    const swap = estimateSwap({current:oldPhone(),target,faceIdBroken:radio('faceId') === 'no', batteryChanged:radio('batteryChanged') === 'yes',screenChanged:radio('screenChanged') === 'yes',backChanged:radio('backChanged') === 'yes',cracked:radio('cracked') === 'yes'});
+    const swap = estimateSwap({
+      current:oldPhone(),target,
+      faceIdBroken:radio('faceId') === 'no',
+      batteryChanged:radio('batteryChanged') === 'yes',
+      screenChanged:radio('screenChanged') === 'yes',
+      screenCracked:radio('screenCracked') === 'yes',
+      backChanged:radio('backChanged') === 'yes',
+      backCracked:radio('backCracked') === 'yes'
+    });
     return { ...swap, amount:swap.manual ? null : swap.topUp, swap:true };
   }
   const photo = phone => phone?.image ? `<img src="${phone.image}" alt="${phone.model}">` : '<span class="mini-phone" aria-hidden="true">m.</span>';
@@ -83,7 +94,9 @@ if (form) {
     const phone = selected(), old = oldPhone();
     const isSwap = radio('purchase') === 'swap', easy = radio('payment') === 'easy';
     $('swap-fields').hidden = !isSwap;
-    $('row-faceId').hidden = !old?.hasFaceId; $('row-backChanged').hidden = !old?.hasGlassBack;
+    $('row-faceId').hidden = !old?.hasFaceId;
+    $('row-backChanged').hidden = !old?.hasGlassBack;
+    $('row-backCracked').hidden = !old?.hasGlassBack;
     $('easy-fields').hidden = !easy;
     if (!phone) {
       $('selected-device').innerHTML = '<p>No matching model. Clear your search or try another model.</p>';
@@ -101,8 +114,15 @@ if (form) {
       message.push(`Swapping from: ${old.label}`);
       if (q.pending) summary += '<div class="summary-hint">Tell us your current phone’s condition to see its swap value.</div>';
       else {
-        message.push(`Screen changed: ${radio('screenChanged')}`,`Battery changed: ${radio('batteryChanged')}`,`Back glass changed: ${old.hasGlassBack ? radio('backChanged') : 'Not applicable'}`,`Face ID working: ${old.hasFaceId ? radio('faceId') : 'Not applicable to this model'}`,`Any cracks: ${radio('cracked')}`);
-        if (q.manual) summary += `<div class="summary-hint"><strong>${q.reason === 'crack' ? 'Cracks need a personal quote.' : 'Let’s confirm your swap value.'}</strong><p>${q.reason === 'crack' ? 'Send clear photos on WhatsApp. We’ll assess the damage and confirm the amount to add.' : 'We need a confirmed price for this phone before valuing the swap.'}</p></div>`;
+        message.push(
+          `Screen changed: ${radio('screenChanged')}`,
+          `Screen cracked: ${radio('screenCracked')}`,
+          `Battery changed: ${radio('batteryChanged')}`,
+          `Back glass changed: ${old.hasGlassBack ? radio('backChanged') : 'Not applicable'}`,
+          `Back glass cracked: ${old.hasGlassBack ? radio('backCracked') : 'Not applicable'}`,
+          `Face ID working: ${old.hasFaceId ? radio('faceId') : 'Not applicable to this model'}`
+        );
+        if (q.manual) summary += '<div class="summary-hint"><strong>Let’s confirm your swap value.</strong><p>We need a confirmed price for this phone before valuing the swap. Send the selection on WhatsApp and we’ll complete the quote.</p></div>';
         else {
           summary += rows([['Your phone’s listed price',money(old.price)],['Your swap value',`− ${money(q.value)}`]]);
           summary += `<details class="swap-breakdown"><summary>How we got ${money(q.value)}</summary><p>${old.label}</p>${rows(q.deductions.map(item => [item.label,`${item.percent}% · ${money(old.price*item.percent/100)}`]))}<p>${money(old.price)} − ${q.deductionPercent}% = <strong>${money(q.value)}</strong></p></details>`;
