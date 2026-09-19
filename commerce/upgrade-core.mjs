@@ -11,13 +11,13 @@ export const choices = products.flatMap(product => product.variants.map(variant 
   label: `${product.model} · ${variant.storage}`, finance: product.easyBuyEligible === true
 })));
 export const SWAP_DEDUCTIONS = Object.freeze({ used: 40, screenChanged: 10, batteryChanged: 5, backChanged: 2, faceIdBroken: 8 });
-export function estimateSwap({ current, target, screenChanged = false, batteryChanged = false, backChanged = false, faceIdBroken = false, cracked = false }) {
+export function estimateSwap({ current, target, screenChanged = false, batteryChanged = false, backChanged = false, faceIdBroken = false, screenCracked = false, backCracked = false }) {
   if (!current || !target) throw new TypeError('Choose both phones.');
-  if (cracked || !current.price || !target.price || current.brand !== 'Apple') return { manual: true, reason: cracked ? 'crack' : 'price' };
+  if (!current.price || !target.price || current.brand !== 'Apple') return { manual: true, reason: 'price' };
   const deductions = [{ label: 'Used-phone deduction', percent: 40 }];
-  if (screenChanged) deductions.push({ label: 'Screen changed', percent: 10 });
+  if (screenChanged || screenCracked) deductions.push({ label: 'Screen changed / cracked', percent: 10 });
   if (batteryChanged) deductions.push({ label: 'Battery changed', percent: 5 });
-  if (backChanged && current.hasGlassBack) deductions.push({ label: 'Back glass changed', percent: 2 });
+  if ((backChanged || backCracked) && current.hasGlassBack) deductions.push({ label: 'Back glass changed / cracked', percent: 2 });
   if (faceIdBroken && current.hasFaceId) deductions.push({ label: 'Face ID not working', percent: 8 });
   const deductionPercent = deductions.reduce((sum,item) => sum + item.percent,0);
   const value = Math.round(current.price * (100 - deductionPercent) / 100);
