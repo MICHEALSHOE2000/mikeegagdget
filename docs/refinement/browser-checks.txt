@@ -1,0 +1,8 @@
+PASS layout 390px: home, iPhones, product, MacBooks, buying/swap, EasyBuy and deals
+PASS layout 1440px: home, iPhones, product, MacBooks, buying/swap, EasyBuy and deals
+PASS homepage search, category navigation, method selection, price/storage filters, empty/reset states and mobile menu
+PASS swap condition validation, additive deductions, no duplicate crack deductions, 7.5% and 20% plans, deposit validation and WhatsApp calculation details
+PASS product storage/condition selection carries into purchase, outright checkout, missing-price enquiry and paginated deals
+PASS failed images keep category names and reserved layout; failed catalogue request retains usable server-rendered products
+PASS JavaScript-disabled categories and server-rendered catalogue; iPhone Series filter
+PASS no browser exceptions or local HTTP errors

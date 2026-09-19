@@ -216,7 +216,7 @@ const renderProductArtwork = (product) => {
       <span>${escapeHtml(product.brand)}</span>
       <div class="device-silhouette"><i></i><i></i><i></i></div>
       <strong>${escapeHtml(product.model)}</strong>
-      <small>Ask us for photos of the available unit.</small>
+      <small>Photo coming soon.</small>
     </div>`;
 };
 
@@ -250,7 +250,7 @@ const renderVariantSelector = (product) => `
       </label>
     </div>
     <div class="buying-facts">
-      <span><b>Battery health</b>${product.brand === "Apple" ? "UK-used units: above 83%; confirm exact reading" : "Ask for details on the exact used unit"}</span>
+      <span><b>Battery health</b>${product.listingPending ? "Details coming soon" : product.brand === "Apple" ? "UK-used units: above 83%; confirm exact reading" : "Reading available for the exact used unit"}</span>
       <span><b>Warranty</b>Confirm written terms for the exact unit</span>
       <span><b>Delivery</b>Lagos and nationwide options</span>
     </div>
@@ -259,7 +259,7 @@ const renderVariantSelector = (product) => `
       <strong data-product-price>${escapeHtml(
         product.variants.find((variant) => variant.storage === product.defaultStorage)?.price
           ? formatNaira(product.variants.find((variant) => variant.storage === product.defaultStorage).price)
-          : "Request today’s price"
+          : "Confirm price"
       )}</strong>
       <small data-price-note>Confirm today’s price, condition and stock before payment.</small>
     </div>
@@ -279,7 +279,7 @@ const renderVariantCards = (product) => `
         <article class="variant-card" data-variant-card="${escapeHtml(variant.storage)}">
           <div class="variant-card-top"><span>${escapeHtml(product.brand)}</span><span>${escapeHtml(product.stockStatus)}</span></div>
           <h3>${escapeHtml(product.model)} ${escapeHtml(variant.storage)}</h3>
-          <p class="variant-price">${variant.price ? formatNaira(variant.price) : "Request today’s price"}</p>
+          <p class="variant-price">${variant.price ? formatNaira(variant.price) : "Confirm price"}</p>
           <button type="button" data-select-variant="${escapeHtml(variant.storage)}">Choose ${escapeHtml(variant.storage)}</button>
         </article>`).join("")}
     </div></details>
@@ -443,11 +443,11 @@ const renderProductPage = (product) => {
       <div class="product-hero-copy">
         <p class="commerce-eyebrow">${escapeHtml(product.brand)} · Buy in Nigeria</p>
         <h1>Buy ${escapeHtml(product.model)} in Nigeria</h1>
-        <p class="product-lead">Choose your storage and condition. Pay outright, spread your payment or bring a phone to swap.</p>
+        <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : "Choose your storage and condition. Pay outright, spread your payment or bring a phone to swap."}</p>
         <div class="hero-fact-row">
           <span><strong>Storage</strong>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</span>
           <span><strong>Delivery</strong>Lagos & nationwide</span>
-          <span><strong>Payment</strong>Outright or Easy Buy</span>
+          <span><strong>Payment</strong>${product.listingPending ? "Options pending" : "Outright or Easy Buy"}</span>
         </div>
         ${renderVariantSelector(product)}
       </div>
@@ -493,7 +493,7 @@ const renderCategoryCard = (product) => {
         ${media(product.images[0],product.model)}
       </a>
       <div>
-        <span class="catalog-brand">${product.brand === 'Apple' ? 'UK Used / Brand New' : escapeHtml(product.brand)}</span>
+        <span class="catalog-brand">${escapeHtml(product.conditions.includes('Details coming soon')?'Details coming soon':product.brand === 'Apple' ? 'UK Used / Brand New' : product.brand)}</span>
         <h2><a href="${product.route}">${escapeHtml(product.model)}</a></h2>
         <p>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</p>
         <strong>${Number.isFinite(minPrice) ? `From ${formatNaira(minPrice)}` : "Confirm price"}</strong>

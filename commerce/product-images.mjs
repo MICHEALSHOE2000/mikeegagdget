@@ -2,8 +2,8 @@
 // path when a better Mikee product photo is ready; the catalogue and page layout
 // will keep using the same responsive 360/720 WebP variants automatically.
 export const productImages = {
-  "iPhone 18 Pro Max": {"image":"/images/store/iphone-18-pro-max.webp"},
-  "iPhone 18 Pro": {"image":"/images/store/iphone-18-pro.webp"},
+  "iPhone 18 Pro Max": {"image":""},
+  "iPhone 18 Pro": {"image":""},
   "iPhone 6": {
     "image": "/images/catalog/iphone-6.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-iphone6-colors.jpg"
@@ -170,4 +170,15 @@ export const productImages = {
     "image": "/images/catalog/iphone-17-pro-max.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-17-pro-max-colors.png"
   }
+};
+
+// Category photography lives here alongside individual model photography.
+// Replace paths with merchant photos; card proportions stay unchanged.
+export const categoryImages = {
+ iphones: '/images/store/17promax-1-360.webp',
+ samsung: '/images/store/samsung.webp', pixel: '/images/store/pixel.webp',
+ macbooks: '/images/store/macbooks.webp', ipads: '/images/store/ipads.webp',
+ watches: '/images/store/watches.webp', airpods: '/images/store/airpods.webp',
+ ps5: '/images/store/ps5.webp', games: '/images/store/games.webp',
+ laptops: '/images/store/macbooks.webp', accessories: '/images/store/accessories.webp'
 };

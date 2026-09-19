@@ -292,7 +292,7 @@ if (productDataElement) {
     });
 
     if (variantLabel) variantLabel.textContent = `${product.model} ${selectedStorage}`;
-    if (productPrice) productPrice.textContent = variant.price ? naira.format(variant.price) : "Request today’s price";
+    if (productPrice) productPrice.textContent = variant.price ? naira.format(variant.price) : "Confirm price";
     if (priceNote) {
       priceNote.textContent = variant.priceNeedsExtraConfirmation
         ? "This supplied guide price needs extra confirmation. Ask Mikee Gadget Plug for today’s exact price before planning."

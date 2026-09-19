@@ -2181,3 +2181,7 @@ address {
     min-width: 0;
   }
 }
+
+/* Progressive enhancement: reveal observers must never gate readable content. */
+.reveal, .product-card, .step, .shop-section, .category-card,
+.testimonial-card, .faq-item, .final-cta { opacity: 1; transform: none; }
