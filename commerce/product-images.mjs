@@ -3,8 +3,8 @@
 // will keep using the same responsive 360/720 WebP variants automatically.
 export const productImages = {
   "iPhone 13 Pro Max": {"preferred":"/images/store/13promax-1-720.webp","image":"/images/store/13promax-1-720.webp"},
-  "iPhone 18 Pro Max": {"image":""},
-  "iPhone 18 Pro": {"image":""},
+  "iPhone 18 Pro Max": {"preferred":"/images/store/18promax-1-720.webp","image":"/images/store/18promax-1-720.webp"},
+  "iPhone 18 Pro": {"preferred":"/images/store/18pro-1-720.webp","image":"/images/store/18pro-1-720.webp"},
   "iPhone 6": {
     "image": "/images/catalog/iphone-6.webp",
     "source": "https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-iphone6-colors.jpg"
@@ -185,4 +185,4 @@ export const categoryImages = {
 };
 
 // Store location is genuine; no verified premises photograph has been supplied.
-export const storePhotography = { image:"/images/store/13-1-720.webp", alt:"iPhone 13 devices from the Mikee product photo collection" };
+export const storePhotography = { image:'/images/store/shop-concept-960.webp', thumbnail:'/images/store/shop-concept-480.webp', alt:'Mikee Gadget Plug branded shop concept illustration', caption:'Store concept illustration. Visit our physical store at the address shown.' };

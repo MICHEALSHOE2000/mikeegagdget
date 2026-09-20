@@ -40,7 +40,7 @@ test('swap credit comes off before the deposit and financing interest', () => {
   assert.equal(plan.deposit,54600); assert.equal(plan.balance,81900); assert.equal(plan.interest,18428); assert.equal(plan.totalPayable,154928);
 });
 test('rounded schedules reconcile for every priced variant, duration and platform', () => {
-  for(const p of choices.filter(p=>p.price)) for(const duration of [1,2,3]) for(const platform of ['credit','noCredit']) {
+  for(const p of choices.filter(p=>p.price)) for(const duration of [1,2,3,4,5,6]) for(const platform of ['credit','noCredit']) {
     const plan=financePlan({amount:p.price,duration,platform});
     assert.equal(plan.payments.reduce((a,b)=>a+b,0),plan.repaymentTotal);
     assert.equal(plan.totalPayable,plan.deposit+plan.repaymentTotal);
@@ -48,7 +48,7 @@ test('rounded schedules reconcile for every priced variant, duration and platfor
   }
 });
 test('invalid inputs are rejected and a full upfront deposit has zero interest', () => {
-  for(const changes of [{amount:NaN},{amount:-1},{duration:4},{platform:'unknown'},{deposit:0},{deposit:NaN},{deposit:-5},{deposit:999999},{deposit:60000.1}]) assert.throws(()=>financePlan({amount:140000,...changes}));
+  for(const changes of [{amount:NaN},{amount:-1},{duration:7},{platform:'unknown'},{deposit:0},{deposit:NaN},{deposit:-5},{deposit:999999},{deposit:60000.1}]) assert.throws(()=>financePlan({amount:140000,...changes}));
   assert.equal(financePlan({amount:140000,deposit:140000}).interest,0);
 });
 test('supplied price corrections, old phones and colour groups are preserved', () => {

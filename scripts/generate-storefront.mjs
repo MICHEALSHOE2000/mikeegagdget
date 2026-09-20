@@ -1,14 +1,16 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {categories,shopCategories,storeItems} from '../commerce/storefront-data.mjs';
 import {card,media,escape,priceText} from '../assets/storefront-ui.mjs';
-import {productImages} from '../commerce/product-images.mjs';
+import {productImages,storePhotography} from '../commerce/product-images.mjs';
 import {commerceSite as site} from '../commerce/catalog.mjs';
 let html=await readFile('templates/home.html.template','utf8');
-for(const [token,model] of [['HERO_PRIMARY','iPhone 14 Pro Max'],['HERO_SECOND','iPhone 17 Pro Max'],['HERO_THIRD','iPhone 16 Pro Max']]) {
+for(const [token,model] of [['HERO_PRIMARY','iPhone 17 Pro'],['HERO_SECOND','iPhone 17 Pro Max'],['HERO_THIRD','iPhone 16 Pro Max']]) {
  const src=productImages[model].preferred || productImages[model].image;
  html=html.replaceAll(`{{${token}}}`,src).replaceAll(`{{${token}_THUMB}}`,src.replace('-720.webp','-360.webp'));
 }
-html=html.replace('{{HERO_PRICE}}',priceText(storeItems.find(p=>p.slug==='iphone-14-pro-max')));
+html=html.replaceAll('{{SHOP_IMAGE}}',storePhotography.image).replaceAll('{{SHOP_THUMB}}',storePhotography.thumbnail).replaceAll('{{SHOP_ALT}}',storePhotography.alt).replaceAll('{{SHOP_CAPTION}}',storePhotography.caption);
+const trust=html.match(/<div class="trust-loop">([\s\S]*?)<\/div>/)?.[1]||'';
+html=html.replace('{{TRUST_DUPLICATE}}','<div class="trust-loop" aria-hidden="true">'+trust+'</div>');
 const categoryHtml=categories.map(c=>`<a class="category-tile" href="${c.route}" data-category="${c.id}">${media(c.image,c.name)}<strong>${c.name}</strong><span aria-hidden="true">Shop ↗</span></a>`).join('');
 html=html.replace('{{SERIES_OPTIONS}}',[...new Set(storeItems.map(p=>p.series).filter(Boolean))].map(series=>`<option value="${series}">iPhone ${series}</option>`).join('')).replace('{{CATEGORIES}}',categoryHtml).replace('{{CATEGORY_OPTIONS}}',categories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')).replace('{{PRODUCTS}}',storeItems.filter(p=>p.variants.some(v=>v.price>0)).slice(0,8).map(card).join('')).replace('{{HOT_DEALS}}',storeItems.filter(p=>p.variants.some(v=>v.offerId)).map(card).join(''));
 await writeFile('index.html',html);

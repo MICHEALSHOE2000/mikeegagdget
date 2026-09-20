@@ -13,6 +13,6 @@ test('20% offers agree across products, catalogue and finance without changing v
  }
 });
 test('homepage leads with complete models and keeps all direct landing routes',async()=>{
- const html=await readFile('index.html','utf8');assert.ok(html.indexOf('hot-deals')<html.indexOf('id="categories"'));assert.ok(!html.includes('data-model="iphone-18'));
+ const html=await readFile('index.html','utf8');assert.ok(html.indexOf('hot-deals')<html.indexOf('id="categories"'));assert.ok(html.includes('data-model="iphone-18-pro-max"'));
  for(const route of ['easybuy','swap','deals','iphone-14-pro-max','iphone-13-pro-max']){const page=await readFile(`${route}/index.html`,'utf8');assert.ok(page.includes('<h1>'));assert.ok(page.includes('/assets/sales.js'));}
 });

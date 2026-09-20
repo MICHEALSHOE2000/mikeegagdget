@@ -1,7 +1,7 @@
 import { calculateSwapValue, calculateOutstandingBalance } from './pricing.mjs';
 import { products } from './catalog.mjs';
-import { DEPOSIT_RATE, FINANCE_PLATFORMS } from '../easy-buy/easy-buy-core.mjs';
-export { FINANCE_PLATFORMS };
+import { DEPOSIT_RATE, FINANCE_PLATFORMS, FINANCE_DURATIONS } from '../easy-buy/easy-buy-core.mjs';
+export { FINANCE_PLATFORMS, FINANCE_DURATIONS };
 export const money = value => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(value);
 export const choices = products.flatMap(product => product.variants.map(variant => ({
   id: `${product.slug}|${variant.storage}`, slug: product.slug, model: product.model,
@@ -21,7 +21,7 @@ export function financePlan({ amount, platform = 'credit', duration = 1, deposit
   if (!Number.isFinite(amount) || amount < 0) throw new TypeError('A valid balance is required.');
   const policy = FINANCE_PLATFORMS[platform];
   if (!policy) throw new RangeError('Choose a financing platform.');
-  if (![1,2,3].includes(duration)) throw new RangeError('Choose a one, two or three month plan.');
+  if (!FINANCE_DURATIONS.includes(duration)) throw new RangeError('Choose a one to six month plan.');
   const minimumDeposit = Math.round(amount * DEPOSIT_RATE);
   if (!Number.isFinite(deposit) || !Number.isInteger(deposit) || deposit < minimumDeposit || deposit > amount) throw new RangeError(`Deposit must be between ${minimumDeposit} and ${amount}.`);
   const balance = amount - deposit;

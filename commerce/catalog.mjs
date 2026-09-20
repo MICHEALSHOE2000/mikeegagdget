@@ -2,6 +2,7 @@ import { newestFirst } from "./catalog-order.mjs";
 import { productImages } from "./product-images.mjs";
 import { getSellingPrice } from "./pricing.mjs";
 import { priceList, suppliedPrices } from "./price-list.mjs";
+import { merchantListings } from './merchant-listings.mjs';
 export const commerceSite = Object.freeze({
   name: "Mikee Gadget Plug",
   legalName: "MIKEE GADGET PLUG",
@@ -181,8 +182,7 @@ const legacyIphoneDefinitions = [
 ];
 
 const iphoneDefinitions = [
-  ["iPhone 18 Pro Max", "iphone-18-pro-max", ["Storage to confirm"], "Storage to confirm", "confirm"],
-  ["iPhone 18 Pro", "iphone-18-pro", ["Storage to confirm"], "Storage to confirm", "confirm"],
+  ...Object.entries(merchantListings).map(([model,p])=>[model,p.slug,p.variants.map(([storage])=>storage),p.variants[0][0],'confirm']),
   ...priceList.map(([model, slug, variants]) => {
     const previous = legacyIphoneDefinitions.find(item => item[1] === slug);
     const storage = variants.map(([size]) => size);
@@ -266,11 +266,12 @@ const pixelDefinitions = [
 
 const makeVariant = (model, storage) => {
   const key = `${model}|${storage}`;
+  const sellingPrice=merchantListings[model]?.variants.find(([label])=>label===storage)?.[1];
   return {
     storage,
     basePrice: suppliedPrices[key] ?? null,
-    sellingPrice: suppliedPrices[key] ? getSellingPrice(suppliedPrices[key]) : null,
-    price: suppliedPrices[key] ? getSellingPrice(suppliedPrices[key]) : null,
+    sellingPrice: sellingPrice ?? (suppliedPrices[key] ? getSellingPrice(suppliedPrices[key]) : null),
+    price: sellingPrice ?? (suppliedPrices[key] ? getSellingPrice(suppliedPrices[key]) : null),
     color: storage.includes('—') ? storage.split('—')[1].trim() : null,
     availability: model === 'iPhone 7 Plus' ? 'Few pieces — confirm availability' : 'Confirm availability', 
     priceNeedsExtraConfirmation: priceNeedsExtraConfirmation.has(key),
@@ -284,18 +285,19 @@ const makeIphone = ([model, slug, storage, defaultStorage, specKey]) => ({
   slug,
   route: `/${slug}`,
   family: "iPhone",
-  listingPending: slug.startsWith("iphone-18-"),
+  listingPending: false,
+  specificationsPending: Boolean(merchantListings[model]),
   variants: storage.map((value) => makeVariant(model, value)),
   defaultStorage,
-  colors: slug.startsWith("iphone-18-") ? ["Details coming soon"] : ["Choose with your device"],
-  conditions: slug.startsWith("iphone-18-") ? ["Details coming soon"] : ["UK Used", "Brand New"],
+  colors: merchantListings[model] ? ['Glacier','Black','Burgundy'] : ["Choose with your device"],
+  conditions: merchantListings[model] ? ["Confirm condition"] : ["UK Used", "Brand New"],
   images: productImages[model]?.image === "" ? [] : productImages[model]?.preferred ? [productImages[model].preferred, ...(iphoneImages[model] ?? []).slice(1)] : productImages[model] ? [productImages[model].image, ...(iphoneImages[model] ?? [])] : iphoneImages[model] ?? [],
-  stockStatus: slug.startsWith("iphone-18-") ? "Listing preview — price and availability not yet supplied" : "Stock and condition checked before payment",
-  easyBuyEligible: slug.startsWith("iphone-18-") ? "confirm" : true,
-  swapEligible: slug.startsWith("iphone-18-") ? false : true,
+  stockStatus: merchantListings[model] ? "Merchant-supplied listing — confirm exact unit and availability" : "Stock and condition checked before payment",
+  easyBuyEligible: true,
+  swapEligible: true,
   warranty: commerceSite.warranty,
   batteryHealth: commerceSite.usedIphoneBattery,
-  specifications: slug.startsWith("iphone-18-") ? Object.fromEntries(["display","camera","processor","network","security","sim"].map(key=>[key,"Details coming soon"])) : iphoneSpecs[specKey] || {
+  specifications: merchantListings[model] ? Object.fromEntries(["display","camera","processor","network","security","sim"].map(key=>[key,"Confirm specifications for the exact unit with Mikee"])) : iphoneSpecs[specKey] || {
     display: "Confirm the exact unit’s display", camera: "Ask for camera condition and specifications",
     processor: "Confirm the exact model", network: "Confirm network compatibility",
     security: /iphone-(6|7|8|se)/.test(slug) ? "Touch ID — confirm it works" : "Face ID — confirm it works",

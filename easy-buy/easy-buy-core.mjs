@@ -1,10 +1,12 @@
 export const DEPOSIT_RATE = 0.4;
+export const FINANCE_DURATIONS = Object.freeze([1,2,3,4,5,6]);
+export const CREDIT_LIMIT_URL = 'https://www.creditdirect.ng/know-your-limit';
 export const FINANCE_PLATFORMS = Object.freeze({
-  credit: Object.freeze({ label: "Credit-check plan", rate: 0.075, creditCheck: true }),
-  noCredit: Object.freeze({ label: "No credit-check plan", rate: 0.20, creditCheck: false })
+  credit: Object.freeze({ label: "Approved-limit plan", rate: 0.075, creditCheck: true }),
+  noCredit: Object.freeze({ label: "No-limit-check plan", rate: 0.20, creditCheck: false })
 });
 // Legacy callers explicitly retain the no-credit plan; new journey offers both.
-export const DURATION_FACTORS = Object.freeze({ 1: 1.2, 2: 1.4, 3: 1.6 });
+export const DURATION_FACTORS = Object.freeze({ 1: 1.2, 2: 1.4, 3: 1.6, 4: 1.8, 5: 2, 6: 2.2 });
 export const PAYMENTS_PER_MONTH = Object.freeze({ monthly: 1, weekly: 4, biweekly: 2 });
 
 export function allowedFrequencies(series) {
@@ -18,14 +20,14 @@ export function calculatePlan({ price, duration, frequency = "monthly", series, 
   const numericDuration = Number(duration);
   const policy = FINANCE_PLATFORMS[platform];
   if (!policy) throw new RangeError("Choose a financing platform.");
-  const factor = [1,2,3].includes(numericDuration) ? 1 + policy.rate * numericDuration : null;
+  const factor = FINANCE_DURATIONS.includes(numericDuration) ? 1 + policy.rate * numericDuration : null;
   const paymentsPerMonth = PAYMENTS_PER_MONTH[frequency];
 
   if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
     throw new TypeError("A positive phone price is required.");
   }
   if (!factor) {
-    throw new RangeError("Duration must be 1, 2 or 3 months.");
+    throw new RangeError("Duration must be one to six months.");
   }
   if (!paymentsPerMonth || !allowedFrequencies(Number(series)).includes(frequency)) {
     throw new RangeError("That repayment schedule is not available for the selected iPhone.");

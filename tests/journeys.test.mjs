@@ -29,8 +29,8 @@ test('EasyBuy progresses independently, rejects invalid deposits and includes th
  assert.equal(headline(),'How much will you pay today?');assert.equal(document.querySelector('[name="duration"]'),null);
  value('journey-deposit',0,'input');next();assert.match(document.getElementById('journey-error').textContent,/whole-naira deposit/);assert.equal(headline(),'How much will you pay today?');
  value('journey-deposit',Math.round(phone.price*.4),'input');next();assert.equal(headline(),'How long do you need?');
- document.querySelector('[name="duration"][value="3"]').click();next();assert.equal(headline(),'Your payment plan.');
- const plan=financePlan({amount:phone.price,duration:3});assert.ok(message().includes(`Total repayment including deposit: ₦${plan.totalPayable.toLocaleString('en-NG')}`));assert.match(message(),/utm_source: tiktok/);assert.match(message(),/ttclid: qa-test/);
+ document.querySelector('[name="duration"][value="6"]').click();next();assert.equal(headline(),'Your payment plan.');
+ const plan=financePlan({amount:phone.price,duration:6});assert.ok(message().includes(`Total repayment including deposit: ₦${plan.totalPayable.toLocaleString('en-NG')}`));assert.match(message(),/utm_source: tiktok/);assert.match(message(),/ttclid: qa-test/);
  assert.ok(window.dataLayer.some(e=>e.event==='easybuy_calculated'));assert.ok(!document.getElementById('journey-whatsapp').hidden);
  document.getElementById('journey-back').click();document.getElementById('journey-back').click();value('journey-platform','noCredit');next();next();assert.match(message(),/20% monthly/);
  dom.window.close();
@@ -65,4 +65,18 @@ test('Product storage selection carries its promoted price, condition and colour
  const buy=document.querySelector('[data-action="buy"]'),easy=document.querySelector('[data-action="easyBuy"]'),swap=document.querySelector('[data-action="swap"]');
  assert.match(buy.href,/wa.me\/2347086865133/);assert.ok(new URL(buy.href).searchParams.get('text').includes(phone.price.toLocaleString('en-NG')));assert.equal(new URL(easy.href).pathname,'/easybuy/');assert.equal(new URL(easy.href).searchParams.get('phone'),id);assert.equal(new URL(swap.href).searchParams.get('target'),id);
  assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.storage==='256GB'));dom.window.close();
+});
+test('new colour groups cannot send a Burgundy quote at the Glacier/Black price',async()=>{
+ const dom=await setup('iphone-18-pro-max/index.html','/iphone-18-pro-max');await import(`../assets/commerce.js?test=${++serial}`);
+ document.querySelector('[data-storage="512GB — Burgundy"]').click();
+ assert.equal(document.querySelector('[data-color-select]').value,'Burgundy');
+ let href=document.querySelector('[data-action="buy"]').href;
+ assert.match(new URL(href).searchParams.get('text'),/₦3,150,000/);
+ assert.match(new URL(href).searchParams.get('text'),/Preferred colour: Burgundy/);
+ document.querySelector('[data-storage="256GB — Glacier / Black"]').click();
+ assert.deepEqual([...document.querySelector('[data-color-select]').options].map(o=>o.value),['Glacier','Black']);
+ document.querySelector('[data-color-select]').value='Black';event(document.querySelector('[data-color-select]'),'change');
+ href=document.querySelector('[data-action="buy"]').href;
+ assert.match(new URL(href).searchParams.get('text'),/₦2,780,000/);assert.match(new URL(href).searchParams.get('text'),/Preferred colour: Black/);
+ dom.window.close();
 });

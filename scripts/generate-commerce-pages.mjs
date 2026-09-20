@@ -293,14 +293,14 @@ const renderDetails = (product) => `
       <p class="commerce-eyebrow">Device details</p>
       <h2>Know what you’re choosing</h2>
       <p>We’ll confirm the colour, condition and SIM options for your exact device.</p>
-      <div class="spec-grid">
+      ${product.specificationsPending ? '<p>Ask Mikee for the specifications of the exact unit before ordering.</p>' : `<div class="spec-grid">
         <article><span>Display</span><strong>${escapeHtml(product.specifications.display)}</strong></article>
         <article><span>Camera</span><strong>${escapeHtml(product.specifications.camera)}</strong></article>
         <article><span>Processor</span><strong>${escapeHtml(product.specifications.processor)}</strong></article>
         <article><span>Network</span><strong>${escapeHtml(product.specifications.network)}</strong></article>
         <article><span>Security</span><strong>${escapeHtml(product.specifications.security)}</strong></article>
         <article><span>SIM options</span><strong>${escapeHtml(product.specifications.sim)}</strong></article>
-      </div>
+      </div>`}
     </div>
     <aside class="condition-panel">
       <p class="commerce-eyebrow">Condition guide</p>

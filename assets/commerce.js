@@ -280,6 +280,14 @@ if (productDataElement) {
     const variant = product.variants.find((item) => item.storage === storage);
     if (!variant) return;
     selectedStorage = variant.storage;
+    // Colour groups carry different supplied prices. Keep the selector inside
+    // the chosen group so a Burgundy quote cannot use the Glacier/Black price.
+    if (colorSelect && product.slug.startsWith('iphone-18-') && variant.color) {
+      const colors=variant.color.split('/').map(value=>value.trim());
+      const previous=colorSelect.value;
+      colorSelect.replaceChildren(...colors.map(color=>{const option=document.createElement('option');option.value=color;option.textContent=color;return option;}));
+      if(colors.includes(previous)) colorSelect.value=previous;
+    }
 
     storageButtons.forEach((button) => {
       const active = button.dataset.storage === selectedStorage;
