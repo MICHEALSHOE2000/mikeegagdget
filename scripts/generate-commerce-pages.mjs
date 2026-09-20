@@ -495,7 +495,7 @@ const renderCategoryCard = (product) => {
         ${media(product.images[0],product.model)}
       </a>
       <div>
-        <span class="catalog-brand">${escapeHtml(product.conditions.includes('Details coming soon')?'Details coming soon':product.brand === 'Apple' ? 'UK Used / Brand New' : product.brand)}</span>
+        <span class="catalog-brand">${!isComplete(product)?"COMING SOON · ":""}${escapeHtml(product.conditions.includes('Details coming soon')?'Details coming soon':product.brand === 'Apple' ? 'UK Used / Brand New' : product.brand)}</span>
         <h2><a href="${product.route}">${escapeHtml(product.model)}</a></h2>
         <p>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</p>
         <strong>${Number.isFinite(minPrice) ? `From ${formatNaira(minPrice)}` : "Confirm price"}</strong>

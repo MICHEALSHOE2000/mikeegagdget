@@ -23,5 +23,5 @@ export const shopCategories = categories.filter(c=>!['iphones','samsung','pixel'
 }));
 export const storeItems = [
  ...[...products].filter(isComplete).sort(newestFirst).map(p=>({slug:p.slug,model:p.model,brand:p.brand,category:p.brand==='Apple'?'iphones':p.brand==='Samsung'?'samsung':'pixel',image:p.images[0] || '',route:p.route,series:p.model.match(/^iPhone (\d+)/)?.[1] || (p.model.startsWith('iPhone X')?'X':p.model.startsWith('iPhone SE')?'SE':''),conditions:p.listingPending?[]:p.conditions,availability:'',easy:p.easyBuyEligible===true,swap:p.swapEligible===true,variants:p.variants.filter(v=>v.price>0).map(v=>({storage:v.storage,price:v.price,regularPrice:v.regularPrice,offerId:v.offerId}))})),
- ...shopCategories.map(c=>({slug:c.id,model:c.name,brand:c.brand,category:c.id,image:c.image,route:c.route,conditions:[],availability:'',easy:false,swap:false,variants:[{storage:'Explore the range',price:null}]}))
+ ...categories.filter(c=>c.id!=='iphones').map(c=>({slug:c.id,model:c.name,brand:c.brand,category:c.id,image:c.image,route:c.route,conditions:[],availability:'',easy:false,swap:false,variants:[{storage:'Explore the range',price:null}]}))
 ];

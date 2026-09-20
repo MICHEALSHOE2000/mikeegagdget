@@ -2,6 +2,7 @@
 // path when a better Mikee product photo is ready; the catalogue and page layout
 // will keep using the same responsive 360/720 WebP variants automatically.
 export const productImages = {
+  "iPhone 13 Pro Max": {"preferred":"/images/store/13promax-1-720.webp","image":"/images/store/13promax-1-720.webp"},
   "iPhone 18 Pro Max": {"image":""},
   "iPhone 18 Pro": {"image":""},
   "iPhone 6": {
@@ -182,3 +183,6 @@ export const categoryImages = {
  ps5: '/images/store/ps5.webp', games: '/images/store/games.webp',
  laptops: '/images/store/macbooks.webp', accessories: '/images/store/accessories.webp'
 };
+
+// Store location is genuine; no verified premises photograph has been supplied.
+export const storePhotography = { image:"/images/store/13-1-720.webp", alt:"iPhone 13 devices from the Mikee product photo collection" };

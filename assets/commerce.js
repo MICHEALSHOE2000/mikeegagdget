@@ -228,6 +228,7 @@ if (productDataElement) {
         if(link.dataset.action==='buy') {link.href=whatsappHref(product.whatsappNumber,`${messageFor('buy')}\nListed price: ${price?naira.format(price):'Please confirm'}${variant?.offerId?' (20% promotion)':''}`);link.textContent=price?`BUY — ${naira.format(price)}`:'ASK FOR PRICE';}
         if(link.dataset.action==='easyBuy'){link.href=`/easybuy/?${q}`;link.textContent=price?`EASYBUY — FROM ${naira.format(Math.round(price*.4))} TODAY`:'EASYBUY — CONFIRM PRICE';}
         if(link.dataset.action==='swap'){q.set('target',q.get('phone'));link.href=`/swap/?${q}`;link.textContent='SWAP — SEE WHAT YOU’LL ADD';}
+        if(!price && link.dataset.action!=='buy'){link.href=whatsappHref(product.whatsappNumber,messageFor(link.dataset.action));link.textContent=link.dataset.action==='easyBuy'?'ASK ABOUT EASYBUY':'ASK ABOUT A SWAP';}
         link.removeAttribute('target');
 
       } else {
