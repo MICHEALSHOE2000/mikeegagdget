@@ -1,0 +1,75 @@
+/* The original storefront theme, with the requested moving sections and nav. */
+.store-home{color-scheme:light}
+.store-home [hidden]{display:none!important}
+.store-home .hero-actions{display:none}
+.store-home .why-mikee-gadget-plug-bar{display:grid;grid-template-columns:auto minmax(0,1fr) 36px;gap:16px}
+.store-home .why-mikee-gadget-plug-bar>strong{color:#172016}
+.store-home .why-mikee-gadget-plug-marquee{overflow:hidden}
+.store-home .why-mikee-gadget-plug-track{gap:0;animation:store-trust-scroll 38s linear infinite;will-change:transform}
+.trust-loop{display:flex;gap:16px;padding-right:16px;flex-shrink:0;align-items:center}
+.store-home .why-mikee-gadget-plug-track span{border:0;background:transparent;padding:5px 10px;color:#f0e9d7}
+.store-home .why-mikee-gadget-plug-track span::before{content:'✦';color:#d8b45a;margin-right:14px}
+.store-home .why-mikee-gadget-plug-bar:hover .why-mikee-gadget-plug-track,
+.store-home .why-mikee-gadget-plug-bar:focus-within .why-mikee-gadget-plug-track,
+.store-home .why-mikee-gadget-plug-bar[data-paused="true"] .why-mikee-gadget-plug-track{animation-play-state:paused}
+.trust-pause{border:1px solid #76663e;color:#f2d897;background:#151a17;width:36px;height:36px;border-radius:5px;cursor:pointer}
+@keyframes store-trust-scroll{to{transform:translateX(-50%)}}
+.store-home .hot-deals{padding-block:32px}
+.deal-controls{display:flex;align-items:center;gap:8px}
+.deal-controls button{width:40px;height:44px;border:1px solid #cecec7;border-radius:6px;background:#fff;color:#1c3024;cursor:pointer}
+.deal-controls .text-link{margin-right:6px}
+.hot-grid{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 60px)/4);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 1px 16px;scrollbar-width:thin;scrollbar-color:#bd913b #efefeb}
+.hot-grid .store-phone{scroll-snap-align:start}
+.store-home .hot-grid .store-photo{position:relative}
+.store-home .hot-grid .store-photo .device-media{height:240px}
+.offer-label{position:absolute;top:10px;left:10px;z-index:2;padding:7px 9px;background:#123b2b;color:#ffefbd;font-size:10px;font-weight:800;border-radius:4px}
+.regular-price{display:block;font-size:12px;color:#686e65;margin-bottom:5px}
+.store-home .card-shortcuts{display:flex;gap:22px;padding-top:8px}
+.store-home .card-shortcuts a{font-size:12px;color:#42614b;min-height:36px;display:inline-flex;align-items:center}
+.store-home .store-storage{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-height:35px;min-height:35px}
+.store-home .store-options{min-height:32px}
+.store-home .store-photo img{mix-blend-mode:normal}
+.store-home .credit-limit{display:grid;grid-template-columns:1.25fr 1fr;align-items:center;gap:40px;padding:32px;background:#10291f;color:white;border-radius:12px;margin-block:24px}
+.store-home .credit-limit .eyebrow{color:#efd18e}
+.store-home .credit-limit h2{color:#fff;font-size:32px}
+.store-home .credit-limit p{font-size:14px;color:#cbd9cb}
+.store-home .credit-limit .btn{background:#e1bd70;color:#142117;border-color:#e1bd70}
+.store-home .credit-limit .limit-note{font-size:12px;max-width:350px;line-height:1.6;margin-bottom:0}
+.store-home .shop-gallery{position:relative}
+.store-home .shop-caption{font-size:11px;background:#101b13;color:#e6eadd;margin:0;padding:10px 14px;line-height:1.5}
+.mobile-bottom-nav{display:none}
+@media(max-width:1000px){.hot-grid{grid-auto-columns:calc((100% - 32px)/3);gap:16px}}
+@media(max-width:760px){
+ body.store-home{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+ .store-home .why-mikee-gadget-plug-bar{grid-template-columns:minmax(0,1fr) 36px;gap:8px;padding-inline:16px}
+ .store-home .why-mikee-gadget-plug-bar>strong{display:block;grid-column:1/-1;justify-self:start;font-size:10px;min-height:24px;padding:3px 0;border:0;background:none;color:#f3d58c}
+ .store-home .why-mikee-gadget-plug-track span{font-size:11px}
+ .trust-pause{height:32px;width:32px}
+ .store-home .hero h1{font-size:36px}
+ .store-home .hot-deals{padding-block:26px}
+ .hot-deals .store-heading{align-items:center;gap:10px}
+ .hot-deals .store-heading h2{font-size:27px}
+ .hot-deals .eyebrow{font-size:9px;letter-spacing:.08em}
+ .deal-controls{gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:132px}
+ .deal-controls .text-link{flex-basis:100%;justify-content:flex-end;min-height:26px;margin:0;font-size:12px}
+ .deal-controls button{width:34px;height:38px}
+ .hot-grid{grid-auto-columns:76%;gap:14px}
+ .store-home .hot-grid .store-photo .device-media{height:235px}
+ .store-home .hot-grid .store-card-copy h3{font-size:22px;min-height:0}
+ .store-home .hot-grid .store-condition{font-size:10px}
+ .store-home .hot-grid .store-price{font-size:24px}
+ .store-home .hot-grid .store-options{font-size:12px}
+ .store-home .credit-limit{grid-template-columns:1fr;gap:12px;padding:24px}
+ .store-home .credit-limit h2{font-size:29px}
+ .store-home .credit-limit p{font-size:13px}
+ .mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));bottom:0;left:0;right:0;z-index:90;min-height:66px;padding:9px 6px calc(9px + env(safe-area-inset-bottom));background:#111a14;border-top:1px solid #414c3b}
+ .mobile-bottom-nav a{color:#b6c4b3;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;font:12px Arial,sans-serif;text-decoration:none;min-height:45px}
+ .mobile-bottom-nav a[aria-current]{color:#e1bd70}
+ .mobile-bottom-nav svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.6}
+}
+@media(max-width:360px){.store-home .hero h1{font-size:32px}.store-home .store-price{font-size:16px}.store-home .store-card-copy{padding:10px}.hot-grid{grid-auto-columns:82%}}
+@media(prefers-reduced-motion:reduce){
+ .store-home .why-mikee-gadget-plug-track{animation:none;transform:none}
+ .store-home .why-mikee-gadget-plug-marquee{overflow-x:auto}
+ .trust-loop[aria-hidden]{display:none}
+}

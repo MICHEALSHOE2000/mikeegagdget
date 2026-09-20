@@ -4,6 +4,8 @@
   const body = document.body;
   const attributionKeys = [
     "gclid",
+    "fbclid",
+    "ttclid",
     "wbraid",
     "gbraid",
     "utm_source",
@@ -108,6 +110,8 @@
     const link = event.target.closest("a");
     if (!link) return;
 
+    decorateInternalLink(link);
+    decorateWhatsappLink(link);
     const isWhatsapp = link.dataset.track === "whatsapp" || link.href.includes("wa.me/");
     const isCall = link.dataset.track === "call" || link.href.startsWith("tel:");
     const isDirections = link.dataset.track === "directions" || link.href.includes("google.com/maps");
@@ -118,12 +122,15 @@
         pushEvent("begin_easy_buy_application");
       }
       pushEvent("click_whatsapp", { link_url: link.href });
+      pushEvent("whatsapp_click", { link_url: link.href });
     }
     if (isCall) {
       pushEvent("click_call", { link_url: link.href });
+      pushEvent("call_click", { link_url: link.href });
     }
     if (isDirections) {
       pushEvent("click_directions", { link_url: link.href });
+      pushEvent("directions_click", { link_url: link.href });
     }
     if (link.dataset.primaryAction === "select_phone") {
       pushEvent("select_phone");
