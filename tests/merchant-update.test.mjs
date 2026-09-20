@@ -5,14 +5,14 @@ import {products} from '../commerce/catalog.mjs';
 import {storeItems} from '../commerce/storefront-data.mjs';
 import {choices,financePlan,estimateSwap} from '../commerce/upgrade-core.mjs';
 import {calculatePlan} from '../easy-buy/easy-buy-core.mjs';
-import {storePhotography} from '../commerce/product-images.mjs';
 
-test('shop responsive image contains resolved asset paths',async()=>{
+test('store section uses a truthful location treatment without an imaginary showroom',async()=>{
  const html=await readFile('index.html','utf8');
  assert.ok(!html.includes('{{'),'No unresolved homepage template tokens');
- assert.ok(html.includes(`${storePhotography.thumbnail} 480w, ${storePhotography.image} 960w`));
- await readFile(`.${storePhotography.image}`);
- await readFile(`.${storePhotography.thumbnail}`);
+ assert.match(html,/shop-location-visual/);
+ assert.match(html,/1 Ola Ayeni Street/);
+ assert.match(html,/Computer Village, Ikeja/);
+ assert.doesNotMatch(html,/shop-concept|Store concept illustration/);
 });
 
 test('new merchant prices reach catalogue, product pages and calculator choices exactly',async()=>{

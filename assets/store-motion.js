@@ -1,12 +1,18 @@
 // Rotate the display order, never the agreed offer price or purchase destination.
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const trust=document.querySelector('.why-mikee-gadget-plug-bar');
-const trustButton=document.querySelector('.trust-pause');
-trustButton?.addEventListener('click',()=>{
- const paused=trust.dataset.paused!=='true';trust.dataset.paused=String(paused);
- trustButton.setAttribute('aria-pressed',String(paused));
- trustButton.setAttribute('aria-label',paused?'Resume moving store information':'Pause moving store information');
- trustButton.textContent=paused?'▶':'Ⅱ';
+const heroVideo=document.getElementById('heroVideo');
+const loadHeroVideo=()=>{
+ if(!heroVideo||reduced.matches)return;
+ heroVideo.querySelectorAll('source[data-src]').forEach(source=>source.src=source.dataset.src);
+ heroVideo.preload='metadata';
+ heroVideo.load();
+ heroVideo.play().catch(()=>{});
+};
+loadHeroVideo();
+reduced.addEventListener?.('change',()=>{
+ if(reduced.matches)heroVideo?.pause();
+ else if(heroVideo?.querySelector('source:not([src])'))loadHeroVideo();
+ else heroVideo?.play().catch(()=>{});
 });
 const rail=document.getElementById('hotDeals'),pause=document.getElementById('deals-pause');
 if(rail&&pause){
