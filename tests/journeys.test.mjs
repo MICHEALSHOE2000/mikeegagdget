@@ -12,6 +12,7 @@ async function setup(path,url){
  globalThis.matchMedia=()=>({matches:false,addEventListener(){}});dom.window.matchMedia=globalThis.matchMedia;
  dom.window.HTMLElement.prototype.scrollIntoView=function(){};
  globalThis.fetch=async url=>({ok:true,json:async()=>JSON.parse(readFileSync('.'+url,'utf8'))});
+ dom.window.eval(await readFile('assets/tiktok-pixel.js','utf8'));
  dom.window.eval(await readFile('assets/landing-page.js','utf8'));
  return dom;
 }
@@ -31,7 +32,7 @@ test('EasyBuy progresses independently, rejects invalid deposits and includes th
  value('journey-deposit',Math.round(phone.price*.4),'input');next();assert.equal(headline(),'How long do you need?');
  document.querySelector('[name="duration"][value="6"]').click();next();assert.equal(headline(),'Your payment plan.');
  const plan=financePlan({amount:phone.price,duration:6});assert.ok(message().includes(`Total repayment including deposit: ₦${plan.totalPayable.toLocaleString('en-NG')}`));assert.match(message(),/utm_source: tiktok/);assert.match(message(),/ttclid: qa-test/);
- assert.ok(window.dataLayer.some(e=>e.event==='easybuy_calculated'));assert.ok(!document.getElementById('journey-whatsapp').hidden);
+ assert.ok(window.dataLayer.some(e=>e.event==='easybuy_calculated'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='AddPaymentInfo'));assert.ok(!document.getElementById('journey-whatsapp').hidden);
  document.getElementById('journey-back').click();document.getElementById('journey-back').click();value('journey-platform','noCredit');next();next();assert.match(message(),/20% monthly/);
  dom.window.close();
 });
@@ -64,7 +65,8 @@ test('Product storage selection carries its promoted price, condition and colour
  document.querySelector('[data-storage="256GB"]').click();const id='iphone-14-pro-max|256GB',phone=offerChoice(choices.find(p=>p.id===id));
  const buy=document.querySelector('[data-action="buy"]'),easy=document.querySelector('[data-action="easyBuy"]'),swap=document.querySelector('[data-action="swap"]');
  assert.match(buy.href,/wa.me\/2347086865133/);assert.ok(new URL(buy.href).searchParams.get('text').includes(phone.price.toLocaleString('en-NG')));assert.equal(new URL(easy.href).pathname,'/easybuy/');assert.equal(new URL(easy.href).searchParams.get('phone'),id);assert.equal(new URL(swap.href).searchParams.get('target'),id);
- assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.storage==='256GB'));dom.window.close();
+ assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.storage==='256GB'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='ViewContent'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='CustomizeProduct'));
+ event(buy,'click');assert.equal(window.ttq.filter(e=>e[0]==='track'&&e[1]==='Contact').length,1);dom.window.close();
 });
 test('new colour groups cannot send a Burgundy quote at the Glacier/Black price',async()=>{
  const dom=await setup('iphone-18-pro-max/index.html','/iphone-18-pro-max');await import(`../assets/commerce.js?test=${++serial}`);
