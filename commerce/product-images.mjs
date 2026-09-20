@@ -181,7 +181,7 @@ export const categoryImages = {
  macbooks: '/images/store/macbooks.webp', ipads: '/images/store/ipads.webp',
  watches: '/images/store/watches.webp', airpods: '/images/store/airpods.webp',
  ps5: '/images/store/ps5.webp', games: '/images/store/games.webp',
- laptops: '/images/store/macbooks.webp', accessories: '/images/store/accessories.webp'
+ laptops: '/images/store/macbooks.webp', accessories: '/images/store/airpods.webp'
 };
 
 // Store location is genuine; no verified premises photograph has been supplied.
