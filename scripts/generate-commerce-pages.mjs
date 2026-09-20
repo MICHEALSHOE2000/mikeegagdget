@@ -429,6 +429,7 @@ const renderProductPage = (product) => {
   <script type="application/ld+json">${escapeJson(productSchema(product))}</script>
   <script type="application/ld+json">${escapeJson(breadcrumbSchema(breadcrumbs))}</script>
   <script type="application/ld+json">${escapeJson(faqSchema(faqs))}</script>
+  <!-- TikTok Pixel Code Start --><script src="/assets/tiktok-pixel.js"></script><!-- TikTok Pixel Code End -->
 </head>
 <body data-page-type="product" data-product-name="${escapeHtml(product.model)}" data-product-slug="${escapeHtml(product.slug)}" data-landing-page="${escapeHtml(product.route)}">
   ${renderHeader()}
@@ -552,6 +553,7 @@ const renderCategoryPage = (category) => {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/media.css"><link rel="stylesheet" href="/assets/commerce.css"><link rel="stylesheet" href="/assets/sales.css">
   <script type="application/ld+json">${escapeJson(breadcrumbSchema(breadcrumbs))}</script>
+  <!-- TikTok Pixel Code Start --><script src="/assets/tiktok-pixel.js"></script><!-- TikTok Pixel Code End -->
 </head>
 <body data-page-type="category" data-landing-page="${escapeHtml(category.route)}">
   ${renderHeader()}

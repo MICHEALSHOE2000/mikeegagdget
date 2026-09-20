@@ -28,6 +28,36 @@
 
   window.dataLayer = window.dataLayer || [];
 
+  const tiktokEvents = {
+    view_product: "ViewContent",
+    view_landing_page: "PageView",
+    search: "Search",
+    select_phone: "ViewContent",
+    select_storage: "CustomizeProduct",
+    select_condition: "CustomizeProduct",
+    begin_easy_buy_application: "InitiateCheckout",
+    start_easybuy: "InitiateCheckout",
+    easybuy_calculated: "AddPaymentInfo",
+    whatsapp_click: "Contact",
+    call_click: "Contact",
+    directions_click: "Contact"
+  };
+
+  function pushTikTokEvent(event, parameters = {}) {
+    if (!window.ttq?.track) return;
+    const standardEvent = tiktokEvents[event];
+    if (!standardEvent || standardEvent === "PageView") return;
+    const productId = parameters.product_id || context.product_name || context.phone_model || undefined;
+    const payload = {
+      ...(productId ? { content_id: String(productId), content_type: "product" } : {}),
+      ...(context.product_name ? { content_name: context.product_name } : {}),
+      ...(parameters.value != null ? { value: Number(parameters.value), currency: "NGN" } : {}),
+      ...(parameters.total != null ? { value: Number(parameters.total), currency: "NGN" } : {}),
+      ...(parameters.search_term ? { query: parameters.search_term } : {})
+    };
+    window.ttq.track(standardEvent, payload);
+  }
+
   function readAttribution() {
     const current = Object.fromEntries(
       attributionKeys
@@ -61,6 +91,7 @@
       ...parameters,
       page_location: location.href
     });
+    pushTikTokEvent(event, parameters);
   }
 
   function decorateInternalLink(anchor) {

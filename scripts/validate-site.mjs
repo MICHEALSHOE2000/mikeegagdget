@@ -201,6 +201,8 @@ for (const product of products) {
 }
 
 const tracking = await readFile(join(root, "assets", "landing-page.js"), "utf8");
+const tiktokPixel = await readFile(join(root, "assets", "tiktok-pixel.js"), "utf8");
+assert(tiktokPixel.includes("DANV8Q3C77U28JP39CGG"), "TikTok Pixel ID is missing.");
 [
   "view_landing_page",
   "view_product",
@@ -224,6 +226,10 @@ for (const filePath of htmlFiles) {
   assert(!html.includes("2348039248231"), `${relative}: old phone number is present.`);
   assert(!html.includes("0803 924 8231"), `${relative}: old display phone number is present.`);
   assert(!/\b(?:10k\+|4\.9|free shipping nationwide|24\/7 customer support|quality guaranteed|verified buyer)\b/i.test(html), `${relative}: an unverified claim is present.`);
+  if (!relative.startsWith("docs/")) {
+    assert(html.includes("assets/tiktok-pixel.js"), `${relative}: TikTok Pixel is missing.`);
+    assert(html.indexOf("assets/tiktok-pixel.js") < html.indexOf("</head>"), `${relative}: TikTok Pixel must load in the document head.`);
+  }
 
   const references = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((match) => match[1]);
   for (const reference of references) {
