@@ -138,12 +138,6 @@ if (form) {
     }
     message.push(q.manual ? 'Please assess my phone and send a final quote before any payment.' : 'Please confirm current stock, price, any swap inspection and complete payment terms before I pay.');
     if (easy) message.push('Please confirm approval, any fees, actual due dates and collection arrangements.');
-    // Preserve ad attribution in dynamically rebuilt WhatsApp links.
-    try {
-      const saved = JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution') || '{}');
-      const refs = ['gclid','wbraid','gbraid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].map(key => [key,query.get(key)||saved[key]]).filter(([,value]) => value);
-      if (refs.length) message.push(`Campaign reference: ${refs.map(([key,value]) => `${key}: ${value}`).join(' | ')}`);
-    } catch { /* Enquiries still work when storage is unavailable. */ }
     $('order-summary').innerHTML = summary;
     const ready = step === 3 && !q.pending && !depositError && (!isSwap || !missingAnswers().length);
     $('order-whatsapp').hidden = !ready;

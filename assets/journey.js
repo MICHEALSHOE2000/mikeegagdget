@@ -212,14 +212,6 @@ if(root){
   storage.addEventListener('change',()=>selectVariant(storage.value));
  }
 
- function campaignReference(){
-  try{
-   const saved=JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution')||'{}');
-   const refs=['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','wbraid','gbraid','fbclid','ttclid'].map(key=>[key,query.get(key)||saved[key]]).filter(([,value])=>value);
-   return refs.length?`Campaign reference: ${refs.map(([key,value])=>`${key}: ${value}`).join(' | ')}`:'';
-  }catch{return '';}
- }
-
  function planFor(duration=state.duration){
   return financePlan({amount:selected().price,deposit:Number(state.deposit),duration,platform:state.platform});
  }
@@ -415,8 +407,6 @@ if(root){
    html+=result.manual?'<div class="journey-amount"><span>AMOUNT TO ADD</span><strong>Let’s confirm it.</strong></div><p>We need to inspect your phone and confirm its reference price before quoting the difference.</p>':`<div class="journey-amount"><span>YOU ADD</span><strong>${money(result.topUp)}</strong></div>${rows([['Your phone’s estimated value',money(result.value)],['Your new phone',money(phone.price)]])}${result.surplus?`<p>Your estimated value is ${money(result.surplus)} above this phone’s price. Any cash difference needs a separate agreement; payout is not guaranteed.</p>`:''}<details><summary>See valuation breakdown</summary>${rows(result.deductions.map(item=>[item.label,`${item.percent}% · ${money(current().basePrice*item.percent/100)}`]))}</details>`;
    message.push(result.manual?'Please assess my phone and quote the difference.':`Estimated swap value: ${money(result.value)}\nEstimated amount to add: ${money(result.topUp)}${result.surplus?`\nEstimated surplus: ${money(result.surplus)} — subject to separate agreement`:''}`);
    message.push('Please confirm the exact unit, stock, condition, inspection and complete terms before payment.');
-   const campaign=campaignReference();
-   if(campaign)message.push(campaign);
    $('journey-whatsapp').href=`https://wa.me/${commerceSite.whatsappNumber}?text=${encodeURIComponent(message.join('\n'))}`;
    $('journey-whatsapp').hidden=false;
    $('journey-whatsapp').textContent='Continue swap on WhatsApp ↗';

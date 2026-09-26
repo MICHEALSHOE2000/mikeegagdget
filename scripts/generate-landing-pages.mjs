@@ -16,8 +16,7 @@ const escapeJson = (value) => JSON.stringify(value).replaceAll("<", "\\u003c");
 const cleanGeneratedOutput = (value) => value.replace(/[ \t]+$/gm, "");
 
 const whatsappHref = (page) => {
-  const source = `Source page: ${page.adGroupId} — ${page.adGroupName}.`;
-  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(`${page.whatsappMessage}\n\n${source}`)}`;
+  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(page.whatsappMessage)}`;
 };
 
 const breadcrumbs = (page) => {

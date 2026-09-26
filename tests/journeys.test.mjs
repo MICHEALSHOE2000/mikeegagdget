@@ -21,6 +21,7 @@ const value=(id,v,type='change')=>{const el=document.getElementById(id);assert.o
 const next=()=>document.getElementById('journey-next').click();
 const headline=()=>document.querySelector('#journey-screen h2').textContent;
 const message=()=>new URL(document.getElementById('journey-whatsapp').href).searchParams.get('text');
+const attributionInMessage=/Campaign reference|Source page:|utm_source|utm_medium|utm_campaign|ttclid|fbclid|gclid/i;
 const turn=()=>new Promise(resolve=>setTimeout(resolve,0));
 const chooseModel=(search,slug)=>{value('journey-search',search,'input');const button=document.querySelector(`#journey-search-results [data-model-slug="${slug}"]`);assert.ok(button,slug);button.click();};
 
@@ -41,7 +42,7 @@ test('EasyBuy compares all six live repayments, rejects invalid deposits and rec
  }
  const plan=financePlan({amount:phone.price,duration:6});assert.ok(message().includes(`Total repayment including deposit: ₦${plan.totalPayable.toLocaleString('en-NG')}`));
  const whatsapp=document.getElementById('journey-whatsapp');assert.match(whatsapp.href,/^https:\/\/wa\.me\/\d+\?text=/);whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();
- assert.doesNotMatch(message(),/Campaign reference|utm_source|utm_campaign|ttclid/);assert.ok(message().endsWith('Please confirm the exact unit, stock, eligibility, due dates, fees and complete terms before payment.'));
+ assert.doesNotMatch(message(),attributionInMessage);assert.ok(message().endsWith('Please confirm the exact unit, stock, eligibility, due dates, fees and complete terms before payment.'));
  assert.equal(JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution')).ttclid,'qa-test');assert.ok(window.dataLayer.some(e=>e.event==='easybuy_calculated'&&e.utm_campaign==='qa-campaign'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='AddPaymentInfo'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));assert.ok(!whatsapp.hidden);
  document.getElementById('journey-back').click();chooseModel('14 pro max','iphone-14-pro-max');value('journey-storage','iphone-14-pro-max|128GB');next();
  const replacement=offerChoice(choices.find(p=>p.id==='iphone-14-pro-max|128GB')),replacementPlan=financePlan({amount:replacement.price,duration:6});
@@ -51,14 +52,16 @@ test('EasyBuy compares all six live repayments, rejects invalid deposits and rec
 });
 test('Swap asks one condition at a time, preserves valuation and sends truthful answers',async()=>{
  const id='iphone-14-pro-max|128GB',target=offerChoice(choices.find(p=>p.id===id));
- const dom=await setup('swap/index.html',`/swap/?target=${encodeURIComponent(id)}`);await import(`../assets/journey.js?test=${++serial}`);
+ const dom=await setup('swap/index.html',`/swap/?target=${encodeURIComponent(id)}&utm_source=tiktok&ttclid=qa-test`);await import(`../assets/journey.js?test=${++serial}`);
  next();assert.match(document.getElementById('journey-error').textContent,/Choose a phone/);
  chooseModel('iphone x','iphone-x');assert.match(document.getElementById('journey-model-summary').textContent,/iPhone X/);value('journey-storage','iphone-x|64GB');next();assert.equal(headline(),'Does Face ID work?');
  next();assert.match(document.getElementById('journey-error').textContent,/Choose Yes or No/);
  for(let i=0;i<6;i++){assert.equal(document.querySelectorAll('[name="answer"]').length,2);document.querySelector(`[name="answer"][value="${i===0?'yes':'no'}"]`).click();next();}
  assert.equal(headline(),'Your estimated phone value.');assert.match(document.getElementById('journey-screen').textContent,/₦84,000/);
  next();assert.equal(headline(),'What do you want to upgrade to?');assert.equal(document.getElementById('journey-storage').value,id);next();
- const result=estimateSwap({current:choices.find(p=>p.id==='iphone-x|64GB'),target});assert.match(message(),/Does Face ID work\? Yes/);assert.match(message(),/Has the battery been changed\? No/);assert.match(message(),/Is the screen cracked\? No/);assert.ok(message().includes(`Estimated amount to add: ₦${result.topUp.toLocaleString('en-NG')}`));assert.ok(window.dataLayer.some(e=>e.event==='valuation_complete'&&e.value===84000));dom.window.close();
+ const result=estimateSwap({current:choices.find(p=>p.id==='iphone-x|64GB'),target});assert.match(message(),/Does Face ID work\? Yes/);assert.match(message(),/Has the battery been changed\? No/);assert.match(message(),/Is the screen cracked\? No/);assert.ok(message().includes(`Estimated amount to add: ₦${result.topUp.toLocaleString('en-NG')}`));
+ const whatsapp=document.getElementById('journey-whatsapp');whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();assert.doesNotMatch(message(),attributionInMessage);assert.ok(message().endsWith('Please confirm the exact unit, stock, condition, inspection and complete terms before payment.'));
+ assert.ok(window.dataLayer.some(e=>e.event==='valuation_complete'&&e.value===84000));assert.ok(window.dataLayer.some(e=>e.event==='whatsapp_click'&&e.ttclid==='qa-test'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));dom.window.close();
 });
 test('Unknown current-phone reference stays a manual swap quote',async()=>{
  const dom=await setup('swap/index.html','/swap/');await import(`../assets/journey.js?test=${++serial}`);
@@ -100,7 +103,27 @@ test('Product storage selection carries its promoted price, condition and colour
  const buy=document.querySelector('[data-action="buy"]'),easy=document.querySelector('[data-action="easyBuy"]'),swap=document.querySelector('[data-action="swap"]');
  assert.match(buy.href,/wa.me\/2347086865133/);assert.ok(new URL(buy.href).searchParams.get('text').includes(phone.price.toLocaleString('en-NG')));assert.equal(new URL(easy.href).pathname,'/easybuy/');assert.equal(new URL(easy.href).searchParams.get('phone'),id);assert.equal(new URL(swap.href).searchParams.get('target'),id);
  assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.storage==='256GB'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='ViewContent'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='CustomizeProduct'));
- event(buy,'click');assert.equal(window.ttq.filter(e=>e[0]==='track'&&e[1]==='Contact').length,1);dom.window.close();
+ buy.addEventListener('click',event=>event.preventDefault(),{once:true});event(buy,'click');assert.doesNotMatch(new URL(buy.href).searchParams.get('text'),attributionInMessage);assert.equal(window.ttq.filter(e=>e[0]==='track'&&e[1]==='Contact').length,1);dom.window.close();
+});
+test('General chat and mobile Chat keep the message clean while tracking attribution',async()=>{
+ const dom=await setup('index.html','/?utm_source=tiktok&utm_medium=paid&utm_campaign=qa-campaign&ttclid=qa-test&fbclid=fb-test&gclid=g-test');
+ dom.window.eval(await readFile('assets/sales.js','utf8'));
+ const general=[...document.querySelectorAll('a[href*="wa.me/"]')].find(a=>a.textContent.trim()==='Chat on WhatsApp');
+ assert.ok(general);general.addEventListener('click',event=>event.preventDefault(),{once:true});general.click();
+ assert.equal(new URL(general.href).searchParams.get('text'),'Hello Mikee Gadget Plug, I need help choosing a device.');
+ const mobile=document.querySelector('.mobile-bottom-nav a:last-child');assert.ok(mobile);mobile.addEventListener('click',event=>event.preventDefault(),{once:true});mobile.click();
+ assert.doesNotMatch(new URL(mobile.href).searchParams.get('text'),attributionInMessage);
+ assert.equal(JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution')).ttclid,'qa-test');
+ assert.ok(window.dataLayer.some(e=>e.event==='whatsapp_click'&&e.utm_campaign==='qa-campaign'&&e.fbclid==='fb-test'));
+ assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));dom.window.close();
+});
+test('Buy Outright order flow sends its selection without attribution',async()=>{
+ const dom=await setup('buy/index.html','/buy/?phone=iphone-14-pro-max%7C128GB&utm_source=tiktok&gclid=qa-gclid');
+ globalThis.Option=dom.window.Option;await import(`../assets/buy-flow.js?test=${++serial}`);
+ document.getElementById('flow-next').click();
+ const whatsapp=document.getElementById('order-whatsapp');assert.ok(!whatsapp.hidden);whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();
+ const text=new URL(whatsapp.href).searchParams.get('text');assert.match(text,/Purchase: Buy/);assert.match(text,/Payment: Outright/);assert.doesNotMatch(text,attributionInMessage);
+ assert.ok(window.dataLayer.some(e=>e.event==='whatsapp_click'&&e.gclid==='qa-gclid'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));dom.window.close();
 });
 test('new colour groups cannot send a Burgundy quote at the Glacier/Black price',async()=>{
  const dom=await setup('iphone-18-pro-max/index.html','/iphone-18-pro-max');await import(`../assets/commerce.js?test=${++serial}`);

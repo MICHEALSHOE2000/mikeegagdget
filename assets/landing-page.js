@@ -104,24 +104,8 @@
     anchor.href = url.toString();
   }
 
-  function decorateWhatsappLink(anchor) {
-    if (!anchor.href.includes("wa.me/")) return;
-    if (anchor.id === "journey-whatsapp" && document.querySelector('[data-journey="easy"]')) return;
-    const url = new URL(anchor.href);
-    const values = Object.entries(attribution).filter(([, value]) => value);
-    if (!values.length) return;
-
-    const existing = url.searchParams.get("text") || `Hello ${body.dataset.adGroupName || "Mikee Gadget Plug Communication"}.`;
-    const source = values.map(([key, value]) => `${key}: ${value}`).join(" | ");
-    if (!existing.includes("Campaign reference:")) {
-      url.searchParams.set("text", `${existing}\nCampaign reference: ${source}`);
-    }
-    anchor.href = url.toString();
-  }
-
   document.querySelectorAll("a").forEach((anchor) => {
     decorateInternalLink(anchor);
-    decorateWhatsappLink(anchor);
   });
 
   const menuButton = document.querySelector(".intent-menu-button");
@@ -143,7 +127,6 @@
     if (!link) return;
 
     decorateInternalLink(link);
-    decorateWhatsappLink(link);
     const isWhatsapp = link.dataset.track === "whatsapp" || link.href.includes("wa.me/");
     const isCall = link.dataset.track === "call" || link.href.startsWith("tel:");
     const isDirections = link.dataset.track === "directions" || link.href.includes("google.com/maps");

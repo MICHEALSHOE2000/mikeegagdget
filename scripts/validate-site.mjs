@@ -232,6 +232,10 @@ for (const filePath of htmlFiles) {
   }
 
   const references = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((match) => match[1]);
+  for (const href of references.filter((reference) => reference.includes("wa.me/"))) {
+    const message = new URL(href).searchParams.get("text") || "";
+    assert(!/Campaign reference|Source page:|utm_source|utm_medium|utm_campaign|ttclid|fbclid|gclid/i.test(message), `${relative}: WhatsApp message exposes attribution.`);
+  }
   for (const reference of references) {
     if (
       !reference
