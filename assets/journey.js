@@ -268,8 +268,6 @@ if(root){
    `Total repayment including deposit: ${money(plan.totalPayable)}`,
    'Please confirm the exact unit, stock, eligibility, due dates, fees and complete terms before payment.'
   ];
-  const campaign=campaignReference();
-  if(campaign)lines.push(campaign);
   return lines.join('\n');
  }
 

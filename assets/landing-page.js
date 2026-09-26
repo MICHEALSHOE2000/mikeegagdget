@@ -106,6 +106,7 @@
 
   function decorateWhatsappLink(anchor) {
     if (!anchor.href.includes("wa.me/")) return;
+    if (anchor.id === "journey-whatsapp" && document.querySelector('[data-journey="easy"]')) return;
     const url = new URL(anchor.href);
     const values = Object.entries(attribution).filter(([, value]) => value);
     if (!values.length) return;
