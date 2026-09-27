@@ -54,7 +54,9 @@ const productFaqs = (product) => {
     ? `Do you sell UK-used ${product.model}?`
     : `What condition is the ${product.model} available in?`;
   const conditionAnswer = product.brand === "Apple"
-    ? `Mikee Gadget Plug lists UK-used and brand-new iPhone enquiries. Ask which ${product.model} units are available today and request the exact condition before payment.`
+    ? product.conditions.length === 1 && product.conditions[0] === 'UK Used'
+      ? `${product.model} is listed as UK Used. Request photos and inspect the condition of the exact unit before payment.`
+      : `Ask which ${product.model} condition is available today and request the exact unit details before payment.`
     : `Condition depends on the current device available. Ask Mikee Gadget Plug whether the exact ${product.model} offered is new or used and request inspection details.`;
 
   return [
@@ -244,12 +246,7 @@ const renderVariantSelector = (product) => `
           ${product.colors.map((color) => `<option>${escapeHtml(color)}</option>`).join("")}
         </select>
       </label>
-      <label>
-        <span>Condition</span>
-        <select data-condition-select>
-          ${product.conditions.map((condition) => `<option>${escapeHtml(condition)}</option>`).join("")}
-        </select>
-      </label>
+      ${product.conditions.length > 1 ? `<label><span>Condition</span><select data-condition-select>${product.conditions.map((condition) => `<option>${escapeHtml(condition)}</option>`).join("")}</select></label>` : `<div class="condition-badge" aria-label="Condition">${escapeHtml(product.conditions[0] || 'Confirm available condition')}</div>`}
     </div>
     <div class="buying-facts">
       <span><b>Battery health</b>${product.listingPending ? "Details coming soon" : product.brand === "Apple" ? "UK-used units: above 83%; confirm exact reading" : "Reading available for the exact used unit"}</span>
@@ -268,7 +265,7 @@ const renderVariantSelector = (product) => `
     <div class="purchase-actions">
       <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Outright</a>
       <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Pay Small Small</a>
-      <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Swap to this phone</a>
+      <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Swap to this phone →</a>
     </div>
     <p class="purchase-action-help">Trade in your current phone and pay the difference. Or get this phone now and spread your payment.</p>
     <p class="purchase-safety"><a data-action="price" href="${whatsappHref(productMessage(product, product.defaultStorage, 'price'))}" target="_blank" rel="noopener">Have a question? Chat on WhatsApp ↗</a></p>
@@ -305,9 +302,9 @@ const renderDetails = (product) => `
     </div>
     <aside class="condition-panel">
       <p class="commerce-eyebrow">Condition guide</p>
-      <article><span>01</span><div><h3>Brand New</h3><p>Unused device in original or new packaging where applicable. Ask what comes in the box.</p></div></article>
-      <article><span>02</span><div><h3>UK Used</h3><p>Imported used device. Request photos, exact condition and battery information before payment.</p></div></article>
-      <article><span>03</span><div><h3>Nigerian Used</h3><p>Locally used and inspected device where available. Ask for repair history and the checks completed.</p></div></article>
+      ${product.conditions.includes('UK Used') ? '<article><span>01</span><div><h3>UK Used</h3><p>Request photos, battery information and the condition of the exact device before payment.</p></div></article>' : ''}
+      ${product.conditions.includes('Brand New') ? '<article><span>02</span><div><h3>Brand New</h3><p>Ask what comes with the exact unit and confirm availability.</p></div></article>' : ''}
+      ${!product.conditions.includes('UK Used') && !product.conditions.includes('Brand New') ? '<article><span>01</span><div><h3>Condition to confirm</h3><p>Ask Mikee for the exact unit details before payment.</p></div></article>' : ''}
     </aside>
   </section>`;
 
@@ -447,7 +444,7 @@ const renderProductPage = (product) => {
       <div class="product-hero-copy">
         <p class="commerce-eyebrow">${escapeHtml(product.brand)} · Buy in Nigeria</p>
         <h1>${escapeHtml(product.model)}</h1>
-        <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : "UK Used &amp; Brand New. Confirm the condition of your exact unit."}</p>
+        <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : `${escapeHtml(product.conditions.join(' / '))}. Confirm the exact unit before payment.`}</p>
         <div class="hero-fact-row">
           <span><strong>Storage</strong>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</span>
           <span><strong>Delivery</strong>Lagos & nationwide</span>
@@ -466,7 +463,7 @@ const renderProductPage = (product) => {
   <div class="mobile-purchase-bar" aria-label="Quick purchase actions">
     <a data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>₦</span>Buy outright</a>
     <a data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>◷</span>Pay Small Small</a>
-    <a data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>↔</span>Swap to this phone</a>
+    <a data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>↔</span>Swap to this phone →</a>
   </div>
   <script type="application/json" id="product-data">${escapeJson(productData)}</script>
   <script type="module" src="/assets/commerce.js"></script>
@@ -497,7 +494,7 @@ const renderCategoryCard = (product) => {
         ${media(product.images[0],product.model)}
       </a>
       <div>
-        <span class="catalog-brand">${!isComplete(product)?"COMING SOON · ":""}${escapeHtml(product.conditions.includes('Details coming soon')?'Details coming soon':product.brand === 'Apple' ? 'UK Used / Brand New' : product.brand)}</span>
+        <span class="catalog-brand">${!isComplete(product)?"COMING SOON · ":""}${escapeHtml(product.conditions.includes('Details coming soon')?'Details coming soon':product.brand === 'Apple' ? product.conditions.join(' / ') : product.brand)}</span>
         <h2><a href="${product.route}">${escapeHtml(product.model)}</a></h2>
         <p>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</p>
         <strong>${Number.isFinite(minPrice) ? `From ${formatNaira(minPrice)}` : "Confirm price"}</strong>

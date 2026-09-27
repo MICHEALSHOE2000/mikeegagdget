@@ -1,7 +1,7 @@
 // An optional reminder after someone has actually reached a financing plan.
 // One showing per session; ordinary navigation and the calculator stay usable.
 const key='mikee-interest-reminder-shown';
-const planVisible=()=>Boolean(document.getElementById('journey-platform') ||
+const planVisible=()=>Boolean(document.querySelector('[data-journey="easy"] .plan-monthly') ||
   (document.getElementById('easy-fields')?.hidden===false && document.querySelector('[data-screen="3"]')?.hidden===false));
 if(document.querySelector('[data-journey="easy"], #buy-flow')){
   const dialog=document.createElement('dialog');

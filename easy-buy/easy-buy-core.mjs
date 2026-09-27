@@ -1,4 +1,10 @@
 export const DEPOSIT_RATE = 0.4;
+export function depositRateFor(phone) {
+  const series = Number(typeof phone === 'number' ? phone : String(phone?.slug || phone?.model || phone?.series || phone || '').match(/(?:iphone[- ]|^)(\d+)(?:\b|-)/i)?.[1] || phone?.series);
+  if (series >= 16 && series <= 18) return 0.7;
+  if (series >= 13 && series <= 15) return 0.5;
+  return DEPOSIT_RATE;
+}
 export const FINANCE_DURATIONS = Object.freeze([1,2,3,4,5,6]);
 export const CREDIT_LIMIT_URL = 'https://www.creditdirect.ng/know-your-limit';
 export const FINANCE_PLATFORMS = Object.freeze({
@@ -15,7 +21,7 @@ export function allowedFrequencies(series) {
     : ["monthly"];
 }
 
-export function calculatePlan({ price, duration, frequency = "monthly", series, depositRate = DEPOSIT_RATE, platform = "noCredit" }) {
+export function calculatePlan({ price, duration, frequency = "monthly", series, depositRate = depositRateFor(series), platform = "noCredit" }) {
   const numericPrice = Number(price);
   const numericDuration = Number(duration);
   const policy = FINANCE_PLATFORMS[platform];

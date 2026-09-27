@@ -3,6 +3,7 @@ import { productImages } from "./product-images.mjs";
 import { getSellingPrice } from "./pricing.mjs";
 import { priceList, suppliedPrices } from "./price-list.mjs";
 import { merchantListings } from './merchant-listings.mjs';
+import {availableConditions} from './conditions.mjs';
 export const commerceSite = Object.freeze({
   name: "Mikee Gadget Plug",
   legalName: "MIKEE GADGET PLUG",
@@ -16,8 +17,7 @@ export const commerceSite = Object.freeze({
   delivery: "Delivery is available in Lagos and across Nigeria. Confirm the delivery fee, timing and payment arrangement before placing an order.",
   warranty: "Ask for the written warranty or after-sales terms that apply to the exact device before payment.",
   usedIphoneBattery: "UK-used iPhones are supplied with battery health above 83%. Ask for the exact reading for the unit offered and confirm it during inspection.",
-  easyBuyUrl: "/easy-buy/",
-  easyBuyDepositRate: 0.4
+  easyBuyUrl: "/easy-buy/"
 });
 
 const priceNeedsExtraConfirmation = new Set();
@@ -290,7 +290,7 @@ const makeIphone = ([model, slug, storage, defaultStorage, specKey]) => ({
   variants: storage.map((value) => makeVariant(model, value)),
   defaultStorage,
   colors: merchantListings[model] ? ['Glacier','Black','Burgundy'] : ["Choose with your device"],
-  conditions: merchantListings[model] ? ["Confirm condition"] : ["UK Used", "Brand New"],
+  conditions: availableConditions(slug, merchantListings[model] ? ["Confirm condition"] : ["UK Used", "Brand New"]),
   images: productImages[model]?.image === "" ? [] : productImages[model]?.preferred ? [productImages[model].preferred, ...(iphoneImages[model] ?? []).slice(1)] : productImages[model] ? [productImages[model].image, ...(iphoneImages[model] ?? [])] : iphoneImages[model] ?? [],
   stockStatus: merchantListings[model] ? "Merchant-supplied listing — confirm exact unit and availability" : "Stock and condition checked before payment",
   easyBuyEligible: true,
@@ -413,7 +413,7 @@ export const categoryPages = Object.freeze([
     eyebrow: "Pay in stages",
     h1: "Get an iPhone With Easy Buy",
     title: "iPhone Easy Buy Nigeria | Calculator & Models | Mikee Gadget Plug",
-    description: "Choose an iPhone, review the 40% initial-deposit estimate and continue to Mikee Gadget Plug Easy Buy for final eligibility and terms.",
+    description: "Choose an iPhone and see the deposit and monthly repayments for that model before continuing to Mikee Gadget Plug Easy Buy.",
     brand: "Apple",
     easyBuy: true
   },

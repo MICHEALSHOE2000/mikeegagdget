@@ -64,6 +64,14 @@
 }
 
 @media(max-width:340px){.repayment-card>strong{font-size:16px}.repayment-card>span{font-size:10px}.plan-summary{padding-inline:12px}}
+
+/* Keep the monthly amount dominant; show the full maths on demand. */
+.journey .repayment-card{min-height:52px;align-items:center;justify-content:center;padding:10px 6px}
+.journey .repayment-card>b{font-size:12px;color:#e6e8df}
+.journey .plan-monthly>span{display:block;font-size:12px;letter-spacing:.1em;color:#e1bd70;font-weight:750}
+.journey .plan-monthly>strong{display:block;font-size:clamp(27px,7vw,39px);line-height:1.16;overflow-wrap:anywhere;margin:8px 0;color:#fff}
+.journey .plan-details{margin:18px 0 0;border-bottom:0;padding:12px 0 0}
+.journey .plan-details summary{min-height:44px;display:flex;align-items:center}
 @media(max-width:800px){body[data-page] .menu-toggle{min-height:44px}}
 
 /* Storage is an explicit choice with its selected price visible. */

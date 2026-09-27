@@ -16,6 +16,10 @@ const iphoneConditions = [
   "Confirm the exact storage and colour currently available.",
   "Choose store pickup in Ikeja or request delivery to your location."
 ];
+const usedIphoneConditions = [
+  "This model is UK Used only. Request details of the exact unit before choosing.",
+  ...iphoneConditions.slice(1)
+];
 
 const priceAvailabilityFaq = (model) => [
   {
@@ -46,8 +50,12 @@ const seriesFaq = (series) => [
     answer: `Compare screen size, camera needs, storage and budget. Send your priorities on WhatsApp and ask which matching models are currently available.`
   },
   {
-    question: `Can I compare new and UK-used ${series} phones?`,
-    answer: `Yes. Ask Mikee Gadget Plug to confirm the conditions available for the exact model and to explain the condition before you choose.`
+    question: Number(series.match(/iPhone (\d+)/)?.[1]) <= 15
+      ? `What condition are ${series} phones listed in?`
+      : `Can I compare new and UK-used ${series} phones?`,
+    answer: Number(series.match(/iPhone (\d+)/)?.[1]) <= 15
+      ? `These models are listed as UK Used only. Ask about the condition and battery health of the exact unit before paying.`
+      : `Ask Mikee Gadget Plug which conditions are recorded for the exact model and available today.`
   },
   {
     question: `How do I check battery health on a used ${series} phone?`,
@@ -89,7 +97,9 @@ const samsungFaq = (subject) => [
 const easyBuyFaq = (deviceType) => [
   {
     question: `How much is the initial deposit for ${deviceType} Easy Buy?`,
-    answer: `The starting deposit is 40% of the confirmed device price. The remaining 60% is used for the repayment estimate.`
+    answer: deviceType === 'iPhone'
+      ? `The required initial deposit is 40% for iPhone 11–12, 50% for iPhone 13–15 and 70% for iPhone 16–18. The remaining balance is used for the repayment estimate.`
+      : `The starting deposit is 40% of the confirmed device price. The remaining 60% is used for the repayment estimate.`
   },
   {
     question: "How long is the repayment period?",
@@ -154,23 +164,23 @@ export const landingPages = [
     primaryKeywordTheme: "buy iPhone on instalment in Lagos",
     h1: "Buy an iPhone with Easy Buy in Lagos",
     eyebrow: "iPhone Easy Buy",
-    heroText: "Start with a 40% initial deposit, then review an estimated 1–3 month repayment plan. Monthly is the default; eligible iPhone 11 and 12 offers may also have weekly or bi-weekly options.",
+    heroText: "Start with a model-specific initial deposit, then review an estimated 1–3 month repayment plan. Monthly is the default; eligible iPhone 11 and 12 offers may also have weekly or bi-weekly options.",
     primaryCta: "Apply for iPhone Easy Buy",
     secondaryCta: { label: "Use the iPhone calculator", href: "/easy-buy/#calculator" },
-    whatsappMessage: "Hello, I want to buy an iPhone through Easy Buy. Please send me the 40% deposit, repayment options, eligible phones and verification requirements.",
-    seoTitle: "iPhone Easy Buy in Lagos | 40% Deposit | Mikee Gadget Plug",
-    metaDescription: "Apply for iPhone Easy Buy in Lagos with a 40% initial deposit and estimated 1–3 month repayment. Confirm eligibility and current iPhone prices.",
+    whatsappMessage: "Hello, I want to buy an iPhone through Easy Buy. Please send me the required deposit, repayment options, eligible phones and verification requirements.",
+    seoTitle: "iPhone Easy Buy in Lagos | Model-Based Deposit | Mikee Gadget Plug",
+    metaDescription: "Apply for iPhone Easy Buy in Lagos with a model-specific initial deposit and estimated 1–3 month repayment. Confirm eligibility and current iPhone prices.",
     conversionEventName: "begin_easy_buy_application",
     leadType: "easy_buy",
     pageType: "easy-buy",
     heroImage: "/images/15promax-1.jpeg",
     heroAlt: "iPhone available to enquire about through Mikee Gadget Plug Easy Buy",
-    badge: "40% initial deposit",
+    badge: "40%–70% initial deposit",
     infoTitle: "See the deposit before the repayments",
     infoText: "The initial deposit is calculated from the confirmed device price. Repayment figures remain estimates until Mikee Gadget Plug reviews the application.",
     cards: [
-      { kicker: "First", title: "40% initial deposit", text: "Confirmed phone price × 40%. This is the first and most important amount to plan for." },
-      { kicker: "Second", title: "60% remaining balance", text: "The balance is used to estimate repayments over the selected 1–3 month duration." },
+      { kicker: "First", title: "model-specific initial deposit", text: "iPhone 11–12: 40%, iPhone 13–15: 50%, iPhone 16–18: 70% of the listed price." },
+      { kicker: "Second", title: "Remaining balance", text: "The balance is used to estimate repayments over the selected 1–3 month duration." },
       { kicker: "Schedule", title: "Monthly by default", text: "Weekly or bi-weekly is shown only for eligible iPhone 11 and iPhone 12 offers." }
     ],
     buyerTitle: "Before you apply",
@@ -182,7 +192,7 @@ export const landingPages = [
     ],
     faqs: easyBuyFaq("iPhone"),
     finalTitle: "Start your iPhone Easy Buy request",
-    finalText: "Send the model you want and ask Mikee Gadget Plug to confirm today’s price, your 40% deposit and the application requirements.",
+    finalText: "Send the model you want and ask Mikee Gadget Plug to confirm today’s price, your required deposit and the application requirements.",
     related: ["/iphone/iphone-11-series", "/iphone/iphone-12-series", "/iphone/iphone-13-series"]
   },
   {
@@ -303,8 +313,8 @@ export const landingPages = [
     faqs: [
       { question: "Where is Mikee Gadget Plug Communication in Ikeja?", answer: "The store address is 1 Ola Ayeni Street, off Simbiat Abiola Way, Ikeja, Computer Village, Lagos." },
       { question: "Should I confirm stock before visiting?", answer: "Yes. Send the exact iPhone model and storage on WhatsApp so Mikee Gadget Plug can confirm current availability." },
-      { question: "Does Mikee Gadget Plug sell both brand-new and UK-used iPhones?", answer: "Both conditions appear in the existing Mikee Gadget Plug catalogue. Confirm the condition available for your model today." },
-      { question: "Can I ask about Easy Buy in the store?", answer: "Yes. Ask for the current eligible devices, 40% initial deposit, repayment estimate and verification requirements." },
+      { question: "Does Mikee Gadget Plug sell both brand-new and UK-used iPhones?", answer: "iPhone 15 and older are listed as UK Used only. Some iPhone 16–18 models have other recorded conditions; confirm availability for your exact model." },
+      { question: "Can I ask about Easy Buy in the store?", answer: "Yes. Ask for the eligible devices, model-specific deposit, monthly repayment estimate and verification requirements." },
       { question: "Can Mikee Gadget Plug arrange delivery?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing before payment." }
     ],
     finalTitle: "Check stock before you visit",
@@ -544,7 +554,7 @@ export const landingPages = [
     leadType: "price_availability",
     pageType: "product",
     productName: "iPhone 15 Pro Max",
-    condition: "Confirm new or UK-used",
+    condition: "UK Used only",
     heroImage: "/images/15promax-1.jpeg",
     heroAlt: "iPhone 15 Pro Max available to enquire about from Mikee Gadget Plug",
     badge: "256GB · 512GB · 1TB",
@@ -552,7 +562,7 @@ export const landingPages = [
     infoText: "The existing catalogue lists three storage choices. For a used unit, request the current condition and battery-health reading.",
     cards: intentCards.price("iPhone 15 Pro Max", "256GB, 512GB or 1TB"),
     buyerTitle: "Your buying checklist",
-    buyerItems: iphoneConditions,
+    buyerItems: usedIphoneConditions,
     faqs: priceAvailabilityFaq("iPhone 15 Pro Max"),
     finalTitle: "Check iPhone 15 Pro Max availability",
     finalText: "Ask for today’s price and the exact storage, colour and condition you want.",
@@ -575,7 +585,7 @@ export const landingPages = [
     leadType: "comparison",
     pageType: "series",
     productName: "iPhone 15 Series",
-    condition: "Confirm new or UK-used",
+    condition: "UK Used only",
     heroImage: "/images/15-1.jpeg",
     heroAlt: "iPhone 15 series model available to enquire about from Mikee Gadget Plug",
     badge: "15 · 15 Pro · 15 Pro Max",
@@ -623,7 +633,7 @@ export const landingPages = [
       { kicker: "Storage", title: "128GB, 256GB, 512GB or 1TB", text: "These options appear in the existing catalogue. Confirm the one available today." }
     ],
     buyerTitle: "Your used-device checklist",
-    buyerItems: iphoneConditions,
+    buyerItems: usedIphoneConditions,
     faqs: priceAvailabilityFaq("iPhone 14 Pro Max"),
     finalTitle: "Ask about the exact iPhone 14 Pro Max unit",
     finalText: "Get today’s price together with the storage, condition and battery-health information you need to decide.",
@@ -646,7 +656,7 @@ export const landingPages = [
     leadType: "comparison",
     pageType: "series",
     productName: "iPhone 14 Series",
-    condition: "Confirm new or UK-used",
+    condition: "UK Used only",
     heroImage: "/images/14-1.jpeg",
     heroAlt: "iPhone 14 series model available to enquire about from Mikee Gadget Plug",
     badge: "14 · 14 Pro · 14 Pro Max",
@@ -672,41 +682,41 @@ export const landingPages = [
     primaryKeywordTheme: "iPhone 13 price and Easy Buy Lagos",
     h1: "iPhone 13 Series: Outright or Easy Buy",
     eyebrow: "Compare purchase options",
-    heroText: "Compare iPhone 13, iPhone 13 Pro and iPhone 13 Pro Max, then ask for today’s outright price or a 40% initial-deposit Easy Buy estimate.",
+    heroText: "Compare iPhone 13, iPhone 13 Pro and iPhone 13 Pro Max, then ask for today’s outright price or a 50% initial-deposit Easy Buy estimate.",
     primaryCta: "Compare iPhone 13 Purchase Options",
     secondaryCta: { label: "Open Easy Buy calculator", href: "/easy-buy/#calculator" },
-    whatsappMessage: "Hello, I want to compare iPhone 13 models for outright purchase or Easy Buy. Please send today’s prices, available storage, condition and a 40% deposit estimate.",
+    whatsappMessage: "Hello, I want to compare iPhone 13 models for outright purchase or Easy Buy. Please send today’s prices, available storage, condition and a 50% deposit estimate.",
     seoTitle: "iPhone 13 Series Price or Easy Buy in Lagos | Mikee Gadget Plug",
-    metaDescription: "Compare iPhone 13, 13 Pro and 13 Pro Max in Lagos. Request today’s outright price or a 40% initial-deposit Easy Buy estimate.",
+    metaDescription: "Compare iPhone 13, 13 Pro and 13 Pro Max in Lagos. Request today’s outright price or a 50% initial-deposit Easy Buy estimate.",
     conversionEventName: "select_phone",
     leadType: "comparison",
     pageType: "series",
     productName: "iPhone 13 Series",
-    condition: "Confirm new or UK-used",
+    condition: "UK Used only",
     heroImage: "/images/13-1.jpeg",
     heroAlt: "iPhone 13 series model available to enquire about from Mikee Gadget Plug",
     badge: "Outright or Easy Buy enquiry",
     infoTitle: "Compare the phone and the payment path",
-    infoText: "First confirm the exact phone price. For Easy Buy, the 40% deposit comes first and all repayment amounts are estimates until approved.",
+    infoText: "First confirm the exact phone price. For Easy Buy, the 50% deposit comes first and all repayment amounts are estimates until approved.",
     cards: [
       { kicker: "Models", title: "13, 13 Pro and 13 Pro Max", text: "These models appear in the Mikee Gadget Plug catalogue. Confirm the current model and condition." },
       { kicker: "Outright", title: "Request today’s full price", text: "Ask for the price tied to the storage, colour and condition you want." },
-      { kicker: "Easy Buy", title: "Start with a 40% deposit estimate", text: "Monthly repayment over one to three months is the default, subject to review." }
+      { kicker: "Easy Buy", title: "Start with a 50% deposit estimate", text: "Monthly repayment over one to three months is the default, subject to review." }
     ],
     buyerTitle: "Choose the option that fits",
     buyerItems: [
       "Compare the iPhone 13 models and storage choices.",
       "Ask for the outright price first.",
-      "If considering Easy Buy, calculate the 40% deposit.",
+      "If considering Easy Buy, calculate the 50% deposit.",
       "Review estimated repayments and verification requirements."
     ],
     faqs: [
       ...seriesFaq("iPhone 13 series").slice(0, 3),
-      { question: "Can I ask for an iPhone 13 Easy Buy estimate?", answer: "Yes. Ask for today’s confirmed phone price first, then calculate the 40% initial deposit and estimated monthly repayments." },
+      { question: "Can I ask for an iPhone 13 Easy Buy estimate?", answer: "Yes. Ask for today’s confirmed phone price first, then calculate the 50% initial deposit and estimated monthly repayments." },
       { question: "Does an Easy Buy estimate guarantee approval?", answer: "No. Mikee Gadget Plug must confirm eligibility, repayment dates and complete terms after reviewing the application." }
     ],
     finalTitle: "Compare outright and Easy Buy for iPhone 13",
-    finalText: "Send the model you want and request both today’s outright price and the 40% deposit estimate.",
+    finalText: "Send the model you want and request both today’s outright price and the 50% deposit estimate.",
     related: ["/easy-buy/iphone", "/iphone/iphone-14-series", "/iphone/iphone-12-series"]
   },
   {
@@ -726,12 +736,12 @@ export const landingPages = [
     leadType: "budget_match",
     pageType: "series",
     productName: "iPhone 12 Series",
-    condition: "Confirm new or UK-used",
+    condition: "UK Used only",
     heroImage: "/images/12.jpeg",
     heroAlt: "iPhone 12 series model available to enquire about from Mikee Gadget Plug",
     badge: "12 · 12 Pro · 12 Pro Max",
     infoTitle: "Send your budget and non-negotiables",
-    infoText: "A useful recommendation needs your budget, preferred model, minimum storage and whether you are open to a UK-used phone.",
+    infoText: "These iPhone 12 models are UK Used only. Share your budget and preferred storage for a useful recommendation.",
     cards: [
       { kicker: "Models", title: "12, 12 Pro and 12 Pro Max", text: "Compare the listed models, then ask which one is available in your budget." },
       { kicker: "Storage", title: "64GB through 512GB", text: "Storage depends on the model. Confirm the exact current configuration." },
@@ -741,7 +751,7 @@ export const landingPages = [
     buyerItems: [
       "State your maximum budget.",
       "Choose your minimum acceptable storage.",
-      "Say whether UK-used condition is acceptable.",
+      "Ask for the UK Used unit’s condition and battery health.",
       "Ask for outright and eligible Easy Buy options."
     ],
     faqs: [
@@ -750,7 +760,7 @@ export const landingPages = [
       { question: "How much is the Easy Buy deposit?", answer: "The initial deposit estimate is 40% of the confirmed phone price." }
     ],
     finalTitle: "Find an iPhone 12 that fits your budget",
-    finalText: "Send your budget, storage preference and condition choice for a model-specific response.",
+    finalText: "Send your budget and storage preference, then ask about the exact UK Used unit.",
     related: ["/easy-buy/iphone", "/iphone/iphone-11-series", "/used-iphones-lagos"]
   },
   {
@@ -770,7 +780,7 @@ export const landingPages = [
     leadType: "comparison",
     pageType: "series",
     productName: "iPhone 11 Series",
-    condition: "Confirm new or UK-used",
+    condition: "UK Used only",
     heroImage: "/images/11-1.jpeg",
     heroAlt: "iPhone 11 series model available to enquire about from Mikee Gadget Plug",
     badge: "Outright · monthly · eligible weekly/bi-weekly",
@@ -1044,7 +1054,7 @@ export const landingPages = [
       { question: "Which iPhone deals are available today?", answer: "Use WhatsApp to request the current models, storage, condition and prices. No stock is assumed on this page." },
       { question: "Do deal prices change?", answer: "They can. Confirm today’s price for the exact unit before making a payment." },
       { question: "Will a used iPhone deal include battery health?", answer: "Ask Mikee Gadget Plug for the battery-health reading and condition of the exact used iPhone offered." },
-      { question: "Can I use Easy Buy on an iPhone deal?", answer: "Ask whether the exact phone is eligible. Easy Buy estimates start with a 40% deposit, but approval is not guaranteed." },
+      { question: "Can I use Easy Buy on an iPhone deal?", answer: "Ask whether the exact phone is eligible. Easy Buy deposits depend on the iPhone model, and approval is not guaranteed." },
       { question: "Can I pick up the phone in Ikeja?", answer: "Yes. Confirm the device and pickup time before visiting the Mikee Gadget Plug store." }
     ],
     finalTitle: "Get today’s confirmed iPhone deals",
