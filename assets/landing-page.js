@@ -38,6 +38,16 @@
     begin_easy_buy_application: "InitiateCheckout",
     start_easybuy: "InitiateCheckout",
     easybuy_calculated: "AddPaymentInfo",
+    pay_small_small_selected: "InitiateCheckout",
+    buy_outright_selected: "AddToCart",
+    swap_selected: "AddToCart",
+    target_swap_phone_selected: "ViewContent",
+    current_swap_phone_selected: "CustomizeProduct",
+    swap_calculation_completed: "AddPaymentInfo",
+    repayment_duration_selected: "AddPaymentInfo",
+    standard_plan_selected: "AddPaymentInfo",
+    lower_interest_plan_selected: "AddPaymentInfo",
+    check_eligibility_clicked: "InitiateCheckout",
     whatsapp_click: "Contact",
     call_click: "Contact",
     directions_click: "Contact"
@@ -125,6 +135,11 @@
   document.addEventListener("click", (event) => {
     const link = event.target.closest("a");
     if (!link) return;
+
+    const path=link.dataset.buyingPath||link.dataset.action||link.dataset.method;
+    const action={buy:'buy_outright_selected',easyBuy:'pay_small_small_selected',swap:'swap_selected',easy:'pay_small_small_selected',outright:'buy_outright_selected'}[path];
+    if(action)pushEvent(action,{product_id:link.dataset.productId||body.dataset.phoneModel||undefined,value:link.dataset.value?Number(link.dataset.value):undefined});
+    if(link.dataset.checkEligibility==='true')pushEvent('check_eligibility_clicked');
 
     decorateInternalLink(link);
     const isWhatsapp = link.dataset.track === "whatsapp" || link.href.includes("wa.me/");

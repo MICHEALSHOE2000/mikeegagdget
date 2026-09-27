@@ -65,3 +65,11 @@
 
 @media(max-width:340px){.repayment-card>strong{font-size:16px}.repayment-card>span{font-size:10px}.plan-summary{padding-inline:12px}}
 @media(max-width:800px){body[data-page] .menu-toggle{min-height:44px}}
+
+/* Storage is an explicit choice with its selected price visible. */
+.journey-storage-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px;margin-top:10px}
+.journey .storage-choice{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;min-height:58px;padding:9px 12px;border:1px solid #849577;border-radius:6px;background:#172115;color:#f5f6ed;cursor:pointer;text-align:left;min-width:0;transition:border-color .15s,background .15s,transform .15s}
+.journey .storage-choice span{font-size:12px;color:#c0cdb6}.journey .storage-choice strong{font-size:13px;overflow-wrap:anywhere}
+.journey .storage-choice:hover{border-color:#e1bd70}.journey .storage-choice:active{transform:scale(.97)}
+.journey .storage-choice.is-selected{border:2px solid #e1bd70;background:#30402b;box-shadow:0 0 0 1px #e1bd70}.journey .storage-choice.is-selected span{color:#f3dfb3}
+.journey-actions .button,.repayment-card{transition:background .16s,border-color .16s,transform .16s}.journey-actions .button:active,.repayment-option:active .repayment-card{transform:scale(.98)}

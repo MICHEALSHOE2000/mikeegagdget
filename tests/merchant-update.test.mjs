@@ -1,15 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {readFile,stat} from 'node:fs/promises';
 import {products} from '../commerce/catalog.mjs';
 import {storeItems} from '../commerce/storefront-data.mjs';
 import {choices,financePlan,estimateSwap} from '../commerce/upgrade-core.mjs';
 import {calculatePlan} from '../easy-buy/easy-buy-core.mjs';
 
-test('store section uses a truthful location treatment without an imaginary showroom',async()=>{
+test('shop illustration is lightweight and clearly distinguished from an actual store photo',async()=>{
  const html=await readFile('index.html','utf8');
  assert.ok(!html.includes('{{'),'No unresolved homepage template tokens');
- assert.match(html,/shop-location-visual/);
+ assert.match(html,/shop-illustration\.webp/);
+ assert.match(html,/Illustrative gadget shop scene · visit us to see our actual store/);
+ assert.ok((await stat('images/store/shop-illustration.webp')).size<1_000_000);
  assert.match(html,/1 Ola Ayeni Street/);
  assert.match(html,/Computer Village, Ikeja/);
  assert.doesNotMatch(html,/shop-concept|Store concept illustration/);

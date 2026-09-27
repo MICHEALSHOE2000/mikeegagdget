@@ -30,6 +30,7 @@ test('EasyBuy compares all six live repayments, rejects invalid deposits and rec
  const dom=await setup('easybuy/index.html',`/easybuy/?phone=${encodeURIComponent(id)}&condition=UK+Used&color=Choose+with+your+device&utm_source=tiktok&utm_campaign=qa-campaign&ttclid=qa-test`);
  await import(`../assets/journey.js?test=${++serial}`);
  assert.equal(headline(),'How much works for you each month?');assert.equal(document.querySelectorAll('[name="duration"]').length,6);assert.match(document.getElementById('plan-summary').textContent,/iPhone 12 Pro Max/);assert.match(document.getElementById('plan-summary').textContent,/UK Used/);
+ assert.equal(document.getElementById('journey-platform').value,'noCredit');assert.match(document.getElementById('plan-summary').textContent,/20%/);
  value('journey-deposit',0,'input');assert.match(document.getElementById('journey-error').textContent,/whole-naira deposit/);assert.equal(document.getElementById('journey-whatsapp').getAttribute('aria-disabled'),'true');
  value('journey-deposit',Math.round(phone.price*.4),'input');
  for(const duration of [1,2,3,4,5,6]){
@@ -47,6 +48,7 @@ test('EasyBuy compares all six live repayments, rejects invalid deposits and rec
  document.getElementById('journey-back').click();chooseModel('14 pro max','iphone-14-pro-max');value('journey-storage','iphone-14-pro-max|128GB');next();
  const replacement=offerChoice(choices.find(p=>p.id==='iphone-14-pro-max|128GB')),replacementPlan=financePlan({amount:replacement.price,duration:6});
  assert.ok(document.getElementById('plan-summary').textContent.includes(replacement.price.toLocaleString('en-NG')));assert.ok(!document.getElementById('plan-summary').textContent.includes(phone.price.toLocaleString('en-NG')));assert.ok(message().includes(replacementPlan.totalPayable.toLocaleString('en-NG')));
+ value('journey-platform','credit');assert.match(message(),/7.5% monthly/);assert.match(document.getElementById('journey-screen').textContent,/credit check and approval/);
  value('journey-platform','noCredit');assert.match(message(),/20% monthly/);
  dom.window.close();
 });
@@ -58,13 +60,14 @@ test('Swap asks one condition at a time, preserves valuation and sends truthful 
  next();assert.match(document.getElementById('journey-error').textContent,/Choose Yes or No/);
  for(let i=0;i<6;i++){assert.equal(document.querySelectorAll('[name="answer"]').length,2);document.querySelector(`[name="answer"][value="${i===0?'yes':'no'}"]`).click();next();}
  assert.equal(headline(),'Your estimated phone value.');assert.match(document.getElementById('journey-screen').textContent,/₦84,000/);
- next();assert.equal(headline(),'What do you want to upgrade to?');assert.equal(document.getElementById('journey-storage').value,id);next();
+ next();assert.equal(headline(),'Your next upgrade.');assert.equal(document.querySelector('[data-journey]').dataset.targetPhone,id);
  const result=estimateSwap({current:choices.find(p=>p.id==='iphone-x|64GB'),target});assert.match(message(),/Does Face ID work\? Yes/);assert.match(message(),/Has the battery been changed\? No/);assert.match(message(),/Is the screen cracked\? No/);assert.ok(message().includes(`Estimated amount to add: ₦${result.topUp.toLocaleString('en-NG')}`));
  const whatsapp=document.getElementById('journey-whatsapp');whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();assert.doesNotMatch(message(),attributionInMessage);assert.ok(message().endsWith('Please confirm the exact unit, stock, condition, inspection and complete terms before payment.'));
  assert.ok(window.dataLayer.some(e=>e.event==='valuation_complete'&&e.value===84000));assert.ok(window.dataLayer.some(e=>e.event==='whatsapp_click'&&e.ttclid==='qa-test'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));dom.window.close();
 });
 test('Unknown current-phone reference stays a manual swap quote',async()=>{
  const dom=await setup('swap/index.html','/swap/');await import(`../assets/journey.js?test=${++serial}`);
+ chooseModel('14 pro max','iphone-14-pro-max');value('journey-storage','iphone-14-pro-max|128GB');next();
  chooseModel('13 pro max','iphone-13-pro-max');value('journey-storage','iphone-13-pro-max|128GB');next();for(let i=0;i<6;i++){document.querySelector('[name="answer"][value="no"]').click();next();}
  assert.match(headline(),/personal quote/);assert.ok(!document.getElementById('journey-screen').textContent.includes('₦0'));dom.window.close();
 });
@@ -72,11 +75,11 @@ test('Swap quick search and searchable model picker share current-phone state wi
  const target='iphone-12-pro-max|128GB';
  const dom=await setup('swap/index.html',`/swap/?target=${encodeURIComponent(target)}`);await import(`../assets/journey.js?test=${++serial}`);
  chooseModel('13 pro max','iphone-13-pro-max');assert.equal(document.querySelector('[data-journey]').dataset.currentModel,'iphone-13-pro-max');assert.equal(document.querySelector('[data-journey]').dataset.targetPhone,target);assert.match(document.getElementById('journey-model-summary').textContent,/iPhone 13 Pro Max/);
- const picker=document.getElementById('journey-model-picker');picker.open=true;event(picker,'toggle');value('journey-model-search','14 pro max','input');document.querySelector('#journey-model-results [data-model-slug="iphone-14-pro-max"]').click();
- assert.equal(document.getElementById('journey-search').value,'iPhone 14 Pro Max');assert.equal(document.querySelector('[data-journey]').dataset.currentModel,'iphone-14-pro-max');assert.equal(document.querySelector('[data-journey]').dataset.targetPhone,target);
- value('journey-storage','iphone-14-pro-max|128GB');const currentId=document.querySelector('[data-journey]').dataset.currentPhone;next();for(let i=0;i<6;i++){document.querySelector('[name="answer"][value="no"]').click();next();}next();
- assert.equal(headline(),'What do you want to upgrade to?');assert.equal(document.querySelector('[data-journey]').dataset.targetPhone,target);assert.equal(document.querySelector('[data-journey]').dataset.currentPhone,currentId);
- const targetPicker=document.getElementById('journey-model-picker');targetPicker.open=true;event(targetPicker,'toggle');value('journey-model-search','15 pro max','input');document.querySelector('#journey-model-results [data-model-slug="iphone-15-pro-max"]').click();value('journey-storage','iphone-15-pro-max|256GB');
+ const picker=document.getElementById('journey-model-picker');picker.open=true;event(picker,'toggle');value('journey-model-search','15 pro max','input');assert.equal(document.querySelector('#journey-model-results [data-model-slug="iphone-15-pro-max"]'),null);
+ value('journey-model-search','12 pro','input');document.querySelector('#journey-model-results [data-model-slug="iphone-12-pro"]').click();
+ assert.equal(document.querySelector('[data-journey]').dataset.targetPhone,target);value('journey-storage','iphone-12-pro|128GB');const currentId=document.querySelector('[data-journey]').dataset.currentPhone;
+ document.getElementById('journey-back').click();assert.equal(headline(),'What do you want to upgrade to?');
+ chooseModel('15 pro max','iphone-15-pro-max');value('journey-storage','iphone-15-pro-max|256GB');next();
  assert.equal(document.querySelector('[data-journey]').dataset.currentPhone,currentId);assert.equal(document.querySelector('[data-journey]').dataset.targetPhone,'iphone-15-pro-max|256GB');dom.window.close();
 });
 test('Homepage uses the supplied lightweight hero, static motion fallback and truthful location treatment',async()=>{
@@ -102,8 +105,39 @@ test('Product storage selection carries its promoted price, condition and colour
  document.querySelector('[data-storage="256GB"]').click();const id='iphone-14-pro-max|256GB',phone=offerChoice(choices.find(p=>p.id===id));
  const buy=document.querySelector('[data-action="buy"]'),easy=document.querySelector('[data-action="easyBuy"]'),swap=document.querySelector('[data-action="swap"]');
  assert.match(buy.href,/wa.me\/2347086865133/);assert.ok(new URL(buy.href).searchParams.get('text').includes(phone.price.toLocaleString('en-NG')));assert.equal(new URL(easy.href).pathname,'/easybuy/');assert.equal(new URL(easy.href).searchParams.get('phone'),id);assert.equal(new URL(swap.href).searchParams.get('target'),id);
- assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.storage==='256GB'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='ViewContent'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='CustomizeProduct'));
+ assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.storage==='256GB'&&e.value===phone.price));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='ViewContent'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='CustomizeProduct'));
+ assert.equal(document.querySelector('[data-storage="256GB"]').getAttribute('aria-pressed'),'true');assert.match(document.querySelector('[data-storage="256GB"]').textContent,new RegExp(phone.price.toLocaleString('en-NG')));
  buy.addEventListener('click',event=>event.preventDefault(),{once:true});event(buy,'click');assert.doesNotMatch(new URL(buy.href).searchParams.get('text'),attributionInMessage);assert.equal(window.ttq.filter(e=>e[0]==='track'&&e[1]==='Contact').length,1);dom.window.close();
+});
+test('storage changes carry the chosen Hot Deal price into the Buy flow and standard repayment',async()=>{
+ const dom=await setup('buy/index.html','/buy/?phone=iphone-12-pro-max%7C128GB&utm_source=tiktok');globalThis.Option=dom.window.Option;
+ await import(`../assets/buy-flow.js?test=${++serial}`);
+ document.getElementById('flow-back').click();
+ const chip=document.querySelector('[data-buy-storage="iphone-12-pro-max|256GB"]');assert.ok(chip);chip.click();
+ const target=offerChoice(choices.find(p=>p.id==='iphone-12-pro-max|256GB'));
+ assert.equal(document.getElementById('buy-variant').value,target.id);
+ assert.equal(document.querySelector('[data-buy-storage="iphone-12-pro-max|256GB"]').getAttribute('aria-pressed'),'true');
+ document.getElementById('flow-next').click();
+ document.querySelector('[name="purchase"][value="easy"]').click();document.getElementById('flow-next').click();
+ assert.equal(document.querySelector('[name="platform"]:checked').value,'noCredit');
+ assert.match(document.getElementById('order-summary').textContent,new RegExp(target.price.toLocaleString('en-NG')));
+ const msg=new URL(document.getElementById('order-whatsapp').href).searchParams.get('text');
+ assert.match(msg,new RegExp(target.price.toLocaleString('en-NG')));assert.match(msg,/Interest: 20% monthly/);assert.doesNotMatch(msg,attributionInMessage);
+ assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.value===target.price));dom.window.close();
+});
+test('interest reminder appears once after financing engagement and leads to the qualification flow',async()=>{
+ const dom=await setup('easybuy/index.html','/easybuy/?phone=iphone-12-pro-max%7C128GB');
+ await import(`../assets/journey.js?test=${++serial}`);
+ const prototype=dom.window.HTMLDialogElement.prototype;
+ prototype.showModal=function(){this.open=true;};prototype.close=function(){this.open=false;};
+ Object.defineProperty(dom.window,'innerWidth',{configurable:true,value:390});
+ await import(`../assets/interest-rescue.js?test=${++serial}`);
+ document.getElementById('journey-back').click();const dialog=document.querySelector('.interest-rescue');
+ assert.ok(dialog.open);assert.match(dialog.textContent,/credit check and approval are required/);
+ assert.equal(dialog.querySelector('[data-check-eligibility]').href,'https://www.creditdirect.ng/know-your-limit');
+ dialog.querySelector('[data-rescue-dismiss]').click();assert.equal(dialog.open,false);assert.equal(headline(),'Which phone do you want?');
+ assert.equal(sessionStorage.getItem('mikee-interest-reminder-shown'),'1');
+ next();document.getElementById('journey-back').click();assert.equal(dialog.open,false);assert.ok(window.dataLayer.some(e=>e.event==='interest_reminder_shown'));dom.window.close();
 });
 test('General chat and mobile Chat keep the message clean while tracking attribution',async()=>{
  const dom=await setup('index.html','/?utm_source=tiktok&utm_medium=paid&utm_campaign=qa-campaign&ttclid=qa-test&fbclid=fb-test&gclid=g-test');

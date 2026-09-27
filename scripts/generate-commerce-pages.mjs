@@ -235,7 +235,7 @@ const renderVariantSelector = (product) => `
           data-price="${variant.price ?? ""}"
           data-price-confirm="${variant.priceNeedsExtraConfirmation ? "true" : "false"}"
           aria-pressed="${variant.storage === product.defaultStorage ? "true" : "false"}"
-        >${escapeHtml(variant.storage)}</button>`).join("")}
+        ><span class="storage-name">${escapeHtml(variant.storage)}</span><span class="storage-price">${variant.price ? formatNaira(variant.price) : 'Confirm price'}</span></button>`).join("")}
     </div>
     <div class="selection-grid">
       <label>
@@ -266,23 +266,24 @@ const renderVariantSelector = (product) => `
       <small data-price-note>Confirm today’s price, condition and stock before payment.</small>
     </div>
     <div class="purchase-actions">
-      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">BUY — ${product.variants.find(v=>v.storage===product.defaultStorage)?.price ? formatNaira(product.variants.find(v=>v.storage===product.defaultStorage).price) : "ASK FOR PRICE"}</a>
-      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">EASYBUY — FROM ${product.variants.find(v=>v.storage===product.defaultStorage)?.price ? formatNaira(Math.round(product.variants.find(v=>v.storage===product.defaultStorage).price*.4)) : "CONFIRM DEPOSIT"} TODAY</a>
-      <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">SWAP — SEE WHAT YOU’LL ADD</a>
+      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Outright</a>
+      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Pay Small Small</a>
+      <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Swap to this phone</a>
     </div>
+    <p class="purchase-action-help">Trade in your current phone and pay the difference. Or get this phone now and spread your payment.</p>
     <p class="purchase-safety"><a data-action="price" href="${whatsappHref(productMessage(product, product.defaultStorage, 'price'))}" target="_blank" rel="noopener">Have a question? Chat on WhatsApp ↗</a></p>
   </div>`;
 
 const renderVariantCards = (product) => `
   <section class="commerce-section product-options" id="options">
-    <details class="storage-comparison"><summary>Compare storage prices <span>+</span></summary>
+    <details class="storage-comparison" open><summary>Compare storage prices <span>+</span></summary>
     <div class="variant-card-grid">
       ${product.variants.map((variant) => `
         <article class="variant-card" data-variant-card="${escapeHtml(variant.storage)}">
           <div class="variant-card-top"><span>${escapeHtml(product.brand)}</span><span>${escapeHtml(product.stockStatus)}</span></div>
           <h3>${escapeHtml(product.model)} ${escapeHtml(variant.storage)}</h3>
           <p class="variant-price">${variant.price ? formatNaira(variant.price) : "Confirm price"}</p>
-          <button type="button" data-select-variant="${escapeHtml(variant.storage)}">Choose ${escapeHtml(variant.storage)}</button>
+          <button type="button" data-select-variant="${escapeHtml(variant.storage)}" aria-pressed="${variant.storage===product.defaultStorage}">Choose ${escapeHtml(variant.storage)}</button>
         </article>`).join("")}
     </div></details>
   </section>`;
@@ -464,8 +465,8 @@ const renderProductPage = (product) => {
   ${renderFooter()}
   <div class="mobile-purchase-bar" aria-label="Quick purchase actions">
     <a data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>₦</span>Buy outright</a>
-    <a data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>◷</span>EasyBuy</a>
-    <a data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>↔</span>Swap</a>
+    <a data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>◷</span>Pay Small Small</a>
+    <a data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>↔</span>Swap to this phone</a>
   </div>
   <script type="application/json" id="product-data">${escapeJson(productData)}</script>
   <script type="module" src="/assets/commerce.js"></script>
