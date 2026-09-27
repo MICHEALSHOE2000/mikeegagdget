@@ -1,6 +1,7 @@
 import {activateImages} from './storefront-ui.mjs';
 activateImages();
 import { calculatePlan } from "../easy-buy/easy-buy-core.mjs";
+import {selectedCondition as conditionFor} from '../commerce/conditions.mjs';
 
 const naira = new Intl.NumberFormat("en-NG", {
   style: "currency",
@@ -206,7 +207,7 @@ if (productDataElement) {
     product.variants.find((variant) => variant.storage === selectedStorage) || product.variants[0];
 
   const selectedColor = () => colorSelect?.value || "Confirm available colour";
-  const selectedCondition = () => conditionSelect?.value || "Confirm available condition";
+  const selectedCondition = () => conditionFor(product, conditionSelect?.value);
 
   function messageFor(intent) {
     const name = `${product.model} ${selectedStorage}`.trim();
@@ -229,7 +230,7 @@ if (productDataElement) {
         const q=new URLSearchParams({phone:`${product.slug}|${selectedStorage}`,condition:selectedCondition(),color:selectedColor()});
         if(link.dataset.action==='buy') {link.href=whatsappHref(product.whatsappNumber,`${messageFor('buy')}\nListed price: ${price?naira.format(price):'Please confirm'}${variant?.offerId?' (Hot Deal)':''}`);link.textContent=price?'Buy Outright': 'Ask for Price';}
         if(link.dataset.action==='easyBuy'){link.href=`/easybuy/?${q}`;link.textContent='Pay Small Small';}
-        if(link.dataset.action==='swap'){q.set('target',q.get('phone'));link.href=`/swap/?${q}`;link.textContent='Swap to this phone';}
+        if(link.dataset.action==='swap'){q.set('target',q.get('phone'));link.href=`/swap/?${q}`;link.textContent='Swap to this phone →';}
         if(!price && link.dataset.action!=='buy'){link.href=whatsappHref(product.whatsappNumber,messageFor(link.dataset.action));link.textContent=link.dataset.action==='easyBuy'?'Ask About Pay Small Small':'Ask About a Swap';}
         link.removeAttribute('target');
 
@@ -269,7 +270,7 @@ if (productDataElement) {
       `Preferred colour: ${selectedColor()}`,
       `Condition: ${selectedCondition()}`,
       `Price used for estimate: ${naira.format(price)}`,
-      `Initial payment estimate: ${naira.format(deposit)} (40%)`,
+      `Initial payment estimate: ${naira.format(deposit)} (${Math.round(plan.depositRate*100)}%)`,
       `Duration: ${duration} month${duration === 1 ? "" : "s"}`,
       `Estimated monthly payment: ${naira.format(monthlyPayment)}`,
       `Estimated total after deposit: ${naira.format(totalAfterDeposit)}`,

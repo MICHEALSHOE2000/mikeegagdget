@@ -1,6 +1,6 @@
 import { calculateSwapValue, calculateOutstandingBalance } from './pricing.mjs';
 import { products } from './catalog.mjs';
-import { DEPOSIT_RATE, FINANCE_PLATFORMS, FINANCE_DURATIONS } from '../easy-buy/easy-buy-core.mjs';
+import { depositRateFor, FINANCE_PLATFORMS, FINANCE_DURATIONS } from '../easy-buy/easy-buy-core.mjs';
 export { FINANCE_PLATFORMS, FINANCE_DURATIONS };
 export const money = value => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(value);
 export const choices = products.flatMap(product => product.variants.map(variant => ({
@@ -9,7 +9,7 @@ export const choices = products.flatMap(product => product.variants.map(variant 
   image: product.images[0], brand: product.brand,
   hasFaceId: product.brand === 'Apple' && !/^iphone-(6|7|8|se)/.test(product.slug),
   hasGlassBack: product.brand === 'Apple' && !/^iphone-(6|7)/.test(product.slug),
-  label: `${product.model} · ${variant.storage}`, finance: product.easyBuyEligible === true
+  label: `${product.model} · ${variant.storage}`, finance: product.easyBuyEligible === true, conditions:product.conditions
 })));
 export function estimateSwap({ current, target, screenChanged=false, screenCracked=false, batteryChanged=false, backChanged=false, backCracked=false, faceIdBroken=false }) {
   if (!current || !target) throw new TypeError('Choose both phones.');
@@ -17,12 +17,12 @@ export function estimateSwap({ current, target, screenChanged=false, screenCrack
   const result = calculateSwapValue({basePrice:current.basePrice, screenChanged,screenCracked,batteryChanged,backGlassChanged:backChanged && current.hasGlassBack,backGlassCracked:backCracked && current.hasGlassBack,faceIdWorking:!(faceIdBroken && current.hasFaceId)});
   return {manual:false,...result,topUp:calculateOutstandingBalance({sellingPrice:target.price,swapValue:result.value}),surplus:Math.max(0,result.value-target.price)};
 }
-export function financePlan({ amount, platform = 'noCredit', duration = 1, deposit = Math.round(amount * DEPOSIT_RATE) }) {
+export function financePlan({ amount, phone, platform = 'noCredit', duration = 1, deposit = Math.round(amount * depositRateFor(phone)) }) {
   if (!Number.isFinite(amount) || amount < 0) throw new TypeError('A valid balance is required.');
   const policy = FINANCE_PLATFORMS[platform];
   if (!policy) throw new RangeError('Choose a financing platform.');
   if (!FINANCE_DURATIONS.includes(duration)) throw new RangeError('Choose a one to six month plan.');
-  const minimumDeposit = Math.round(amount * DEPOSIT_RATE);
+  const minimumDeposit = Math.round(amount * depositRateFor(phone));
   if (!Number.isFinite(deposit) || !Number.isInteger(deposit) || deposit < minimumDeposit || deposit > amount) throw new RangeError(`Deposit must be between ${minimumDeposit} and ${amount}.`);
   const balance = amount - deposit;
   const interest = Math.round(balance * policy.rate * duration);

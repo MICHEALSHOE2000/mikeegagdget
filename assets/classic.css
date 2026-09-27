@@ -102,5 +102,5 @@
 .store-home .card-shortcuts,.deal-card .card-shortcuts{display:flex;gap:8px;flex-wrap:wrap;padding-top:8px}
 .store-home .card-shortcuts a,.deal-card .card-shortcuts a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:7px 10px;border:1px solid #bd913b;border-radius:6px;background:#f8f3e8;color:#173f2e;font-size:11px;font-weight:750;line-height:1.2;text-align:center;transition:background .15s,transform .15s}
 .store-home .card-shortcuts a:hover,.deal-card .card-shortcuts a:hover{background:#ead8ab}.store-home .card-shortcuts a:active,.deal-card .card-shortcuts a:active{transform:scale(.97)}
-.store-home .shop-illustration{margin:0;background:#17231b}.store-home .shop-illustration img{height:auto;aspect-ratio:3/2;object-fit:cover}.shop-illustration figcaption{padding:9px 12px;color:#fff;font-size:11px;line-height:1.4;background:#17231b}
+.store-home .shop-photo{margin:0;background:#17231b}.store-home .shop-photo img{height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center}
 @media(max-width:470px){.store-home .card-shortcuts a{flex:1 1 100%}.store-home .purchase-paths{gap:10px}.store-home .purchase-path{min-width:0}}
