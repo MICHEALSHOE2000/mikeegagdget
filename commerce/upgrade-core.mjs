@@ -17,7 +17,7 @@ export function estimateSwap({ current, target, screenChanged=false, screenCrack
   const result = calculateSwapValue({basePrice:current.basePrice, screenChanged,screenCracked,batteryChanged,backGlassChanged:backChanged && current.hasGlassBack,backGlassCracked:backCracked && current.hasGlassBack,faceIdWorking:!(faceIdBroken && current.hasFaceId)});
   return {manual:false,...result,topUp:calculateOutstandingBalance({sellingPrice:target.price,swapValue:result.value}),surplus:Math.max(0,result.value-target.price)};
 }
-export function financePlan({ amount, platform = 'credit', duration = 1, deposit = Math.round(amount * DEPOSIT_RATE) }) {
+export function financePlan({ amount, platform = 'noCredit', duration = 1, deposit = Math.round(amount * DEPOSIT_RATE) }) {
   if (!Number.isFinite(amount) || amount < 0) throw new TypeError('A valid balance is required.');
   const policy = FINANCE_PLATFORMS[platform];
   if (!policy) throw new RangeError('Choose a financing platform.');

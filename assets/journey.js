@@ -3,6 +3,7 @@ import {offerChoice} from '../commerce/offers.mjs';
 import {commerceSite} from '../commerce/catalog.mjs';
 import {media,activateImages,escape as esc} from './storefront-ui.mjs';
 import {DEPOSIT_RATE,FINANCE_DURATIONS,CREDIT_LIMIT_URL} from '../easy-buy/easy-buy-core.mjs';
+import {suitableCurrentPhone} from '../commerce/device-hierarchy.mjs';
 
 const root=document.querySelector('[data-journey]');
 
@@ -19,15 +20,15 @@ if(root){
  const state={
   target:initialTarget?.price>0?initialTarget.id:'',
   targetModel:initialTarget?.slug||'',
-  current:initialCurrent?.id||'',
-  currentModel:initialCurrent?.slug||'',
+  current:initialCurrent&&(!initialTarget||suitableCurrentPhone(initialCurrent,initialTarget))?initialCurrent.id:'',
+  currentModel:initialCurrent&&(!initialTarget||suitableCurrentPhone(initialCurrent,initialTarget))?initialCurrent.slug:'',
   answers:{},
   deposit:'',
   duration:1,
-  platform:'credit',
-  searches:{current:initialCurrent?.model||'',target:initialTarget?.model||''}
+  platform:'noCredit',
+  searches:{current:initialCurrent&&(!initialTarget||suitableCurrentPhone(initialCurrent,initialTarget))?initialCurrent.model:'',target:initialTarget?.model||''}
  };
- let stage=mode==='easy'&&state.target?'plan':'phone';
+ let stage=mode==='swap'?(state.target?'phone':'target'):state.target?'plan':'phone';
  let question=0;
  let lastTrackedPlan='';
 
@@ -36,6 +37,7 @@ if(root){
 
  const selected=()=>byId(state.target);
  const current=()=>byId(state.current);
+ const eligibleCurrentPhones=()=>currentPhones.filter(phone=>suitableCurrentPhone(phone,selected()));
  const modelChoices=list=>[...new Map(list.map(phone=>[phone.slug,phone])).values()];
  const normalize=text=>String(text||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
  const matchingModels=(list,term)=>{
@@ -81,8 +83,10 @@ if(root){
   return models.slice(0,12).map(phone=>`<button type="button" class="model-result" data-model-slug="${esc(phone.slug)}" role="option" aria-selected="${phone.slug===selectedSlug}" ${phone.slug===selectedSlug?'aria-current="true"':''}><span>${esc(phone.model)}</span>${phone.slug===selectedSlug?'<b aria-hidden="true">✓</b>':'<span aria-hidden="true">→</span>'}</button>`).join('');
  }
 
+ const storageChips=(variants,key,isCurrent)=>variants.map(phone=>`<button type="button" class="storage-choice${phone.id===state[key]?' is-selected':''}" data-storage-choice="${esc(phone.id)}" aria-pressed="${phone.id===state[key]}"><strong>${esc(phone.storage)}</strong>${!isCurrent?`<span>${money(phone.price)}</span>`:''}</button>`).join('');
+
  function chooseUI(isCurrent){
-  const list=isCurrent?currentPhones:available;
+  const list=isCurrent?eligibleCurrentPhones():available;
   const key=isCurrent?'current':'target';
   const modelKey=isCurrent?'currentModel':'targetModel';
   const chosen=byId(state[key]);
@@ -98,12 +102,12 @@ if(root){
   return `<p class="journey-section-label">${sectionLabel}</p><h2>${heading}</h2>${helper}
    <div class="model-finder"><label for="journey-search">Find your model<input id="journey-search" type="search" placeholder="Search, e.g. 13 Pro Max" autocomplete="off" value="${esc(state.searches[key])}" aria-controls="journey-search-results" aria-expanded="false"></label><div id="journey-search-results" class="model-search-results" role="listbox" hidden></div></div>
    <div class="model-control"><span class="model-control-label" id="journey-model-label">Phone Model</span><details class="model-picker" id="journey-model-picker"><summary id="journey-model-summary" aria-labelledby="journey-model-label">${chosenModel?`${esc(chosenModel.model)} <span aria-hidden="true">✓</span>`:'Choose a phone'}</summary><div class="model-picker-panel"><label class="sr-only" for="journey-model-search">Search for model</label><input id="journey-model-search" type="search" placeholder="Search for model..." autocomplete="off"><div id="journey-model-results" class="model-picker-results" role="listbox">${resultButtons(models,slug)}</div></div></details></div>
-   <label for="journey-storage">Storage<select id="journey-storage" ${slug?'':'disabled'}><option value="">Choose storage</option>${storageOptions}</select></label>
+   <label for="journey-storage">Storage<select id="journey-storage" ${slug?'':'disabled'}><option value="">Choose storage</option>${storageOptions}</select></label><div class="journey-storage-options" id="journey-storage-options" aria-label="Available storage and prices">${storageChips(variants,key,isCurrent)}</div>
    <div id="journey-selected">${preview?device(preview,!isCurrent&&Boolean(chosen)):''}</div><p class="journey-help" id="journey-search-status" role="status">${chosenModel&&!chosen?'Model selected. Choose the storage to continue.':''}</p>`;
  }
 
  function bindChooser(isCurrent){
-  const list=isCurrent?currentPhones:available;
+  const list=isCurrent?eligibleCurrentPhones():available;
   const key=isCurrent?'current':'target';
   const modelKey=isCurrent?'currentModel':'targetModel';
   const models=modelChoices(list);
@@ -114,6 +118,7 @@ if(root){
   const modelResults=$('journey-model-results');
   const modelSummary=$('journey-model-summary');
   const storage=$('journey-storage');
+  const chips=$('journey-storage-options');
   const selectedBox=$('journey-selected');
   const status=$('journey-search-status');
 
@@ -133,6 +138,7 @@ if(root){
    const variants=list.filter(phone=>phone.slug===state[modelKey]);
    storage.disabled=!variants.length;
    storage.innerHTML='<option value="">Choose storage</option>'+variants.map(phone=>`<option value="${esc(phone.id)}" ${phone.id===state[key]?'selected':''}>${esc(phone.storage)}${isCurrent?'':` · ${money(phone.price)}`}</option>`).join('');
+   chips.innerHTML=storageChips(variants,key,isCurrent);
   };
 
   const selectModel=(slug,{focusStorage=true}={})=>{
@@ -169,6 +175,8 @@ if(root){
     else if(mode==='easy')state.deposit='';
    }
    state[key]=id;
+   storage.value=id;
+   chips.querySelectorAll('[data-storage-choice]').forEach(button=>{const active=button.dataset.storageChoice===id;button.classList.toggle('is-selected',active);button.setAttribute('aria-pressed',String(active));});
    state[modelKey]=phone.slug;
    state.searches[key]=phone.model;
    modelSummary.innerHTML=`${esc(phone.model)} <span aria-hidden="true">✓</span>`;
@@ -178,7 +186,8 @@ if(root){
    updateSelectionUrl(key,id);
    syncStateAttributes();
    status.textContent=`${phone.label} selected.`;
-   track('select_storage',{product_id:id,phone_model:phone.model,storage:phone.storage,selection:isCurrent?'current':'target'});
+   track('select_storage',{product_id:id,phone_model:phone.model,storage:phone.storage,selection:isCurrent?'current':'target',value:phone.price??undefined});
+   if(mode==='swap')track(isCurrent?'current_swap_phone_selected':'target_swap_phone_selected',{product_id:id,value:phone.price??undefined});
    error();
   };
 
@@ -210,6 +219,7 @@ if(root){
    }
   });
   storage.addEventListener('change',()=>selectVariant(storage.value));
+  chips.addEventListener('click',event=>{const button=event.target.closest('[data-storage-choice]');if(button)selectVariant(button.dataset.storageChoice);});
  }
 
  function planFor(duration=state.duration){
@@ -235,6 +245,7 @@ if(root){
    ['Phone price',money(phone.price)],
    ['Down payment',money(plan.deposit)],
    ['Balance financed',money(plan.balance)],
+   ['Monthly interest rate',`${plan.rate*100}%`],
    ['Duration',`${state.duration} month${state.duration===1?'':'s'}`],
    ['Monthly repayment',monthly],
    ['Total interest / cost',money(plan.interest)],
@@ -248,7 +259,7 @@ if(root){
    'Hello Mikee Gadget Plug,',
    'I want to use EasyBuy.',
    `Phone: ${phone.label}`,
-   `Phone price: ${money(phone.price)}${phone.offerId?' (20% promotion)':''}`,
+   `Phone price: ${money(phone.price)}${phone.offerId?' (Hot Deal)':''}`,
    `Preferred condition: ${query.get('condition')||'Please confirm'}`,
    `Preferred colour: ${query.get('color')||'Please confirm'}`,
    `Plan: ${FINANCE_PLATFORMS[state.platform].label}`,
@@ -307,7 +318,7 @@ if(root){
   let plans=[];
   try{plans=FINANCE_DURATIONS.map(duration=>planFor(duration));}catch{}
   const plan=plans[FINANCE_DURATIONS.indexOf(state.duration)];
-  return `<p class="journey-section-label">COMPARE YOUR PAYMENTS</p><h2>How much works for you each month?</h2>${device(phone)}<div class="plan-controls"><label for="journey-deposit">Down payment (₦)<input id="journey-deposit" type="number" inputmode="numeric" min="${Math.round(phone.price*DEPOSIT_RATE)}" max="${phone.price}" step="1" value="${esc(state.deposit)}" aria-describedby="deposit-help"></label><p class="journey-help" id="deposit-help">Starts at ${money(Math.round(phone.price*DEPOSIT_RATE))} (40%). You can pay more upfront.</p><label for="journey-platform">EasyBuy option<select id="journey-platform"><option value="credit" ${state.platform==='credit'?'selected':''}>7.5% monthly · Approved limit</option><option value="noCredit" ${state.platform==='noCredit'?'selected':''}>20% monthly · No limit check</option></select></label><p class="journey-help">Interest uses the balance after your deposit. <a href="${CREDIT_LIMIT_URL}" target="_blank" rel="noopener">Check your Credit Direct limit ↗</a></p></div><fieldset class="repayment-selector"><legend><strong>CHOOSE REPAYMENT PERIOD</strong><span>Compare every option before you choose.</span></legend><div class="repayment-options" id="repayment-options">${repaymentCards(plans)}</div></fieldset><section class="plan-summary" id="plan-summary" aria-live="polite">${plan?planSummary(phone,plan):''}</section>`;
+  return `<p class="journey-section-label">COMPARE YOUR PAYMENTS</p><h2>How much works for you each month?</h2>${device(phone)}<div class="plan-controls"><label for="journey-deposit">Down payment (₦)<input id="journey-deposit" type="number" inputmode="numeric" min="${Math.round(phone.price*DEPOSIT_RATE)}" max="${phone.price}" step="1" value="${esc(state.deposit)}" aria-describedby="deposit-help"></label><p class="journey-help" id="deposit-help">Starts at ${money(Math.round(phone.price*DEPOSIT_RATE))} (40%). You can pay more upfront.</p><label for="journey-platform">Pay Small Small plan<select id="journey-platform"><option value="noCredit" ${state.platform==='noCredit'?'selected':''}>Standard plan · 20% monthly · no credit check</option><option value="credit" ${state.platform==='credit'?'selected':''}>Lower-interest plan · 7.5% monthly · credit check required</option></select></label><p class="journey-help">Interest uses the balance after your deposit. The lower-interest plan requires a credit check and approval. <a href="${CREDIT_LIMIT_URL}" target="_blank" rel="noopener" data-check-eligibility="true">Check eligibility ↗</a></p></div><fieldset class="repayment-selector"><legend><strong>CHOOSE REPAYMENT PERIOD</strong><span>Compare every option before you choose.</span></legend><div class="repayment-options" id="repayment-options">${repaymentCards(plans)}</div></fieldset><section class="plan-summary" id="plan-summary" aria-live="polite">${plan?planSummary(phone,plan):''}</section>`;
  }
 
  function bindEasyPlan(){
@@ -318,10 +329,12 @@ if(root){
   screen.addEventListener('change',event=>{
    if(event.target.id==='journey-platform'){
     state.platform=event.target.value;
+    track(state.platform==='credit'?'lower_interest_plan_selected':'standard_plan_selected',{product_id:state.target,rate:FINANCE_PLATFORMS[state.platform].rate});
     updateEasyPlan({shouldTrack:true});
    }
    if(event.target.name==='duration'){
     state.duration=Number(event.target.value);
+    track('repayment_duration_selected',{product_id:state.target,months:state.duration});
     updateEasyPlan({shouldTrack:true});
    }
    if(event.target.id==='journey-deposit')updateEasyPlan({shouldTrack:true});
@@ -334,6 +347,7 @@ if(root){
    try{trackPlan(selected(),planFor());}catch{}
   });
   updateEasyPlan();
+  track(state.platform==='credit'?'lower_interest_plan_selected':'standard_plan_selected',{product_id:state.target,rate:FINANCE_PLATFORMS[state.platform].rate});
  }
 
  function changeStage(next){
@@ -352,15 +366,16 @@ if(root){
   let html='';
   let index=1;
   let label='Choose phone';
-  $('journey-back').hidden=stage==='phone';
+  $('journey-back').hidden=mode==='easy'&&stage==='phone'||mode==='swap'&&stage==='target';
   $('journey-next').hidden=false;
   $('journey-whatsapp').hidden=true;
   $('journey-next').textContent='Continue →';
 
   if(stage==='phone'||stage==='target'){
    html=chooseUI(isCurrent);
-   index=stage==='target'?4:1;
+   index=stage==='target'?1:mode==='swap'?2:1;
    label=isCurrent?'Your current phone':mode==='swap'?'Your new phone':'Choose phone';
+   if(mode==='swap')$('journey-next').textContent=stage==='target'?'Choose My Current Phone →':'See My Swap Value →';
   }
 
   if(stage==='plan'){
@@ -376,17 +391,18 @@ if(root){
    const items=questions();
    const item=items[question];
    const answer=state.answers[item.key];
-   index=2;
+   index=3;
    label=`Condition · ${question+1} of ${items.length}`;
+   if(question===items.length-1)$('journey-next').textContent='See My Swap Value →';
    html=`<p class="journey-section-label">YOUR CURRENT PHONE</p><p class="journey-help">${esc(current().label)}</p><h2>${item.label}</h2><fieldset class="journey-answers"><legend class="sr-only">${item.label}</legend>${[['yes','Yes'],['no','No']].map(([value,text])=>{const result=item.invert?value==='no':value==='yes';return `<label><input type="radio" name="answer" value="${value}" ${answer===result?'checked':''}><span>${text}</span></label>`;}).join('')}</fieldset>`;
   }
 
   if(stage==='value'){
-   index=3;
+   index=4;
    label='Your estimated value';
    const result=valuation();
    html=`<p class="journey-section-label">SEE WHAT IT IS WORTH</p><h2>${result.manual?'Your phone needs a personal quote.':'Your estimated phone value.'}</h2>${device(current(),false)}${result.manual?'<p>We do not have a confirmed reference price for this model. We’ll value it after inspection.</p>':`<div class="journey-amount"><span>YOUR PHONE IS WORTH ABOUT</span><strong>${money(result.value)}</strong></div><details><summary>See valuation breakdown</summary>${rows([['Market reference',money(current().basePrice)],...result.deductions.map(item=>[item.label,`${item.percent}% · ${money(current().basePrice*item.percent/100)}`])])}</details>`}<p class="journey-help">Final value is subject to physical inspection.</p>`;
-   $('journey-next').textContent='Choose my next phone →';
+   $('journey-next').textContent='Calculate What I’ll Pay →';
   }
 
   if(stage==='result'){
@@ -398,7 +414,7 @@ if(root){
     'Hello Mikee Gadget Plug,',
     'I want to swap my phone.',
     `New phone: ${phone.label}`,
-    `New phone price: ${money(phone.price)}${phone.offerId?' (20% promotion)':''}`,
+    `New phone price: ${money(phone.price)}${phone.offerId?' (Hot Deal)':''}`,
     `Preferred condition: ${query.get('condition')||'Please confirm'}`,
     `Preferred colour: ${query.get('color')||'Please confirm'}`,
     `Current phone: ${current().label}`,
@@ -434,10 +450,14 @@ if(root){
   if(stage==='phone'||stage==='target'){
    const id=mode==='swap'&&stage==='phone'?state.current:state.target;
    if(!id){error('Choose a phone and storage to continue.');return;}
+   if(stage==='target'){
+    if(state.current&&!suitableCurrentPhone(current(),selected())){state.current='';state.currentModel='';state.answers={};updateSelectionUrl('current','');}
+    changeStage('phone');return;
+   }
    if(mode==='swap'&&stage==='phone'){
     question=0;
     changeStage('condition');
-   }else changeStage(mode==='easy'?'plan':'result');
+   }else changeStage('plan');
    return;
   }
   if(stage==='condition'){
@@ -451,12 +471,12 @@ if(root){
    }
    return;
   }
-  if(stage==='value')changeStage('target');
+  if(stage==='value'){track('swap_calculation_completed',{product_id:state.target,current_phone:state.current,value:quote().manual?null:quote().topUp});changeStage('result');}
  });
 
  $('journey-back').addEventListener('click',()=>{
   if(stage==='condition'&&question>0){question--;render();return;}
-  const previous=mode==='easy'?{plan:'phone'}:{condition:'phone',value:'condition',target:'value',result:'target'};
+  const previous=mode==='easy'?{plan:'phone'}:{phone:'target',condition:'phone',value:'condition',result:'value'};
   changeStage(previous[stage]||'phone');
  });
 

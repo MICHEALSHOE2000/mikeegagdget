@@ -107,7 +107,7 @@
           data-price=""
           data-price-confirm="false"
           aria-pressed="true"
-        >256GB</button>
+        ><span class="storage-name">256GB</span><span class="storage-price">Confirm price</span></button>
         <button
           type="button"
           class=""
@@ -115,7 +115,7 @@
           data-price=""
           data-price-confirm="false"
           aria-pressed="false"
-        >512GB</button>
+        ><span class="storage-name">512GB</span><span class="storage-price">Confirm price</span></button>
         <button
           type="button"
           class=""
@@ -123,7 +123,7 @@
           data-price=""
           data-price-confirm="false"
           aria-pressed="false"
-        >1TB</button>
+        ><span class="storage-name">1TB</span><span class="storage-price">Confirm price</span></button>
     </div>
     <div class="selection-grid">
       <label>
@@ -150,36 +150,37 @@
       <small data-price-note>Confirm today’s price, condition and stock before payment.</small>
     </div>
     <div class="purchase-actions">
-      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=samsung-s23-ultra%7C256GB">BUY — ASK FOR PRICE</a>
-      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=samsung-s23-ultra%7C256GB">EASYBUY — FROM CONFIRM DEPOSIT TODAY</a>
-      <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=samsung-s23-ultra%7C256GB">SWAP — SEE WHAT YOU’LL ADD</a>
+      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=samsung-s23-ultra%7C256GB">Buy Outright</a>
+      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=samsung-s23-ultra%7C256GB">Pay Small Small</a>
+      <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=samsung-s23-ultra%7C256GB">Swap to this phone</a>
     </div>
+    <p class="purchase-action-help">Trade in your current phone and pay the difference. Or get this phone now and spread your payment.</p>
     <p class="purchase-safety"><a data-action="price" href="https://wa.me/2347086865133?text=Hello%2C%20please%20confirm%20today%E2%80%99s%20price%20and%20availability%20for%20the%20Samsung%20Galaxy%20S23%20Ultra%20256GB%2C%20including%20colour%2C%20condition%2C%20warranty%20terms%20and%20delivery%20options." target="_blank" rel="noopener">Have a question? Chat on WhatsApp ↗</a></p>
   </div><div class="product-trust"><span>Inspect before payment</span><span>Computer Village store</span><span>Nationwide delivery</span><span>Device checked before payment</span></div>
       </div>
     </section>
 
   <section class="commerce-section product-options" id="options">
-    <details class="storage-comparison"><summary>Compare storage prices <span>+</span></summary>
+    <details class="storage-comparison" open><summary>Compare storage prices <span>+</span></summary>
     <div class="variant-card-grid">
 
         <article class="variant-card" data-variant-card="256GB">
           <div class="variant-card-top"><span>Samsung</span><span>Available to enquire about — confirm the exact variant</span></div>
           <h3>Samsung Galaxy S23 Ultra 256GB</h3>
           <p class="variant-price">Confirm price</p>
-          <button type="button" data-select-variant="256GB">Choose 256GB</button>
+          <button type="button" data-select-variant="256GB" aria-pressed="true">Choose 256GB</button>
         </article>
         <article class="variant-card" data-variant-card="512GB">
           <div class="variant-card-top"><span>Samsung</span><span>Available to enquire about — confirm the exact variant</span></div>
           <h3>Samsung Galaxy S23 Ultra 512GB</h3>
           <p class="variant-price">Confirm price</p>
-          <button type="button" data-select-variant="512GB">Choose 512GB</button>
+          <button type="button" data-select-variant="512GB" aria-pressed="false">Choose 512GB</button>
         </article>
         <article class="variant-card" data-variant-card="1TB">
           <div class="variant-card-top"><span>Samsung</span><span>Available to enquire about — confirm the exact variant</span></div>
           <h3>Samsung Galaxy S23 Ultra 1TB</h3>
           <p class="variant-price">Confirm price</p>
-          <button type="button" data-select-variant="1TB">Choose 1TB</button>
+          <button type="button" data-select-variant="1TB" aria-pressed="false">Choose 1TB</button>
         </article>
     </div></details>
   </section>
@@ -282,8 +283,8 @@
   </footer>
   <div class="mobile-purchase-bar" aria-label="Quick purchase actions">
     <a data-action="buy" href="/buy/?phone=samsung-s23-ultra%7C256GB"><span>₦</span>Buy outright</a>
-    <a data-action="easyBuy" href="/easybuy/?phone=samsung-s23-ultra%7C256GB"><span>◷</span>EasyBuy</a>
-    <a data-action="swap" href="/swap/?target=samsung-s23-ultra%7C256GB"><span>↔</span>Swap</a>
+    <a data-action="easyBuy" href="/easybuy/?phone=samsung-s23-ultra%7C256GB"><span>◷</span>Pay Small Small</a>
+    <a data-action="swap" href="/swap/?target=samsung-s23-ultra%7C256GB"><span>↔</span>Swap to this phone</a>
   </div>
   <script type="application/json" id="product-data">{"model":"Samsung Galaxy S23 Ultra","slug":"samsung-s23-ultra","defaultStorage":"256GB","variants":[{"storage":"256GB","basePrice":null,"sellingPrice":null,"price":null,"color":null,"availability":"Confirm availability","priceNeedsExtraConfirmation":false,"oldPrice":null},{"storage":"512GB","basePrice":null,"sellingPrice":null,"price":null,"color":null,"availability":"Confirm availability","priceNeedsExtraConfirmation":false,"oldPrice":null},{"storage":"1TB","basePrice":null,"sellingPrice":null,"price":null,"color":null,"availability":"Confirm availability","priceNeedsExtraConfirmation":false,"oldPrice":null}],"colors":["Ask for today’s available colours"],"conditions":["Confirm available condition"],"whatsappNumber":"2347086865133"}</script>
   <script type="module" src="/assets/commerce.js"></script>

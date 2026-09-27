@@ -224,11 +224,13 @@ if (productDataElement) {
     document.querySelectorAll("[data-action]").forEach((link) => {
       if (['swap', 'easyBuy', 'buy'].includes(link.dataset.action)) {
         const variant=product.variants.find(v=>v.storage===selectedStorage), price=variant?.price;
+        link.dataset.productId=`${product.slug}|${selectedStorage}`;
+        link.dataset.value=price||'';
         const q=new URLSearchParams({phone:`${product.slug}|${selectedStorage}`,condition:selectedCondition(),color:selectedColor()});
-        if(link.dataset.action==='buy') {link.href=whatsappHref(product.whatsappNumber,`${messageFor('buy')}\nListed price: ${price?naira.format(price):'Please confirm'}${variant?.offerId?' (20% promotion)':''}`);link.textContent=price?`BUY — ${naira.format(price)}`:'ASK FOR PRICE';}
-        if(link.dataset.action==='easyBuy'){link.href=`/easybuy/?${q}`;link.textContent=price?`EASYBUY — FROM ${naira.format(Math.round(price*.4))} TODAY`:'EASYBUY — CONFIRM PRICE';}
-        if(link.dataset.action==='swap'){q.set('target',q.get('phone'));link.href=`/swap/?${q}`;link.textContent='SWAP — SEE WHAT YOU’LL ADD';}
-        if(!price && link.dataset.action!=='buy'){link.href=whatsappHref(product.whatsappNumber,messageFor(link.dataset.action));link.textContent=link.dataset.action==='easyBuy'?'ASK ABOUT EASYBUY':'ASK ABOUT A SWAP';}
+        if(link.dataset.action==='buy') {link.href=whatsappHref(product.whatsappNumber,`${messageFor('buy')}\nListed price: ${price?naira.format(price):'Please confirm'}${variant?.offerId?' (Hot Deal)':''}`);link.textContent=price?'Buy Outright': 'Ask for Price';}
+        if(link.dataset.action==='easyBuy'){link.href=`/easybuy/?${q}`;link.textContent='Pay Small Small';}
+        if(link.dataset.action==='swap'){q.set('target',q.get('phone'));link.href=`/swap/?${q}`;link.textContent='Swap to this phone';}
+        if(!price && link.dataset.action!=='buy'){link.href=whatsappHref(product.whatsappNumber,messageFor(link.dataset.action));link.textContent=link.dataset.action==='easyBuy'?'Ask About Pay Small Small':'Ask About a Swap';}
         link.removeAttribute('target');
 
       } else {
@@ -296,6 +298,9 @@ if (productDataElement) {
     });
 
     variantButtons.forEach((button) => {
+      const active=button.dataset.selectVariant===selectedStorage;
+      button.setAttribute('aria-pressed',String(active));
+      button.closest('[data-variant-card]')?.classList.toggle('is-active',active);
       button.textContent = button.dataset.selectVariant === selectedStorage
         ? `Selected ${selectedStorage}`
         : `Choose ${button.dataset.selectVariant}`;
@@ -307,7 +312,7 @@ if (productDataElement) {
       priceNote.textContent = variant.priceNeedsExtraConfirmation
         ? "This supplied guide price needs extra confirmation. Ask Mikee Gadget Plug for today’s exact price before planning."
         : variant.price
-          ? (variant.offerId ? `20% off ${naira.format(variant.regularPrice)}. Confirm the exact unit before payment.` : "Confirm today’s price, condition and stock before payment.")
+          ? (variant.offerId ? `Hot Deal · regular price ${naira.format(variant.regularPrice)}. Confirm the exact unit before payment.` : "Confirm today’s price, condition and stock before payment.")
           : "No price was supplied for this variant. Request today’s exact price before payment.";
     }
 
@@ -329,7 +334,9 @@ if (productDataElement) {
       product_name: `${product.model} ${selectedStorage}`,
       storage: selectedStorage,
       device_condition: selectedCondition(),
-      lead_type: "price_availability"
+      lead_type: "price_availability",
+      value: variant.price ?? undefined,
+      regular_price: variant.regularPrice ?? undefined
     });
   }
 

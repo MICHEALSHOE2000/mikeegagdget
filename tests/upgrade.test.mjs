@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { choices, estimateSwap, financePlan } from '../commerce/upgrade-core.mjs';
 import { priceList } from '../commerce/price-list.mjs';
+import {suitableCurrentPhone} from '../commerce/device-hierarchy.mjs';
 const phone = id => choices.find(p => p.id === id);
 const current = phone('iphone-x|64GB'), target = phone('iphone-11|64GB');
 const base = {current,target};
@@ -33,6 +34,21 @@ test('both financing options charge interest on the balance after the deposit', 
   assert.equal(credit.deposit,56000); assert.equal(credit.balance,84000); assert.equal(credit.interest,6300); assert.equal(credit.totalPayable,146300);
   const noCredit=financePlan({amount:140000,platform:'noCredit',duration:3});
   assert.equal(noCredit.interest,50400); assert.equal(noCredit.totalPayable,190400);
+});
+test('standard financing defaults to 20% and credit-check financing remains at 7.5%',()=>{
+ const standard=financePlan({amount:500000,duration:2});
+ const qualified=financePlan({amount:500000,duration:2,platform:'credit'});
+ assert.equal(standard.platform,'noCredit');assert.equal(standard.rate,.2);assert.equal(standard.interest,120000);
+ assert.equal(qualified.rate,.075);assert.equal(qualified.interest,45000);
+});
+test('current-phone choices follow generation and tier, independent of price and storage',()=>{
+ const example=slug=>({slug,brand:'Apple',price:1});
+ const target=example('iphone-12-pro-max');
+ for(const slug of ['iphone-x','iphone-11-pro-max','iphone-12-pro-max','iphone-13-pro-max'])assert.equal(suitableCurrentPhone(example(slug),target),true,slug);
+ for(const slug of ['iphone-14','iphone-15-pro-max','iphone-16-pro-max','iphone-17-pro-max','iphone-18-pro-max'])assert.equal(suitableCurrentPhone(example(slug),target),false,slug);
+ assert.equal(suitableCurrentPhone(example('iphone-13-pro-max'),example('iphone-12')),false);
+ assert.equal(suitableCurrentPhone({slug:'samsung-s25-ultra',brand:'Samsung'},{slug:'samsung-s23-ultra',brand:'Samsung'}),false);
+ assert.equal(suitableCurrentPhone({slug:'google-pixel-9-pro',brand:'Google'},{slug:'google-pixel-7-pro',brand:'Google'}),false);
 });
 test('swap credit comes off before the deposit and financing interest', () => {
   const swap=estimateSwap(base); assert.equal(swap.topUp,136500);

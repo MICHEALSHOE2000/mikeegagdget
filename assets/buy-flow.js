@@ -3,6 +3,7 @@ import { choices as baseChoices, money, estimateSwap, financePlan, FINANCE_PLATF
 import { commerceSite } from '../commerce/catalog.mjs';
 import { DEPOSIT_RATE } from '../easy-buy/easy-buy-core.mjs';
 import {offerChoice} from '../commerce/offers.mjs';
+import {suitableCurrentPhone} from '../commerce/device-hierarchy.mjs';
 const choices=baseChoices.map(offerChoice);
 const $ = id => document.getElementById(id);
 const form = $('buy-flow');
@@ -12,9 +13,10 @@ if (form) {
   const radio = name => form.querySelector(`input[name="${name}"]:checked`)?.value;
   const setRadio = (name,value) => { const input = form.querySelector(`input[name="${name}"][value="${value}"]`); if (input) input.checked = true; };
   const models = [...new Map(choices.map(phone => [phone.slug,phone])).values()];
+  const track=(event,data={})=>window.MikeeGadgetPlugTracking?.pushEvent(event,{journey:'buy',...data});
   const legacyId = query.get('phone');
   const initial = find(legacyId) || find(query.get('target')) || choices.find(p => p.slug === legacyId || `${p.slug}-${p.storage.replace('GB','')}` === legacyId) || find('iphone-13|128GB');
-  let step = 1, reached = 1, lastAmount = null;
+  let step = 1, reached = 1, lastAmount = null, lastSwapQuote='';
   const summaryPanel = document.querySelector('.order-summary');
   const mobile = matchMedia('(max-width: 650px)');
   function placeSummary() {
@@ -32,10 +34,21 @@ if (form) {
   function variants(prefix,preferred) {
     const rows = choices.filter(p => p.slug === $(`${prefix}-model`).value);
     options($(`${prefix}-variant`),rows.map(p => [p.id,`${p.storage}${prefix === "buy" ? (p.price ? ` · ${money(p.price)}` : " · confirm price") : ""}`]),preferred);
+    if(prefix==='buy'){
+      const chosen=$('buy-variant').value;
+      $('buy-storage-choices').innerHTML=rows.map(phone=>`<button type="button" data-buy-storage="${phone.id}" aria-pressed="${phone.id===chosen}" class="${phone.id===chosen?'is-selected':''}"><strong>${phone.storage}</strong><span>${phone.price?money(phone.price):'Confirm price'}</span></button>`).join('');
+    }
   }
   modelOptions($('buy-model'),models,initial.slug); variants('buy',initial.id);
   const previous = find(query.get('current')) || find('iphone-x|64GB');
-  modelOptions($('swap-model'),models,previous.slug); variants('swap',previous.id);
+  const swapModels=()=>models.filter(p=>p.brand===selected()?.brand&&suitableCurrentPhone(p,selected()));
+  function refreshSwapOptions(term='',preferred=oldPhone()?.id){
+    const matching=swapModels().filter(p=>term.split(/\s+/).every(token=>p.model.toLowerCase().includes(token)));
+    modelOptions($('swap-model'),matching,find(preferred)?.slug);
+    variants('swap',preferred);
+    if(preferred&&oldPhone()?.id!==preferred)form.querySelectorAll('.condition-row input').forEach(input=>input.checked=false);
+  }
+  modelOptions($('swap-model'),swapModels(),previous.slug); variants('swap',previous.id);
   if (query.get('method') === 'swap' || query.get('purchase') === 'swap' || location.pathname.includes('phone-swap')) setRadio('purchase','swap');
   if (query.get('method') === 'easy' || query.get('payment') === 'easy' || location.pathname.includes('easy-buy')) { setRadio('payment','easy'); if(radio('purchase') !== 'swap') setRadio('purchase','easy'); }
   function selected() { return find($('buy-variant').value); }
@@ -96,8 +109,9 @@ if (form) {
     $('flow-next').disabled = false;
     $('selected-device').innerHTML = `${photo(phone)}<div><strong>${phone.model}</strong><span>${phone.storage}</span><b>${phone.price ? money(phone.price) : 'Ask for today’s price'}</b></div>`;
     $('model-feedback').textContent = phone.price ? 'Listed price. Confirm the exact unit and availability before payment.' : 'This model needs a current price from us. You can still send your selection.';
-    if (isSwap && !old) { $('order-summary').innerHTML='<p>No matching current phone. Clear the search to continue.</p>'; $('flow-next').disabled=true; $('order-whatsapp').hidden=true; return; }
+    if (isSwap && !old) { $('order-summary').innerHTML='<p>Choose a current phone or ask us for a personal quote.</p>'; $('flow-next').disabled=true; $('order-whatsapp').hidden=true; return; }
     const q = quote();
+    if(isSwap&&step===3&&!q.manual&&!q.pending&&!missingAnswers().length){const signature=[phone.id,old?.id,q.topUp].join('|');if(signature!==lastSwapQuote){lastSwapQuote=signature;track('swap_calculation_completed',{product_id:phone.id,current_phone:old?.id,value:q.topUp});}}
     let summary = `<div class="summary-device">${photo(phone)}<div><h2>${phone.model}</h2><p>${phone.storage}</p></div></div>`;
     summary += rows([['Phone price',phone.price ? money(phone.price) : 'To confirm']]);
     const message = ['Hello Mikee Gadget Plug, here is my phone selection.',`Phone: ${phone.label}`,`Listed price: ${phone.price ? money(phone.price) : 'Please confirm'}`,`Purchase: ${isSwap ? 'Swap' : 'Buy'}`,`Preferred condition: ${query.get('condition') || 'Please confirm'}`, `Preferred colour: ${query.get('color') || 'Please confirm'}`];
@@ -150,12 +164,28 @@ if (form) {
   $('phone-search').addEventListener('input',() => {
     const term = $('phone-search').value.toLowerCase().trim(); const previousId = selected()?.id;
     const filtered = models.filter(p => term.split(/\s+/).every(token => p.model.toLowerCase().includes(token)));
-    modelOptions($('buy-model'),filtered,selected()?.slug); variants('buy',previousId); render();
+    modelOptions($('buy-model'),filtered,selected()?.slug); variants('buy',previousId);refreshSwapOptions($('swap-search').value.toLowerCase().trim()); render();
   });
-  $('swap-search').addEventListener('input',()=>{const term=$('swap-search').value.toLowerCase().trim();const filtered=models.filter(p=>term.split(/\s+/).every(t=>p.model.toLowerCase().includes(t))); const previous=oldPhone()?.slug;modelOptions($('swap-model'),filtered,previous);variants('swap');if(previous!==oldPhone()?.slug)form.querySelectorAll('.condition-row input').forEach(input=>input.checked=false);render();});
-  $('buy-model').addEventListener('change',() => { variants('buy'); render(); });
+  $('swap-search').addEventListener('input',()=>{refreshSwapOptions($('swap-search').value.toLowerCase().trim());render();});
+  $('buy-model').addEventListener('change',() => { variants('buy');refreshSwapOptions(); render(); });
+  $('buy-storage-choices').addEventListener('click',event=>{const button=event.target.closest('[data-buy-storage]');if(!button)return;$('buy-variant').value=button.dataset.buyStorage;$('buy-variant').dispatchEvent(new window.Event('change',{bubbles:true}));});
   $('swap-model').addEventListener('change',() => { variants('swap'); form.querySelectorAll('.condition-row input').forEach(input => input.checked = false); render(); });
-  form.addEventListener('change',event => { if (event.target.name === 'purchase') setRadio('payment',event.target.value === 'easy' ? 'easy' : 'outright'); error(''); render(); });
+  form.addEventListener('change',event => {
+    if(event.target.id==='buy-variant'){
+      variants('buy',event.target.value);
+      refreshSwapOptions();
+      const phone=selected();track('select_storage',{product_id:phone?.id,storage:phone?.storage,value:phone?.price});
+      track('target_swap_phone_selected',{product_id:phone?.id,value:phone?.price});
+    }
+    if(event.target.id==='swap-variant')track('current_swap_phone_selected',{product_id:oldPhone()?.id});
+    if(event.target.name==='purchase'){
+      setRadio('payment',event.target.value==='easy'?'easy':'outright');
+      track(event.target.value==='swap'?'swap_selected':event.target.value==='easy'?'pay_small_small_selected':'buy_outright_selected',{product_id:selected()?.id});
+    }
+    if(event.target.name==='platform')track(event.target.value==='credit'?'lower_interest_plan_selected':'standard_plan_selected',{product_id:selected()?.id,rate:FINANCE_PLATFORMS[event.target.value].rate});
+    if(event.target.id==='plan-duration')track('repayment_duration_selected',{product_id:selected()?.id,months:Number(event.target.value)});
+    error(''); render();
+  });
   $('plan-deposit').addEventListener('input',render);
   $('flow-next').addEventListener('click',() => showStep(Math.min(3,step+1)));
   $('flow-back').addEventListener('click',() => { error(''); showStep(Math.max(1,step-1)); });

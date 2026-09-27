@@ -2285,3 +2285,16 @@ body{font-family:Inter,system-ui,sans-serif;background:#fffefb}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 .product-hero .hero-fact-row{display:none}.catalogue-toolbar input{min-height:46px}.product-thumbnails button:focus-visible{outline:3px solid #bd913b;outline-offset:3px}
 @media(max-width:800px){.spec-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.spec-grid strong{font-size:12px}.related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.related-grid a{min-height:110px}.related-grid strong{font-size:16px}.related-grid span{font-size:10px}.commerce-footer{grid-template-columns:1fr 1fr;gap:24px;padding-top:35px}.commerce-footer .footer-intro,.commerce-footer address,.commerce-footer .footer-legal{grid-column:1/-1}.commerce-footer>div>strong{margin-bottom:4px}.commerce-footer>div>a{font-size:12px}.commerce-footer .footer-intro>.commerce-button{width:auto}.mobile-purchase-bar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.mobile-purchase-bar a{font-size:12px;min-height:48px;line-height:1.2;color:#111}.mobile-purchase-bar a:nth-child(2){background:#dfbf76}.mobile-purchase-bar span{font-size:15px}.product-main-image>.device-media{height:330px}.product-thumbnails button{width:58px;height:58px}}
+
+/* Clear, compact storage and purchase choices. */
+.selector-pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:9px}
+.selector-pills button{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;min-width:0;min-height:62px;text-align:left;border:1px solid #aebdb2;border-radius:8px;background:#fff;color:#14231b;box-shadow:0 2px 6px #13271a0b;transition:background .16s,border-color .16s,transform .16s,box-shadow .16s}
+.selector-pills .storage-name{font-size:13px;overflow-wrap:anywhere}.selector-pills .storage-price{font-size:12px;font-weight:750;color:#47604d}
+.selector-pills button:hover,.variant-card button:hover{border-color:#b99042;box-shadow:0 4px 12px #13271a18}
+.selector-pills button:active,.purchase-actions a:active,.variant-card button:active{transform:scale(.97)}
+.selector-pills button.is-active{background:#123b2b;border-color:#bd913b;color:#fff;box-shadow:0 0 0 2px #d3b671}.selector-pills button.is-active .storage-price{color:#efdbab}
+.purchase-actions{gap:9px}.purchase-actions .commerce-button{min-width:0;padding:10px;line-height:1.25;min-height:46px;text-align:center}
+.purchase-actions .commerce-button-ghost{border:1px solid #916c2c;background:#f6f0e4;color:#153b2a}.purchase-actions .commerce-button-ghost:hover{background:#e9d7ad}
+.purchase-action-help{font-size:12px;line-height:1.55;color:#496053;margin:10px 0 0}
+.storage-comparison[open]>summary{color:#143b28}.variant-card.is-active{border:2px solid #bd913b;background:#f8f7ef}.variant-card button[aria-pressed=true]{background:#123b2b;color:#fff}
+@media(max-width:400px){.selector-pills{grid-template-columns:repeat(2,minmax(0,1fr))}.purchase-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.purchase-actions a:last-child{grid-column:1/-1}.mobile-purchase-bar a{min-width:0;white-space:normal;font-size:11px;line-height:1.15;padding:7px 3px;overflow-wrap:anywhere}}
