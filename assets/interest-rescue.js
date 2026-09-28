@@ -6,7 +6,7 @@ const planVisible=()=>Boolean(document.getElementById('journey-platform') ||
 if(document.querySelector('[data-journey="easy"], #buy-flow')){
   const dialog=document.createElement('dialog');
   dialog.className='interest-rescue';
-  dialog.innerHTML=`<div class="interest-rescue-content"><button type="button" class="interest-rescue-close" aria-label="Close reminder">×</button><p class="eyebrow">PAY SMALL SMALL</p><h2>Is the interest too high?</h2><p>You may qualify for our lower 7.5% monthly plan. A credit check and approval are required.</p><div class="interest-rescue-actions"><a class="button" href="https://www.creditdirect.ng/know-your-limit" target="_blank" rel="noopener" data-check-eligibility>Check Eligibility ↗</a><button type="button" class="button secondary" data-rescue-dismiss>Continue browsing</button></div></div>`;
+  dialog.innerHTML=`<div class="interest-rescue-content"><button type="button" class="interest-rescue-close" aria-label="Close reminder">×</button><p class="eyebrow">PAY SMALL SMALL</p><h2>Want to check your eligibility?</h2><p>For the default 7.5% monthly plan, a credit check and approval are required. You can compare the 20% no-credit-check option too.</p><div class="interest-rescue-actions"><a class="button" href="https://www.creditdirect.ng/know-your-limit" target="_blank" rel="noopener" data-check-eligibility>Check Eligibility ↗</a><button type="button" class="button secondary" data-rescue-dismiss>Continue browsing</button></div></div>`;
   document.body.append(dialog);
   let resume=null;
   const track=(event)=>window.MikeeGadgetPlugTracking?.pushEvent(event,{source:'interest_reminder'});

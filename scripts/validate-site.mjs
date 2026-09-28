@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { landingPages, site } from "../landing-pages/config.mjs";
 import { categoryPages, commerceSite, products } from "../commerce/catalog.mjs";
 import { shopCategories } from "../commerce/storefront-data.mjs";
-import { allowedFrequencies, calculatePlan, DEPOSIT_RATE } from "../easy-buy/easy-buy-core.mjs";
+import { allowedFrequencies, calculatePlan, DEPOSIT_RATE, MAX_FINANCED, PROCESSING_FEE, minimumDeposit } from "../easy-buy/easy-buy-core.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
@@ -46,7 +46,9 @@ const monthlyIphone11 = calculatePlan({ price: 230000, duration: 1, frequency: "
 assert(monthlyIphone11.depositRate === DEPOSIT_RATE, "Easy Buy must use a 40% initial deposit.");
 assert(monthlyIphone11.deposit === 92000, "Easy Buy 40% deposit calculation is incorrect.");
 assert(monthlyIphone11.balance === 138000, "Easy Buy remaining-balance calculation is incorrect.");
-assert(monthlyIphone11.installment === 165600, "Easy Buy monthly instalment calculation is incorrect.");
+assert(monthlyIphone11.installment === 148350, "Easy Buy 7.5% monthly instalment calculation is incorrect.");
+assert(monthlyIphone11.processingFee === PROCESSING_FEE && monthlyIphone11.totalPayable === 245350, "The ₦5,000 processing fee must be separate and included in the total.");
+assert(minimumDeposit(500000) === 300000 && minimumDeposit(1000000) === 800000 && MAX_FINANCED === 200000, "The financed phone balance must stay under ₦200,000.");
 assert(allowedFrequencies(11).join(",") === "monthly,weekly,biweekly", "iPhone 11 must offer monthly, weekly and bi-weekly schedules.");
 assert(allowedFrequencies(12).join(",") === "monthly,weekly,biweekly", "iPhone 12 must offer monthly, weekly and bi-weekly schedules.");
 assert(allowedFrequencies(13).join(",") === "monthly", "Models above iPhone 12 must only offer monthly repayment.");

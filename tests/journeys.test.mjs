@@ -30,9 +30,9 @@ test('EasyBuy compares all six live repayments, rejects invalid deposits and rec
  const dom=await setup('easybuy/index.html',`/easybuy/?phone=${encodeURIComponent(id)}&condition=UK+Used&color=Choose+with+your+device&utm_source=tiktok&utm_campaign=qa-campaign&ttclid=qa-test`);
  await import(`../assets/journey.js?test=${++serial}`);
  assert.equal(headline(),'How much works for you each month?');assert.equal(document.querySelectorAll('[name="duration"]').length,6);assert.match(document.getElementById('plan-summary').textContent,/iPhone 12 Pro Max/);assert.match(document.getElementById('plan-summary').textContent,/UK Used/);
- assert.equal(document.getElementById('journey-platform').value,'noCredit');assert.match(document.getElementById('plan-summary').textContent,/20%/);
+ assert.equal(document.getElementById('journey-platform').value,'credit');assert.match(document.getElementById('plan-summary').textContent,/7.5%/);assert.match(document.getElementById('plan-summary').textContent,/Processing fee.*₦5,000/);
  value('journey-deposit',0,'input');assert.match(document.getElementById('journey-error').textContent,/whole-naira deposit/);assert.equal(document.getElementById('journey-whatsapp').getAttribute('aria-disabled'),'true');
- value('journey-deposit',Math.round(phone.price*.4),'input');
+ value('journey-deposit',financePlan({amount:phone.price}).minimumDeposit,'input');
  for(const duration of [1,2,3,4,5,6]){
   document.querySelector(`[name="duration"][value="${duration}"]`).click();
   const plan=financePlan({amount:phone.price,duration});
@@ -119,10 +119,10 @@ test('storage changes carry the chosen Hot Deal price into the Buy flow and stan
  assert.equal(document.querySelector('[data-buy-storage="iphone-12-pro-max|256GB"]').getAttribute('aria-pressed'),'true');
  document.getElementById('flow-next').click();
  document.querySelector('[name="purchase"][value="easy"]').click();document.getElementById('flow-next').click();
- assert.equal(document.querySelector('[name="platform"]:checked').value,'noCredit');
+ assert.equal(document.querySelector('[name="platform"]:checked').value,'credit');
  assert.match(document.getElementById('order-summary').textContent,new RegExp(target.price.toLocaleString('en-NG')));
  const msg=new URL(document.getElementById('order-whatsapp').href).searchParams.get('text');
- assert.match(msg,new RegExp(target.price.toLocaleString('en-NG')));assert.match(msg,/Interest: 20% monthly/);assert.doesNotMatch(msg,attributionInMessage);
+ assert.match(msg,new RegExp(target.price.toLocaleString('en-NG')));assert.match(msg,/Interest: 7.5% monthly/);assert.match(msg,/Processing fee: ₦5,000/);assert.doesNotMatch(msg,attributionInMessage);
  assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.value===target.price));dom.window.close();
 });
 test('interest reminder appears once after financing engagement and leads to the qualification flow',async()=>{

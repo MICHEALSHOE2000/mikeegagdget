@@ -1,6 +1,6 @@
 import { calculateSwapValue, calculateOutstandingBalance } from './pricing.mjs';
 import { products } from './catalog.mjs';
-import { DEPOSIT_RATE, FINANCE_PLATFORMS, FINANCE_DURATIONS } from '../easy-buy/easy-buy-core.mjs';
+import { DEPOSIT_RATE, FINANCE_PLATFORMS, FINANCE_DURATIONS, PROCESSING_FEE, minimumDeposit } from '../easy-buy/easy-buy-core.mjs';
 export { FINANCE_PLATFORMS, FINANCE_DURATIONS };
 export const money = value => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(value);
 export const choices = products.flatMap(product => product.variants.map(variant => ({
@@ -17,17 +17,17 @@ export function estimateSwap({ current, target, screenChanged=false, screenCrack
   const result = calculateSwapValue({basePrice:current.basePrice, screenChanged,screenCracked,batteryChanged,backGlassChanged:backChanged && current.hasGlassBack,backGlassCracked:backCracked && current.hasGlassBack,faceIdWorking:!(faceIdBroken && current.hasFaceId)});
   return {manual:false,...result,topUp:calculateOutstandingBalance({sellingPrice:target.price,swapValue:result.value}),surplus:Math.max(0,result.value-target.price)};
 }
-export function financePlan({ amount, platform = 'noCredit', duration = 1, deposit = Math.round(amount * DEPOSIT_RATE) }) {
+export function financePlan({ amount, platform = 'credit', duration = 1, deposit = minimumDeposit(amount, DEPOSIT_RATE), depositRate = DEPOSIT_RATE }) {
   if (!Number.isFinite(amount) || amount < 0) throw new TypeError('A valid balance is required.');
   const policy = FINANCE_PLATFORMS[platform];
   if (!policy) throw new RangeError('Choose a financing platform.');
   if (!FINANCE_DURATIONS.includes(duration)) throw new RangeError('Choose a one to six month plan.');
-  const minimumDeposit = Math.round(amount * DEPOSIT_RATE);
-  if (!Number.isFinite(deposit) || !Number.isInteger(deposit) || deposit < minimumDeposit || deposit > amount) throw new RangeError(`Deposit must be between ${minimumDeposit} and ${amount}.`);
+  const requiredDeposit = minimumDeposit(amount, depositRate);
+  if (!Number.isInteger(deposit) || deposit < requiredDeposit || deposit > amount) throw new RangeError(`Your remaining balance cannot exceed ₦200,000. Increase your deposit to at least ${money(requiredDeposit)}.`);
   const balance = amount - deposit;
   const interest = Math.round(balance * policy.rate * duration);
   const repaymentTotal = balance + interest;
   const regular = Math.floor(repaymentTotal / duration);
   const payments = Array.from({length:duration},(_,i) => i === duration-1 ? repaymentTotal - regular*(duration-1) : regular);
-  return { deposit, balance, rate:policy.rate, interest, repaymentTotal, totalPayable:deposit+repaymentTotal, payments, platform };
+  return { deposit, minimumDeposit:requiredDeposit, balance, rate:policy.rate, interest, processingFee:PROCESSING_FEE, repaymentTotal, totalPayable:deposit+repaymentTotal+PROCESSING_FEE, dueUpfront:deposit+PROCESSING_FEE, payments, platform };
 }

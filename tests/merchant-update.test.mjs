@@ -37,9 +37,10 @@ test('new merchant prices reach catalogue, product pages and calculator choices 
  }
 });
 test('six month plans use simple monthly interest on the post-deposit balance',()=>{
- for(const [platform,interest,total,monthly] of [['credit',27000,127000,14500],['noCredit',72000,172000,22000]]){
+ for(const [platform,interest,total,monthly] of [['credit',27000,132000,14500],['noCredit',72000,177000,22000]]){
   const plan=financePlan({amount:100000,duration:6,platform});
   assert.equal(plan.deposit,40000);assert.equal(plan.interest,interest);assert.equal(plan.totalPayable,total);
+  assert.equal(plan.processingFee,5000);
   assert.deepEqual(plan.payments,Array(6).fill(monthly));
   const legacy=calculatePlan({price:100000,duration:6,platform,series:18});
   assert.equal(Math.round(legacy.additionalCost),interest);assert.equal(Math.round(legacy.installment),monthly);
