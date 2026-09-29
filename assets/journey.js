@@ -229,12 +229,12 @@ if(root){
  function repaymentCards(plans=[]){
   return FINANCE_DURATIONS.map((duration,index)=>{
    const plan=plans[index];
-   return `<label class="repayment-option"><input type="radio" name="duration" value="${duration}" ${state.duration===duration?'checked':''}><span class="repayment-card"><b>${duration} MONTH${duration===1?'':'S'}</b><strong>${plan?money(plan.payments[0]):'—'}<small>/month</small></strong><span>${plan?`Total incl. deposit: ${money(plan.totalPayable)}`:'Check your deposit'}</span><span>${plan?`Interest: ${money(plan.interest)}`:'—'}</span></span></label>`;
+   return `<label class="repayment-option"><input type="radio" name="duration" value="${duration}" ${state.duration===duration?'checked':''}><span class="repayment-card"><b>${duration} MONTH${duration===1?'':'S'}</b><strong>${plan?money(plan.payments[0]):'—'}<small>/month</small></strong><span>${plan?`Total incl. deposit + fee: ${money(plan.totalPayable)}`:'Check your deposit'}</span><span>${plan?`Interest: ${money(plan.interest)}`:'—'}</span></span></label>`;
   }).join('');
  }
 
  function planSummary(phone,plan){
-  const condition=query.get('condition')||'Confirm with Mikee';
+  const condition=query.get('condition')||phone.model.match(/\((Brand New|UK Used)\)$/)?.[1]||'Confirm with Mikee';
   const colour=query.get('color');
   const monthly=plan.payments.at(-1)===plan.payments[0]?`${money(plan.payments[0])} / month`:`${money(plan.payments[0])} / month · final ${money(plan.payments.at(-1))}`;
   const entries=[
@@ -263,7 +263,7 @@ if(root){
    'I want to use EasyBuy.',
    `Phone: ${phone.label}`,
    `Phone price: ${money(phone.price)}${phone.offerId?' (Hot Deal)':''}`,
-   `Preferred condition: ${query.get('condition')||'Please confirm'}`,
+   `Preferred condition: ${query.get('condition')||phone.model.match(/\((Brand New|UK Used)\)$/)?.[1]||'Please confirm'}`,
    `Preferred colour: ${query.get('color')||'Please confirm'}`,
    `Plan: ${FINANCE_PLATFORMS[state.platform].label}`,
    `Deposit: ${money(plan.deposit)}`,
@@ -273,7 +273,7 @@ if(root){
    `Due upfront (deposit + fee): ${money(plan.dueUpfront)}`,
    `Duration: ${state.duration} month(s)`,
    `Payments: ${plan.payments.map(money).join(', ')}`,
-   `Total repayment including deposit: ${money(plan.totalPayable)}`,
+   `Total repayment including deposit and fee: ${money(plan.totalPayable)}`,
    'Please confirm the exact unit, stock, eligibility, due dates, fees and complete terms before payment.'
   ];
   return lines.join('\n');

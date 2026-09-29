@@ -41,7 +41,7 @@ test('EasyBuy compares all six live repayments, rejects invalid deposits and rec
   assert.ok(card.textContent.includes(plan.totalPayable.toLocaleString('en-NG')),`month ${duration} total`);
   assert.match(document.getElementById('plan-summary').textContent,new RegExp(`${duration} month`));
  }
- const plan=financePlan({amount:phone.price,duration:6});assert.ok(message().includes(`Total repayment including deposit: ₦${plan.totalPayable.toLocaleString('en-NG')}`));
+ const plan=financePlan({amount:phone.price,duration:6});assert.ok(message().includes(`Total repayment including deposit and fee: ₦${plan.totalPayable.toLocaleString('en-NG')}`));
  const whatsapp=document.getElementById('journey-whatsapp');assert.match(whatsapp.href,/^https:\/\/wa\.me\/\d+\?text=/);whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();
  assert.doesNotMatch(message(),attributionInMessage);assert.ok(message().endsWith('Please confirm the exact unit, stock, eligibility, due dates, fees and complete terms before payment.'));
  assert.equal(JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution')).ttclid,'qa-test');assert.ok(window.dataLayer.some(e=>e.event==='easybuy_calculated'&&e.utm_campaign==='qa-campaign'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='AddPaymentInfo'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));assert.ok(!whatsapp.hidden);
