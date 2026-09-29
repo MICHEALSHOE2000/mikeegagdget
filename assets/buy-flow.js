@@ -1,9 +1,10 @@
 import {media,activateImages} from './storefront-ui.mjs';
-import { choices as baseChoices, money, estimateSwap, financePlan, FINANCE_PLATFORMS } from '../commerce/upgrade-core.mjs';
+import { choices as baseChoices, money, estimateSwap, financePlan } from '../commerce/upgrade-core.mjs';
 import { commerceSite } from '../commerce/catalog.mjs';
-import { minimumDeposit, MAX_FINANCED } from '../easy-buy/easy-buy-core.mjs';
+import { minimumDeposit, isAppleDevice, MAX_FINANCED } from '../easy-buy/easy-buy-core.mjs';
 import {offerChoice} from '../commerce/offers.mjs';
 import {suitableCurrentPhone} from '../commerce/device-hierarchy.mjs';
+import {selectedCondition as conditionFor} from '../commerce/conditions.mjs';
 const choices=baseChoices.map(offerChoice);
 const $ = id => document.getElementById(id);
 const form = $('buy-flow');
@@ -16,7 +17,8 @@ if (form) {
   const track=(event,data={})=>window.MikeeGadgetPlugTracking?.pushEvent(event,{journey:'buy',...data});
   const legacyId = query.get('phone');
   const initial = find(legacyId) || find(query.get('target')) || choices.find(p => p.slug === legacyId || `${p.slug}-${p.storage.replace('GB','')}` === legacyId) || find('iphone-13|128GB');
-  let step = 1, reached = 1, lastAmount = null, lastSwapQuote='';
+  let step = 1, reached = 1, lastSwapQuote='', lastAmount=null;
+  let targetCondition=conditionFor(initial,query.get('condition'));
   const summaryPanel = document.querySelector('.order-summary');
   const mobile = matchMedia('(max-width: 650px)');
   function placeSummary() {
@@ -69,8 +71,8 @@ if (form) {
     if (radio('payment') !== 'easy') return '';
     if (!q.amount || q.manual || q.pending) return 'Confirm a phone price and a valid amount to finance before applying for EasyBuy.';
     if ($('plan-deposit').value === '') return 'Enter your deposit to see a payment plan.';
-    try { financePlan({amount:q.amount,platform:radio('platform'),duration:Number($('plan-duration').value),deposit:Number($('plan-deposit').value)}); return ''; }
-    catch { return `Your remaining balance cannot exceed ${money(MAX_FINANCED)}. Enter a whole-naira deposit between ${money(minimumDeposit(q.amount))} and ${money(q.amount)}.`; }
+    try { financePlan({amount:q.amount,phone:selected(),duration:Number($('plan-duration').value),deposit:Number($('plan-deposit').value)}); return ''; }
+    catch { return `The required down payment for this phone is ${money(minimumDeposit(q.amount,selected()))}. Check your selection and try again.`; }
   }
   function validate(upTo) {
     if (!selected()) { error('Choose a phone model and storage first.'); return false; }
@@ -110,13 +112,15 @@ if (form) {
     }
     $('flow-next').disabled = false;
     $('selected-device').innerHTML = `${photo(phone)}<div><strong>${phone.model}</strong><span>${phone.storage}</span><b>${phone.price ? money(phone.price) : 'Ask for today’s price'}</b></div>`;
+    targetCondition=conditionFor(phone,targetCondition);
+    $('buy-condition').innerHTML=phone.conditions?.length>1?`<label for="buy-condition-select">Condition<select id="buy-condition-select"><option value="Confirm available condition" ${targetCondition==='Confirm available condition'?'selected':''}>Confirm with Mikee</option>${phone.conditions.map(item=>`<option value="${item}" ${targetCondition===item?'selected':''}>${item}</option>`).join('')}</select></label>`:`<p class="buy-condition-badge">${targetCondition}</p>`;
     $('model-feedback').textContent = phone.price ? 'Listed price. Confirm the exact unit and availability before payment.' : 'This model needs a current price from us. You can still send your selection.';
     if (isSwap && !old) { $('order-summary').innerHTML='<p>Choose a current phone or ask us for a personal quote.</p>'; $('flow-next').disabled=true; $('order-whatsapp').hidden=true; return; }
     const q = quote();
     if(isSwap&&step===3&&!q.manual&&!q.pending&&!missingAnswers().length){const signature=[phone.id,old?.id,q.topUp].join('|');if(signature!==lastSwapQuote){lastSwapQuote=signature;track('swap_calculation_completed',{product_id:phone.id,current_phone:old?.id,value:q.topUp});}}
     let summary = `<div class="summary-device">${photo(phone)}<div><h2>${phone.model}</h2><p>${phone.storage}</p></div></div>`;
     summary += rows([['Phone price',phone.price ? money(phone.price) : 'To confirm']]);
-    const message = ['Hello Mikee Gadget Plug, here is my phone selection.',`Phone: ${phone.label}`,`Listed price: ${phone.price ? money(phone.price) : 'Please confirm'}`,`Purchase: ${isSwap ? 'Swap' : 'Buy'}`,`Preferred condition: ${query.get('condition') || 'Please confirm'}`, `Preferred colour: ${query.get('color') || 'Please confirm'}`];
+    const message = ['Hello Mikee Gadget Plug, here is my phone selection.',`Phone: ${phone.label}`,`Listed price: ${phone.price ? money(phone.price) : 'Please confirm'}`,`Purchase: ${isSwap ? 'Swap' : 'Buy'}`,`Preferred condition: ${targetCondition}`, `Preferred colour: ${query.get('color') || 'Please confirm'}`];
     if (isSwap) {
       message.push(`Swapping from: ${old.label}`);
       if (q.pending) summary += '<div class="summary-hint">Tell us your current phone’s condition to see its swap value.</div>';
@@ -132,10 +136,10 @@ if (form) {
         }
       }
     }
-    if (q.amount !== lastAmount) { $('plan-deposit').value = q.amount > 0 ? minimumDeposit(q.amount) : ''; lastAmount = q.amount; }
+    if (q.amount !== lastAmount) { $('plan-deposit').value = q.amount > 0 ? minimumDeposit(q.amount,phone) : ''; lastAmount = q.amount; }
     $('plan-deposit').disabled = q.manual || q.pending || q.amount === 0;
-    $('plan-deposit').min = String(q.amount > 0 ? minimumDeposit(q.amount) : 0); $('plan-deposit').max = String(q.amount || 0);
-    $('deposit-help').textContent = q.amount > 0 ? `Minimum deposit required: ${money(minimumDeposit(q.amount))}. You can finance up to ${money(MAX_FINANCED)} of the phone price. A ₦5,000 processing fee is paid separately upfront.` : 'Choose a priced phone to see your required deposit.';
+    $('plan-deposit').min = String(q.amount > 0 ? minimumDeposit(q.amount,phone) : 0); $('plan-deposit').max = String(q.amount || 0);
+    $('deposit-help').textContent = q.amount > 0 ? `Required down payment: ${money(minimumDeposit(q.amount,phone))}. ${isAppleDevice(phone)?'The standard iPhone plan uses 20% monthly interest.':'The financed balance for other gadgets cannot exceed '+money(MAX_FINANCED)+'.'}` : 'Choose a priced phone to see your required down payment.';
     let depositError = invalidDeposit(q);
     message.push(`Payment: ${easy ? 'Easy Buy' : 'Outright'}`);
     if (!q.pending && !q.manual) {
@@ -143,13 +147,11 @@ if (form) {
       message.push(`${isSwap ? 'Estimated amount to add' : 'Outright price'}: ${money(q.amount)}`);
     }
     if (easy) {
-      const platform = FINANCE_PLATFORMS[radio('platform')];
-      message.push(`Easy Buy platform: ${platform.label}`,`Interest: ${platform.rate*100}% monthly on the balance after deposit`,`Duration: ${$('plan-duration').value} month(s)`);
-      $('plan-note').innerHTML = `<strong>${platform.creditCheck ? 'This platform will check your credit score.' : 'This platform does not check your credit score.'}</strong><p>Approval and final terms are confirmed by the platform. ${isSwap ? 'This planning estimate applies the swap credit first, then your deposit. Combining swap and finance is subject to approval.' : 'Interest is calculated on the phone balance after your deposit.'}</p>`;
+      message.push('Pay Small Small: standard plan',`Duration: ${$('plan-duration').value} month(s)`);
       if (!q.manual && !q.pending && q.amount > 0 && !depositError) {
-        const plan = financePlan({amount:q.amount,platform:radio('platform'),duration:Number($('plan-duration').value),deposit:Number($('plan-deposit').value)});
-        summary += `<div class="plan-summary"><span class="eyebrow">${platform.label.toUpperCase()}</span>${rows([['Minimum deposit required',money(plan.minimumDeposit)],['Phone price',money(q.amount)],['Deposit now',money(plan.deposit)],['Balance financed',money(plan.balance)],[`Interest · ${plan.rate*100}% × ${plan.payments.length} month(s)`,money(plan.interest)],['Processing fee (separate)',money(plan.processingFee)],['Due upfront (deposit + fee)',money(plan.dueUpfront)]])}<div class="monthly-amount"><strong>${money(plan.payments[0])}</strong><span>/ month${plan.payments.at(-1) !== plan.payments[0] ? ' (last payment adjusted)' : ''}</span></div><details><summary>Your ${plan.payments.length} monthly payment${plan.payments.length > 1 ? 's' : ''}</summary>${rows(plan.payments.map((value,i) => [`Month ${i+1}`,money(value)]))}</details>${rows([['Total cash paid, including deposit and fee',money(plan.totalPayable)]])}<p class="fine">${isSwap ? 'Plus your trade-in phone. ' : ''}Delivery is separate. Final due dates and any additional provider fees are confirmed before payment.</p></div>`;
-        message.push(`Deposit: ${money(plan.deposit)}`,`Balance financed: ${money(plan.balance)}`,`Total interest: ${money(plan.interest)}`,`Processing fee: ${money(plan.processingFee)} (paid upfront, not financed)`,`Due upfront: ${money(plan.dueUpfront)}`,`Monthly repayments: ${plan.payments.map(money).join(', ')}`,`Total cash paid including deposit and fee: ${money(plan.totalPayable)}${isSwap ? ', plus trade-in phone' : ''}`);
+        const plan = financePlan({amount:q.amount,phone,duration:Number($('plan-duration').value),deposit:Number($('plan-deposit').value)});
+        summary += `<div class="plan-summary"><span class="eyebrow">MONTHLY REPAYMENT</span><div class="monthly-amount"><strong>${money(plan.payments[0])}</strong><span>/ month${plan.payments.at(-1) !== plan.payments[0] ? ' (last payment adjusted)' : ''}</span></div><p class="fine">Required down payment: ${money(plan.deposit)} · ${plan.rate*100}% monthly interest${plan.processingFee?` · ${money(plan.processingFee)} processing fee`:''}.</p><details><summary>View full payment breakdown</summary>${rows([['Phone price',money(q.amount)],['Down payment',money(plan.deposit)],['Balance financed',money(plan.balance)],['Interest',money(plan.interest)],['Processing fee',money(plan.processingFee)],['Due upfront',money(plan.dueUpfront)],['Total paid',money(plan.totalPayable)]])}</details><p class="fine">${isSwap ? 'Plus your trade-in phone. ' : ''}Final stock, due dates and delivery are confirmed before payment.</p></div>`;
+        message.push(`Deposit: ${money(plan.deposit)}`,`Balance financed: ${money(plan.balance)}`,`Interest: ${plan.rate*100}% monthly`, `Total interest: ${money(plan.interest)}`,`Processing fee: ${money(plan.processingFee)} (paid upfront, not financed)`,`Due upfront: ${money(plan.dueUpfront)}`,`Monthly repayments: ${plan.payments.map(money).join(', ')}`,`Total cash paid including deposit and fee: ${money(plan.totalPayable)}${isSwap ? ', plus trade-in phone' : ''}`);
       } else if (q.amount === 0 && !q.pending && !q.manual) summary += '<p class="summary-hint">There is no estimated balance to finance. Ask us to confirm the swap arrangement.</p>';
       else if (depositError) summary += `<p class="summary-hint">${depositError}</p>`;
     }
@@ -162,7 +164,7 @@ if (form) {
     $('order-whatsapp').textContent = q.manual ? 'Ask for my final quote ↗' : 'Send my selection on WhatsApp ↗';
     if (easy) $('order-whatsapp').dataset.easyBuy = 'true'; else delete $('order-whatsapp').dataset.easyBuy;
     if (step === 3) error(depositError);
-    const url = new URL(location.href); url.searchParams.set('phone',phone.id); url.searchParams.set('purchase',radio('purchase')); url.searchParams.set('payment',radio('payment')); history.replaceState({},'',url);
+    const url = new URL(location.href); url.searchParams.set('phone',phone.id); url.searchParams.set('purchase',radio('purchase')); url.searchParams.set('payment',radio('payment')); url.searchParams.set('condition',targetCondition); history.replaceState({},'',url);
   }
   $('phone-search').addEventListener('input',() => {
     const term = $('phone-search').value.toLowerCase().trim(); const previousId = selected()?.id;
@@ -185,11 +187,10 @@ if (form) {
       setRadio('payment',event.target.value==='easy'?'easy':'outright');
       track(event.target.value==='swap'?'swap_selected':event.target.value==='easy'?'pay_small_small_selected':'buy_outright_selected',{product_id:selected()?.id});
     }
-    if(event.target.name==='platform')track(event.target.value==='credit'?'lower_interest_plan_selected':'standard_plan_selected',{product_id:selected()?.id,rate:FINANCE_PLATFORMS[event.target.value].rate});
+    if(event.target.id==='buy-condition-select'){targetCondition=event.target.value;track('select_condition',{product_id:selected()?.id,condition:targetCondition});}
     if(event.target.id==='plan-duration')track('repayment_duration_selected',{product_id:selected()?.id,months:Number(event.target.value)});
     error(''); render();
   });
-  $('plan-deposit').addEventListener('input',render);
   $('flow-next').addEventListener('click',() => showStep(Math.min(3,step+1)));
   $('flow-back').addEventListener('click',() => { error(''); showStep(Math.max(1,step-1)); });
   document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click',() => showStep(Number(button.dataset.step))));

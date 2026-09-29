@@ -2,11 +2,12 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {categories,shopCategories,storeItems} from '../commerce/storefront-data.mjs';
 import {card,media,escape,priceText} from '../assets/storefront-ui.mjs';
 import {commerceSite as site} from '../commerce/catalog.mjs';
+import {featuredDeals} from '../commerce/offers.mjs';
 let html=await readFile('templates/home.html.template','utf8');
 const trust=html.match(/<div class="trust-loop">([\s\S]*?)<\/div>/)?.[1]||'';
 html=html.replace('{{TRUST_DUPLICATE}}','<div class="trust-loop" aria-hidden="true">'+trust+'</div>');
 const categoryHtml=categories.map(c=>`<a class="category-tile" href="${c.route}" data-category="${c.id}">${media(c.image,c.name)}<strong>${c.name}</strong><span aria-hidden="true">Shop ↗</span></a>`).join('');
-html=html.replace('{{SERIES_OPTIONS}}',[...new Set(storeItems.map(p=>p.series).filter(Boolean))].map(series=>`<option value="${series}">iPhone ${series}</option>`).join('')).replace('{{CATEGORIES}}',categoryHtml).replace('{{CATEGORY_OPTIONS}}',categories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')).replace('{{PRODUCTS}}',storeItems.filter(p=>p.variants.some(v=>v.price>0)).slice(0,8).map(card).join('')).replace('{{HOT_DEALS}}',storeItems.filter(p=>p.variants.some(v=>v.offerId)).map(card).join(''));
+html=html.replace('{{SERIES_OPTIONS}}',[...new Set(storeItems.map(p=>p.series).filter(Boolean))].map(series=>`<option value="${series}">iPhone ${series}</option>`).join('')).replace('{{CATEGORIES}}',categoryHtml).replace('{{CATEGORY_OPTIONS}}',categories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')).replace('{{PRODUCTS}}',storeItems.filter(p=>p.variants.some(v=>v.price>0)).slice(0,8).map(card).join('')).replace('{{HOT_DEALS}}',featuredDeals(storeItems).map(card).join(''));
 await writeFile('index.html',html);
 await writeFile('assets/store-catalog.json',JSON.stringify(storeItems));
 // Dedicated enquiry pages keep category browsing on the site until customers are ready.

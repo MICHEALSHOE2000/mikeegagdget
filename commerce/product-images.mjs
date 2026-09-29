@@ -184,5 +184,5 @@ export const categoryImages = {
  laptops: '/images/store/macbooks.webp', accessories: '/images/store/airpods.webp'
 };
 
-// Store location is genuine; no verified premises photograph has been supplied.
-export const storePhotography = { image:'/images/store/shop-concept-960.webp', thumbnail:'/images/store/shop-concept-480.webp', alt:'Mikee Gadget Plug branded shop concept illustration', caption:'Store concept illustration. Visit our physical store at the address shown.' };
+// User-supplied shop photo, sized for mobile and desktop.
+export const storePhotography = { image:'/images/store/mikee-shop-1280.webp', thumbnail:'/images/store/mikee-shop-720.webp', alt:'Mikee Gadget Plug shop image supplied by the store', caption:'See devices in person at our Computer Village store.' };
