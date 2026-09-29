@@ -31,6 +31,7 @@ test('EasyBuy shows one to three monthly repayments and keeps attribution intern
  await import(`../assets/journey.js?test=${++serial}`);
  assert.equal(headline(),'See your monthly repayment');
  assert.equal(document.querySelectorAll('[name="duration"]').length,3);
+ assert.ok([...document.querySelectorAll('.repayment-card strong')].every(card=>/₦[\d,]+/.test(card.textContent)));
  assert.equal(document.getElementById('journey-platform'),null);
  assert.equal(document.getElementById('journey-deposit'),null);
  assert.match(document.getElementById('plan-summary').textContent,/UK Used/);
@@ -38,6 +39,7 @@ test('EasyBuy shows one to three monthly repayments and keeps attribution intern
  for(const duration of [1,2,3]){
   document.querySelector(`[name="duration"][value="${duration}"]`).click();
   const plan=financePlan({amount:phone.price,phone,duration});
+  assert.ok([...document.querySelectorAll('.repayment-card strong')].every(card=>/₦[\d,]+/.test(card.textContent)));
   assert.ok(document.querySelector('.plan-monthly').textContent.includes(plan.payments[0].toLocaleString('en-NG')));
   assert.match(message(),new RegExp(plan.totalPayable.toLocaleString('en-NG')));
  }

@@ -314,7 +314,7 @@ if(root){
   try{
    plans=FINANCE_DURATIONS.map(duration=>planFor(duration));
    const plan=plans[FINANCE_DURATIONS.indexOf(state.duration)];
-   options.innerHTML=repaymentCards();
+   options.innerHTML=repaymentCards(plans);
    summary.innerHTML=planSummary(phone,plan);
    whatsapp.href=`https://wa.me/${commerceSite.whatsappNumber}?text=${encodeURIComponent(easyPlanMessage(phone,plan))}`;
    whatsapp.removeAttribute('aria-disabled');
@@ -357,7 +357,7 @@ if(root){
    try{trackPlan(selected(),planFor());}catch{}
   });
   updateEasyPlan();
-  track('standard_plan_selected',{product_id:state.target,rate:FINANCE_PLATFORMS.noCredit.rate});
+  track('standard_plan_selected',{product_id:state.target,rate:planFor().rate});
  }
 
  function changeStage(next){
