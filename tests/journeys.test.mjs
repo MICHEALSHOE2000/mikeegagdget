@@ -25,31 +25,34 @@ const attributionInMessage=/Campaign reference|Source page:|utm_source|utm_mediu
 const turn=()=>new Promise(resolve=>setTimeout(resolve,0));
 const chooseModel=(search,slug)=>{value('journey-search',search,'input');const button=document.querySelector(`#journey-search-results [data-model-slug="${slug}"]`);assert.ok(button,slug);button.click();};
 
-test('EasyBuy compares all six live repayments, rejects invalid deposits and recalculates for a new phone',async()=>{
+test('EasyBuy shows one to three monthly repayments and keeps attribution internal',async()=>{
  const id='iphone-12-pro-max|128GB',phone=offerChoice(choices.find(p=>p.id===id));
- const dom=await setup('easybuy/index.html',`/easybuy/?phone=${encodeURIComponent(id)}&condition=UK+Used&color=Choose+with+your+device&utm_source=tiktok&utm_campaign=qa-campaign&ttclid=qa-test`);
+ const dom=await setup('easybuy/index.html',`/easybuy/?phone=${encodeURIComponent(id)}&condition=UK+Used&utm_source=tiktok&utm_campaign=qa-campaign&ttclid=qa-test`);
  await import(`../assets/journey.js?test=${++serial}`);
- assert.equal(headline(),'How much works for you each month?');assert.equal(document.querySelectorAll('[name="duration"]').length,6);assert.match(document.getElementById('plan-summary').textContent,/iPhone 12 Pro Max/);assert.match(document.getElementById('plan-summary').textContent,/UK Used/);
- assert.equal(document.getElementById('journey-platform').value,'credit');assert.match(document.getElementById('plan-summary').textContent,/7.5%/);assert.match(document.getElementById('plan-summary').textContent,/Processing fee.*₦5,000/);
- value('journey-deposit',0,'input');assert.match(document.getElementById('journey-error').textContent,/whole-naira deposit/);assert.equal(document.getElementById('journey-whatsapp').getAttribute('aria-disabled'),'true');
- value('journey-deposit',financePlan({amount:phone.price}).minimumDeposit,'input');
- for(const duration of [1,2,3,4,5,6]){
+ assert.equal(headline(),'See your monthly repayment');
+ assert.equal(document.querySelectorAll('[name="duration"]').length,3);
+ assert.ok([...document.querySelectorAll('.repayment-card strong')].every(card=>/₦[\d,]+/.test(card.textContent)));
+ assert.equal(document.getElementById('journey-platform'),null);
+ assert.equal(document.getElementById('journey-deposit'),null);
+ assert.match(document.getElementById('plan-summary').textContent,/UK Used/);
+ assert.match(document.getElementById('plan-summary').textContent,/20% monthly/);
+ for(const duration of [1,2,3]){
   document.querySelector(`[name="duration"][value="${duration}"]`).click();
-  const plan=financePlan({amount:phone.price,duration});
-  const card=document.querySelector(`[name="duration"][value="${duration}"]`).nextElementSibling;
-  assert.ok(card.textContent.includes(plan.payments[0].toLocaleString('en-NG')),`month ${duration} instalment`);
-  assert.ok(card.textContent.includes(plan.totalPayable.toLocaleString('en-NG')),`month ${duration} total`);
-  assert.match(document.getElementById('plan-summary').textContent,new RegExp(`${duration} month`));
+  const plan=financePlan({amount:phone.price,phone,duration});
+  assert.ok([...document.querySelectorAll('.repayment-card strong')].every(card=>/₦[\d,]+/.test(card.textContent)));
+  assert.ok(document.querySelector('.plan-monthly').textContent.includes(plan.payments[0].toLocaleString('en-NG')));
+  assert.match(message(),new RegExp(plan.totalPayable.toLocaleString('en-NG')));
  }
- const plan=financePlan({amount:phone.price,duration:6});assert.ok(message().includes(`Total repayment including deposit and fee: ₦${plan.totalPayable.toLocaleString('en-NG')}`));
- const whatsapp=document.getElementById('journey-whatsapp');assert.match(whatsapp.href,/^https:\/\/wa\.me\/\d+\?text=/);whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();
- assert.doesNotMatch(message(),attributionInMessage);assert.ok(message().endsWith('Please confirm the exact unit, stock, eligibility, due dates, fees and complete terms before payment.'));
- assert.equal(JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution')).ttclid,'qa-test');assert.ok(window.dataLayer.some(e=>e.event==='easybuy_calculated'&&e.utm_campaign==='qa-campaign'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='AddPaymentInfo'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));assert.ok(!whatsapp.hidden);
+ const whatsapp=document.getElementById('journey-whatsapp');whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();
+ assert.doesNotMatch(message(),attributionInMessage);
+ assert.equal(JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution')).ttclid,'qa-test');
+ assert.ok(window.dataLayer.some(e=>e.event==='easybuy_calculated'&&e.utm_campaign==='qa-campaign'));
+ assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));
  document.getElementById('journey-back').click();chooseModel('14 pro max','iphone-14-pro-max');value('journey-storage','iphone-14-pro-max|128GB');next();
- const replacement=offerChoice(choices.find(p=>p.id==='iphone-14-pro-max|128GB')),replacementPlan=financePlan({amount:replacement.price,duration:6});
- assert.ok(document.getElementById('plan-summary').textContent.includes(replacement.price.toLocaleString('en-NG')));assert.ok(!document.getElementById('plan-summary').textContent.includes(phone.price.toLocaleString('en-NG')));assert.ok(message().includes(replacementPlan.totalPayable.toLocaleString('en-NG')));
- value('journey-platform','credit');assert.match(message(),/7.5% monthly/);assert.match(document.getElementById('journey-screen').textContent,/credit check and approval/);
- value('journey-platform','noCredit');assert.match(message(),/20% monthly/);
+ const replacement=offerChoice(choices.find(p=>p.id==='iphone-14-pro-max|128GB'));
+ assert.ok(document.getElementById('plan-summary').textContent.includes(replacement.price.toLocaleString('en-NG')));
+ assert.match(document.getElementById('journey-screen').textContent,/60%/);
+ assert.match(message(),/20% monthly/);
  dom.window.close();
 });
 test('Swap asks one condition at a time, preserves valuation and sends truthful answers',async()=>{
@@ -109,20 +112,40 @@ test('Product storage selection carries its promoted price, condition and colour
  assert.equal(document.querySelector('[data-storage="256GB"]').getAttribute('aria-pressed'),'true');assert.match(document.querySelector('[data-storage="256GB"]').textContent,new RegExp(phone.price.toLocaleString('en-NG')));
  buy.addEventListener('click',event=>event.preventDefault(),{once:true});event(buy,'click');assert.doesNotMatch(new URL(buy.href).searchParams.get('text'),attributionInMessage);assert.equal(window.ttq.filter(e=>e[0]==='track'&&e[1]==='Contact').length,1);dom.window.close();
 });
-test('storage changes carry the chosen Hot Deal price into the Buy flow and standard repayment',async()=>{
- const dom=await setup('buy/index.html','/buy/?phone=iphone-12-pro-max%7C128GB&utm_source=tiktok');globalThis.Option=dom.window.Option;
+test('iPhone 16 without recorded condition variants has no selector; older models stay UK Used',async()=>{
+ const sixteen=await setup('iphone-16/index.html','/iphone-16/');await import(`../assets/commerce.js?test=${++serial}`);
+ assert.equal(document.querySelector('[data-condition-select]'),null);
+ assert.match(document.querySelector('.condition-badge').textContent,/Confirm available condition/);
+ const easyUrl=new URL(document.querySelector('[data-action="easyBuy"]').href);
+ sixteen.window.close();
+ const easy=await setup('easybuy/index.html',`${easyUrl.pathname}${easyUrl.search}`);await import(`../assets/journey.js?test=${++serial}`);
+ assert.match(document.getElementById('journey-screen').textContent,/70%/);
+ assert.match(message(),/Preferred condition: Confirm available condition/);
+ const phone=offerChoice(choices.find(p=>p.id==='iphone-16|128GB'));
+ assert.match(message(),new RegExp(`Deposit: ₦${financePlan({amount:phone.price,phone}).deposit.toLocaleString('en-NG')}`));
+ easy.window.close();
+ const fifteen=await setup('buy/index.html','/buy/?phone=iphone-15-pro-max%7C256GB&condition=Brand+New');globalThis.Option=fifteen.window.Option;
+ await import(`../assets/buy-flow.js?test=${++serial}`);
+ assert.equal(document.querySelector('#buy-condition-select'),null);
+ assert.equal(document.querySelector('.buy-condition-badge').textContent,'UK Used');
+ document.getElementById('flow-next').click();
+ assert.match(new URL(document.getElementById('order-whatsapp').href).searchParams.get('text'),/Preferred condition: UK Used/);
+ fifteen.window.close();
+});
+test('storage changes carry the chosen price into the Buy flow and standard repayment',async()=>{
+ const dom=await setup('buy/index.html','/buy/?phone=iphone-11%7C64GB&utm_source=tiktok');globalThis.Option=dom.window.Option;
  await import(`../assets/buy-flow.js?test=${++serial}`);
  document.getElementById('flow-back').click();
- const chip=document.querySelector('[data-buy-storage="iphone-12-pro-max|256GB"]');assert.ok(chip);chip.click();
- const target=offerChoice(choices.find(p=>p.id==='iphone-12-pro-max|256GB'));
+ const chip=document.querySelector('[data-buy-storage="iphone-11|128GB"]');assert.ok(chip);chip.click();
+ const target=offerChoice(choices.find(p=>p.id==='iphone-11|128GB'));
  assert.equal(document.getElementById('buy-variant').value,target.id);
- assert.equal(document.querySelector('[data-buy-storage="iphone-12-pro-max|256GB"]').getAttribute('aria-pressed'),'true');
+ assert.equal(document.querySelector('[data-buy-storage="iphone-11|128GB"]').getAttribute('aria-pressed'),'true');
  document.getElementById('flow-next').click();
  document.querySelector('[name="purchase"][value="easy"]').click();document.getElementById('flow-next').click();
- assert.equal(document.querySelector('[name="platform"]:checked').value,'credit');
+ assert.equal(document.querySelector('[name="platform"]'),null);
  assert.match(document.getElementById('order-summary').textContent,new RegExp(target.price.toLocaleString('en-NG')));
  const msg=new URL(document.getElementById('order-whatsapp').href).searchParams.get('text');
- assert.match(msg,new RegExp(target.price.toLocaleString('en-NG')));assert.match(msg,/Interest: 7.5% monthly/);assert.match(msg,/Processing fee: ₦5,000/);assert.doesNotMatch(msg,attributionInMessage);
+ assert.match(msg,new RegExp(target.price.toLocaleString('en-NG')));assert.match(msg,/Interest: 20% monthly/);assert.match(msg,/Processing fee: ₦0/);assert.doesNotMatch(msg,attributionInMessage);
  assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.value===target.price));dom.window.close();
 });
 test('interest reminder appears once after financing engagement and leads to the qualification flow',async()=>{
@@ -133,7 +156,7 @@ test('interest reminder appears once after financing engagement and leads to the
  Object.defineProperty(dom.window,'innerWidth',{configurable:true,value:390});
  await import(`../assets/interest-rescue.js?test=${++serial}`);
  document.getElementById('journey-back').click();const dialog=document.querySelector('.interest-rescue');
- assert.ok(dialog.open);assert.match(dialog.textContent,/credit check and approval are required/);
+ assert.ok(dialog.open);assert.match(dialog.textContent,/credit check and approval/);
  assert.equal(dialog.querySelector('[data-check-eligibility]').href,'https://www.creditdirect.ng/know-your-limit');
  dialog.querySelector('[data-rescue-dismiss]').click();assert.equal(dialog.open,false);assert.equal(headline(),'Which phone do you want?');
  assert.equal(sessionStorage.getItem('mikee-interest-reminder-shown'),'1');
@@ -164,12 +187,12 @@ test('new colour groups cannot send a Burgundy quote at the Glacier/Black price'
  document.querySelector('[data-storage="512GB — Burgundy"]').click();
  assert.equal(document.querySelector('[data-color-select]').value,'Burgundy');
  let href=document.querySelector('[data-action="buy"]').href;
- assert.match(new URL(href).searchParams.get('text'),/₦3,150,000/);
+ assert.match(new URL(href).searchParams.get('text'),/₦2,898,000/);
  assert.match(new URL(href).searchParams.get('text'),/Preferred colour: Burgundy/);
  document.querySelector('[data-storage="256GB — Glacier / Black"]').click();
  assert.deepEqual([...document.querySelector('[data-color-select]').options].map(o=>o.value),['Glacier','Black']);
  document.querySelector('[data-color-select]').value='Black';event(document.querySelector('[data-color-select]'),'change');
  href=document.querySelector('[data-action="buy"]').href;
- assert.match(new URL(href).searchParams.get('text'),/₦2,780,000/);assert.match(new URL(href).searchParams.get('text'),/Preferred colour: Black/);
+ assert.match(new URL(href).searchParams.get('text'),/₦2,557,600/);assert.match(new URL(href).searchParams.get('text'),/Preferred colour: Black/);
  dom.window.close();
 });

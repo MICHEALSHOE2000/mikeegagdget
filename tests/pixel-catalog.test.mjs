@@ -21,9 +21,9 @@ test('both Revenes pages map to 24 distinct Pixel listings and 48 priced variant
     assert.equal(product.conditions[0], entry.condition);
     assert.equal(product.variants.length, entry.variants.length);
     assert.match(entry.sourceUrl, /^https:\/\/revenes\.com\/product\//);
-    assert.match(html, /Buy Outright/);
+    assert.match(html, /Buy Now on WhatsApp/);
     assert.match(html, /Pay Small Small/);
-    assert.match(html, /Swap &(?:amp;)? Upgrade/);
+    assert.match(html, /Swap to this phone/);
     assert.match(html, /data-page-type="product"/);
 
     for (const path of entry.images) {
@@ -37,7 +37,7 @@ test('both Revenes pages map to 24 distinct Pixel listings and 48 priced variant
       assert.equal(store.variants.find(item => item.storage === variant.storage)?.price, variant.price);
       assert.equal(choices.find(item => item.id === `${entry.slug}|${variant.storage}`)?.price, variant.price);
       assert.ok(html.includes(variant.price.toLocaleString('en-NG')));
-      assert.ok(financePlan({amount: variant.price}).balance <= 200_000);
+      assert.ok(financePlan({amount: variant.price,phone:product}).balance <= 250_000);
     }
   }
 });

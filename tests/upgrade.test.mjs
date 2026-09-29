@@ -30,17 +30,19 @@ test('a higher-value trade-in shows zero top-up and a separately agreed surplus'
   const q=estimateSwap({current:phone('iphone-17-pro-max|512GB'),target:current});
   assert.equal(q.topUp,0); assert.equal(q.surplus,951000);
 });
-test('both financing options charge interest on the balance after the deposit', () => {
-  const credit=financePlan({amount:140000,platform:'credit',duration:1});
-  assert.equal(credit.deposit,56000); assert.equal(credit.balance,84000); assert.equal(credit.interest,6300); assert.equal(credit.totalPayable,151300);
-  const noCredit=financePlan({amount:140000,platform:'noCredit',duration:3});
-  assert.equal(noCredit.interest,50400); assert.equal(noCredit.totalPayable,195400);
+test('standard Apple and non-Apple plans calculate interest on the remaining balance', () => {
+  const apple=financePlan({amount:140000,phone:phone('iphone-11|64GB'),duration:1});
+  assert.equal(apple.deposit,70000); assert.equal(apple.balance,70000); assert.equal(apple.interest,14000); assert.equal(apple.totalPayable,154000);
+  const other=financePlan({amount:140000,phone:{brand:'Google',slug:'google-pixel-8'},duration:3});
+  assert.equal(other.deposit,56000); assert.equal(other.balance,84000); assert.equal(other.interest,18900); assert.equal(other.totalPayable,163900);
 });
-test('financing defaults to 7.5% monthly while the 20% plan remains selectable',()=>{
- const standard=financePlan({amount:500000,duration:2});
- const alternative=financePlan({amount:500000,duration:2,platform:'noCredit'});
- assert.equal(standard.platform,'credit');assert.equal(standard.rate,.075);assert.equal(standard.deposit,300000);assert.equal(standard.balance,200000);assert.equal(standard.interest,30000);
- assert.equal(alternative.rate,.2);assert.equal(alternative.interest,80000);
+test('Apple defaults to 20%; the lower 7.5% plan requires qualification',()=>{
+ const apple={brand:'Apple',slug:'iphone-13'};
+ const standard=financePlan({amount:500000,phone:apple,duration:2});
+ assert.equal(standard.platform,'standard');assert.equal(standard.rate,.20);assert.equal(standard.deposit,300000);assert.equal(standard.balance,200000);assert.equal(standard.interest,80000);
+ assert.throws(()=>financePlan({amount:500000,phone:apple,duration:2,platform:'credit'}),/credit check and approval/);
+ const approved=financePlan({amount:500000,phone:apple,duration:2,platform:'credit',qualified:true});
+ assert.equal(approved.rate,.075);assert.equal(approved.interest,30000);assert.equal(approved.processingFee,5000);
 });
 test('current-phone choices follow generation and tier, independent of price and storage',()=>{
  const example=slug=>({slug,brand:'Apple',price:1});
@@ -53,22 +55,22 @@ test('current-phone choices follow generation and tier, independent of price and
 });
 test('swap credit comes off before the deposit and financing interest', () => {
   const swap=estimateSwap(base); assert.equal(swap.topUp,136500);
-  const plan=financePlan({amount:swap.topUp,platform:'credit',duration:3});
-  assert.equal(plan.deposit,54600); assert.equal(plan.balance,81900); assert.equal(plan.interest,18428); assert.equal(plan.totalPayable,159928);
+  const plan=financePlan({amount:swap.topUp,phone:target,duration:3});
+  assert.equal(plan.deposit,68250); assert.equal(plan.balance,68250); assert.equal(plan.interest,40950); assert.equal(plan.totalPayable,177450);
 });
 test('rounded schedules reconcile for every priced variant, duration and platform', () => {
-  for(const p of choices.filter(p=>p.price)) for(const duration of [1,2,3,4,5,6]) for(const platform of ['credit','noCredit']) {
-    const plan=financePlan({amount:p.price,duration,platform});
+  for(const p of choices.filter(p=>p.price)) for(const duration of [1,2,3]) {
+    const plan=financePlan({amount:p.price,phone:p,duration});
     assert.equal(plan.payments.reduce((a,b)=>a+b,0),plan.repaymentTotal);
-    assert.equal(plan.totalPayable,plan.deposit+plan.repaymentTotal+5000);
-    assert.ok(plan.balance<=200000);
+    assert.equal(plan.totalPayable,plan.deposit+plan.repaymentTotal+plan.processingFee);
+    if(p.brand!=='Apple')assert.ok(plan.balance<=250000);
     assert.ok(plan.payments.every(Number.isInteger));
   }
 });
 test('invalid inputs are rejected and a full upfront deposit has zero interest', () => {
   for(const changes of [{amount:NaN},{amount:-1},{duration:7},{platform:'unknown'},{deposit:0},{deposit:NaN},{deposit:-5},{deposit:999999},{deposit:60000.1}]) assert.throws(()=>financePlan({amount:140000,...changes}));
   assert.equal(financePlan({amount:140000,deposit:140000}).interest,0);
-  for(const [amount,required] of [[150000,60000],[300000,120000],[500000,300000],[1000000,800000]]) {
+  for(const [amount,required] of [[150000,60000],[300000,120000],[500000,250000],[1000000,750000]]) {
     assert.equal(minimumDeposit(amount),required);
     assert.equal(financePlan({amount}).deposit,required);
     assert.throws(()=>financePlan({amount,deposit:required-1}));

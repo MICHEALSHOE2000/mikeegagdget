@@ -43,14 +43,14 @@ assert(new Set(landingPages.map((page) => page.metaDescription)).size === landin
 assert(new Set(landingPages.map((page) => page.h1)).size === landingPages.length, "H1 values must be unique.");
 
 const monthlyIphone11 = calculatePlan({ price: 230000, duration: 1, frequency: "monthly", series: 11 });
-assert(monthlyIphone11.depositRate === DEPOSIT_RATE, "Easy Buy must use a 40% initial deposit.");
-assert(monthlyIphone11.deposit === 92000, "Easy Buy 40% deposit calculation is incorrect.");
-assert(monthlyIphone11.balance === 138000, "Easy Buy remaining-balance calculation is incorrect.");
-assert(monthlyIphone11.installment === 148350, "Easy Buy 7.5% monthly instalment calculation is incorrect.");
-assert(monthlyIphone11.processingFee === PROCESSING_FEE && monthlyIphone11.totalPayable === 245350, "The ₦5,000 processing fee must be separate and included in the total.");
-assert(minimumDeposit(500000) === 300000 && minimumDeposit(1000000) === 800000 && MAX_FINANCED === 200000, "The financed phone balance must stay under ₦200,000.");
-assert(allowedFrequencies(11).join(",") === "monthly,weekly,biweekly", "iPhone 11 must offer monthly, weekly and bi-weekly schedules.");
-assert(allowedFrequencies(12).join(",") === "monthly,weekly,biweekly", "iPhone 12 must offer monthly, weekly and bi-weekly schedules.");
+assert(monthlyIphone11.depositRate === .5, "iPhone 11 must use a 50% initial down payment.");
+assert(monthlyIphone11.deposit === 115000, "Easy Buy 50% down payment calculation is incorrect.");
+assert(monthlyIphone11.balance === 115000, "Easy Buy remaining-balance calculation is incorrect.");
+assert(monthlyIphone11.installment === 138000, "Easy Buy 20% monthly instalment calculation is incorrect.");
+assert(monthlyIphone11.processingFee === 0 && monthlyIphone11.totalPayable === 253000, "The standard Apple plan must not include the qualification processing fee.");
+assert(minimumDeposit(500000) === 250000 && minimumDeposit(1000000) === 750000 && MAX_FINANCED === 250000, "Non-Apple financing must stay under ₦250,000.");
+assert(allowedFrequencies(11).join(",") === "monthly", "iPhone 11 must offer monthly repayments.");
+assert(allowedFrequencies(12).join(",") === "monthly", "iPhone 12 must offer monthly repayments.");
 assert(allowedFrequencies(13).join(",") === "monthly", "Models above iPhone 12 must only offer monthly repayment.");
 try {
   calculatePlan({ price: 380000, duration: 1, frequency: "weekly", series: 13 });

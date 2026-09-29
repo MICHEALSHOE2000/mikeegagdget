@@ -30,3 +30,10 @@ body[data-product-slug^="google-pixel"] .product-hero-copy .purchase-actions .co
 body[data-product-slug^="google-pixel"] .product-hero-copy .purchase-actions .commerce-button-ghost{background:#f6f0e4;border-color:#916c2c;color:#153b2a!important}
 body[data-product-slug^="google-pixel"] .selector-pills button .storage-price{color:#cbd5c1}
 body[data-product-slug^="google-pixel"] .selector-pills button.is-active .storage-price{color:#172016}
+
+/* Shared action contrast and clearance above the fixed mobile navigation. */
+.product-hero-copy .purchase-actions .commerce-button-ghost,
+body[data-product-slug^="google-pixel"] .product-hero-copy .purchase-actions .commerce-button-ghost{background:#143b2a!important;border:1px solid #d8b45a!important;color:#fff!important}
+.selector-pills button:not(.is-active) .storage-price{color:#e5e8db!important}
+.selector-pills button.is-active .storage-price{color:#15321e!important}
+@media(max-width:760px){body[data-page-type="product"]{padding-bottom:calc(110px + env(safe-area-inset-bottom))}}

@@ -1,73 +1,71 @@
-export const DEPOSIT_RATE = 0.4;
-export const MAX_FINANCED = 200000;
-export const PROCESSING_FEE = 5000;
-export const FINANCE_DURATIONS = Object.freeze([1,2,3,4,5,6]);
+// One policy for product pages, the guided journeys and the legacy calculator.
+export const DEPOSIT_RATE = 0.4; // Non-iPhone starting deposit; iPhone brackets are below.
+export const MAX_FINANCED = 250_000; // Applies only to non-Apple gadgets.
+export const PROCESSING_FEE = 5_000; // Applies to a 7.5% plan.
+export const FINANCE_DURATIONS = Object.freeze([1, 2, 3]);
 export const CREDIT_LIMIT_URL = 'https://www.creditdirect.ng/know-your-limit';
 export const FINANCE_PLATFORMS = Object.freeze({
-  credit: Object.freeze({ label: "Approved-limit plan", rate: 0.075, creditCheck: true }),
-  noCredit: Object.freeze({ label: "No-limit-check plan", rate: 0.20, creditCheck: false })
+  standard: Object.freeze({label:'Standard plan', creditCheck:false}),
+  noCredit: Object.freeze({label:'Standard plan', creditCheck:false}),
+  credit: Object.freeze({label:'7.5% qualification plan', creditCheck:true})
 });
-// The no-credit-check plan remains available as an explicit alternative.
-export const DURATION_FACTORS = Object.freeze({ 1: 1.2, 2: 1.4, 3: 1.6, 4: 1.8, 5: 2, 6: 2.2 });
-export const PAYMENTS_PER_MONTH = Object.freeze({ monthly: 1, weekly: 4, biweekly: 2 });
+export const PAYMENTS_PER_MONTH = Object.freeze({monthly:1});
 
-export function allowedFrequencies(series) {
-  return series === 11 || series === 12
-    ? ["monthly", "weekly", "biweekly"]
-    : ["monthly"];
+export function iphoneSeries(device) {
+  if (typeof device === 'number') return Number.isInteger(device) ? device : null;
+  const match = String(device?.slug || device?.model || device || '').match(/^iphone[- ](\d+)(?:[- ]|$)/i);
+  return match ? Number(match[1]) : null;
 }
 
-export function minimumDeposit(price, depositRate = DEPOSIT_RATE) {
-  if (!Number.isFinite(price) || price <= 0 || !Number.isFinite(depositRate) || depositRate <= 0 || depositRate > 1) {
-    throw new RangeError("Choose a valid phone price and deposit rule.");
-  }
-  return Math.max(Math.round(price * depositRate), Math.ceil(price - MAX_FINANCED), 0);
+export function isAppleDevice(device) {
+  return device?.brand === 'Apple' || /^iphone[- ]/i.test(String(device?.slug || device?.model || device || ''));
 }
 
-export function calculatePlan({ price, duration, frequency = "monthly", series, depositRate = DEPOSIT_RATE, deposit, platform = "credit" }) {
-  const numericPrice = Number(price);
-  const numericDuration = Number(duration);
-  const policy = FINANCE_PLATFORMS[platform];
-  if (!policy) throw new RangeError("Choose a financing platform.");
-  const factor = FINANCE_DURATIONS.includes(numericDuration) ? 1 + policy.rate * numericDuration : null;
-  const paymentsPerMonth = PAYMENTS_PER_MONTH[frequency];
+export function depositRateFor(device) {
+  const series = iphoneSeries(device);
+  if (series >= 16 && series <= 18) return 0.7;
+  if (series >= 13 && series <= 15) return 0.6;
+  if (series >= 11 && series <= 12) return 0.5;
+  return DEPOSIT_RATE;
+}
 
-  if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
-    throw new TypeError("A positive phone price is required.");
-  }
-  if (!factor) {
-    throw new RangeError("Duration must be one to six months.");
-  }
-  if (!paymentsPerMonth || !allowedFrequencies(Number(series)).includes(frequency)) {
-    throw new RangeError("That repayment schedule is not available for the selected iPhone.");
-  }
+export function allowedFrequencies() { return ['monthly']; }
 
-  if (!Number.isFinite(depositRate) || depositRate <= 0 || depositRate > 1) {
-    throw new RangeError("Deposit rate must be greater than zero and no more than one.");
+// A numeric second argument is kept for callers that explicitly use a rate.
+// Device-aware callers pass the device so storage prices keep the correct cap.
+export function minimumDeposit(price, device = null) {
+  if (!Number.isFinite(price) || price <= 0) throw new RangeError('Choose a valid device price.');
+  const rate = typeof device === 'number' && device < 1 ? device : depositRateFor(device);
+  if (!Number.isFinite(rate) || rate <= 0 || rate > 1) throw new RangeError('Choose a valid deposit rule.');
+  return Math.max(Math.round(price * rate), isAppleDevice(device) ? 0 : Math.ceil(price - MAX_FINANCED), 0);
+}
+
+export function calculatePlan({price, duration = 1, frequency = 'monthly', phone, series, deposit, platform = 'standard', qualified = false} = {}) {
+  const amount = Number(price), months = Number(duration);
+  const device = phone || (series ? {slug:`iphone-${series}`, brand:'Apple'} : null);
+  if (!Number.isFinite(amount) || amount <= 0) throw new TypeError('A positive device price is required.');
+  if (!FINANCE_DURATIONS.includes(months)) throw new RangeError('Choose one, two or three months.');
+  if (frequency !== 'monthly') throw new RangeError('This plan uses monthly repayments.');
+  if (!FINANCE_PLATFORMS[platform]) throw new RangeError('Choose a valid payment plan.');
+  if (platform === 'credit' && isAppleDevice(device) && !qualified) {
+    throw new RangeError('A credit check and approval are required for the 7.5% Apple plan.');
   }
-  const requiredDeposit = minimumDeposit(numericPrice, depositRate);
+  const rate = platform === 'credit' || !isAppleDevice(device) ? .075 : .20;
+  const requiredDeposit = minimumDeposit(amount, device);
   const selectedDeposit = deposit === undefined ? requiredDeposit : Number(deposit);
-  if (!Number.isInteger(selectedDeposit) || selectedDeposit < requiredDeposit || selectedDeposit > numericPrice) {
-    throw new RangeError(`Increase your deposit to at least ₦${requiredDeposit.toLocaleString('en-NG')}. Your remaining balance cannot exceed ₦200,000.`);
+  if (!Number.isInteger(selectedDeposit) || selectedDeposit < requiredDeposit || selectedDeposit > amount) {
+    const cap = isAppleDevice(device) ? '' : ` Your remaining balance cannot exceed ₦${MAX_FINANCED.toLocaleString('en-NG')}.`;
+    throw new RangeError(`Increase your down payment to at least ₦${requiredDeposit.toLocaleString('en-NG')}.${cap}`);
   }
-  const balance = numericPrice - selectedDeposit;
-  const balanceRepayment = balance * factor;
-  const additionalCost = balanceRepayment - balance;
-  const repayments = numericDuration * paymentsPerMonth;
-  const installment = balanceRepayment / repayments;
-
+  const balance = amount - selectedDeposit;
+  const balanceRepayment = Math.round(balance * (1 + rate * months));
+  const processingFee = rate === .075 ? PROCESSING_FEE : 0;
   return {
-    depositRate,
-    factor,
-    minimumDeposit: requiredDeposit,
-    deposit: selectedDeposit,
-    balance,
-    rate: policy.rate,
-    processingFee: PROCESSING_FEE,
-    totalPayable: selectedDeposit + balanceRepayment + PROCESSING_FEE,
-    balanceRepayment,
-    additionalCost,
-    repayments,
-    installment
+    depositRate:depositRateFor(device), minimumDeposit:requiredDeposit, deposit:selectedDeposit,
+    balance, rate, processingFee, factor:1 + rate * months,
+    totalPayable:selectedDeposit + balanceRepayment + processingFee,
+    balanceRepayment, additionalCost:balanceRepayment-balance,
+    repayments:months, installment:balanceRepayment/months,
+    qualified:platform === 'credit' && isAppleDevice(device)
   };
 }
