@@ -30,9 +30,9 @@ test('EasyBuy compares all six live repayments, rejects invalid deposits and rec
  const dom=await setup('easybuy/index.html',`/easybuy/?phone=${encodeURIComponent(id)}&condition=UK+Used&color=Choose+with+your+device&utm_source=tiktok&utm_campaign=qa-campaign&ttclid=qa-test`);
  await import(`../assets/journey.js?test=${++serial}`);
  assert.equal(headline(),'How much works for you each month?');assert.equal(document.querySelectorAll('[name="duration"]').length,6);assert.match(document.getElementById('plan-summary').textContent,/iPhone 12 Pro Max/);assert.match(document.getElementById('plan-summary').textContent,/UK Used/);
- assert.equal(document.getElementById('journey-platform').value,'noCredit');assert.match(document.getElementById('plan-summary').textContent,/20%/);
+ assert.equal(document.getElementById('journey-platform').value,'credit');assert.match(document.getElementById('plan-summary').textContent,/7.5%/);assert.match(document.getElementById('plan-summary').textContent,/Processing fee.*₦5,000/);
  value('journey-deposit',0,'input');assert.match(document.getElementById('journey-error').textContent,/whole-naira deposit/);assert.equal(document.getElementById('journey-whatsapp').getAttribute('aria-disabled'),'true');
- value('journey-deposit',Math.round(phone.price*.4),'input');
+ value('journey-deposit',financePlan({amount:phone.price}).minimumDeposit,'input');
  for(const duration of [1,2,3,4,5,6]){
   document.querySelector(`[name="duration"][value="${duration}"]`).click();
   const plan=financePlan({amount:phone.price,duration});
@@ -41,7 +41,7 @@ test('EasyBuy compares all six live repayments, rejects invalid deposits and rec
   assert.ok(card.textContent.includes(plan.totalPayable.toLocaleString('en-NG')),`month ${duration} total`);
   assert.match(document.getElementById('plan-summary').textContent,new RegExp(`${duration} month`));
  }
- const plan=financePlan({amount:phone.price,duration:6});assert.ok(message().includes(`Total repayment including deposit: ₦${plan.totalPayable.toLocaleString('en-NG')}`));
+ const plan=financePlan({amount:phone.price,duration:6});assert.ok(message().includes(`Total repayment including deposit and fee: ₦${plan.totalPayable.toLocaleString('en-NG')}`));
  const whatsapp=document.getElementById('journey-whatsapp');assert.match(whatsapp.href,/^https:\/\/wa\.me\/\d+\?text=/);whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();
  assert.doesNotMatch(message(),attributionInMessage);assert.ok(message().endsWith('Please confirm the exact unit, stock, eligibility, due dates, fees and complete terms before payment.'));
  assert.equal(JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution')).ttclid,'qa-test');assert.ok(window.dataLayer.some(e=>e.event==='easybuy_calculated'&&e.utm_campaign==='qa-campaign'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='AddPaymentInfo'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));assert.ok(!whatsapp.hidden);
@@ -119,10 +119,10 @@ test('storage changes carry the chosen Hot Deal price into the Buy flow and stan
  assert.equal(document.querySelector('[data-buy-storage="iphone-12-pro-max|256GB"]').getAttribute('aria-pressed'),'true');
  document.getElementById('flow-next').click();
  document.querySelector('[name="purchase"][value="easy"]').click();document.getElementById('flow-next').click();
- assert.equal(document.querySelector('[name="platform"]:checked').value,'noCredit');
+ assert.equal(document.querySelector('[name="platform"]:checked').value,'credit');
  assert.match(document.getElementById('order-summary').textContent,new RegExp(target.price.toLocaleString('en-NG')));
  const msg=new URL(document.getElementById('order-whatsapp').href).searchParams.get('text');
- assert.match(msg,new RegExp(target.price.toLocaleString('en-NG')));assert.match(msg,/Interest: 20% monthly/);assert.doesNotMatch(msg,attributionInMessage);
+ assert.match(msg,new RegExp(target.price.toLocaleString('en-NG')));assert.match(msg,/Interest: 7.5% monthly/);assert.match(msg,/Processing fee: ₦5,000/);assert.doesNotMatch(msg,attributionInMessage);
  assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.value===target.price));dom.window.close();
 });
 test('interest reminder appears once after financing engagement and leads to the qualification flow',async()=>{

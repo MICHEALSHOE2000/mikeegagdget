@@ -5,10 +5,11 @@ import {choices,estimateSwap,financePlan} from '../commerce/upgrade-core.mjs';
 import {offerProduct,offerChoice,isComplete,promotion} from '../commerce/offers.mjs';
 import {storeItems} from '../commerce/storefront-data.mjs';
 import {readFile} from 'node:fs/promises';
+import {minimumDeposit} from '../easy-buy/easy-buy-core.mjs';
 test('8% Hot Deals agree across products, catalogue and finance without changing valuation references',()=>{
  for(const slug of promotion.models){const base=products.find(p=>p.slug===slug);assert.ok(isComplete(base));const display=offerProduct(base),item=storeItems.find(p=>p.slug===slug);
   for(const v of base.variants.filter(v=>v.price)){const p=display.variants.find(p=>p.storage===v.storage),choice=offerChoice(choices.find(p=>p.id===`${slug}|${v.storage}`));assert.equal(p.price,Math.round(v.price*.92));assert.equal(choice.price,p.price);assert.equal(item.variants.find(p=>p.storage===v.storage).price,p.price);assert.equal(choice.basePrice,v.basePrice);
-  const plan=financePlan({amount:p.price,duration:3});assert.equal(plan.deposit,Math.round(p.price*.4));assert.equal(plan.totalPayable,plan.deposit+plan.payments.reduce((a,b)=>a+b,0));
+  const plan=financePlan({amount:p.price,duration:3});assert.equal(plan.deposit,minimumDeposit(p.price));assert.equal(plan.totalPayable,plan.deposit+plan.payments.reduce((a,b)=>a+b,0)+5000);
   const swap=estimateSwap({current:choices.find(p=>p.id==='iphone-x|64GB'),target:choice});assert.equal(swap.value,84000);assert.equal(swap.topUp,Math.max(0,p.price-84000));}
  }
  assert.equal(offerChoice({slug:'iphone-11',price:500000}).price,460000);

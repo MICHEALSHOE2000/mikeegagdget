@@ -89,11 +89,11 @@ const samsungFaq = (subject) => [
 const easyBuyFaq = (deviceType) => [
   {
     question: `How much is the initial deposit for ${deviceType} Easy Buy?`,
-    answer: `The starting deposit is 40% of the confirmed device price. The remaining 60% is used for the repayment estimate.`
+    answer: `The minimum deposit is the greater of 40% of the confirmed price or the amount needed to keep the financed balance at ₦200,000 or less. A separate ₦5,000 processing fee applies.`
   },
   {
     question: "How long is the repayment period?",
-    answer: "The normal duration is one to three months. Monthly repayment is the default option."
+    answer: "Choose one to six months. Monthly repayment is the default option."
   },
   {
     question: "Can I repay weekly or every two weeks?",
@@ -154,35 +154,35 @@ export const landingPages = [
     primaryKeywordTheme: "buy iPhone on instalment in Lagos",
     h1: "Buy an iPhone with Easy Buy in Lagos",
     eyebrow: "iPhone Easy Buy",
-    heroText: "Start with a 40% initial deposit, then review an estimated 1–3 month repayment plan. Monthly is the default; eligible iPhone 11 and 12 offers may also have weekly or bi-weekly options.",
+    heroText: "See the minimum deposit that keeps borrowing within ₦200,000, then review a one- to six-month estimate at the default 7.5% monthly rate. The ₦5,000 processing fee is separate. Eligible iPhone 11 and 12 offers may also have weekly or bi-weekly options.",
     primaryCta: "Apply for iPhone Easy Buy",
     secondaryCta: { label: "Use the iPhone calculator", href: "/easy-buy/#calculator" },
-    whatsappMessage: "Hello, I want to buy an iPhone through Easy Buy. Please send me the 40% deposit, repayment options, eligible phones and verification requirements.",
-    seoTitle: "iPhone Easy Buy in Lagos | 40% Deposit | Mikee Gadget Plug",
-    metaDescription: "Apply for iPhone Easy Buy in Lagos with a 40% initial deposit and estimated 1–3 month repayment. Confirm eligibility and current iPhone prices.",
+    whatsappMessage: "Hello, I want to buy an iPhone through Easy Buy. Please send me the minimum deposit under the ₦200,000 borrowing cap, separate ₦5,000 fee, repayment options, eligible phones and verification requirements.",
+    seoTitle: "iPhone Easy Buy in Lagos | ₦200,000 Cap | Mikee Gadget Plug",
+    metaDescription: "Explore iPhone Easy Buy in Lagos with a dynamic minimum deposit, ₦200,000 borrowing cap, separate ₦5,000 fee and up to six monthly repayments.",
     conversionEventName: "begin_easy_buy_application",
     leadType: "easy_buy",
     pageType: "easy-buy",
     heroImage: "/images/15promax-1.jpeg",
     heroAlt: "iPhone available to enquire about through Mikee Gadget Plug Easy Buy",
-    badge: "40% initial deposit",
+    badge: "Borrow up to ₦200,000",
     infoTitle: "See the deposit before the repayments",
     infoText: "The initial deposit is calculated from the confirmed device price. Repayment figures remain estimates until Mikee Gadget Plug reviews the application.",
     cards: [
-      { kicker: "First", title: "40% initial deposit", text: "Confirmed phone price × 40%. This is the first and most important amount to plan for." },
-      { kicker: "Second", title: "60% remaining balance", text: "The balance is used to estimate repayments over the selected 1–3 month duration." },
+      { kicker: "First", title: "Minimum deposit", text: "Pay the greater of 40% of the phone price or the amount needed to keep borrowing at ₦200,000 or less." },
+      { kicker: "Second", title: "Financed balance", text: "Borrow no more than ₦200,000. The ₦5,000 processing fee is separate from this balance and interest." },
       { kicker: "Schedule", title: "Monthly by default", text: "Weekly or bi-weekly is shown only for eligible iPhone 11 and iPhone 12 offers." }
     ],
     buyerTitle: "Before you apply",
     buyerItems: [
       "Choose the exact iPhone model, storage and condition.",
       "Ask Mikee Gadget Plug to confirm today’s price before calculating.",
-      "Select a one-, two- or three-month duration; monthly is the default.",
+      "Choose one to six months; monthly is the default.",
       "Prepare for verification that may involve your BVN or NIN."
     ],
     faqs: easyBuyFaq("iPhone"),
     finalTitle: "Start your iPhone Easy Buy request",
-    finalText: "Send the model you want and ask Mikee Gadget Plug to confirm today’s price, your 40% deposit and the application requirements.",
+    finalText: "Send the model you want and ask Mikee Gadget Plug to confirm today’s price, the required deposit, the separate fee and the application requirements.",
     related: ["/iphone/iphone-11-series", "/iphone/iphone-12-series", "/iphone/iphone-13-series"]
   },
   {
@@ -192,30 +192,30 @@ export const landingPages = [
     primaryKeywordTheme: "Samsung phone instalment plan Lagos",
     h1: "Ask About Samsung Easy Buy in Lagos",
     eyebrow: "Samsung Easy Buy enquiry",
-    heroText: "Request an eligibility check for a Samsung phone plan. The estimate starts with a 40% initial deposit, with monthly repayment over 1–3 months as the default.",
+    heroText: "Request an eligibility check for a Samsung phone plan. The minimum deposit keeps the financed balance at ₦200,000 or less; the ₦5,000 fee is separate. Monthly repayment over one to six months is the default.",
     primaryCta: "Check Samsung Easy Buy Eligibility",
     secondaryCta: { label: "Call Mikee Gadget Plug", href: "tel:+2347086865133" },
-    whatsappMessage: "Hello, I want to buy a Samsung phone through Easy Buy. Please confirm eligible Samsung models, today’s price, the 40% deposit, monthly repayment estimate and verification requirements.",
+    whatsappMessage: "Hello, I want to buy a Samsung phone through Easy Buy. Please confirm eligible Samsung models, today’s price, the minimum deposit under the ₦200,000 cap, the separate ₦5,000 fee and repayment terms.",
     seoTitle: "Samsung Easy Buy in Lagos | Ask Mikee Gadget Plug About Eligibility",
-    metaDescription: "Ask about Samsung Easy Buy in Lagos. Request eligible models, today’s price, a 40% initial-deposit estimate and 1–3 month monthly options.",
+    metaDescription: "Ask about Samsung Easy Buy in Lagos. Request eligible models, today’s price, the deposit needed under the ₦200,000 cap and one- to six-month estimates.",
     conversionEventName: "begin_easy_buy_application",
     leadType: "easy_buy",
     pageType: "easy-buy",
     heroImage: "/images/shop.jpeg",
     heroAlt: "Mikee Gadget Plug Communication store in Ikeja for Samsung Easy Buy enquiries",
-    badge: "40% initial-deposit estimate",
+    badge: "Borrow up to ₦200,000",
     infoTitle: "Confirm Samsung eligibility before planning",
     infoText: "No Samsung model or approval is promised on this page. Mikee Gadget Plug must confirm the eligible model, device price and complete plan terms.",
     cards: [
-      { kicker: "First", title: "40% initial deposit", text: "Once the phone price is confirmed, 40% is the starting deposit used for the estimate." },
-      { kicker: "Second", title: "60% remaining balance", text: "The remaining balance is used to estimate the monthly repayment amount." },
-      { kicker: "Duration", title: "1–3 months", text: "Monthly repayment is the default. Final dates and terms are confirmed during review." }
+      { kicker: "First", title: "Minimum deposit", text: "Pay at least 40%, and more when necessary to keep borrowing at ₦200,000 or less." },
+      { kicker: "Second", title: "Financed balance", text: "Interest applies to the balance after deposit. A ₦5,000 processing fee is shown separately." },
+      { kicker: "Duration", title: "1–6 months", text: "The 7.5% monthly plan is the default. Final dates and terms are confirmed during review." }
     ],
     buyerTitle: "What to confirm with Mikee Gadget Plug",
     buyerItems: [
       "Which Samsung models are currently eligible for Easy Buy.",
       "The exact model, storage, colour, condition and confirmed price.",
-      "Your monthly repayment estimate over one to three months.",
+      "Your monthly repayment estimate over one to six months.",
       "The verification requirements, which may involve BVN or NIN."
     ],
     faqs: easyBuyFaq("Samsung"),
@@ -304,7 +304,7 @@ export const landingPages = [
       { question: "Where is Mikee Gadget Plug Communication in Ikeja?", answer: "The store address is 1 Ola Ayeni Street, off Simbiat Abiola Way, Ikeja, Computer Village, Lagos." },
       { question: "Should I confirm stock before visiting?", answer: "Yes. Send the exact iPhone model and storage on WhatsApp so Mikee Gadget Plug can confirm current availability." },
       { question: "Does Mikee Gadget Plug sell both brand-new and UK-used iPhones?", answer: "Both conditions appear in the existing Mikee Gadget Plug catalogue. Confirm the condition available for your model today." },
-      { question: "Can I ask about Easy Buy in the store?", answer: "Yes. Ask for the current eligible devices, 40% initial deposit, repayment estimate and verification requirements." },
+      { question: "Can I ask about Easy Buy in the store?", answer: "Yes. Ask for eligible devices, the minimum deposit under the ₦200,000 cap, separate fee, repayment estimate and verification requirements." },
       { question: "Can Mikee Gadget Plug arrange delivery?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing before payment." }
     ],
     finalTitle: "Check stock before you visit",
@@ -672,12 +672,12 @@ export const landingPages = [
     primaryKeywordTheme: "iPhone 13 price and Easy Buy Lagos",
     h1: "iPhone 13 Series: Outright or Easy Buy",
     eyebrow: "Compare purchase options",
-    heroText: "Compare iPhone 13, iPhone 13 Pro and iPhone 13 Pro Max, then ask for today’s outright price or a 40% initial-deposit Easy Buy estimate.",
+    heroText: "Compare iPhone 13, iPhone 13 Pro and iPhone 13 Pro Max, then ask for today’s outright price or a minimum-deposit Easy Buy estimate.",
     primaryCta: "Compare iPhone 13 Purchase Options",
     secondaryCta: { label: "Open Easy Buy calculator", href: "/easy-buy/#calculator" },
-    whatsappMessage: "Hello, I want to compare iPhone 13 models for outright purchase or Easy Buy. Please send today’s prices, available storage, condition and a 40% deposit estimate.",
+    whatsappMessage: "Hello, I want to compare iPhone 13 models for outright purchase or Easy Buy. Please send today’s prices, available storage, condition and a minimum-deposit estimate.",
     seoTitle: "iPhone 13 Series Price or Easy Buy in Lagos | Mikee Gadget Plug",
-    metaDescription: "Compare iPhone 13, 13 Pro and 13 Pro Max in Lagos. Request today’s outright price or a 40% initial-deposit Easy Buy estimate.",
+    metaDescription: "Compare iPhone 13, 13 Pro and 13 Pro Max in Lagos. Request today’s outright price or a minimum-deposit Easy Buy estimate.",
     conversionEventName: "select_phone",
     leadType: "comparison",
     pageType: "series",
@@ -687,26 +687,26 @@ export const landingPages = [
     heroAlt: "iPhone 13 series model available to enquire about from Mikee Gadget Plug",
     badge: "Outright or Easy Buy enquiry",
     infoTitle: "Compare the phone and the payment path",
-    infoText: "First confirm the exact phone price. For Easy Buy, the 40% deposit comes first and all repayment amounts are estimates until approved.",
+    infoText: "First confirm the exact phone price. For Easy Buy, the deposit is at least 40% and may be higher under the ₦200,000 cap. Repayment amounts remain estimates until approved.",
     cards: [
       { kicker: "Models", title: "13, 13 Pro and 13 Pro Max", text: "These models appear in the Mikee Gadget Plug catalogue. Confirm the current model and condition." },
       { kicker: "Outright", title: "Request today’s full price", text: "Ask for the price tied to the storage, colour and condition you want." },
-      { kicker: "Easy Buy", title: "Start with a 40% deposit estimate", text: "Monthly repayment over one to three months is the default, subject to review." }
+      { kicker: "Easy Buy", title: "Start with a minimum-deposit estimate", text: "Monthly repayment over one to six months is the default, subject to review. A ₦5,000 processing fee is separate." }
     ],
     buyerTitle: "Choose the option that fits",
     buyerItems: [
       "Compare the iPhone 13 models and storage choices.",
       "Ask for the outright price first.",
-      "If considering Easy Buy, calculate the 40% deposit.",
+      "If considering Easy Buy, calculate the minimum deposit under the ₦200,000 borrowing cap.",
       "Review estimated repayments and verification requirements."
     ],
     faqs: [
       ...seriesFaq("iPhone 13 series").slice(0, 3),
-      { question: "Can I ask for an iPhone 13 Easy Buy estimate?", answer: "Yes. Ask for today’s confirmed phone price first, then calculate the 40% initial deposit and estimated monthly repayments." },
+      { question: "Can I ask for an iPhone 13 Easy Buy estimate?", answer: "Yes. Confirm today’s phone price, then calculate the minimum deposit, monthly repayments and separate ₦5,000 processing fee." },
       { question: "Does an Easy Buy estimate guarantee approval?", answer: "No. Mikee Gadget Plug must confirm eligibility, repayment dates and complete terms after reviewing the application." }
     ],
     finalTitle: "Compare outright and Easy Buy for iPhone 13",
-    finalText: "Send the model you want and request both today’s outright price and the 40% deposit estimate.",
+    finalText: "Send the model you want and request both today’s outright price and the minimum-deposit estimate.",
     related: ["/easy-buy/iphone", "/iphone/iphone-14-series", "/iphone/iphone-12-series"]
   },
   {
@@ -735,7 +735,7 @@ export const landingPages = [
     cards: [
       { kicker: "Models", title: "12, 12 Pro and 12 Pro Max", text: "Compare the listed models, then ask which one is available in your budget." },
       { kicker: "Storage", title: "64GB through 512GB", text: "Storage depends on the model. Confirm the exact current configuration." },
-      { kicker: "Payment", title: "Outright or eligible Easy Buy", text: "Easy Buy starts with a 40% deposit estimate; monthly is default, with eligible weekly or bi-weekly choices." }
+      { kicker: "Payment", title: "Outright or eligible Easy Buy", text: "Easy Buy requires a deposit that leaves at most ₦200,000 to finance; monthly is default, with eligible weekly or bi-weekly choices." }
     ],
     buyerTitle: "How to get a useful recommendation",
     buyerItems: [
@@ -747,7 +747,7 @@ export const landingPages = [
     faqs: [
       ...seriesFaq("iPhone 12 series").slice(0, 3),
       { question: "Can iPhone 12 offers have weekly or bi-weekly repayments?", answer: "Eligible iPhone 12 offers may show weekly or bi-weekly options in addition to the monthly default. Mikee Gadget Plug must confirm eligibility and terms." },
-      { question: "How much is the Easy Buy deposit?", answer: "The initial deposit estimate is 40% of the confirmed phone price." }
+      { question: "How much is the Easy Buy deposit?", answer: "The minimum is the greater of 40% of the phone price or the amount needed to keep borrowing at ₦200,000 or less; a ₦5,000 fee is separate." }
     ],
     finalTitle: "Find an iPhone 12 that fits your budget",
     finalText: "Send your budget, storage preference and condition choice for a model-specific response.",
@@ -760,12 +760,12 @@ export const landingPages = [
     primaryKeywordTheme: "buy iPhone 11 outright or payment plan Lagos",
     h1: "Buy an iPhone 11 Outright or with a Short Plan",
     eyebrow: "iPhone 11 buying options",
-    heroText: "Compare iPhone 11, iPhone 11 Pro and iPhone 11 Pro Max, then ask for today’s outright price or a 40% initial-deposit Easy Buy estimate.",
+    heroText: "Compare iPhone 11, iPhone 11 Pro and iPhone 11 Pro Max, then ask for today’s outright price or a minimum-deposit Easy Buy estimate.",
     primaryCta: "Check iPhone 11 Buying Options",
     secondaryCta: { label: "Open Easy Buy calculator", href: "/easy-buy/#calculator" },
     whatsappMessage: "Hello, I’m interested in an iPhone 11 series phone. Please send today’s outright prices, available storage and condition, plus eligible Easy Buy repayment options.",
     seoTitle: "Buy iPhone 11 Outright or Easy Buy in Lagos | Mikee Gadget Plug",
-    metaDescription: "Compare iPhone 11, 11 Pro and 11 Pro Max in Lagos. Request outright prices or a 40% initial-deposit Easy Buy estimate.",
+    metaDescription: "Compare iPhone 11, 11 Pro and 11 Pro Max in Lagos. Request outright prices or a minimum-deposit Easy Buy estimate.",
     conversionEventName: "select_phone",
     leadType: "comparison",
     pageType: "series",
@@ -779,19 +779,19 @@ export const landingPages = [
     cards: [
       { kicker: "Models", title: "11, 11 Pro and 11 Pro Max", text: "Choose a model, then confirm its available storage, condition and price." },
       { kicker: "Outright", title: "Request today’s price", text: "Ask for the price tied to the exact device condition and storage." },
-      { kicker: "Easy Buy", title: "40% deposit estimate first", text: "Eligible offers may include monthly, weekly or bi-weekly schedules over one to three months." }
+      { kicker: "Easy Buy", title: "Minimum deposit first", text: "Eligible offers may include monthly, weekly or bi-weekly schedules over one to six months." }
     ],
     buyerTitle: "Before you decide",
     buyerItems: [
       "Compare the iPhone 11 models and storage choices.",
       "For used units, request condition and battery health.",
-      "Ask for the outright price and 40% deposit estimate.",
+      "Ask for the outright price and minimum-deposit estimate.",
       "Review only the repayment schedules Mikee Gadget Plug confirms as eligible."
     ],
     faqs: [
       ...seriesFaq("iPhone 11 series").slice(0, 3),
       { question: "Can an iPhone 11 plan be weekly or bi-weekly?", answer: "Eligible iPhone 11 offers may include weekly or bi-weekly repayment in addition to the monthly default." },
-      { question: "Is approval automatic after I pay 40%?", answer: "No. Do not treat an estimate as approval. Mikee Gadget Plug must review and confirm eligibility and complete terms." }
+      { question: "Is approval automatic after I pay a deposit?", answer: "No. Do not treat an estimate as approval. Mikee Gadget Plug must review and confirm eligibility and complete terms." }
     ],
     finalTitle: "Check today’s iPhone 11 buying options",
     finalText: "Ask for the outright price, exact device details and any eligible Easy Buy schedule.",
@@ -955,7 +955,7 @@ export const landingPages = [
     faqs: [
       { question: "Which Galaxy A-series phone fits my budget?", answer: "Send your budget, preferred storage and condition. Mikee Gadget Plug will confirm which current A-series options match." },
       { question: "Are prices displayed on this page?", answer: "No verified Samsung price list exists in the repository, so the page asks Mikee Gadget Plug for today’s price instead of inventing one." },
-      { question: "Can I ask for Samsung Easy Buy?", answer: "Yes. Ask which Samsung models are currently eligible. The estimate starts with a 40% deposit, but approval is not guaranteed." },
+      { question: "Can I ask for Samsung Easy Buy?", answer: "Yes. Ask which Samsung models are eligible and request a deposit and fee estimate. Approval is not guaranteed." },
       { question: "Can I inspect the phone in Ikeja?", answer: "Yes. Arrange pickup at the Mikee Gadget Plug store and inspect the exact device offered before payment." },
       { question: "Can Mikee Gadget Plug deliver the phone?", answer: "Delivery is available in Lagos and across Nigeria. Confirm the fee and timing first." }
     ],
@@ -1044,7 +1044,7 @@ export const landingPages = [
       { question: "Which iPhone deals are available today?", answer: "Use WhatsApp to request the current models, storage, condition and prices. No stock is assumed on this page." },
       { question: "Do deal prices change?", answer: "They can. Confirm today’s price for the exact unit before making a payment." },
       { question: "Will a used iPhone deal include battery health?", answer: "Ask Mikee Gadget Plug for the battery-health reading and condition of the exact used iPhone offered." },
-      { question: "Can I use Easy Buy on an iPhone deal?", answer: "Ask whether the exact phone is eligible. Easy Buy estimates start with a 40% deposit, but approval is not guaranteed." },
+      { question: "Can I use Easy Buy on an iPhone deal?", answer: "Ask whether the exact phone is eligible. Deposits may exceed 40% under the ₦200,000 borrowing cap; approval is not guaranteed." },
       { question: "Can I pick up the phone in Ikeja?", answer: "Yes. Confirm the device and pickup time before visiting the Mikee Gadget Plug store." }
     ],
     finalTitle: "Get today’s confirmed iPhone deals",

@@ -958,6 +958,582 @@
   },
   {
     "type": "product",
+    "label": "Google Pixel 11 Pro XL (Brand New)",
+    "route": "/google-pixel-11-pro-xl",
+    "brand": "Google",
+    "storage": [
+      "256GB · Physical SIM",
+      "512GB · Physical SIM"
+    ],
+    "price": 1590000,
+    "image": "/images/pixel/google-pixel-11-pro-xl.webp",
+    "keywords": [
+      "Google Pixel 11 Pro XL (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 11 Pro XL (Brand New) 256GB · Physical SIM",
+      "Google Pixel 11 Pro XL (Brand New) 512GB · Physical SIM",
+      "256GB · Physical SIM",
+      "512GB · Physical SIM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 11 Pro (Brand New)",
+    "route": "/google-pixel-11-pro",
+    "brand": "Google",
+    "storage": [
+      "256GB · Physical SIM"
+    ],
+    "price": 1530000,
+    "image": "/images/pixel/google-pixel-11-pro.webp",
+    "keywords": [
+      "Google Pixel 11 Pro (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 11 Pro (Brand New) 256GB · Physical SIM",
+      "256GB · Physical SIM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 11 (Brand New)",
+    "route": "/google-pixel-11",
+    "brand": "Google",
+    "storage": [
+      "256GB · Physical SIM"
+    ],
+    "price": 1150000,
+    "image": "/images/pixel/google-pixel-11.webp",
+    "keywords": [
+      "Google Pixel 11 (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 11 (Brand New) 256GB · Physical SIM",
+      "256GB · Physical SIM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 10 Pro XL (UK Used)",
+    "route": "/google-pixel-10-pro-xl-uk-used",
+    "brand": "Google",
+    "storage": [
+      "256GB · Jade",
+      "256GB · Moonstone / Obsidian / Porcelain",
+      "512GB"
+    ],
+    "price": 895000,
+    "image": "/images/pixel/google-pixel-10-pro-xl-uk-used.webp",
+    "keywords": [
+      "Google Pixel 10 Pro XL (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 10 Pro XL (UK Used) 256GB · Jade",
+      "Google Pixel 10 Pro XL (UK Used) 256GB · Moonstone / Obsidian / Porcelain",
+      "Google Pixel 10 Pro XL (UK Used) 512GB",
+      "256GB · Jade",
+      "256GB · Moonstone / Obsidian / Porcelain",
+      "512GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 10 Pro XL (Brand New)",
+    "route": "/google-pixel-10-pro-xl",
+    "brand": "Google",
+    "storage": [
+      "256GB",
+      "512GB",
+      "1TB"
+    ],
+    "price": 1350000,
+    "image": "/images/pixel/google-pixel-10-pro-xl.webp",
+    "keywords": [
+      "Google Pixel 10 Pro XL (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 10 Pro XL (Brand New) 256GB",
+      "Google Pixel 10 Pro XL (Brand New) 512GB",
+      "Google Pixel 10 Pro XL (Brand New) 1TB",
+      "256GB",
+      "512GB",
+      "1TB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 10 Pro (Brand New)",
+    "route": "/google-pixel-10-pro",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 1100000,
+    "image": "/images/pixel/google-pixel-10-pro.webp",
+    "keywords": [
+      "Google Pixel 10 Pro (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 10 Pro (Brand New) 128GB",
+      "Google Pixel 10 Pro (Brand New) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 10a (Brand New)",
+    "route": "/google-pixel-10a",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 695000,
+    "image": "/images/pixel/google-pixel-10a.webp",
+    "keywords": [
+      "Google Pixel 10a (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 10a (Brand New) 128GB",
+      "Google Pixel 10a (Brand New) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 10 (Brand New)",
+    "route": "/google-pixel-10",
+    "brand": "Google",
+    "storage": [
+      "128GB · eSIM",
+      "128GB · Physical SIM · Obsidian",
+      "128GB · Physical SIM · Frost / Indigo / Lemongrass",
+      "256GB · eSIM",
+      "256GB · Physical SIM · Obsidian"
+    ],
+    "price": 785000,
+    "image": "/images/pixel/google-pixel-10.webp",
+    "keywords": [
+      "Google Pixel 10 (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 10 (Brand New) 128GB · eSIM",
+      "Google Pixel 10 (Brand New) 128GB · Physical SIM · Obsidian",
+      "Google Pixel 10 (Brand New) 128GB · Physical SIM · Frost / Indigo / Lemongrass",
+      "Google Pixel 10 (Brand New) 256GB · eSIM",
+      "Google Pixel 10 (Brand New) 256GB · Physical SIM · Obsidian",
+      "128GB · eSIM",
+      "128GB · Physical SIM · Obsidian",
+      "128GB · Physical SIM · Frost / Indigo / Lemongrass",
+      "256GB · eSIM",
+      "256GB · Physical SIM · Obsidian",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 9 Pro XL (UK Used)",
+    "route": "/google-pixel-9-pro-xl-uk-used",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 680000,
+    "image": "/images/pixel/google-pixel-9-pro-xl-uk-used.webp",
+    "keywords": [
+      "Google Pixel 9 Pro XL (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 9 Pro XL (UK Used) 128GB",
+      "Google Pixel 9 Pro XL (UK Used) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 9 Pro XL (Brand New)",
+    "route": "/google-pixel-9-pro-xl",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 970000,
+    "image": "/images/pixel/google-pixel-9-pro-xl.webp",
+    "keywords": [
+      "Google Pixel 9 Pro XL (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 9 Pro XL (Brand New) 128GB",
+      "Google Pixel 9 Pro XL (Brand New) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 9 Pro (UK Used)",
+    "route": "/google-pixel-9-pro-uk-used",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 660000,
+    "image": "/images/pixel/google-pixel-9-pro-uk-used.webp",
+    "keywords": [
+      "Google Pixel 9 Pro (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 9 Pro (UK Used) 128GB",
+      "Google Pixel 9 Pro (UK Used) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 9 Pro (Brand New)",
+    "route": "/google-pixel-9-pro",
+    "brand": "Google",
+    "storage": [
+      "128GB"
+    ],
+    "price": 960000,
+    "image": "/images/pixel/google-pixel-9-pro.webp",
+    "keywords": [
+      "Google Pixel 9 Pro (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 9 Pro (Brand New) 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 9 (UK Used)",
+    "route": "/google-pixel-9-uk-used",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 585000,
+    "image": "/images/pixel/google-pixel-9-uk-used.webp",
+    "keywords": [
+      "Google Pixel 9 (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 9 (UK Used) 128GB",
+      "Google Pixel 9 (UK Used) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 9a (Brand New)",
+    "route": "/google-pixel-9a",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 660000,
+    "image": "/images/pixel/google-pixel-9a.webp",
+    "keywords": [
+      "Google Pixel 9a (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 9a (Brand New) 128GB",
+      "Google Pixel 9a (Brand New) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 9 (Brand New)",
+    "route": "/google-pixel-9",
+    "brand": "Google",
+    "storage": [
+      "128GB · Obsidian Black",
+      "128GB · Porcelain",
+      "128GB · Wintergreen",
+      "256GB"
+    ],
+    "price": 775000,
+    "image": "/images/pixel/google-pixel-9.webp",
+    "keywords": [
+      "Google Pixel 9 (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 9 (Brand New) 128GB · Obsidian Black",
+      "Google Pixel 9 (Brand New) 128GB · Porcelain",
+      "Google Pixel 9 (Brand New) 128GB · Wintergreen",
+      "Google Pixel 9 (Brand New) 256GB",
+      "128GB · Obsidian Black",
+      "128GB · Porcelain",
+      "128GB · Wintergreen",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 8 Pro (UK Used)",
+    "route": "/google-pixel-8-pro",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 465000,
+    "image": "/images/pixel/google-pixel-8-pro.webp",
+    "keywords": [
+      "Google Pixel 8 Pro (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 8 Pro (UK Used) 128GB",
+      "Google Pixel 8 Pro (UK Used) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 8 (UK Used)",
+    "route": "/google-pixel-8",
+    "brand": "Google",
+    "storage": [
+      "128GB"
+    ],
+    "price": 340000,
+    "image": "/images/pixel/google-pixel-8.webp",
+    "keywords": [
+      "Google Pixel 8 (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 8 (UK Used) 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 7 Pro (UK Used)",
+    "route": "/google-pixel-7-pro",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 335000,
+    "image": "/images/pixel/google-pixel-7-pro.webp",
+    "keywords": [
+      "Google Pixel 7 Pro (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 7 Pro (UK Used) 128GB",
+      "Google Pixel 7 Pro (UK Used) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 7 (UK Used)",
+    "route": "/google-pixel-7",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 285000,
+    "image": "/images/pixel/google-pixel-7.webp",
+    "keywords": [
+      "Google Pixel 7 (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 7 (UK Used) 128GB",
+      "Google Pixel 7 (UK Used) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 7a (UK Used)",
+    "route": "/google-pixel-7a",
+    "brand": "Google",
+    "storage": [
+      "128GB"
+    ],
+    "price": 260000,
+    "image": "/images/pixel/google-pixel-7a.webp",
+    "keywords": [
+      "Google Pixel 7a (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 7a (UK Used) 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 7a (Brand New)",
+    "route": "/google-pixel-7a-brand-new",
+    "brand": "Google",
+    "storage": [
+      "128GB · Charcoal",
+      "128GB · Snow / Sea"
+    ],
+    "price": 455000,
+    "image": "/images/pixel/google-pixel-7a-brand-new.webp",
+    "keywords": [
+      "Google Pixel 7a (Brand New)",
+      "Google",
+      "Pixel",
+      "Google Pixel 7a (Brand New) 128GB · Charcoal",
+      "Google Pixel 7a (Brand New) 128GB · Snow / Sea",
+      "128GB · Charcoal",
+      "128GB · Snow / Sea",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 6 Pro (UK Used)",
+    "route": "/google-pixel-6-pro",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 330000,
+    "image": "/images/pixel/google-pixel-6-pro.webp",
+    "keywords": [
+      "Google Pixel 6 Pro (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 6 Pro (UK Used) 128GB",
+      "Google Pixel 6 Pro (UK Used) 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 6a (UK Used)",
+    "route": "/google-pixel-6a",
+    "brand": "Google",
+    "storage": [
+      "128GB"
+    ],
+    "price": 245000,
+    "image": "/images/pixel/google-pixel-6a.webp",
+    "keywords": [
+      "Google Pixel 6a (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 6a (UK Used) 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 6 (UK Used)",
+    "route": "/google-pixel-6",
+    "brand": "Google",
+    "storage": [
+      "128GB"
+    ],
+    "price": 260000,
+    "image": "/images/pixel/google-pixel-6.webp",
+    "keywords": [
+      "Google Pixel 6 (UK Used)",
+      "Google",
+      "Pixel",
+      "Google Pixel 6 (UK Used) 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
     "label": "iPhone 13 Pro Max",
     "route": "/iphone-13-pro-max",
     "brand": "Apple",
@@ -1233,189 +1809,6 @@
       "256GB",
       "512GB",
       "1TB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 9 Pro XL",
-    "route": "/google-pixel-9-pro-xl",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "256GB",
-      "512GB",
-      "1TB"
-    ],
-    "price": null,
-    "image": null,
-    "keywords": [
-      "Google Pixel 9 Pro XL",
-      "Google",
-      "Pixel",
-      "Google Pixel 9 Pro XL 128GB",
-      "Google Pixel 9 Pro XL 256GB",
-      "Google Pixel 9 Pro XL 512GB",
-      "Google Pixel 9 Pro XL 1TB",
-      "128GB",
-      "256GB",
-      "512GB",
-      "1TB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 9 Pro",
-    "route": "/google-pixel-9-pro",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "256GB",
-      "512GB"
-    ],
-    "price": null,
-    "image": null,
-    "keywords": [
-      "Google Pixel 9 Pro",
-      "Google",
-      "Pixel",
-      "Google Pixel 9 Pro 128GB",
-      "Google Pixel 9 Pro 256GB",
-      "Google Pixel 9 Pro 512GB",
-      "128GB",
-      "256GB",
-      "512GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 9",
-    "route": "/google-pixel-9",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "256GB"
-    ],
-    "price": null,
-    "image": null,
-    "keywords": [
-      "Google Pixel 9",
-      "Google",
-      "Pixel",
-      "Google Pixel 9 128GB",
-      "Google Pixel 9 256GB",
-      "128GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 8 Pro",
-    "route": "/google-pixel-8-pro",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "256GB",
-      "512GB"
-    ],
-    "price": null,
-    "image": null,
-    "keywords": [
-      "Google Pixel 8 Pro",
-      "Google",
-      "Pixel",
-      "Google Pixel 8 Pro 128GB",
-      "Google Pixel 8 Pro 256GB",
-      "Google Pixel 8 Pro 512GB",
-      "128GB",
-      "256GB",
-      "512GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 8",
-    "route": "/google-pixel-8",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "256GB"
-    ],
-    "price": null,
-    "image": null,
-    "keywords": [
-      "Google Pixel 8",
-      "Google",
-      "Pixel",
-      "Google Pixel 8 128GB",
-      "Google Pixel 8 256GB",
-      "128GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 7 Pro",
-    "route": "/google-pixel-7-pro",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "256GB",
-      "512GB"
-    ],
-    "price": null,
-    "image": null,
-    "keywords": [
-      "Google Pixel 7 Pro",
-      "Google",
-      "Pixel",
-      "Google Pixel 7 Pro 128GB",
-      "Google Pixel 7 Pro 256GB",
-      "Google Pixel 7 Pro 512GB",
-      "128GB",
-      "256GB",
-      "512GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 7",
-    "route": "/google-pixel-7",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "256GB"
-    ],
-    "price": null,
-    "image": null,
-    "keywords": [
-      "Google Pixel 7",
-      "Google",
-      "Pixel",
-      "Google Pixel 7 128GB",
-      "Google Pixel 7 256GB",
-      "128GB",
-      "256GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"

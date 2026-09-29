@@ -3,6 +3,7 @@ import { productImages } from "./product-images.mjs";
 import { getSellingPrice } from "./pricing.mjs";
 import { priceList, suppliedPrices } from "./price-list.mjs";
 import { merchantListings } from './merchant-listings.mjs';
+import { pixelCatalog } from './pixel-catalog.mjs';
 export const commerceSite = Object.freeze({
   name: "Mikee Gadget Plug",
   legalName: "MIKEE GADGET PLUG",
@@ -254,7 +255,7 @@ const galaxyDefinitions = [
   }
 ];
 
-const pixelDefinitions = [
+const previousPixelSpecs = [
   ["Google Pixel 7", "google-pixel-7", ["128GB", "256GB"], ["OLED display", "50MP dual-camera system", "Google Tensor G2", "5G", "Fingerprint and face unlock"]],
   ["Google Pixel 7 Pro", "google-pixel-7-pro", ["128GB", "256GB", "512GB"], ["LTPO OLED display", "50MP triple-camera system", "Google Tensor G2", "5G", "Fingerprint and face unlock"]],
   ["Google Pixel 8", "google-pixel-8", ["128GB", "256GB"], ["Actua OLED display", "50MP dual-camera system", "Google Tensor G3", "5G", "Fingerprint and face unlock"]],
@@ -337,39 +338,44 @@ const makeGalaxy = ({ model, slug, storage, specs }) => ({
   metaDescription: `Buy ${model} in Nigeria. Check storage, condition and current price, then pay outright or ask about Easy Buy, swap and nationwide delivery.`
 });
 
-const makePixel = ([model, slug, storage, specs]) => ({
+const pixelSpecs = Object.fromEntries(previousPixelSpecs.map(([model,, ,specs]) => [model,specs]));
+const makePixel = ({model,slug,condition,ram,variants,images}) => ({
   brand: "Google",
-  model,
+  model: `${model} (${condition})`,
   slug,
   route: `/${slug}`,
   family: "Pixel",
-  variants: storage.map((value) => makeVariant(model, value)),
-  defaultStorage: storage[0],
-  colors: ["Ask for today’s available colours"],
-  conditions: ["Confirm available condition"],
-  images: [],
-  stockStatus: "Available to enquire about — confirm the exact variant",
-  easyBuyEligible: "confirm",
+  variants: variants.map(({storage,price,color,ram:variantRam,availability}) => {
+    const existing = makeVariant(model, storage);
+    return {...existing, storage, price:existing.price ?? price, sellingPrice:existing.sellingPrice ?? price,
+      basePrice:existing.basePrice ?? null, color, ram:variantRam, availability};
+  }),
+  defaultStorage: variants[0].storage,
+  colors: [...new Set(variants.flatMap(v=>v.color.split(' / ')))],
+  conditions: [condition],
+  images,
+  stockStatus: `${condition} · Confirm the exact unit and stock before payment`,
+  easyBuyEligible: true,
   swapEligible: true,
   warranty: commerceSite.warranty,
   batteryHealth: "Ask for battery-condition details when considering a used unit.",
   specifications: {
-    display: specs[0],
-    camera: specs[1],
-    processor: specs[2],
-    network: specs[3],
-    security: specs[4],
+    display: pixelSpecs[model]?.[0] || "Confirm the exact unit’s display",
+    camera: pixelSpecs[model]?.[1] || "Confirm the exact camera configuration",
+    processor: pixelSpecs[model]?.[2] || "Confirm the chipset for the exact unit",
+    network: pixelSpecs[model]?.[3] || "Confirm network compatibility",
+    security: pixelSpecs[model]?.[4] || "Confirm fingerprint and face unlock features",
     sim: "Physical SIM and eSIM support can vary by unit; confirm before buying"
   },
-  description: `Compare ${model} storage options and ask Mikee Gadget Plug to confirm today’s price, colour, condition and delivery arrangement.`,
-  seoTitle: `Buy ${model} in Nigeria | Price & Storage | Mikee Gadget Plug`,
-  metaDescription: `Buy ${model} in Nigeria. Check storage, condition and current price, then ask about outright payment, Easy Buy, swap and nationwide delivery.`
+  description: `Compare ${model} ${condition} storage options${ram ? ` and ${ram} RAM` : ''}, then confirm today's price, colour, stock and delivery with Mikee Gadget Plug.`,
+  seoTitle: `Buy ${model} ${condition} in Nigeria | Mikee Gadget Plug`,
+  metaDescription: `Shop ${model} ${condition} in Nigeria. Compare storage and Naira prices, then ask about outright payment, EasyBuy, swap and nationwide delivery.`
 });
 
 export const products = Object.freeze([
   ...iphoneDefinitions.map(makeIphone),
   ...galaxyDefinitions.map(makeGalaxy),
-  ...pixelDefinitions.map(makePixel)
+  ...pixelCatalog.map(makePixel)
 ].sort(newestFirst));
 
 export const accessories = Object.freeze([
@@ -413,7 +419,7 @@ export const categoryPages = Object.freeze([
     eyebrow: "Pay in stages",
     h1: "Get an iPhone With Easy Buy",
     title: "iPhone Easy Buy Nigeria | Calculator & Models | Mikee Gadget Plug",
-    description: "Choose an iPhone, review the 40% initial-deposit estimate and continue to Mikee Gadget Plug Easy Buy for final eligibility and terms.",
+    description: "Choose an iPhone and see the minimum deposit needed to finance no more than ₦200,000 of its price, plus monthly interest and a separate ₦5,000 fee.",
     brand: "Apple",
     easyBuy: true
   },

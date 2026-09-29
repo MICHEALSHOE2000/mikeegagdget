@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { choices, estimateSwap, financePlan } from '../commerce/upgrade-core.mjs';
 import { priceList } from '../commerce/price-list.mjs';
 import {suitableCurrentPhone} from '../commerce/device-hierarchy.mjs';
+import {minimumDeposit} from '../easy-buy/easy-buy-core.mjs';
 const phone = id => choices.find(p => p.id === id);
 const current = phone('iphone-x|64GB'), target = phone('iphone-11|64GB');
 const base = {current,target};
@@ -31,15 +32,15 @@ test('a higher-value trade-in shows zero top-up and a separately agreed surplus'
 });
 test('both financing options charge interest on the balance after the deposit', () => {
   const credit=financePlan({amount:140000,platform:'credit',duration:1});
-  assert.equal(credit.deposit,56000); assert.equal(credit.balance,84000); assert.equal(credit.interest,6300); assert.equal(credit.totalPayable,146300);
+  assert.equal(credit.deposit,56000); assert.equal(credit.balance,84000); assert.equal(credit.interest,6300); assert.equal(credit.totalPayable,151300);
   const noCredit=financePlan({amount:140000,platform:'noCredit',duration:3});
-  assert.equal(noCredit.interest,50400); assert.equal(noCredit.totalPayable,190400);
+  assert.equal(noCredit.interest,50400); assert.equal(noCredit.totalPayable,195400);
 });
-test('standard financing defaults to 20% and credit-check financing remains at 7.5%',()=>{
+test('financing defaults to 7.5% monthly while the 20% plan remains selectable',()=>{
  const standard=financePlan({amount:500000,duration:2});
- const qualified=financePlan({amount:500000,duration:2,platform:'credit'});
- assert.equal(standard.platform,'noCredit');assert.equal(standard.rate,.2);assert.equal(standard.interest,120000);
- assert.equal(qualified.rate,.075);assert.equal(qualified.interest,45000);
+ const alternative=financePlan({amount:500000,duration:2,platform:'noCredit'});
+ assert.equal(standard.platform,'credit');assert.equal(standard.rate,.075);assert.equal(standard.deposit,300000);assert.equal(standard.balance,200000);assert.equal(standard.interest,30000);
+ assert.equal(alternative.rate,.2);assert.equal(alternative.interest,80000);
 });
 test('current-phone choices follow generation and tier, independent of price and storage',()=>{
  const example=slug=>({slug,brand:'Apple',price:1});
@@ -53,19 +54,25 @@ test('current-phone choices follow generation and tier, independent of price and
 test('swap credit comes off before the deposit and financing interest', () => {
   const swap=estimateSwap(base); assert.equal(swap.topUp,136500);
   const plan=financePlan({amount:swap.topUp,platform:'credit',duration:3});
-  assert.equal(plan.deposit,54600); assert.equal(plan.balance,81900); assert.equal(plan.interest,18428); assert.equal(plan.totalPayable,154928);
+  assert.equal(plan.deposit,54600); assert.equal(plan.balance,81900); assert.equal(plan.interest,18428); assert.equal(plan.totalPayable,159928);
 });
 test('rounded schedules reconcile for every priced variant, duration and platform', () => {
   for(const p of choices.filter(p=>p.price)) for(const duration of [1,2,3,4,5,6]) for(const platform of ['credit','noCredit']) {
     const plan=financePlan({amount:p.price,duration,platform});
     assert.equal(plan.payments.reduce((a,b)=>a+b,0),plan.repaymentTotal);
-    assert.equal(plan.totalPayable,plan.deposit+plan.repaymentTotal);
+    assert.equal(plan.totalPayable,plan.deposit+plan.repaymentTotal+5000);
+    assert.ok(plan.balance<=200000);
     assert.ok(plan.payments.every(Number.isInteger));
   }
 });
 test('invalid inputs are rejected and a full upfront deposit has zero interest', () => {
   for(const changes of [{amount:NaN},{amount:-1},{duration:7},{platform:'unknown'},{deposit:0},{deposit:NaN},{deposit:-5},{deposit:999999},{deposit:60000.1}]) assert.throws(()=>financePlan({amount:140000,...changes}));
   assert.equal(financePlan({amount:140000,deposit:140000}).interest,0);
+  for(const [amount,required] of [[150000,60000],[300000,120000],[500000,300000],[1000000,800000]]) {
+    assert.equal(minimumDeposit(amount),required);
+    assert.equal(financePlan({amount}).deposit,required);
+    assert.throws(()=>financePlan({amount,deposit:required-1}));
+  }
 });
 test('supplied price corrections, old phones and colour groups are preserved', () => {
   const checks={'iphone-6|16GB':25000,'iphone-6|128GB':38000,'iphone-6s-plus|128GB':75000,'iphone-7-plus|256GB':103000,'iphone-xs-max|64GB':198000,'iphone-x|64GB':140000,'iphone-11|64GB':210000,'iphone-12-pro-max|128GB':435000,'iphone-13|256GB — Pink / White':400000,'iphone-13|256GB — Other colours':390000,'iphone-14-plus|256GB':520000,'iphone-15-plus|512GB':715000,'iphone-15-pro|256GB':860000,'iphone-16-pro|128GB':1020000,'iphone-17-air|1TB':1260000,'iphone-17-pro-max|512GB':1830000};

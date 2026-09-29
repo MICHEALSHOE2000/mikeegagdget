@@ -1,7 +1,7 @@
 import {media,activateImages} from './storefront-ui.mjs';
 import { choices as baseChoices, money, estimateSwap, financePlan, FINANCE_PLATFORMS } from '../commerce/upgrade-core.mjs';
 import { commerceSite } from '../commerce/catalog.mjs';
-import { DEPOSIT_RATE } from '../easy-buy/easy-buy-core.mjs';
+import { minimumDeposit, MAX_FINANCED } from '../easy-buy/easy-buy-core.mjs';
 import {offerChoice} from '../commerce/offers.mjs';
 import {suitableCurrentPhone} from '../commerce/device-hierarchy.mjs';
 const choices=baseChoices.map(offerChoice);
@@ -66,9 +66,11 @@ if (form) {
   const rows = entries => `<dl class="order-lines">${entries.map(([label,value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
   function error(message) { $('flow-error').textContent = message; $('flow-error').hidden = !message; }
   function invalidDeposit(q) {
-    if (radio('payment') !== 'easy' || !q.amount || q.manual || q.pending) return '';
-    try { financePlan({amount:q.amount,platform:radio('platform'),duration:Number($('plan-duration').value),deposit:Number($('plan-deposit').value)}); if ($('plan-deposit').value === '') return 'Enter your deposit to see a payment plan.'; return ''; }
-    catch { return `Enter a whole-naira deposit between ${money(Math.round(q.amount*DEPOSIT_RATE))} and ${money(q.amount)}.`; }
+    if (radio('payment') !== 'easy') return '';
+    if (!q.amount || q.manual || q.pending) return 'Confirm a phone price and a valid amount to finance before applying for EasyBuy.';
+    if ($('plan-deposit').value === '') return 'Enter your deposit to see a payment plan.';
+    try { financePlan({amount:q.amount,platform:radio('platform'),duration:Number($('plan-duration').value),deposit:Number($('plan-deposit').value)}); return ''; }
+    catch { return `Your remaining balance cannot exceed ${money(MAX_FINANCED)}. Enter a whole-naira deposit between ${money(minimumDeposit(q.amount))} and ${money(q.amount)}.`; }
   }
   function validate(upTo) {
     if (!selected()) { error('Choose a phone model and storage first.'); return false; }
@@ -130,9 +132,10 @@ if (form) {
         }
       }
     }
-    if (q.amount !== lastAmount) { $('plan-deposit').value = q.amount != null ? Math.round(q.amount*DEPOSIT_RATE) : ''; lastAmount = q.amount; }
+    if (q.amount !== lastAmount) { $('plan-deposit').value = q.amount > 0 ? minimumDeposit(q.amount) : ''; lastAmount = q.amount; }
     $('plan-deposit').disabled = q.manual || q.pending || q.amount === 0;
-    $('plan-deposit').min = String(Math.round((q.amount || 0)*DEPOSIT_RATE)); $('plan-deposit').max = String(q.amount || 0);
+    $('plan-deposit').min = String(q.amount > 0 ? minimumDeposit(q.amount) : 0); $('plan-deposit').max = String(q.amount || 0);
+    $('deposit-help').textContent = q.amount > 0 ? `Minimum deposit required: ${money(minimumDeposit(q.amount))}. You can finance up to ${money(MAX_FINANCED)} of the phone price. A ₦5,000 processing fee is paid separately upfront.` : 'Choose a priced phone to see your required deposit.';
     let depositError = invalidDeposit(q);
     message.push(`Payment: ${easy ? 'Easy Buy' : 'Outright'}`);
     if (!q.pending && !q.manual) {
@@ -145,8 +148,8 @@ if (form) {
       $('plan-note').innerHTML = `<strong>${platform.creditCheck ? 'This platform will check your credit score.' : 'This platform does not check your credit score.'}</strong><p>Approval and final terms are confirmed by the platform. ${isSwap ? 'This planning estimate applies the swap credit first, then your deposit. Combining swap and finance is subject to approval.' : 'Interest is calculated on the phone balance after your deposit.'}</p>`;
       if (!q.manual && !q.pending && q.amount > 0 && !depositError) {
         const plan = financePlan({amount:q.amount,platform:radio('platform'),duration:Number($('plan-duration').value),deposit:Number($('plan-deposit').value)});
-        summary += `<div class="plan-summary"><span class="eyebrow">${platform.label.toUpperCase()}</span>${rows([['Deposit now',money(plan.deposit)],['Balance financed',money(plan.balance)],[`Interest · ${plan.rate*100}% × ${plan.payments.length} month(s)`,money(plan.interest)]])}<div class="monthly-amount"><strong>${money(plan.payments[0])}</strong><span>/ month${plan.payments.at(-1) !== plan.payments[0] ? ' (last payment adjusted)' : ''}</span></div><details><summary>Your ${plan.payments.length} monthly payment${plan.payments.length > 1 ? 's' : ''}</summary>${rows(plan.payments.map((value,i) => [`Month ${i+1}`,money(value)]))}</details>${rows([['Total cash paid, including deposit',money(plan.totalPayable)]])}<p class="fine">${isSwap ? 'Plus your trade-in phone. ' : ''}Delivery is separate. Final due dates and fees are confirmed before payment.</p></div>`;
-        message.push(`Deposit: ${money(plan.deposit)}`,`Balance financed: ${money(plan.balance)}`,`Total interest: ${money(plan.interest)}`,`Monthly repayments: ${plan.payments.map(money).join(', ')}`,`Total cash paid including deposit: ${money(plan.totalPayable)}${isSwap ? ', plus trade-in phone' : ''}`);
+        summary += `<div class="plan-summary"><span class="eyebrow">${platform.label.toUpperCase()}</span>${rows([['Minimum deposit required',money(plan.minimumDeposit)],['Phone price',money(q.amount)],['Deposit now',money(plan.deposit)],['Balance financed',money(plan.balance)],[`Interest · ${plan.rate*100}% × ${plan.payments.length} month(s)`,money(plan.interest)],['Processing fee (separate)',money(plan.processingFee)],['Due upfront (deposit + fee)',money(plan.dueUpfront)]])}<div class="monthly-amount"><strong>${money(plan.payments[0])}</strong><span>/ month${plan.payments.at(-1) !== plan.payments[0] ? ' (last payment adjusted)' : ''}</span></div><details><summary>Your ${plan.payments.length} monthly payment${plan.payments.length > 1 ? 's' : ''}</summary>${rows(plan.payments.map((value,i) => [`Month ${i+1}`,money(value)]))}</details>${rows([['Total cash paid, including deposit and fee',money(plan.totalPayable)]])}<p class="fine">${isSwap ? 'Plus your trade-in phone. ' : ''}Delivery is separate. Final due dates and any additional provider fees are confirmed before payment.</p></div>`;
+        message.push(`Deposit: ${money(plan.deposit)}`,`Balance financed: ${money(plan.balance)}`,`Total interest: ${money(plan.interest)}`,`Processing fee: ${money(plan.processingFee)} (paid upfront, not financed)`,`Due upfront: ${money(plan.dueUpfront)}`,`Monthly repayments: ${plan.payments.map(money).join(', ')}`,`Total cash paid including deposit and fee: ${money(plan.totalPayable)}${isSwap ? ', plus trade-in phone' : ''}`);
       } else if (q.amount === 0 && !q.pending && !q.manual) summary += '<p class="summary-hint">There is no estimated balance to finance. Ask us to confirm the swap arrangement.</p>';
       else if (depositError) summary += `<p class="summary-hint">${depositError}</p>`;
     }

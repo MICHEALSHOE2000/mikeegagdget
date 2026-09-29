@@ -2,7 +2,7 @@ import {choices as baseChoices,estimateSwap,financePlan,FINANCE_PLATFORMS,money}
 import {offerChoice} from '../commerce/offers.mjs';
 import {commerceSite} from '../commerce/catalog.mjs';
 import {media,activateImages,escape as esc} from './storefront-ui.mjs';
-import {DEPOSIT_RATE,FINANCE_DURATIONS,CREDIT_LIMIT_URL} from '../easy-buy/easy-buy-core.mjs';
+import {FINANCE_DURATIONS,CREDIT_LIMIT_URL,minimumDeposit,MAX_FINANCED,PROCESSING_FEE} from '../easy-buy/easy-buy-core.mjs';
 import {suitableCurrentPhone} from '../commerce/device-hierarchy.mjs';
 
 const root=document.querySelector('[data-journey]');
@@ -25,7 +25,7 @@ if(root){
   answers:{},
   deposit:'',
   duration:1,
-  platform:'noCredit',
+  platform:'credit',
   searches:{current:initialCurrent&&(!initialTarget||suitableCurrentPhone(initialCurrent,initialTarget))?initialCurrent.model:'',target:initialTarget?.model||''}
  };
  let stage=mode==='swap'?(state.target?'phone':'target'):state.target?'plan':'phone';
@@ -229,12 +229,12 @@ if(root){
  function repaymentCards(plans=[]){
   return FINANCE_DURATIONS.map((duration,index)=>{
    const plan=plans[index];
-   return `<label class="repayment-option"><input type="radio" name="duration" value="${duration}" ${state.duration===duration?'checked':''}><span class="repayment-card"><b>${duration} MONTH${duration===1?'':'S'}</b><strong>${plan?money(plan.payments[0]):'—'}<small>/month</small></strong><span>${plan?`Total incl. deposit: ${money(plan.totalPayable)}`:'Check your deposit'}</span><span>${plan?`Interest: ${money(plan.interest)}`:'—'}</span></span></label>`;
+   return `<label class="repayment-option"><input type="radio" name="duration" value="${duration}" ${state.duration===duration?'checked':''}><span class="repayment-card"><b>${duration} MONTH${duration===1?'':'S'}</b><strong>${plan?money(plan.payments[0]):'—'}<small>/month</small></strong><span>${plan?`Total incl. deposit + fee: ${money(plan.totalPayable)}`:'Check your deposit'}</span><span>${plan?`Interest: ${money(plan.interest)}`:'—'}</span></span></label>`;
   }).join('');
  }
 
  function planSummary(phone,plan){
-  const condition=query.get('condition')||'Confirm with Mikee';
+  const condition=query.get('condition')||phone.model.match(/\((Brand New|UK Used)\)$/)?.[1]||'Confirm with Mikee';
   const colour=query.get('color');
   const monthly=plan.payments.at(-1)===plan.payments[0]?`${money(plan.payments[0])} / month`:`${money(plan.payments[0])} / month · final ${money(plan.payments.at(-1))}`;
   const entries=[
@@ -243,15 +243,18 @@ if(root){
    ['Condition',condition],
    ...(colour?[['Colour',colour]]:[]),
    ['Phone price',money(phone.price)],
+   ['Minimum deposit required',money(plan.minimumDeposit)],
    ['Down payment',money(plan.deposit)],
    ['Balance financed',money(plan.balance)],
    ['Monthly interest rate',`${plan.rate*100}%`],
+   ['Processing fee (paid with deposit)',money(plan.processingFee)],
+   ['Due upfront (deposit + fee)',money(plan.dueUpfront)],
    ['Duration',`${state.duration} month${state.duration===1?'':'s'}`],
    ['Monthly repayment',monthly],
    ['Total interest / cost',money(plan.interest)],
    ['Total repayment',money(plan.totalPayable)]
   ];
-  return `<div class="plan-summary-heading"><div><p class="journey-section-label">YOUR PLAN</p><h3>Your repayment estimate</h3></div><span>Estimate</span></div>${rows(entries)}<p class="journey-help">Final approval, exact due dates, any provider fees and delivery charges are confirmed before payment.</p>`;
+  return `<div class="plan-summary-heading"><div><p class="journey-section-label">YOUR PLAN</p><h3>Your repayment estimate</h3></div><span>Estimate</span></div>${rows(entries)}<p class="journey-help">The ₦5,000 processing fee is separate from phone financing and monthly interest. Final approval, exact due dates, any additional provider fees and delivery charges are confirmed before payment.</p>`;
  }
 
  function easyPlanMessage(phone,plan){
@@ -260,15 +263,17 @@ if(root){
    'I want to use EasyBuy.',
    `Phone: ${phone.label}`,
    `Phone price: ${money(phone.price)}${phone.offerId?' (Hot Deal)':''}`,
-   `Preferred condition: ${query.get('condition')||'Please confirm'}`,
+   `Preferred condition: ${query.get('condition')||phone.model.match(/\((Brand New|UK Used)\)$/)?.[1]||'Please confirm'}`,
    `Preferred colour: ${query.get('color')||'Please confirm'}`,
    `Plan: ${FINANCE_PLATFORMS[state.platform].label}`,
    `Deposit: ${money(plan.deposit)}`,
    `Balance financed: ${money(plan.balance)}`,
    `Interest: ${plan.rate*100}% monthly; ${money(plan.interest)} total`,
+   `Processing fee: ${money(plan.processingFee)} (paid upfront, not financed)`,
+   `Due upfront (deposit + fee): ${money(plan.dueUpfront)}`,
    `Duration: ${state.duration} month(s)`,
    `Payments: ${plan.payments.map(money).join(', ')}`,
-   `Total repayment including deposit: ${money(plan.totalPayable)}`,
+   `Total repayment including deposit and fee: ${money(plan.totalPayable)}`,
    'Please confirm the exact unit, stock, eligibility, due dates, fees and complete terms before payment.'
   ];
   return lines.join('\n');
@@ -308,17 +313,17 @@ if(root){
    whatsapp.removeAttribute('href');
    whatsapp.setAttribute('aria-disabled','true');
    whatsapp.tabIndex=-1;
-   error(`Enter a whole-naira deposit between ${money(Math.round(phone.price*DEPOSIT_RATE))} and ${money(phone.price)}.`);
+   error(`Your remaining balance cannot exceed ${money(MAX_FINANCED)}. Enter a whole-naira deposit of at least ${money(minimumDeposit(phone.price))}, up to ${money(phone.price)}.`);
   }
  }
 
  function easyPlanUI(){
   const phone=selected();
-  if(state.deposit==='')state.deposit=String(Math.round(phone.price*DEPOSIT_RATE));
+  if(state.deposit==='')state.deposit=String(minimumDeposit(phone.price));
   let plans=[];
   try{plans=FINANCE_DURATIONS.map(duration=>planFor(duration));}catch{}
   const plan=plans[FINANCE_DURATIONS.indexOf(state.duration)];
-  return `<p class="journey-section-label">COMPARE YOUR PAYMENTS</p><h2>How much works for you each month?</h2>${device(phone)}<div class="plan-controls"><label for="journey-deposit">Down payment (₦)<input id="journey-deposit" type="number" inputmode="numeric" min="${Math.round(phone.price*DEPOSIT_RATE)}" max="${phone.price}" step="1" value="${esc(state.deposit)}" aria-describedby="deposit-help"></label><p class="journey-help" id="deposit-help">Starts at ${money(Math.round(phone.price*DEPOSIT_RATE))} (40%). You can pay more upfront.</p><label for="journey-platform">Pay Small Small plan<select id="journey-platform"><option value="noCredit" ${state.platform==='noCredit'?'selected':''}>Standard plan · 20% monthly · no credit check</option><option value="credit" ${state.platform==='credit'?'selected':''}>Lower-interest plan · 7.5% monthly · credit check required</option></select></label><p class="journey-help">Interest uses the balance after your deposit. The lower-interest plan requires a credit check and approval. <a href="${CREDIT_LIMIT_URL}" target="_blank" rel="noopener" data-check-eligibility="true">Check eligibility ↗</a></p></div><fieldset class="repayment-selector"><legend><strong>CHOOSE REPAYMENT PERIOD</strong><span>Compare every option before you choose.</span></legend><div class="repayment-options" id="repayment-options">${repaymentCards(plans)}</div></fieldset><section class="plan-summary" id="plan-summary" aria-live="polite">${plan?planSummary(phone,plan):''}</section>`;
+  return `<p class="journey-section-label">COMPARE YOUR PAYMENTS</p><h2>How much works for you each month?</h2>${device(phone)}<div class="plan-controls"><label for="journey-deposit">Down payment (₦)<input id="journey-deposit" type="number" inputmode="numeric" min="${minimumDeposit(phone.price)}" max="${phone.price}" step="1" value="${esc(state.deposit)}" aria-describedby="deposit-help"></label><p class="journey-help" id="deposit-help">Minimum deposit required for this phone: <strong>${money(minimumDeposit(phone.price))}</strong>. Your phone balance cannot exceed ${money(MAX_FINANCED)}. A ${money(PROCESSING_FEE)} processing fee is separate and paid upfront.</p><label for="journey-platform">Pay Small Small plan<select id="journey-platform"><option value="credit" ${state.platform==='credit'?'selected':''}>7.5% monthly · credit check required (default)</option><option value="noCredit" ${state.platform==='noCredit'?'selected':''}>20% monthly · no credit check</option></select></label><p class="journey-help">Monthly interest applies to the phone balance after your deposit. The 7.5% plan requires a credit check and approval. <a href="${CREDIT_LIMIT_URL}" target="_blank" rel="noopener" data-check-eligibility="true">Check eligibility ↗</a></p></div><fieldset class="repayment-selector"><legend><strong>CHOOSE REPAYMENT PERIOD</strong><span>Compare every option before you choose.</span></legend><div class="repayment-options" id="repayment-options">${repaymentCards(plans)}</div></fieldset><section class="plan-summary" id="plan-summary" aria-live="polite">${plan?planSummary(phone,plan):''}</section>`;
  }
 
  function bindEasyPlan(){
