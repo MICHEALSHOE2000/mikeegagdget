@@ -18,23 +18,24 @@ test('the supplied shop image replaces the illustration with responsive lightwei
  assert.doesNotMatch(html,/shop-concept|Store concept illustration/);
 });
 
-test('new merchant prices reach catalogue, product pages and calculator choices exactly',async()=>{
+test('Group 1 final prices reach product pages, cards and calculator choices unchanged',async()=>{
  const expected={
-  'iphone-18-pro':{'256GB — Glacier / Black':2450000,'256GB — Burgundy':2490000},
-  'iphone-18-pro-max':{'256GB — Glacier / Black':2780000,'256GB — Burgundy':2850000,'512GB — Glacier / Black':3100000,'512GB — Burgundy':3150000}
+  'iphone-18-pro':{'256GB · Burgundy':1970000,'256GB · Glacier':1920000,'512GB':2290000},
+  'iphone-18-pro-max':{'256GB · Burgundy':2540000,'256GB · Silver/Blue':2340000,'512GB · Burgundy':2690000,'512GB · Glacier':2590000,'1TB':3590000}
  };
  for(const [slug,variants] of Object.entries(expected)){
   const product=products.find(p=>p.slug===slug),item=storeItems.find(p=>p.slug===slug);
+  assert.deepEqual(product.conditions,['Brand New']);
   assert.ok(product.images[0]);assert.equal(product.listingPending,false);assert.equal(product.easyBuyEligible,true);
   const html=await readFile(`${slug}/index.html`,'utf8');
   for(const [storage,price] of Object.entries(variants)){
    assert.equal(product.variants.find(v=>v.storage===storage).price,price);
-   const dealPrice=Math.round(price*.92);
-   assert.equal(item.variants.find(v=>v.storage===storage).price,dealPrice);
-   const phone=choices.find(p=>p.id===`${slug}|${storage}`);assert.equal(phone.price,price);
-   assert.ok(html.includes(dealPrice.toLocaleString('en-NG')));
-   const swap=estimateSwap({current:choices.find(p=>p.id==='iphone-x|64GB'),target:{...phone,price:dealPrice}});
-   assert.equal(swap.topUp,dealPrice-84000);
+   assert.equal(item.variants.find(v=>v.storage===storage).price,price);
+   const phone=choices.find(p=>p.id===`${slug}|${storage}`);
+   assert.equal(phone.price,price);
+   assert.ok(html.includes(price.toLocaleString('en-NG')));
+   const swap=estimateSwap({current:{brand:'Apple',swapReferencePrice:100000,hasFaceId:true,hasGlassBack:true},target:phone});
+   assert.equal(swap.topUp,price-60000);
   }
  }
 });

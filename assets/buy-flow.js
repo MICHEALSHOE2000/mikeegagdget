@@ -13,10 +13,10 @@ if (form) {
   const find = id => choices.find(phone => phone.id === id);
   const radio = name => form.querySelector(`input[name="${name}"]:checked`)?.value;
   const setRadio = (name,value) => { const input = form.querySelector(`input[name="${name}"][value="${value}"]`); if (input) input.checked = true; };
-  const models = [...new Map(choices.map(phone => [phone.slug,phone])).values()];
+  const models = [...new Map(choices.filter(phone=>phone.forSale!==false).map(phone => [phone.slug,phone])).values()];
   const track=(event,data={})=>window.MikeeGadgetPlugTracking?.pushEvent(event,{journey:'buy',...data});
   const legacyId = query.get('phone');
-  const initial = find(legacyId) || find(query.get('target')) || choices.find(p => p.slug === legacyId || `${p.slug}-${p.storage.replace('GB','')}` === legacyId) || find('iphone-13|128GB');
+  const initial = choices.find(phone=>phone.id===legacyId) || choices.find(phone=>phone.id===query.get('target')) || choices.find(p => p.slug === legacyId || `${p.slug}-${p.storage.replace('GB','')}` === legacyId) || choices.find(phone=>phone.id==='iphone-13|128GB');
   let step = 1, reached = 1, lastSwapQuote='', lastAmount=null;
   let targetCondition=conditionFor(initial,query.get('condition'));
   const summaryPanel = document.querySelector('.order-summary');
@@ -34,7 +34,7 @@ if (form) {
   }
   function modelOptions(field, list = models, preferred) { options(field,list.map(p => [p.slug,p.model]),preferred); }
   function variants(prefix,preferred) {
-    const rows = choices.filter(p => p.slug === $(`${prefix}-model`).value);
+    const rows = choices.filter(p => p.slug === $(`${prefix}-model`).value && (prefix === 'swap' || p.forSale !== false));
     options($(`${prefix}-variant`),rows.map(p => [p.id,`${p.storage}${prefix === "buy" ? (p.price ? ` · ${money(p.price)}` : " · confirm price") : ""}`]),preferred);
     if(prefix==='buy'){
       const chosen=$('buy-variant').value;
@@ -129,9 +129,9 @@ if (form) {
         if (q.manual) summary += `<div class="summary-hint"><strong>${q.reason === 'crack' ? 'Cracks need a personal quote.' : 'Let’s confirm your swap value.'}</strong><p>${q.reason === 'crack' ? 'Send clear photos on WhatsApp. We’ll assess the damage and confirm the amount to add.' : 'We need a confirmed price for this phone before valuing the swap.'}</p></div>`;
         else {
           if (missingAnswers().length) summary += '<p class="summary-hint">Provisional estimate. Answer all condition questions to continue.</p>';
-          summary += rows([['Market reference',money(old.basePrice)],['Your swap value',`− ${money(q.value)}`]]);
-          summary += `<details class="swap-breakdown"><summary>How we got ${money(q.value)}</summary><p>${old.label}</p>${rows(q.deductions.map(item => [item.label,`${item.percent}% · ${money(old.basePrice*item.percent/100)}`]))}<p>${money(old.basePrice)} − ${q.deductionPercent}% = <strong>${money(q.value)}</strong></p></details>`;
-          message.push(`Swap price basis: ${money(old.basePrice)}`,`Deductions: ${q.deductions.map(d => `${d.label} ${d.percent}%`).join(' + ')}`,`Estimated swap value: ${money(q.value)}`);
+          summary += rows([['Market reference',money(old.swapReferencePrice)],['Your swap value',`− ${money(q.value)}`]]);
+          summary += `<details class="swap-breakdown"><summary>How we got ${money(q.value)}</summary><p>${old.label}</p>${rows(q.deductions.map(item => [item.label,`${item.percent}% · ${money(old.swapReferencePrice*item.percent/100)}`]))}<p>${money(old.swapReferencePrice)} − ${q.deductionPercent}% = <strong>${money(q.value)}</strong></p></details>`;
+          message.push(`Swap price basis: ${money(old.swapReferencePrice)}`,`Deductions: ${q.deductions.map(d => `${d.label} ${d.percent}%`).join(' + ')}`,`Estimated swap value: ${money(q.value)}`);
           if (q.surplus > 0) { summary += `<p class="fine">Your estimate is ${money(q.surplus)} above the target price. Any cash difference needs a separate agreement; a payout is not guaranteed.</p>`; message.push(`Estimated surplus: ${money(q.surplus)} — please confirm any cash-difference arrangement.`); }
         }
       }

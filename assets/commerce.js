@@ -308,7 +308,7 @@ if (productDataElement) {
     });
 
     if (variantLabel) variantLabel.textContent = `${product.model} ${selectedStorage}`;
-    if (productPrice) productPrice.textContent = variant.price ? naira.format(variant.price) : "Confirm price";
+    if (productPrice) productPrice.textContent = variant.price ? naira.format(variant.price) : "Confirm Price";
     if (priceNote) {
       priceNote.textContent = variant.availability?.includes('out of stock')
         ? "This source variant was out of stock when checked. Ask Mikee Gadget Plug to confirm availability and today's price."

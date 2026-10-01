@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { landingPages } from "../landing-pages/config.mjs";
@@ -237,7 +237,7 @@ const renderVariantSelector = (product) => `
           data-price="${variant.price ?? ""}"
           data-price-confirm="${variant.priceNeedsExtraConfirmation ? "true" : "false"}"
           aria-pressed="${variant.storage === product.defaultStorage ? "true" : "false"}"
-        ><span class="storage-name">${escapeHtml(variant.storage)}</span><span class="storage-price">${variant.price ? formatNaira(variant.price) : 'Confirm price'}</span></button>`).join("")}
+        ><span class="storage-name">${escapeHtml(variant.storage)}</span><span class="storage-price">${variant.price ? formatNaira(variant.price) : 'Confirm Price'}</span></button>`).join("")}
     </div>
     <div class="selection-grid">
       <label>
@@ -258,7 +258,7 @@ const renderVariantSelector = (product) => `
       <strong data-product-price>${escapeHtml(
         product.variants.find((variant) => variant.storage === product.defaultStorage)?.price
           ? formatNaira(product.variants.find((variant) => variant.storage === product.defaultStorage).price)
-          : "Confirm price"
+          : "Confirm Price"
       )}</strong>
       <small data-price-note>Confirm today’s price, condition and stock before payment.</small>
     </div>
@@ -279,7 +279,7 @@ const renderVariantCards = (product) => `
         <article class="variant-card" data-variant-card="${escapeHtml(variant.storage)}">
           <div class="variant-card-top"><span>${escapeHtml(product.brand)}</span><span>${escapeHtml(product.stockStatus)}</span></div>
           <h3>${escapeHtml(product.model)} ${escapeHtml(variant.storage)}</h3>
-          <p class="variant-price">${variant.price ? formatNaira(variant.price) : "Confirm price"}</p>
+          <p class="variant-price">${variant.price ? formatNaira(variant.price) : "Confirm Price"}</p>
           <button type="button" data-select-variant="${escapeHtml(variant.storage)}" aria-pressed="${variant.storage===product.defaultStorage}">Choose ${escapeHtml(variant.storage)}</button>
         </article>`).join("")}
     </div></details>
@@ -498,7 +498,7 @@ const renderCategoryCard = (product) => {
         <span class="catalog-brand">${!isComplete(product)?"COMING SOON · ":""}${escapeHtml(product.conditions.includes('Details coming soon')?'Details coming soon':product.brand === 'Apple' ? 'UK Used / Brand New' : product.brand === 'Google' ? `Google · ${product.conditions[0]}` : product.brand)}</span>
         <h2><a href="${product.route}">${escapeHtml(product.model)}</a></h2>
         <p>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</p>
-        <strong>${Number.isFinite(minPrice) ? `From ${formatNaira(minPrice)}` : "Confirm price"}</strong>
+        <strong>${Number.isFinite(minPrice) ? `From ${formatNaira(minPrice)}` : "Confirm Price"}</strong>
         <p class="catalog-availability">Confirm stock · EasyBuy & swap enquiries</p>
         <div><a ${product.brand === 'Google' ? 'class="pixel-view-button"' : ''} href="${product.route}">${product.brand === 'Google' ? 'View Phone →' : 'View phone →'}</a></div>
       </div>
@@ -612,6 +612,19 @@ const renderCategoryPage = (category) => {
 <script type="module" src="/assets/sales.js"></script></body>
 </html>`;
 };
+
+const priorManifestPath=join(root,"commerce","route-manifest.json");
+try {
+  const priorManifest=JSON.parse(await readFile(priorManifestPath,"utf8"));
+  const currentRoutes=new Set(products.map(product=>product.route));
+  for (const route of priorManifest.products||[]) {
+    if (currentRoutes.has(route)) continue;
+    const outputPath=join(root,route.replace(/^\/+/, ""));
+    if (outputPath.startsWith(root)) await rm(outputPath,{recursive:true,force:true});
+  }
+} catch (error) {
+  if (error?.code !== "ENOENT") throw error;
+}
 
 for (const product of products) {
   const outputPath = join(root, product.slug, "index.html");
