@@ -13,8 +13,8 @@ if(root){
  const mode=root.dataset.journey;
  const query=new URLSearchParams(location.search);
  const choices=baseChoices.map(offerChoice);
- const available=choices.filter(phone=>phone.price>0&&phone.image&&phone.finance);
- const currentPhones=choices.filter(phone=>phone.brand==='Apple'&&!phone.slug.startsWith('iphone-18'));
+ const available=choices.filter(phone=>phone.forSale!==false&&phone.price>0&&phone.finance);
+ const currentPhones=choices.filter(phone=>phone.brand==='Apple'&&phone.slug!=='iphone-18-pro'&&phone.slug!=='iphone-18-pro-max');
  const byId=id=>choices.find(phone=>phone.id===id);
  const initialTarget=byId(query.get('phone'))||byId(query.get('target'));
  const initialCurrent=byId(query.get('current'));
@@ -98,7 +98,7 @@ if(root){
   const variants=list.filter(phone=>phone.slug===slug);
   const sectionLabel=isCurrent?'YOUR CURRENT PHONE':mode==='swap'?'YOUR NEW PHONE':'CHOOSE YOUR PHONE';
   const heading=isCurrent?'What phone are you swapping?':mode==='swap'?'What do you want to upgrade to?':'Which phone do you want?';
-  const helper=isCurrent?`<p class="journey-help">Instant estimates are available for listed iPhones. <a href="https://wa.me/${commerceSite.whatsappNumber}?text=Hello%20Mikee%2C%20please%20value%20my%20Samsung%20or%20Pixel%20for%20a%20swap.">Samsung or Pixel? Ask for a valuation.</a></p>`:'';
+  const helper=isCurrent?`<p class="journey-help">Instant estimates are available for supported iPhone models. <a href="https://wa.me/${commerceSite.whatsappNumber}?text=Hello%20Mikee%2C%20please%20value%20my%20Samsung%20or%20Pixel%20for%20a%20swap.">Samsung or Pixel? Ask for a valuation.</a></p>`:'';
   const storageOptions=variants.map(phone=>`<option value="${esc(phone.id)}" ${phone.id===state[key]?'selected':''}>${esc(phone.storage)}${!isCurrent?` · ${money(phone.price)}`:''}</option>`).join('');
   const preview=chosen||chosenModel;
   return `<p class="journey-section-label">${sectionLabel}</p><h2>${heading}</h2>${helper}
@@ -411,7 +411,7 @@ if(root){
    index=4;
    label='Your estimated value';
    const result=valuation();
-   html=`<p class="journey-section-label">SEE WHAT IT IS WORTH</p><h2>${result.manual?'Your phone needs a personal quote.':'Your estimated phone value.'}</h2>${device(current(),false)}${result.manual?'<p>We do not have a confirmed reference price for this model. We’ll value it after inspection.</p>':`<div class="journey-amount"><span>YOUR PHONE IS WORTH ABOUT</span><strong>${money(result.value)}</strong></div><details><summary>See valuation breakdown</summary>${rows([['Market reference',money(current().basePrice)],...result.deductions.map(item=>[item.label,`${item.percent}% · ${money(current().basePrice*item.percent/100)}`])])}</details>`}<p class="journey-help">Final value is subject to physical inspection.</p>`;
+   html=`<p class="journey-section-label">SEE WHAT IT IS WORTH</p><h2>${result.manual?'Your phone needs a personal quote.':'Your estimated phone value.'}</h2>${device(current(),false)}${result.manual?'<p>We do not have a confirmed reference price for this model. We’ll value it after inspection.</p>':`<div class="journey-amount"><span>YOUR PHONE IS WORTH ABOUT</span><strong>${money(result.value)}</strong></div><details><summary>See valuation breakdown</summary>${rows([['Market reference',money(current().swapReferencePrice)],...result.deductions.map(item=>[item.label,`${item.percent}% · ${money(current().swapReferencePrice*item.percent/100)}`])])}</details>`}<p class="journey-help">Final value is subject to physical inspection.</p>`;
    $('journey-next').textContent='Calculate What I’ll Pay →';
   }
 
@@ -430,7 +430,7 @@ if(root){
     `Current phone: ${current().label}`,
     ...questions().map(item=>`${item.label} ${state.answers[item.key]!==Boolean(item.invert)?'Yes':'No'}`)
    ];
-   html+=result.manual?'<div class="journey-amount"><span>AMOUNT TO ADD</span><strong>Let’s confirm it.</strong></div><p>We need to inspect your phone and confirm its reference price before quoting the difference.</p>':`<div class="journey-amount"><span>YOU ADD</span><strong>${money(result.topUp)}</strong></div>${rows([['Your phone’s estimated value',money(result.value)],['Your new phone',money(phone.price)]])}${result.surplus?`<p>Your estimated value is ${money(result.surplus)} above this phone’s price. Any cash difference needs a separate agreement; payout is not guaranteed.</p>`:''}<details><summary>See valuation breakdown</summary>${rows(result.deductions.map(item=>[item.label,`${item.percent}% · ${money(current().basePrice*item.percent/100)}`]))}</details>`;
+   html+=result.manual?'<div class="journey-amount"><span>AMOUNT TO ADD</span><strong>Let’s confirm it.</strong></div><p>We need to inspect your phone and confirm its reference price before quoting the difference.</p>':`<div class="journey-amount"><span>YOU ADD</span><strong>${money(result.topUp)}</strong></div>${rows([['Your phone’s estimated value',money(result.value)],['Your new phone',money(phone.price)]])}${result.surplus?`<p>Your estimated value is ${money(result.surplus)} above this phone’s price. Any cash difference needs a separate agreement; payout is not guaranteed.</p>`:''}<details><summary>See valuation breakdown</summary>${rows(result.deductions.map(item=>[item.label,`${item.percent}% · ${money(current().swapReferencePrice*item.percent/100)}`]))}</details>`;
    message.push(result.manual?'Please assess my phone and quote the difference.':`Estimated swap value: ${money(result.value)}\nEstimated amount to add: ${money(result.topUp)}${result.surplus?`\nEstimated surplus: ${money(result.surplus)} — subject to separate agreement`:''}`);
    message.push('Please confirm the exact unit, stock, condition, inspection and complete terms before payment.');
    $('journey-whatsapp').href=`https://wa.me/${commerceSite.whatsappNumber}?text=${encodeURIComponent(message.join('\n'))}`;

@@ -1,7 +1,7 @@
-// Merchant-authorized Hot Deals promotion. Stable selection: prices never change on refresh.
-// Edit this list to rotate the promoted models; base prices/valuation remain untouched.
+// The new retailer list contains final selling prices and no separately approved discounts.
+// Keep the offer helpers ready for a future authorized promotion without altering these prices.
 export const HOT_DEALS_LIMIT = 5;
-export const promotion = Object.freeze({id:'mikee-hot-deals', discount:0.08, models:['iphone-11','iphone-13','iphone-15-pro','iphone-18-pro','iphone-18-pro-max']});
+export const promotion = Object.freeze({id:'mikee-hot-deals', discount:0.08, models:[]});
 export function withOffer(variant, slug) {
  if (!promotion.models.includes(slug) || !Number.isFinite(variant.price) || variant.price <= 0) return {...variant};
  return {...variant, regularPrice:variant.price, price:Math.round(variant.price*(1-promotion.discount)), offerId:promotion.id};

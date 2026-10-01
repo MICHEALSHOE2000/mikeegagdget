@@ -4,34 +4,23 @@ import {readFile} from 'node:fs/promises';
 import {JSDOM} from 'jsdom';
 import {products} from '../commerce/catalog.mjs';
 import {storeItems} from '../commerce/storefront-data.mjs';
-import {featuredDeals,offerProduct,promotion,HOT_DEALS_LIMIT} from '../commerce/offers.mjs';
+import {featuredDeals,promotion,HOT_DEALS_LIMIT} from '../commerce/offers.mjs';
 import {choices,financePlan} from '../commerce/upgrade-core.mjs';
 import {selectedCondition} from '../commerce/conditions.mjs';
 
-test('homepage promotes exactly five unique phones, including both 18 Pro models at 8% off',async()=>{
- const deals=featuredDeals(storeItems);
- assert.equal(deals.length,HOT_DEALS_LIMIT);
- assert.equal(new Set(deals.map(phone=>phone.slug)).size,HOT_DEALS_LIMIT);
- for(const slug of ['iphone-18-pro','iphone-18-pro-max'])assert.ok(deals.some(phone=>phone.slug===slug));
- for(const item of deals){
-  const base=products.find(product=>product.slug===item.slug);
-  const offered=offerProduct(base);
-  for(const variant of offered.variants.filter(v=>v.regularPrice)){
-   assert.equal(variant.price,Math.round(variant.regularPrice*.92));
-   assert.equal(item.variants.find(v=>v.storage===variant.storage).price,variant.price);
-  }
- }
- assert.equal(promotion.discount,.08);
+test('homepage preserves the Hot Deals slot without changing required final prices',async()=>{
+ assert.equal(HOT_DEALS_LIMIT,5);
+ assert.deepEqual(promotion.models,[]);
+ assert.deepEqual(featuredDeals(storeItems),[]);
  const dom=new JSDOM(await readFile('index.html','utf8'));
- const cards=[...dom.window.document.querySelectorAll('#hotDeals > article')];
- assert.equal(cards.length,5);
- assert.deepEqual(cards.map(card=>card.dataset.model),deals.map(phone=>phone.slug));
+ assert.match(dom.window.document.getElementById('deals').textContent,/current offers/i);
+ assert.equal(dom.window.document.querySelectorAll('#hotDeals > article').length,0);
  assert.doesNotMatch(dom.window.document.getElementById('deals').textContent,/\d+%\s*(?:off|discount)/i);
  dom.window.close();
 });
 
 test('iPhone 11–15 pages label UK Used without a selector; later models expose only recorded choices',async()=>{
- for(const slug of ['iphone-x','iphone-xr','iphone-xs-max','iphone-se-2',...Array.from({length:5},(_,i)=>`iphone-${i+11}`)]){
+ for(const slug of ['iphone-8','iphone-xr','iphone-11','iphone-12','iphone-13','iphone-15-uk-used','iphone-17-air-uk-used']){
   const product=products.find(phone=>phone.slug===slug);
   assert.deepEqual(product.conditions,['UK Used']);
   assert.equal(selectedCondition(product,'Brand New'),'UK Used');
@@ -43,11 +32,11 @@ test('iPhone 11–15 pages label UK Used without a selector; later models expose
  }
  const sixteen=new JSDOM(await readFile('iphone-16/index.html','utf8'));
  assert.equal(sixteen.window.document.querySelector('[data-condition-select]'),null);
- assert.match(sixteen.window.document.querySelector('.condition-badge').textContent,/Confirm available condition/);
+ assert.match(sixteen.window.document.querySelector('.condition-badge').textContent,/Brand New/);
  sixteen.window.close();
  const eighteen=new JSDOM(await readFile('iphone-18-pro/index.html','utf8'));
  assert.equal(eighteen.window.document.querySelector('[data-condition-select]'),null);
- assert.match(eighteen.window.document.querySelector('.condition-badge').textContent,/Confirm condition/);
+ assert.match(eighteen.window.document.querySelector('.condition-badge').textContent,/Brand New/);
  eighteen.window.close();
 });
 
@@ -70,7 +59,7 @@ test('generated landing copy uses model-specific iPhone deposits and UK Used-onl
  const financing=await readFile('easy-buy/iphone/index.html','utf8');
  assert.match(financing,/iPhone 11–12: 50%, iPhone 13–15: 60%, iPhone 16–18: 70%/);
  assert.doesNotMatch(financing,/starting deposit is 40% of the confirmed device price/);
- for(const series of [11,12,13,14,15]){
+ for(const series of [11,12,13,14]){
   const html=await readFile(`iphone/iphone-${series}-series/index.html`,'utf8');
   assert.doesNotMatch(html,new RegExp(`Can I compare new and UK-used iPhone ${series} series phones`));
   assert.match(html,/UK Used only/);
