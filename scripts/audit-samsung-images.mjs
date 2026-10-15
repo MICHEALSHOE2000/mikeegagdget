@@ -1,70 +1,65 @@
-// Read-only catalogue audit. Does not fetch images or change storefront data.
-// Run from the repository root: node scripts/audit-samsung-images.mjs
-import { existsSync, writeFileSync } from 'node:fs';
+// Run from the repository root. Reads catalogue/manifest; never retrieves photos.
+import { existsSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { products } from '../commerce/catalog.mjs';
-
+const manifest = JSON.parse(readFileSync('commerce/samsung-image-sources.json', 'utf8'));
 const phones = products.filter(product => product.brand === 'Samsung');
+const sourceFor = slug => manifest.sources.find(source => source.listings.includes(slug));
 const cell = value => String(value).replaceAll('|', '\\|').replaceAll('\n', ' ');
-const rows = phones.map(product => {
-  const paths = product.images;
-  const status = !paths.length ? 'Placeholder; approved exact-model photo needed'
-    : paths.every(path => path.startsWith('/') && existsSync(`.${path}`))
-      ? 'Local asset exists; model, colour and rights review still required'
-      : 'Asset needs review; missing local file or external URL';
-  return [product.model, product.slug, product.conditions.join(', '),
-    product.variants.map(variant => variant.storage).join(', '),
-    product.colors.join(', '), paths.join(', ') || 'None', status];
-});
-const report = `# Samsung smartphone image audit
+const photos = manifest.sources.flatMap(source => source.photos);
+const files = photos.flatMap(photo => Object.values(photo.assets));
+const missing = files.filter(path => !existsSync(`.${path}`));
+if (missing.length) throw new Error(`Missing Samsung assets: ${missing.join(', ')}`);
+const pending = [...new Set(phones.filter(p => !p.images.length).map(p => p.model))];
+const rows = phones.map(p => [p.model, p.slug, p.conditions.join(', '), p.variants.map(v => v.storage).join(', '), p.colors.join(', '), sourceFor(p.slug) ? `${p.images.length} local photos` : 'Placeholder; exact photo unverified']);
+const report = `# Samsung smartphone image coverage
 
-Generated from the active catalogue with \`node scripts/audit-samsung-images.mjs\`.
+Generated with \`node scripts/audit-samsung-images.mjs\` from the active catalogue and \`commerce/samsung-image-sources.json\`.
 
 - Samsung phone listings: ${phones.length}
-- Distinct model names: ${new Set(phones.map(product => product.model)).size}
-- Storage/colour variant entries: ${phones.reduce((count, product) => count + product.variants.length, 0)}
-- Listings with an image assigned: ${phones.filter(product => product.images.length).length}
-- Listings without an image: ${phones.filter(product => !product.images.length).length}
+- Distinct models: ${new Set(phones.map(p => p.model)).size}
+- Listings updated with photographs: ${phones.filter(p => sourceFor(p.slug)).length}
+- Models with selected photographs: ${manifest.sources.length}
+- Distinct photos added: ${photos.length}
+- Local WebP assets (160/360/720 widths): ${files.length}
+- Combined asset size: ${(files.reduce((sum, path) => sum + statSync(`.${path}`).size, 0) / 1024 / 1024).toFixed(2)} MiB
+- Remaining placeholder listings: ${phones.filter(p => !p.images.length).length} (${pending.length} models)
 
-This audit checks assignments and local file existence, not visual identity or licensing. Separate condition listings remain separate. Samsung tablets, watches and audio products are excluded. Prices are neither exported nor modified.
+## Permission and source review — 12 October 2026
 
-## Source review — 12 October 2026
+The merchant confirmed that Neostore and Revenes gave permission to reuse their photos and explicitly instructed integration. This supersedes the original permission blocker. The confirmation is recorded as merchant-provided, not an independently reviewed written licence.
 
-No new photos were downloaded, hotlinked or integrated. No reuse permission was established. All models below remain unverified for new image integration.
+Neostore's normal public page request succeeded after the web search retrieval tool could not access it. Product records and image URLs were read from the page's embedded catalogue data. Both the foreign-used and brand-new Samsung categories were reviewed. No access restrictions were bypassed. Revenes continued to return HTTP 403/bot verification, so none of its images were copied.
 
-| Source | Observation | Integration status |
-|---|---|---|
-| https://neostore.ng/category/foreign-used-phones?brand=Samsung | Category URL was inaccessible through the web retrieval tool. Indexed site pages show an all-rights-reserved footer; no affirmative image reuse permission was found. | Manual sourcing and permission required |
-| https://revenes.com/samsung/ | Direct category retrieval returned HTTP 403. No attempt was made to bypass the restriction. Indexed product text was available, but does not verify image quality, identity or reuse permission. | Manual sourcing and permission required |
+Selected photographs were checked against source model titles and visually reviewed. Existing photographs were not overwritten. No source prices, conditions, storage, stock or commercial terms were copied. Colours in photographs illustrate the model; existing stock-confirmation copy remains in place. The explicitly Black Z Fold 7 listing uses the black device only. Photos do not establish the condition or accessories of Mikee's exact stock unit.
 
-Indexed references for subsequent manual review (not approved image sources):
+Source data contained incorrect images: an Ultra in the S21 listing, a non-Ultra in the S25 Ultra listing, an Ultra in the S25 listing, and an A55 box in the A56 listing. These were excluded. Mixed A-series box photos were excluded. Fold8 Ultra artwork was rejected because the exact variant could not be verified and some artwork was watermarked. No generated device imagery was used.
 
-- https://revenes.com/samsung/ng/ — names include S26 Ultra, S25 Ultra, S25, S25 FE, A07, A16 5G, A17 5G, A26 5G, A36 5G and A56 5G. Check exact connectivity/model codes where the Mikee listing omits 4G/5G.
-- https://revenes.com/product/samsung-galaxy-a06/ — candidate A06 product page; photograph and permission unverified.
-- https://revenes.com/product/samsung-galaxy-a27-5g/ — candidate A27 5G page; catalogue connectivity is unspecified, so do not assume a match.
-- https://revenes.com/shop/ — indexed S22+ 5G listing; verify exact variant before considering its photographs.
+## Catalogue wiring
 
-## Existing implementation and handoff
+- \`commerce/retail-inventory.mjs\` holds the primary image and optional additional \`gallery\` paths, with no more than three photos passed to the existing detail gallery.
+- Cards, search, details and Buy Outright/EasyBuy/Swap data retain their existing shared catalogue path.
+- Local files follow the existing responsive WebP naming conventions. All 160/360/720 variants exist. Only Samsung image fit is scoped to \`contain\`; card and page geometry remain unchanged.
+- Each selected original image URL, source product ID, dimensions and SHA-256 is recorded in the JSON manifest. Validation results are recorded in \`docs/samsung-image-validation.md\`.
 
-- Active phone images originate in \`commerce/retail-inventory.mjs\` (\`item.image\` → \`retailPhoneProducts[].images\`). Editing \`commerce/product-images.mjs\` alone does not assign an image to these active phone listings.
-- \`commerce/storefront-data.mjs\`, the commerce page generator and \`commerce/upgrade-core.mjs\` consume the active product images for cards, details, search data and purchase/upgrade selectors.
-- \`assets/storefront-ui.mjs\` already provides lazy loading, fixed image dimensions, responsive 360/720 WebP paths and a model-labelled fallback. Preserve its display conventions.
-- The detail template supports galleries, but the active inventory adapter currently supplies one image. Do not introduce duplicate gallery images. Its thumbnail convention expects a matching \`-160.webp\` when using \`-720.webp\` assets.
-- Obtain supplier permission covering commercial display and local optimisation, or merchant-owned photographs with permission to publish. Record the exact product page, original image URL, rights evidence, model code, colour and checked local filenames before integration.
-- Inspect each image visually. Require Black for the explicitly Black Z Fold 7 variant; confirm unspecified colours and 4G/5G variants. Do not substitute Ultra/Plus/FE/Edge, Fold/Flip or a different generation.
-- Use the existing \`images/store/\` structure with meaningful filenames and actual 160/360/720 WebP variants where that naming convention is used. Update only verified listing image fields; retain all commercial data.
-- Rebuild and test the category, details, search, Buy Outright, EasyBuy and Swap at mobile and desktop sizes once approved photographs are available.
+## Models still requiring exact photographs
 
-## Validation of this audit-only change
+${pending.map(model => `- ${model}`).join('\n')}
 
-At preparation, \`npm run check\` passed lint, all page generators, site validation and 47 tests. The build left all tracked storefront files byte-for-byte unchanged. The audit script also passed \`node --check\`.
+These models retain their neutral placeholders. They had no verified usable match in the reviewed accessible Neostore categories; Revenes retrieval remained blocked. Do not substitute nearby models.
 
-Only this report and its audit script are added. Product prices, financing, conditions, stock, storage variants, WhatsApp messages, tracking, existing images and website design remain unchanged. No manual mobile/desktop browser verification or new-image load/visual checks were performed because no storefront images were integrated. This is a blocked sourcing draft, not a completed photography upgrade.
+## All Samsung phone listings
 
-## Complete manual sourcing checklist
-
-| Model | Listing slug | Condition | Storage/variant labels | Listed colours | Assigned image | Status |
-|---|---|---|---|---|---|---|
+| Model | Listing slug | Condition | Storage/variant labels | Listed colours | Image status |
+|---|---|---|---|---|---|
 ${rows.map(row => '| ' + row.map(cell).join(' | ') + ' |').join('\n')}
+
+## Original source URLs for each added photo
+
+The same photo may serve separate condition listings of the exact same model. Only resizing and WebP encoding were applied; no devices were cropped out or altered.
+
+| Model | Main 720px asset | Original image | Source category |
+|---|---|---|---|
+${manifest.sources.flatMap(source => source.photos.map(photo => `| ${source.model} | ${photo.assets['720']} | ${encodeURI(photo.sourceImageUrl)} | ${source.sourceCategoryUrl} |`)).join('\n')}
 `;
 writeFileSync('docs/samsung-image-coverage.md', report);
-console.log(`Audited ${phones.length} Samsung listings (${new Set(phones.map(product => product.model)).size} distinct models). Wrote docs/samsung-image-coverage.md.`);
+console.log(`Samsung: ${phones.filter(p => sourceFor(p.slug)).length}/${phones.length} listings; ${photos.length} photos; all ${files.length} assets exist.`);

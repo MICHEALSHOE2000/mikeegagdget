@@ -909,7 +909,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-z-trifold",
     "legacySlug": "samsung-z-trifold",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-z-trifold-1-720.webp",
     "variants": [
       {
         "storage": "512GB · 16GB RAM RAM · Dual SIM",
@@ -917,7 +917,11 @@ export const retailInventory = Object.freeze([
         "ram": "16GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-z-trifold-2-720.webp",
+      "/images/store/samsung/samsung-galaxy-z-trifold-3-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -927,7 +931,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-z-fold-7",
     "legacySlug": "samsung-z-fold-7",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-z-fold-7-1-720.webp",
     "variants": [
       {
         "storage": "1TB",
@@ -955,7 +959,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-z-fold-6",
     "legacySlug": "samsung-z-fold-6",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-z-fold-6-1-720.webp",
     "variants": [
       {
         "storage": "1TB",
@@ -970,7 +974,11 @@ export const retailInventory = Object.freeze([
         "price": 1440000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-z-fold-6-2-720.webp",
+      "/images/store/samsung/samsung-galaxy-z-fold-6-3-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -980,14 +988,18 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-z-fold-6-confirm-condition",
     "legacySlug": "samsung-z-fold-6",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-z-fold-6-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
         "price": 1060000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-z-fold-6-2-720.webp",
+      "/images/store/samsung/samsung-galaxy-z-fold-6-3-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -997,7 +1009,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-z-flip-7",
     "legacySlug": "samsung-z-flip-7",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-z-flip-7-1-720.webp",
     "variants": [
       {
         "storage": "512GB",
@@ -1008,7 +1020,10 @@ export const retailInventory = Object.freeze([
         "price": 1220000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-z-flip-7-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1018,7 +1033,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-z-flip-6",
     "legacySlug": "samsung-z-flip-6",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-z-flip-6-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
@@ -1029,7 +1044,10 @@ export const retailInventory = Object.freeze([
         "price": null
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-z-flip-6-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1039,14 +1057,17 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-z-flip-6-confirm-condition",
     "legacySlug": "samsung-z-flip-6",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-z-flip-6-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
         "price": 530000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-z-flip-6-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1056,7 +1077,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s26-ultra",
     "legacySlug": "samsung-s26-ultra",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s26-ultra-1-720.webp",
     "variants": [
       {
         "storage": "1TB",
@@ -1086,7 +1107,10 @@ export const retailInventory = Object.freeze([
         "price": 1300000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s26-ultra-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1096,7 +1120,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s26-plus",
     "legacySlug": "samsung-s26-plus",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s26-plus-1-720.webp",
     "variants": [
       {
         "storage": "512GB · 12GB RAM",
@@ -1109,7 +1133,10 @@ export const retailInventory = Object.freeze([
         "ram": "12GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s26-plus-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1119,7 +1146,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s26",
     "legacySlug": "samsung-s26",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s26-1-720.webp",
     "variants": [
       {
         "storage": "256GB · 12GB RAM",
@@ -1132,7 +1159,10 @@ export const retailInventory = Object.freeze([
         "ram": "12GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s26-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1142,7 +1172,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s25-ultra",
     "legacySlug": "samsung-s25-ultra",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s25-ultra-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
@@ -1157,7 +1187,10 @@ export const retailInventory = Object.freeze([
         "price": 1740000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s25-ultra-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1167,7 +1200,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s25-plus",
     "legacySlug": "samsung-s25-plus",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s25-plus-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
@@ -1178,7 +1211,10 @@ export const retailInventory = Object.freeze([
         "price": null
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s25-plus-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1188,7 +1224,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s25",
     "legacySlug": "samsung-s25",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s25-1-720.webp",
     "variants": [
       {
         "storage": "256GB · 8GB RAM",
@@ -1245,7 +1281,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a07",
     "legacySlug": "samsung-a07",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
     "variants": [
       {
         "storage": "128GB · 4GB RAM",
@@ -1263,7 +1299,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a07-open-box",
     "legacySlug": "samsung-a07",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
     "variants": [
       {
         "storage": "Standard",
@@ -1280,7 +1316,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a07-uk-used",
     "legacySlug": "samsung-a07",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
     "variants": [
       {
         "storage": "Standard",
@@ -1297,7 +1333,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a17",
     "legacySlug": "samsung-a17",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a17-1-720.webp",
     "variants": [
       {
         "storage": "128GB · 4GB RAM",
@@ -1325,7 +1361,10 @@ export const retailInventory = Object.freeze([
         "ram": "8GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-a17-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1358,7 +1397,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a37",
     "legacySlug": "samsung-a37",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a37-1-720.webp",
     "variants": [
       {
         "storage": "128GB · 6GB RAM",
@@ -1371,7 +1410,10 @@ export const retailInventory = Object.freeze([
         "ram": "8GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-a37-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1381,7 +1423,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a57",
     "legacySlug": "samsung-a57",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a57-1-720.webp",
     "variants": [
       {
         "storage": "128GB · 8GB RAM",
@@ -1394,7 +1436,10 @@ export const retailInventory = Object.freeze([
         "ram": "8GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-a57-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1404,7 +1449,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a06",
     "legacySlug": "samsung-a06",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a06-1-720.webp",
     "variants": [
       {
         "storage": "64GB · 4GB RAM",
@@ -1427,7 +1472,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a16",
     "legacySlug": "samsung-a16",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
     "variants": [
       {
         "storage": "128GB · 4GB RAM",
@@ -1445,7 +1490,10 @@ export const retailInventory = Object.freeze([
         "ram": "8GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-a16-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1455,14 +1503,17 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a16-open-box",
     "legacySlug": "samsung-a16",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
     "variants": [
       {
         "storage": "Standard",
         "price": 190000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-a16-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1472,14 +1523,17 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a16-uk-used",
     "legacySlug": "samsung-a16",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
     "variants": [
       {
         "storage": "Standard",
         "price": 175000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-a16-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1489,7 +1543,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a26",
     "legacySlug": "samsung-a26",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a26-1-720.webp",
     "variants": [
       {
         "storage": "128GB · 6GB RAM",
@@ -1502,7 +1556,10 @@ export const retailInventory = Object.freeze([
         "ram": "6GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-a26-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1512,7 +1569,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a36",
     "legacySlug": "samsung-a36",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a36-1-720.webp",
     "variants": [
       {
         "storage": "128GB · 8GB RAM",
@@ -1525,7 +1582,10 @@ export const retailInventory = Object.freeze([
         "ram": "8GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-a36-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -1535,7 +1595,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-a56",
     "legacySlug": "samsung-a56",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-a56-1-720.webp",
     "variants": [
       {
         "storage": "128GB · 8GB RAM",
@@ -1548,7 +1608,10 @@ export const retailInventory = Object.freeze([
         "ram": "8GB RAM"
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-a56-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -2550,14 +2613,17 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-z-fold-5",
     "legacySlug": "samsung-z-fold-5",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-z-fold-5-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
         "price": 750000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-z-fold-5-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -2601,14 +2667,18 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-z-flip-4",
     "legacySlug": "samsung-z-flip-4",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-z-flip-4-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
         "price": 360000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-z-flip-4-2-720.webp",
+      "/images/store/samsung/samsung-galaxy-z-flip-4-3-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -2618,7 +2688,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s24-ultra",
     "legacySlug": "samsung-s24-ultra",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s24-ultra-1-720.webp",
     "variants": [
       {
         "storage": "512GB",
@@ -2629,7 +2699,10 @@ export const retailInventory = Object.freeze([
         "price": 895000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s24-ultra-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -2656,7 +2729,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s23-ultra",
     "legacySlug": "samsung-s23-ultra",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s23-ultra-1-720.webp",
     "variants": [
       {
         "storage": "512GB",
@@ -2667,7 +2740,10 @@ export const retailInventory = Object.freeze([
         "price": 700000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s23-ultra-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -2694,7 +2770,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s23",
     "legacySlug": "samsung-s23",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s23-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
@@ -2705,7 +2781,10 @@ export const retailInventory = Object.freeze([
         "price": null
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s23-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -2715,7 +2794,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s22-ultra",
     "legacySlug": "samsung-s22-ultra",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s22-ultra-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
@@ -2726,7 +2805,10 @@ export const retailInventory = Object.freeze([
         "price": 500000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s22-ultra-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -2736,7 +2818,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s22-plus",
     "legacySlug": "samsung-s22-plus",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s22-plus-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
@@ -2747,7 +2829,10 @@ export const retailInventory = Object.freeze([
         "price": 360000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s22-plus-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -2757,7 +2842,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s21-ultra",
     "legacySlug": "samsung-s21-ultra",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s21-ultra-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
@@ -2768,7 +2853,10 @@ export const retailInventory = Object.freeze([
         "price": 420000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s21-ultra-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -2778,7 +2866,7 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s21-plus",
     "legacySlug": "samsung-s21-plus",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s21-plus-1-720.webp",
     "variants": [
       {
         "storage": "256GB",
@@ -2789,7 +2877,10 @@ export const retailInventory = Object.freeze([
         "price": 315000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s21-plus-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -3139,14 +3230,17 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s21",
     "legacySlug": "samsung-s21",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s21-1-720.webp",
     "variants": [
       {
         "storage": "Standard",
         "price": 245000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s21-2-720.webp"
+    ]
   },
   {
     "brand": "Samsung",
@@ -3156,14 +3250,17 @@ export const retailInventory = Object.freeze([
     "slug": "samsung-s22",
     "legacySlug": "samsung-s22",
     "isPhone": true,
-    "image": "",
+    "image": "/images/store/samsung/samsung-galaxy-s22-1-720.webp",
     "variants": [
       {
         "storage": "Standard",
         "price": 330000
       }
     ],
-    "colors": []
+    "colors": [],
+    "gallery": [
+      "/images/store/samsung/samsung-galaxy-s22-2-720.webp"
+    ]
   }
 ]);
 
@@ -3190,7 +3287,7 @@ export const retailPhoneProducts = Object.freeze(retailInventory.filter(item => 
   defaultStorage: item.variants[0]?.storage || "Confirm variant",
   colors: item.colors.length ? item.colors : ["Ask for today’s available colours"],
   conditions: [item.condition],
-  images: item.image ? [item.image] : [],
+  images: item.image ? [item.image, ...(item.gallery || [])].slice(0, 3) : [],
   stockStatus: "Confirm the exact unit and availability before payment",
   easyBuyEligible: true,
   swapEligible: true,

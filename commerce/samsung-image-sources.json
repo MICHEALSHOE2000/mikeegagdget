@@ -1,0 +1,1241 @@
+{
+  "permission": {
+    "basis": "User confirmed Neostore and Revenes gave permission to reuse photos on Mikee Gadget, and instructed integration.",
+    "confirmedOn": "2026-10-12"
+  },
+  "sources": [
+    {
+      "model": "Samsung Galaxy Z Fold 7",
+      "listings": [
+        "samsung-z-fold-7"
+      ],
+      "sourceTitle": "Samsung Galaxy Z Fold 7",
+      "sourceProductId": "cmp7fq4rj0001jm047pu1a4jk",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Black only to match the listing.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/86872936-026b-4a34-b588-eeb15c7731df-WhatsApp Image 2026-05-15 at 6.17.28 PM (2).jpeg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "c6a24867daebc299b04d7967e071588ab81ae8e0fda90f64f14804834d352f7a",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-fold-7-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-fold-7-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-fold-7-1-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy Z Fold 6",
+      "listings": [
+        "samsung-z-fold-6",
+        "samsung-z-fold-6-confirm-condition"
+      ],
+      "sourceTitle": "Samsung Galaxy Z Fold 6",
+      "sourceProductId": "cmp7fd0bf0003ie04u30tqril",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/ba2cc1ed-6558-4fd5-bfd8-ff280b21aad3-WhatsApp Image 2026-05-15 at 6.15.16 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1413
+          ],
+          "originalSha256": "88790b925e1589a455b36aa19101bb0a3f1923b799570ac002206d086dd17aea",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-fold-6-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-fold-6-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-fold-6-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/214b5170-7bd0-4fd1-995f-052420546cdc-WhatsApp Image 2026-05-15 at 6.15.15 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1418
+          ],
+          "originalSha256": "21e2d98406f1509f539478a1c24eb42fdddda645725c22aa96008d61d40542e2",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-fold-6-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-fold-6-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-fold-6-2-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/55f53c52-6f0e-45d5-a9c8-c64924f5735f-WhatsApp Image 2026-05-15 at 6.15.16 PM (1).jpeg",
+          "originalDimensions": [
+            1080,
+            1420
+          ],
+          "originalSha256": "65053e48851884379fd416e1b4b7e1e7836a37517a18d2440001c2eeb6859342",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-fold-6-3-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-fold-6-3-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-fold-6-3-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy Z Fold 5",
+      "listings": [
+        "samsung-z-fold-5"
+      ],
+      "sourceTitle": "Samsung Galaxy Z Fold 5",
+      "sourceProductId": "cmp7f0ojt0001le045hor12vu",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/6955c64c-6661-427e-840a-eb99536c48b6-WhatsApp Image 2026-05-15 at 6.12.50 PM (2).jpeg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "84264e44b127e994602ca094bd9ebb291bbe5faa118dbf58b8b8a9ca25752adf",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-fold-5-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-fold-5-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-fold-5-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/e83cd523-3840-4b14-a36a-77a2b364513f-WhatsApp Image 2026-05-15 at 6.12.50 PM (1).jpeg",
+          "originalDimensions": [
+            960,
+            1280
+          ],
+          "originalSha256": "b907a097142aa9431089a521f2a3c76016eaf58ed23960118d192887fa840f51",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-fold-5-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-fold-5-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-fold-5-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy Z Flip 4",
+      "listings": [
+        "samsung-z-flip-4"
+      ],
+      "sourceTitle": "Samsung Galaxy Z Flip 4",
+      "sourceProductId": "cmp7enq7o0001ie04c6knukou",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/6f34e6a8-a022-4a11-a2b4-22397b595bd8-WhatsApp Image 2026-05-15 at 6.09.40 PM.jpeg",
+          "originalDimensions": [
+            768,
+            960
+          ],
+          "originalSha256": "4d0da6ddd2cb3f84c863e5d606832b70fa8c306e008ad242e4a972c9a62a0553",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-flip-4-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-flip-4-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-flip-4-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/7c800c48-1eac-4346-9c08-a6a6c589c442-WhatsApp Image 2026-05-15 at 6.09.40 PM (1).jpeg",
+          "originalDimensions": [
+            768,
+            960
+          ],
+          "originalSha256": "43c394d5a5c3e144f7e9c04deac21ac11c42258ca288045a57b9fa629ff5495b",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-flip-4-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-flip-4-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-flip-4-2-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/3826b187-7f35-48a9-b341-93047d1124ae-WhatsApp Image 2026-05-15 at 6.09.40 PM (2).jpeg",
+          "originalDimensions": [
+            768,
+            960
+          ],
+          "originalSha256": "cbad9be74412043ab9882131128564d8e3e02f15fda7ed0299a19e27b0244d10",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-flip-4-3-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-flip-4-3-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-flip-4-3-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S25 Ultra",
+      "listings": [
+        "samsung-s25-ultra"
+      ],
+      "sourceTitle": "Samsung Galaxy S25 Ultra 5G",
+      "sourceProductId": "cmp7ed4s80001ky043gbu0pe7",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/74681978-6c1e-4cda-8877-451305455ead-WhatsApp Image 2026-05-15 at 5.58.21 PM (1).jpeg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "6cacb363b4565719f77cf3160e8c038c022e5f1136687ee7a839f18c4bfbdec8",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s25-ultra-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s25-ultra-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s25-ultra-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/c1168c0d-c881-4876-adf0-e92a7140c7c2-WhatsApp Image 2026-05-15 at 5.58.21 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "09bd60eea7af7d75d6df8270b0c317da22c4dd19d747b3909bccd52f520fd7e7",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s25-ultra-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s25-ultra-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s25-ultra-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S24 Ultra",
+      "listings": [
+        "samsung-s24-ultra"
+      ],
+      "sourceTitle": "Samsung Galaxy S24 Ultra 5G",
+      "sourceProductId": "cmp7e23e60003jj04j1iy567q",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/db2b58a7-a4c3-445c-a833-cd059c02a7e2-WhatsApp Image 2026-05-15 at 5.52.29 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "4d07016e410abcec57f28a16c7ae0ec1148659e71878a6c48182ab84d773ef1a",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s24-ultra-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s24-ultra-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s24-ultra-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/0744d1ae-f81b-46ee-a32b-6030887e7365-WhatsApp Image 2026-05-15 at 5.52.30 PM (1).jpeg",
+          "originalDimensions": [
+            1033,
+            1280
+          ],
+          "originalSha256": "99fcb8b75473551e8fbe60a90dec8c11c4f5c4805730dc9c893aa5a385051431",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s24-ultra-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s24-ultra-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s24-ultra-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S23 Ultra",
+      "listings": [
+        "samsung-s23-ultra"
+      ],
+      "sourceTitle": "Samsung Galaxy S23 Ultra 5G",
+      "sourceProductId": "cmp7dr5oe0001jm04wze8m5oq",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/741d47b5-aa69-43ed-a697-ebb28495a634-WhatsApp Image 2026-05-15 at 5.49.03 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "1721c29b4655bbe15851c6aaa29819fa37769f5511fe1c32e6eca3718643039f",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s23-ultra-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s23-ultra-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s23-ultra-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/3f70382b-c31d-4261-b5e4-027428346ae2-WhatsApp Image 2026-05-15 at 5.49.04 PM (1).jpeg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "19a71a7dca8b884572c1cc30f55c80005396e47a1657406ecfdb76647f3dae58",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s23-ultra-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s23-ultra-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s23-ultra-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S23",
+      "listings": [
+        "samsung-s23"
+      ],
+      "sourceTitle": "Samsung Galaxy S23 5G",
+      "sourceProductId": "cmp7dea4f0001jj04wckqui8x",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/b14eb176-7fe1-44f1-b4d3-2c7e172375bb-WhatsApp Image 2026-05-15 at 5.46.54 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1434
+          ],
+          "originalSha256": "cbe54e69765b8ad4044ae8f0e80a537f94a7761eff31cc039c652d92be277366",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s23-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s23-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s23-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/32adde48-3b91-47cd-b282-1bf2ab09e00e-WhatsApp Image 2026-05-15 at 5.46.54 PM (1).jpeg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "ec0f2aff90318fb2f7122a29454a6e0520b0b3c50dc30fe6b074fdacf35b1e2a",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s23-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s23-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s23-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S22 Ultra",
+      "listings": [
+        "samsung-s22-ultra"
+      ],
+      "sourceTitle": "Samsung Galaxy S22 Ultra",
+      "sourceProductId": "cmp7cwo4w0001l504xanqt0pp",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/95f744aa-e8e8-4749-9960-f565d41342d0-WhatsApp Image 2026-05-15 at 5.45.01 PM (2).jpeg",
+          "originalDimensions": [
+            1060,
+            1280
+          ],
+          "originalSha256": "d210a962548d13f6067794839a5af2ac6fd3955932b04f7f55c38f92b1bba418",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s22-ultra-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s22-ultra-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s22-ultra-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/d2b56863-12ad-4bfa-8e6e-9355a4cbfe74-WhatsApp Image 2026-05-15 at 5.45.01 PM (1).jpeg",
+          "originalDimensions": [
+            1080,
+            1304
+          ],
+          "originalSha256": "962a8c44c595629d7b610fb0e7a2b4686c57a0731f937a446e6d8f664be2c704",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s22-ultra-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s22-ultra-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s22-ultra-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S22 Plus",
+      "listings": [
+        "samsung-s22-plus"
+      ],
+      "sourceTitle": "Samsung Galaxy S22+ 5G",
+      "sourceProductId": "cmp7c0j370001jj0489tjy946",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/f41c5743-bdde-4b30-a7c5-6de64727a8c5-WhatsApp Image 2026-05-15 at 5.31.49 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1336
+          ],
+          "originalSha256": "ec67c7cb4b9d2a3e220bede35bd6b3cc386d2914358d7f574b577f512cbecb9f",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s22-plus-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s22-plus-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s22-plus-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/4fb7d4cf-e4d5-4960-9ed5-63ce10eb2bde-WhatsApp Image 2026-05-15 at 5.31.49 PM (1).jpeg",
+          "originalDimensions": [
+            1080,
+            1336
+          ],
+          "originalSha256": "2d7566006cd09b7a946fadc1700c5ea838ec0e5f166dee4fa7d566f12a54b18b",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s22-plus-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s22-plus-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s22-plus-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S22",
+      "listings": [
+        "samsung-s22"
+      ],
+      "sourceTitle": "Samsung Galaxy S22 5G",
+      "sourceProductId": "cmp7blmuf0001l104vnp6k7sy",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/191d64dc-ec79-487d-8752-b82539b4c6c8-WhatsApp Image 2026-05-15 at 5.26.47 PM (1).jpeg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "4925034459f09d92d495a9557cf1d265f7a77f1194fe83f96f089e0858534a84",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s22-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s22-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s22-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/aa94cdeb-d017-4d2c-a75d-badda70c0de4-WhatsApp Image 2026-05-15 at 5.26.47 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "e7c667fcbd56659a92a264a7571792d1e45a1a9b1ea7a27a2a6277ed3faa276d",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s22-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s22-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s22-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S21 Ultra",
+      "listings": [
+        "samsung-s21-ultra"
+      ],
+      "sourceTitle": "Samsung Galaxy S21 Ultra 5G",
+      "sourceProductId": "cmp7axz8g0001kz04p1h5v09k",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/e141c56b-0bc2-4279-8a2c-668f98e588c5-WhatsApp Image 2026-05-15 at 2.37.38 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1435
+          ],
+          "originalSha256": "9b4be95359778f198fefebb68cea628997d86a72379f167547cfd0f47c55f761",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s21-ultra-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s21-ultra-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s21-ultra-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/382a36fd-3775-4556-9f0f-58402aeeb22a-WhatsApp Image 2026-05-15 at 2.37.38 PM (1).jpeg",
+          "originalDimensions": [
+            1080,
+            1435
+          ],
+          "originalSha256": "2f569329b7faffe05a0aa53c0ad154f334643a7f0214e5d150a70ed98ba8ece7",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s21-ultra-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s21-ultra-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s21-ultra-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S21 Plus",
+      "listings": [
+        "samsung-s21-plus"
+      ],
+      "sourceTitle": "Samsung Galaxy S21+ 5G",
+      "sourceProductId": "cmp79r4ld0001jv04hqu51l5h",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/08dd28e5-e9d2-4c9b-b2f9-d49813eccf03-WhatsApp Image 2026-05-15 at 2.32.55 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1350
+          ],
+          "originalSha256": "7bbd4bd22ea58a8137b09e797d8c078240b4d12877fe7057464e02b3d451c5ee",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s21-plus-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s21-plus-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s21-plus-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/6abdc098-a841-463d-bccd-2f28051fa86e-WhatsApp Image 2026-05-15 at 2.32.55 PM (2).jpeg",
+          "originalDimensions": [
+            1080,
+            1350
+          ],
+          "originalSha256": "9aac2b5dbfd1bdca7e0a02b3c0ebfc7e704554fa7d3e66516b69ece61ad1b3fc",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s21-plus-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s21-plus-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s21-plus-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S21",
+      "listings": [
+        "samsung-s21"
+      ],
+      "sourceTitle": "Samsung Galaxy S21 5G",
+      "sourceProductId": "cmp79dy0o0001l804d5x33l1v",
+      "sourceCategoryUrl": "https://neostore.ng/category/foreign-used-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/7644ac95-5288-4591-b736-3a948d59e5dd-WhatsApp Image 2026-05-15 at 2.20.27 PM (1).jpeg",
+          "originalDimensions": [
+            1080,
+            1441
+          ],
+          "originalSha256": "054e9304e9a40ccdaedbd10c894466caf49501f90d1cca2a81e0f9d032e29cc7",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s21-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s21-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s21-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/6a3d083e-1bae-4b36-8839-abadbf3292e0-WhatsApp Image 2026-05-15 at 2.20.24 PM.jpeg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "d5f75a9ead43d548b6a82245e77633db4b839995592aa679f89b01a3b9e5e9c6",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s21-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s21-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s21-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy A07",
+      "listings": [
+        "samsung-a07",
+        "samsung-a07-open-box",
+        "samsung-a07-uk-used"
+      ],
+      "sourceTitle": "Samsung Galaxy A07",
+      "sourceProductId": "cmtjxfcpp003kkkkikedbx8mv",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/03e72813-025d-4d6a-991e-5222532608b2-WhatsApp Image 2026-09-02 at 10.48.48 AM (1).webp",
+          "originalDimensions": [
+            960,
+            1280
+          ],
+          "originalSha256": "560270a2c678619d8865e6738b1b24b5ea20364c8b55dea97e042e94ea4cb9af",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a07-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a07-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a07-1-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy A17",
+      "listings": [
+        "samsung-a17"
+      ],
+      "sourceTitle": "Samsung Galaxy A17",
+      "sourceProductId": "cmsvvmjco000fkkjbhofxl3mx",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/f8036d60-7f4e-4224-b22d-a7ba3807dbf7-WhatsApp Image 2026-08-16 at 1.04.16 PM (2).webp",
+          "originalDimensions": [
+            1080,
+            1117
+          ],
+          "originalSha256": "6afa7364e86cb5909a1110a5b07a061723f55565cf092d5e6d444917a98e9bca",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a17-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a17-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a17-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/a4f360eb-2872-47ff-aafc-5a78e3226c22-WhatsApp Image 2026-08-16 at 1.04.15 PM.webp",
+          "originalDimensions": [
+            1080,
+            1121
+          ],
+          "originalSha256": "566d4261eb109d1bf5e0bad56162b18406d36b2541340118f0c716fcc9423021",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a17-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a17-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a17-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy A37",
+      "listings": [
+        "samsung-a37"
+      ],
+      "sourceTitle": "Samsung Galaxy A37 5G",
+      "sourceProductId": "cmsvtlurc000dkkjbciv40vxp",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/ac3b27f9-86c8-421e-9cf9-1b9d9fa6ccef-WhatsApp Image 2026-08-16 at 12.55.02 PM.webp",
+          "originalDimensions": [
+            960,
+            1280
+          ],
+          "originalSha256": "787690ab394d2a4ffd63ceeb44f41509aa2846a238b61b0315697f2eb25f5fe4",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a37-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a37-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a37-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/019f4eb9-6ab4-48bc-b68c-dccad240cf46-WhatsApp Image 2026-08-16 at 12.55.03 PM (1).webp",
+          "originalDimensions": [
+            960,
+            1280
+          ],
+          "originalSha256": "1e3bce5bcefb0c57b941db698e4c236d216fa3622696febbc758e328e9c8de00",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a37-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a37-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a37-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy A57",
+      "listings": [
+        "samsung-a57"
+      ],
+      "sourceTitle": "Samsung Galaxy A57 5G",
+      "sourceProductId": "cmsnsl57k00g9kkpvkw9fsfjk",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/67ce7158-b5fd-4ddf-96e8-b90d6c120777-WhatsApp Image 2026-08-10 at 11.04.27 PM (1).webp",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "7a98ee2a3a92f96bf1769f9181b2218530ec765cdb9fe56a989247b4387f7dc6",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a57-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a57-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a57-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/6ce36e2c-0206-4eac-91fd-0470c45e492f-WhatsApp Image 2026-08-10 at 11.04.27 PM.webp",
+          "originalDimensions": [
+            960,
+            1280
+          ],
+          "originalSha256": "69fc2e5f82bc295dcd192c39a8c1ccce20d355cd748cbdb451ad0d7231ce779b",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a57-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a57-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a57-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy Z TriFold",
+      "listings": [
+        "samsung-z-trifold"
+      ],
+      "sourceTitle": "Samsung Galaxy Z Trifold",
+      "sourceProductId": "cmpxx79fr000g7xjq3axf34f3",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/4ef2a18d-f4f0-495b-b816-e861e64cb225-WhatsApp Image 2026-06-03 at 11.08.48 AM (4).webp",
+          "originalDimensions": [
+            960,
+            1280
+          ],
+          "originalSha256": "01d6f5e6db6d1d6d3f63a789a0a445e83d69cc18770b6a90b0e48eac07eea8ef",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-trifold-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-trifold-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-trifold-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/eafd804d-1c13-4550-9d99-603870ce75af-WhatsApp Image 2026-06-03 at 11.08.48 AM.webp",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "abe08b14eb00853657fdd95995f7e97eb7a330ea3183b6af8e325d091f967ebc",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-trifold-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-trifold-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-trifold-2-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/61ff1e12-c0cb-4069-aff3-3335be1cd0d1-WhatsApp Image 2026-06-03 at 11.08.48 AM (1).webp",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "ed3d639e0ca40cb17afd044f9a13b1fd08e570264094751e0fba3637ad8f2a5a",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-trifold-3-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-trifold-3-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-trifold-3-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S26",
+      "listings": [
+        "samsung-s26"
+      ],
+      "sourceTitle": "Samsung Galaxy S26",
+      "sourceProductId": "cmorth18s0001jp042g2t03sd",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/af7a3e24-d460-428e-a897-a80f6a2c92ce-jodieohhh_9bd9208c_2.jpg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "978f7b699818382aaf753b8c66da21daef51ba1cc65fe9ce69235dce7d38671f",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s26-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s26-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s26-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/d0cd2819-43fe-4105-a175-deeab0860ac1-jodieohhh_9bd9208c_3.jpg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "edb60bea306e0694426f21fe36c95033ef0df1c5bd7828b70d7ed54e1033339f",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s26-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s26-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s26-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S26 Plus",
+      "listings": [
+        "samsung-s26-plus"
+      ],
+      "sourceTitle": "Samsung Galaxy S26 Plus",
+      "sourceProductId": "cmorspjym0001jy04zuwytq01",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/e6aea22d-b75f-4a20-9ace-d3cfa97ddfa1-daviimportscba_851c5454_3.jpg",
+          "originalDimensions": [
+            1080,
+            1079
+          ],
+          "originalSha256": "530c59bb596f8497aa85e3b5dd8c13faf9c061ea209d50a955adb1ecec94d440",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s26-plus-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s26-plus-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s26-plus-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/481de00f-bfb8-4dc0-9c7b-239cc27b7f0e-daviimportscba_851c5454_2.jpg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "cc6f4c0619eb870dfbeccdcbe240d61ffb79f9186d734e64a5ad6a1a690d9a19",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s26-plus-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s26-plus-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s26-plus-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S26 Ultra",
+      "listings": [
+        "samsung-s26-ultra"
+      ],
+      "sourceTitle": "Samsung Galaxy S26 Ultra",
+      "sourceProductId": "cmorry1sz0001lb0429nz2xag",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/e27e9ba2-6ec4-49bb-9bbe-488debc04093-royal_tech_05_61f2e006_3.jpg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "ab8463cc81dec407f98d23b35855d2470e9a0496b4ba68f638923615fba6ef51",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s26-ultra-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s26-ultra-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s26-ultra-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/5651f0da-8731-404d-a113-d60938a3b74e-royal_tech_05_61f2e006_2.jpg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "ab6d66e59dd6e8b6e7040b71ede5c8d5f35a7f9601ed2fb2661885ead2d4c846",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s26-ultra-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s26-ultra-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s26-ultra-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy A06",
+      "listings": [
+        "samsung-a06"
+      ],
+      "sourceTitle": "Samsung Galaxy A06",
+      "sourceProductId": "cmnhiunzb0001js04q4ujwe3q",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/c0d6df54-abab-4e10-b86f-05bf390b593b-15898.jpg",
+          "originalDimensions": [
+            1080,
+            1350
+          ],
+          "originalSha256": "378007dde6ad1362c1fbd28ee73eef30042715611512da9fba9b0cbe3c868dfa",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a06-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a06-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a06-1-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy A16",
+      "listings": [
+        "samsung-a16",
+        "samsung-a16-open-box",
+        "samsung-a16-uk-used"
+      ],
+      "sourceTitle": "Samsung Galaxy A16",
+      "sourceProductId": "cmng2gelt0001js04w14mrads",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/7491aeb1-2746-48bc-bb30-34533122d428-14157.jpg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "a126dc6f277376d2e9b661fe4c6c66d8176f4170af8f5816c598af031bb10f2f",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a16-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a16-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a16-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/4c6a7a07-a582-441b-874d-77e6ea78d316-14151.jpg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "3a330705b340bab8dd55cc3844cc997839279337414c942f5762aad5e1d6cc22",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a16-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a16-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a16-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy A26",
+      "listings": [
+        "samsung-a26"
+      ],
+      "sourceTitle": "Samsung Galaxy A26",
+      "sourceProductId": "cmng23be80001jm04iidpvh5k",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/8cd56070-8a4a-4a30-ae00-6ae94f7471a2-14137.jpg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "2fcd97a930d77fd6cff13c52cd5c1d0ee4415ea52490e368d20c572ad3759528",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a26-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a26-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a26-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/ce18ea9f-ea8c-4019-9f72-e96c840e8d1e-14131.jpg",
+          "originalDimensions": [
+            1080,
+            1107
+          ],
+          "originalSha256": "bce832f34ac7386c1881282584047eddcf7f083f6fa88352f853c279965719d8",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a26-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a26-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a26-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy A36",
+      "listings": [
+        "samsung-a36"
+      ],
+      "sourceTitle": "Samsung Galaxy A36 5G",
+      "sourceProductId": "cmng0ymoi0001l704pojpd6cu",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/8f0a4e70-3e99-499b-8aa5-314b13fd525d-14116.jpg",
+          "originalDimensions": [
+            1080,
+            1440
+          ],
+          "originalSha256": "1706205ccda64e1356d6b26eb27f8e8dd578099cc214cd81a24cd9fac746c8fb",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a36-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a36-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a36-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/430a1a8d-e9b2-4533-8176-1aef4c30500d-14103.jpg",
+          "originalDimensions": [
+            960,
+            1278
+          ],
+          "originalSha256": "52ecae1ba300d99724435624b09a00aa76f1b21eb36ed48e1b14a52ae8a8b899",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a36-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a36-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a36-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy A56",
+      "listings": [
+        "samsung-a56"
+      ],
+      "sourceTitle": "Samsung Galaxy A56 5G",
+      "sourceProductId": "cmnfzjv0q0001jp04d2dw5swk",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/43d9e269-a202-4a24-9659-6c2c3efeb545-14087.jpg",
+          "originalDimensions": [
+            1080,
+            1350
+          ],
+          "originalSha256": "801aa261b6c9eacc52d50ef3d0d2bb2dc0c673b5a912cc52e6d9c15f4786d6ad",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a56-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a56-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a56-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/eb6b6a1a-45f1-4db6-b70b-7c88c792e718-14084.jpg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "dd84fb421d54545c99e97dec5bfb620bcd2ee603fe2db7c13724444bb6cdd053",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-a56-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-a56-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-a56-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S25 Plus",
+      "listings": [
+        "samsung-s25-plus"
+      ],
+      "sourceTitle": "Samsung Galaxy S25 Plus",
+      "sourceProductId": "cmnex5q4r0001ld04k57odcpj",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/8d39d3ce-0bc7-4167-820e-a423227d1e65-13952 (1).png",
+          "originalDimensions": [
+            999,
+            878
+          ],
+          "originalSha256": "8f2ee77c4e3416058c7d1451bc17981e524a3520f187879f395cf35294b6043b",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s25-plus-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s25-plus-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s25-plus-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/04e190ea-06a4-4219-ae2d-16588f94f7b2-13947.jpg",
+          "originalDimensions": [
+            1080,
+            1439
+          ],
+          "originalSha256": "0aa92a33612f1bbaf8ab00f9ccb4ccce269576794e5ae018f2b7760ac51d6fa7",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s25-plus-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s25-plus-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s25-plus-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy S25",
+      "listings": [
+        "samsung-s25"
+      ],
+      "sourceTitle": "Samsung Galaxy S25",
+      "sourceProductId": "cmnevq1660001lg043r2kz4x3",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/2162c8ee-7b21-4343-96c4-f015f1595bb4-13936.jpg",
+          "originalDimensions": [
+            1080,
+            1080
+          ],
+          "originalSha256": "1b2f4f247017f36eac87afb2028edc335ecbe203a80bddae44fa6d1f8e18b9f7",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-s25-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-s25-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-s25-1-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy Z Flip 6",
+      "listings": [
+        "samsung-z-flip-6",
+        "samsung-z-flip-6-confirm-condition"
+      ],
+      "sourceTitle": "Samsung Galaxy Z Flip 6",
+      "sourceProductId": "cmnet722x0001jy04u7a3f0ht",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/80bf13c8-3dba-44be-a1b4-033223a05837-13874 (1).jpg",
+          "originalDimensions": [
+            1080,
+            1350
+          ],
+          "originalSha256": "b0719b250b1e2f894ecce03d80e3a52ef6bb38af9e756537ce3143834f572a45",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-flip-6-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-flip-6-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-flip-6-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/55b565ce-6caf-436d-8aa9-79230b4a2c96-13878.jpg",
+          "originalDimensions": [
+            1080,
+            1430
+          ],
+          "originalSha256": "4d2523f6519b72573d59d5cc9328506766562d4a5892488ffa00f6e020f64b3a",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-flip-6-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-flip-6-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-flip-6-2-720.webp"
+          }
+        }
+      ]
+    },
+    {
+      "model": "Samsung Galaxy Z Flip 7",
+      "listings": [
+        "samsung-z-flip-7"
+      ],
+      "sourceTitle": "Samsung Galaxy Flip 7",
+      "sourceProductId": "cmnepfeny0001jx04k075t7nl",
+      "sourceCategoryUrl": "https://neostore.ng/category/brand-new-phones?brand=Samsung",
+      "verification": "Source listing title plus visual inspection of selected photographs; no visual model conflict or watermark observed. Box labels checked where present.",
+      "colourNote": "Catalogue does not specify a fixed colour; photos illustrate the model, not guaranteed stock colours.",
+      "photos": [
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/927f3abd-5fb0-4a10-94ff-25f6bef2807d-13814.jpg",
+          "originalDimensions": [
+            1077,
+            1313
+          ],
+          "originalSha256": "b6be425d485535fd23a7cb2643da73d9790a18229c30778877d3117ef3c6034a",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-flip-7-1-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-flip-7-1-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-flip-7-1-720.webp"
+          }
+        },
+        {
+          "sourceImageUrl": "https://images.neostore.ng/shop/eba7dbde-4d00-4d51-97d4-64e6780ee576-13811.jpg",
+          "originalDimensions": [
+            1080,
+            1439
+          ],
+          "originalSha256": "dd15514fa2af2dec83f9347515fca1d238324302853f579b86fc454ac20b1df7",
+          "assets": {
+            "160": "/images/store/samsung/samsung-galaxy-z-flip-7-2-160.webp",
+            "360": "/images/store/samsung/samsung-galaxy-z-flip-7-2-360.webp",
+            "720": "/images/store/samsung/samsung-galaxy-z-flip-7-2-720.webp"
+          }
+        }
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "sourceIndex": 13,
+      "imageIndex": 0,
+      "reason": "S21 listing contains an Ultra camera array; excluded."
+    },
+    {
+      "sourceIndex": 4,
+      "imageIndex": 2,
+      "reason": "S25 Ultra listing contains a three-camera non-Ultra photo; excluded."
+    },
+    {
+      "sourceIndex": 27,
+      "imageIndex": 1,
+      "reason": "A56 listing contains a box explicitly labelled A55; excluded."
+    },
+    {
+      "sourceIndex": 29,
+      "imageIndex": 1,
+      "reason": "S25 listing contains an Ultra camera array; excluded."
+    },
+    {
+      "sourceIndex": 26,
+      "imageIndex": 1,
+      "reason": "Mixed A26/A56/A36 boxes; excluded."
+    },
+    {
+      "sourceIndex": 18,
+      "reason": "Fold8 Ultra source includes Fold8-labelled concept artwork/watermark; exact Ultra photograph unverified. Entire model excluded."
+    }
+  ]
+}
