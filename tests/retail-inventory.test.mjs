@@ -74,8 +74,8 @@ test('cards and category pages show current non-phone products and Confirm Price
 test('verified local images are the only images attached to the new catalog',()=>{
  assert.ok(retailInventory.filter(item=>item.image).length>0);
  assert.ok(retailInventory.every(item=>!item.image||item.image.startsWith('/images/store/')||item.image.startsWith('/images/catalog/')));
- assert.equal(retailInventory.filter(item=>item.image).length,28);
- assert.equal(retailInventory.filter(item=>!item.image).length,131);
+ assert.equal(retailInventory.filter(item=>item.image).length,65);
+ assert.equal(retailInventory.filter(item=>!item.image).length,94);
 });
 
 test('generic store cards use only the available shop image sizes',()=>{

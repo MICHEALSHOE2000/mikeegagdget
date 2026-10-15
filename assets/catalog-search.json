@@ -676,27 +676,6 @@
   },
   {
     "type": "product",
-    "label": "iPhone 15 Pro",
-    "route": "/iphone-15-pro-uk-used",
-    "brand": "Apple",
-    "storage": [
-      "256GB"
-    ],
-    "price": null,
-    "image": "/images/store/15pro-1-720.webp",
-    "keywords": [
-      "iPhone 15 Pro",
-      "Apple",
-      "iPhone",
-      "iPhone 15 Pro 256GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
     "label": "Samsung Galaxy S26 Ultra",
     "route": "/samsung-s26-ultra",
     "brand": "Samsung",
@@ -709,7 +688,7 @@
       "256GB"
     ],
     "price": 1290000,
-    "image": null,
+    "image": "/images/store/samsung/samsung-galaxy-s26-ultra-1-720.webp",
     "keywords": [
       "Samsung Galaxy S26 Ultra",
       "Samsung",
@@ -741,7 +720,7 @@
       "256GB · 12GB RAM"
     ],
     "price": 1140000,
-    "image": null,
+    "image": "/images/store/samsung/samsung-galaxy-s26-plus-1-720.webp",
     "keywords": [
       "Samsung Galaxy S26 Plus",
       "Samsung",
@@ -765,7 +744,7 @@
       "512GB · 12GB RAM"
     ],
     "price": 1040000,
-    "image": null,
+    "image": "/images/store/samsung/samsung-galaxy-s26-1-720.webp",
     "keywords": [
       "Samsung Galaxy S26",
       "Samsung",
@@ -790,7 +769,7 @@
       "1TB"
     ],
     "price": 1740000,
-    "image": null,
+    "image": "/images/store/samsung/samsung-galaxy-s25-ultra-1-720.webp",
     "keywords": [
       "Samsung Galaxy S25 Ultra",
       "Samsung",
@@ -808,21 +787,327 @@
   },
   {
     "type": "product",
-    "label": "Samsung Galaxy S25 Plus",
-    "route": "/samsung-s25-plus",
+    "label": "Samsung Galaxy S25",
+    "route": "/samsung-s25",
+    "brand": "Samsung",
+    "storage": [
+      "256GB · 8GB RAM"
+    ],
+    "price": 840000,
+    "image": "/images/store/samsung/samsung-galaxy-s25-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S25",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S25 256GB · 8GB RAM",
+      "256GB · 8GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S24 Ultra",
+    "route": "/samsung-s24-ultra",
+    "brand": "Samsung",
+    "storage": [
+      "512GB",
+      "256GB"
+    ],
+    "price": 895000,
+    "image": "/images/store/samsung/samsung-galaxy-s24-ultra-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S24 Ultra",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S24 Ultra 512GB",
+      "Samsung Galaxy S24 Ultra 256GB",
+      "512GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S23 Ultra",
+    "route": "/samsung-s23-ultra",
+    "brand": "Samsung",
+    "storage": [
+      "512GB",
+      "256GB"
+    ],
+    "price": 700000,
+    "image": "/images/store/samsung/samsung-galaxy-s23-ultra-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S23 Ultra",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S23 Ultra 512GB",
+      "Samsung Galaxy S23 Ultra 256GB",
+      "512GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S22 Ultra",
+    "route": "/samsung-s22-ultra",
+    "brand": "Samsung",
+    "storage": [
+      "256GB",
+      "128GB"
+    ],
+    "price": 500000,
+    "image": "/images/store/samsung/samsung-galaxy-s22-ultra-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S22 Ultra",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S22 Ultra 256GB",
+      "Samsung Galaxy S22 Ultra 128GB",
+      "256GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S22 Plus",
+    "route": "/samsung-s22-plus",
+    "brand": "Samsung",
+    "storage": [
+      "256GB",
+      "128GB"
+    ],
+    "price": 360000,
+    "image": "/images/store/samsung/samsung-galaxy-s22-plus-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S22 Plus",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S22 Plus 256GB",
+      "Samsung Galaxy S22 Plus 128GB",
+      "256GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S22",
+    "route": "/samsung-s22",
+    "brand": "Samsung",
+    "storage": [
+      "Standard"
+    ],
+    "price": 330000,
+    "image": "/images/store/samsung/samsung-galaxy-s22-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S22",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S22 Standard",
+      "Standard",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S21 Ultra",
+    "route": "/samsung-s21-ultra",
+    "brand": "Samsung",
+    "storage": [
+      "256GB",
+      "128GB"
+    ],
+    "price": 420000,
+    "image": "/images/store/samsung/samsung-galaxy-s21-ultra-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S21 Ultra",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S21 Ultra 256GB",
+      "Samsung Galaxy S21 Ultra 128GB",
+      "256GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S21 Plus",
+    "route": "/samsung-s21-plus",
+    "brand": "Samsung",
+    "storage": [
+      "256GB",
+      "128GB"
+    ],
+    "price": 315000,
+    "image": "/images/store/samsung/samsung-galaxy-s21-plus-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S21 Plus",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S21 Plus 256GB",
+      "Samsung Galaxy S21 Plus 128GB",
+      "256GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S21",
+    "route": "/samsung-s21",
+    "brand": "Samsung",
+    "storage": [
+      "Standard"
+    ],
+    "price": 245000,
+    "image": "/images/store/samsung/samsung-galaxy-s21-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S21",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S21 Standard",
+      "Standard",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy Z Fold 7",
+    "route": "/samsung-z-fold-7",
+    "brand": "Samsung",
+    "storage": [
+      "1TB",
+      "512GB · Black",
+      "256GB"
+    ],
+    "price": 1670000,
+    "image": "/images/store/samsung/samsung-galaxy-z-fold-7-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy Z Fold 7",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy Z Fold 7 1TB",
+      "Samsung Galaxy Z Fold 7 512GB · Black",
+      "Samsung Galaxy Z Fold 7 256GB",
+      "1TB",
+      "512GB · Black",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy Z Fold 6",
+    "route": "/samsung-z-fold-6",
+    "brand": "Samsung",
+    "storage": [
+      "1TB",
+      "512GB",
+      "256GB"
+    ],
+    "price": 1440000,
+    "image": "/images/store/samsung/samsung-galaxy-z-fold-6-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy Z Fold 6",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy Z Fold 6 1TB",
+      "Samsung Galaxy Z Fold 6 512GB",
+      "Samsung Galaxy Z Fold 6 256GB",
+      "1TB",
+      "512GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy Z Fold 6",
+    "route": "/samsung-z-fold-6-confirm-condition",
+    "brand": "Samsung",
+    "storage": [
+      "256GB"
+    ],
+    "price": 1060000,
+    "image": "/images/store/samsung/samsung-galaxy-z-fold-6-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy Z Fold 6",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy Z Fold 6 256GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy Z Flip 7",
+    "route": "/samsung-z-flip-7",
+    "brand": "Samsung",
+    "storage": [
+      "512GB",
+      "256GB"
+    ],
+    "price": 1220000,
+    "image": "/images/store/samsung/samsung-galaxy-z-flip-7-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy Z Flip 7",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy Z Flip 7 512GB",
+      "Samsung Galaxy Z Flip 7 256GB",
+      "512GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy Z Flip 6",
+    "route": "/samsung-z-flip-6",
     "brand": "Samsung",
     "storage": [
       "256GB",
       "512GB"
     ],
-    "price": null,
-    "image": null,
+    "price": 870000,
+    "image": "/images/store/samsung/samsung-galaxy-z-flip-6-1-720.webp",
     "keywords": [
-      "Samsung Galaxy S25 Plus",
+      "Samsung Galaxy Z Flip 6",
       "Samsung",
       "Galaxy",
-      "Samsung Galaxy S25 Plus 256GB",
-      "Samsung Galaxy S25 Plus 512GB",
+      "Samsung Galaxy Z Flip 6 256GB",
+      "Samsung Galaxy Z Flip 6 512GB",
       "256GB",
       "512GB",
       "price in Nigeria",
@@ -832,20 +1117,416 @@
   },
   {
     "type": "product",
-    "label": "Samsung Galaxy S25",
-    "route": "/samsung-s25",
+    "label": "Samsung Galaxy Z Flip 6",
+    "route": "/samsung-z-flip-6-confirm-condition",
     "brand": "Samsung",
     "storage": [
-      "256GB · 8GB RAM"
+      "256GB"
     ],
-    "price": 840000,
-    "image": null,
+    "price": 530000,
+    "image": "/images/store/samsung/samsung-galaxy-z-flip-6-1-720.webp",
     "keywords": [
-      "Samsung Galaxy S25",
+      "Samsung Galaxy Z Flip 6",
       "Samsung",
       "Galaxy",
-      "Samsung Galaxy S25 256GB · 8GB RAM",
+      "Samsung Galaxy Z Flip 6 256GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A07",
+    "route": "/samsung-a07",
+    "brand": "Samsung",
+    "storage": [
+      "128GB · 4GB RAM"
+    ],
+    "price": 240000,
+    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A07",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A07 128GB · 4GB RAM",
+      "128GB · 4GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A07",
+    "route": "/samsung-a07-open-box",
+    "brand": "Samsung",
+    "storage": [
+      "Standard"
+    ],
+    "price": 170000,
+    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A07",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A07 Standard",
+      "Standard",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A07",
+    "route": "/samsung-a07-uk-used",
+    "brand": "Samsung",
+    "storage": [
+      "Standard"
+    ],
+    "price": 160000,
+    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A07",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A07 Standard",
+      "Standard",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A17",
+    "route": "/samsung-a17",
+    "brand": "Samsung",
+    "storage": [
+      "128GB · 4GB RAM",
+      "128GB · 4GB RAM 5G",
+      "256GB · 6GB RAM 5G",
+      "128GB · 6GB RAM",
+      "256GB · 8GB RAM"
+    ],
+    "price": 270000,
+    "image": "/images/store/samsung/samsung-galaxy-a17-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A17",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A17 128GB · 4GB RAM",
+      "Samsung Galaxy A17 128GB · 4GB RAM 5G",
+      "Samsung Galaxy A17 256GB · 6GB RAM 5G",
+      "Samsung Galaxy A17 128GB · 6GB RAM",
+      "Samsung Galaxy A17 256GB · 8GB RAM",
+      "128GB · 4GB RAM",
+      "128GB · 4GB RAM 5G",
+      "256GB · 6GB RAM 5G",
+      "128GB · 6GB RAM",
       "256GB · 8GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A37",
+    "route": "/samsung-a37",
+    "brand": "Samsung",
+    "storage": [
+      "128GB · 6GB RAM",
+      "256GB · 8GB RAM"
+    ],
+    "price": 420000,
+    "image": "/images/store/samsung/samsung-galaxy-a37-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A37",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A37 128GB · 6GB RAM",
+      "Samsung Galaxy A37 256GB · 8GB RAM",
+      "128GB · 6GB RAM",
+      "256GB · 8GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A57",
+    "route": "/samsung-a57",
+    "brand": "Samsung",
+    "storage": [
+      "128GB · 8GB RAM",
+      "256GB · 8GB RAM"
+    ],
+    "price": 490000,
+    "image": "/images/store/samsung/samsung-galaxy-a57-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A57",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A57 128GB · 8GB RAM",
+      "Samsung Galaxy A57 256GB · 8GB RAM",
+      "128GB · 8GB RAM",
+      "256GB · 8GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A06",
+    "route": "/samsung-a06",
+    "brand": "Samsung",
+    "storage": [
+      "64GB · 4GB RAM",
+      "128GB · 4GB RAM"
+    ],
+    "price": 210000,
+    "image": "/images/store/samsung/samsung-galaxy-a06-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A06",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A06 64GB · 4GB RAM",
+      "Samsung Galaxy A06 128GB · 4GB RAM",
+      "64GB · 4GB RAM",
+      "128GB · 4GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A16",
+    "route": "/samsung-a16",
+    "brand": "Samsung",
+    "storage": [
+      "128GB · 4GB RAM",
+      "128GB · 6GB RAM",
+      "256GB · 8GB RAM"
+    ],
+    "price": 240000,
+    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A16",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A16 128GB · 4GB RAM",
+      "Samsung Galaxy A16 128GB · 6GB RAM",
+      "Samsung Galaxy A16 256GB · 8GB RAM",
+      "128GB · 4GB RAM",
+      "128GB · 6GB RAM",
+      "256GB · 8GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A16",
+    "route": "/samsung-a16-open-box",
+    "brand": "Samsung",
+    "storage": [
+      "Standard"
+    ],
+    "price": 190000,
+    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A16",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A16 Standard",
+      "Standard",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A16",
+    "route": "/samsung-a16-uk-used",
+    "brand": "Samsung",
+    "storage": [
+      "Standard"
+    ],
+    "price": 175000,
+    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A16",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A16 Standard",
+      "Standard",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A26",
+    "route": "/samsung-a26",
+    "brand": "Samsung",
+    "storage": [
+      "128GB · 6GB RAM",
+      "256GB · 6GB RAM"
+    ],
+    "price": 350000,
+    "image": "/images/store/samsung/samsung-galaxy-a26-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A26",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A26 128GB · 6GB RAM",
+      "Samsung Galaxy A26 256GB · 6GB RAM",
+      "128GB · 6GB RAM",
+      "256GB · 6GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A36",
+    "route": "/samsung-a36",
+    "brand": "Samsung",
+    "storage": [
+      "128GB · 8GB RAM",
+      "256GB · 8GB RAM"
+    ],
+    "price": 410000,
+    "image": "/images/store/samsung/samsung-galaxy-a36-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A36",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A36 128GB · 8GB RAM",
+      "Samsung Galaxy A36 256GB · 8GB RAM",
+      "128GB · 8GB RAM",
+      "256GB · 8GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy A56",
+    "route": "/samsung-a56",
+    "brand": "Samsung",
+    "storage": [
+      "128GB · 8GB RAM",
+      "256GB · 8GB RAM"
+    ],
+    "price": 490000,
+    "image": "/images/store/samsung/samsung-galaxy-a56-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy A56",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy A56 128GB · 8GB RAM",
+      "Samsung Galaxy A56 256GB · 8GB RAM",
+      "128GB · 8GB RAM",
+      "256GB · 8GB RAM",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy Z Fold 5",
+    "route": "/samsung-z-fold-5",
+    "brand": "Samsung",
+    "storage": [
+      "256GB"
+    ],
+    "price": 750000,
+    "image": "/images/store/samsung/samsung-galaxy-z-fold-5-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy Z Fold 5",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy Z Fold 5 256GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy Z Flip 4",
+    "route": "/samsung-z-flip-4",
+    "brand": "Samsung",
+    "storage": [
+      "256GB"
+    ],
+    "price": 360000,
+    "image": "/images/store/samsung/samsung-galaxy-z-flip-4-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy Z Flip 4",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy Z Flip 4 256GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "iPhone 15 Pro",
+    "route": "/iphone-15-pro-uk-used",
+    "brand": "Apple",
+    "storage": [
+      "256GB"
+    ],
+    "price": null,
+    "image": "/images/store/15pro-1-720.webp",
+    "keywords": [
+      "iPhone 15 Pro",
+      "Apple",
+      "iPhone",
+      "iPhone 15 Pro 256GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S25 Plus",
+    "route": "/samsung-s25-plus",
+    "brand": "Samsung",
+    "storage": [
+      "256GB",
+      "512GB"
+    ],
+    "price": null,
+    "image": "/images/store/samsung/samsung-galaxy-s25-plus-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S25 Plus",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S25 Plus 256GB",
+      "Samsung Galaxy S25 Plus 512GB",
+      "256GB",
+      "512GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -898,30 +1579,6 @@
   },
   {
     "type": "product",
-    "label": "Samsung Galaxy S24 Ultra",
-    "route": "/samsung-s24-ultra",
-    "brand": "Samsung",
-    "storage": [
-      "512GB",
-      "256GB"
-    ],
-    "price": 895000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S24 Ultra",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S24 Ultra 512GB",
-      "Samsung Galaxy S24 Ultra 256GB",
-      "512GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
     "label": "Samsung Galaxy S24 Plus",
     "route": "/samsung-s24-plus",
     "brand": "Samsung",
@@ -935,30 +1592,6 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy S24 Plus 256GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S23 Ultra",
-    "route": "/samsung-s23-ultra",
-    "brand": "Samsung",
-    "storage": [
-      "512GB",
-      "256GB"
-    ],
-    "price": 700000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S23 Ultra",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S23 Ultra 512GB",
-      "Samsung Galaxy S23 Ultra 256GB",
-      "512GB",
       "256GB",
       "price in Nigeria",
       "Easy Buy",
@@ -996,7 +1629,7 @@
       "128GB"
     ],
     "price": null,
-    "image": null,
+    "image": "/images/store/samsung/samsung-galaxy-s23-1-720.webp",
     "keywords": [
       "Samsung Galaxy S23",
       "Samsung",
@@ -1005,144 +1638,6 @@
       "Samsung Galaxy S23 128GB",
       "256GB",
       "128GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S22 Ultra",
-    "route": "/samsung-s22-ultra",
-    "brand": "Samsung",
-    "storage": [
-      "256GB",
-      "128GB"
-    ],
-    "price": 500000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S22 Ultra",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S22 Ultra 256GB",
-      "Samsung Galaxy S22 Ultra 128GB",
-      "256GB",
-      "128GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S22 Plus",
-    "route": "/samsung-s22-plus",
-    "brand": "Samsung",
-    "storage": [
-      "256GB",
-      "128GB"
-    ],
-    "price": 360000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S22 Plus",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S22 Plus 256GB",
-      "Samsung Galaxy S22 Plus 128GB",
-      "256GB",
-      "128GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S22",
-    "route": "/samsung-s22",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
-    ],
-    "price": 330000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S22",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S22 Standard",
-      "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S21 Ultra",
-    "route": "/samsung-s21-ultra",
-    "brand": "Samsung",
-    "storage": [
-      "256GB",
-      "128GB"
-    ],
-    "price": 420000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S21 Ultra",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S21 Ultra 256GB",
-      "Samsung Galaxy S21 Ultra 128GB",
-      "256GB",
-      "128GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S21 Plus",
-    "route": "/samsung-s21-plus",
-    "brand": "Samsung",
-    "storage": [
-      "256GB",
-      "128GB"
-    ],
-    "price": 315000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S21 Plus",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S21 Plus 256GB",
-      "Samsung Galaxy S21 Plus 128GB",
-      "256GB",
-      "128GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S21",
-    "route": "/samsung-s21",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
-    ],
-    "price": 245000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S21",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S21 Standard",
-      "Standard",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -1238,253 +1733,13 @@
       "512GB · 16GB RAM RAM · Dual SIM"
     ],
     "price": null,
-    "image": null,
+    "image": "/images/store/samsung/samsung-galaxy-z-trifold-1-720.webp",
     "keywords": [
       "Samsung Galaxy Z TriFold",
       "Samsung",
       "Galaxy",
       "Samsung Galaxy Z TriFold 512GB · 16GB RAM RAM · Dual SIM",
       "512GB · 16GB RAM RAM · Dual SIM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Fold 7",
-    "route": "/samsung-z-fold-7",
-    "brand": "Samsung",
-    "storage": [
-      "1TB",
-      "512GB · Black",
-      "256GB"
-    ],
-    "price": 1670000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Z Fold 7",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Fold 7 1TB",
-      "Samsung Galaxy Z Fold 7 512GB · Black",
-      "Samsung Galaxy Z Fold 7 256GB",
-      "1TB",
-      "512GB · Black",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Fold 6",
-    "route": "/samsung-z-fold-6",
-    "brand": "Samsung",
-    "storage": [
-      "1TB",
-      "512GB",
-      "256GB"
-    ],
-    "price": 1440000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Z Fold 6",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Fold 6 1TB",
-      "Samsung Galaxy Z Fold 6 512GB",
-      "Samsung Galaxy Z Fold 6 256GB",
-      "1TB",
-      "512GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Fold 6",
-    "route": "/samsung-z-fold-6-confirm-condition",
-    "brand": "Samsung",
-    "storage": [
-      "256GB"
-    ],
-    "price": 1060000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Z Fold 6",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Fold 6 256GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Flip 7",
-    "route": "/samsung-z-flip-7",
-    "brand": "Samsung",
-    "storage": [
-      "512GB",
-      "256GB"
-    ],
-    "price": 1220000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Z Flip 7",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Flip 7 512GB",
-      "Samsung Galaxy Z Flip 7 256GB",
-      "512GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Flip 6",
-    "route": "/samsung-z-flip-6",
-    "brand": "Samsung",
-    "storage": [
-      "256GB",
-      "512GB"
-    ],
-    "price": 870000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Z Flip 6",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Flip 6 256GB",
-      "Samsung Galaxy Z Flip 6 512GB",
-      "256GB",
-      "512GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Flip 6",
-    "route": "/samsung-z-flip-6-confirm-condition",
-    "brand": "Samsung",
-    "storage": [
-      "256GB"
-    ],
-    "price": 530000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Z Flip 6",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Flip 6 256GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A07",
-    "route": "/samsung-a07",
-    "brand": "Samsung",
-    "storage": [
-      "128GB · 4GB RAM"
-    ],
-    "price": 240000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A07",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A07 128GB · 4GB RAM",
-      "128GB · 4GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A07",
-    "route": "/samsung-a07-open-box",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
-    ],
-    "price": 170000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A07",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A07 Standard",
-      "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A07",
-    "route": "/samsung-a07-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
-    ],
-    "price": 160000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A07",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A07 Standard",
-      "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A17",
-    "route": "/samsung-a17",
-    "brand": "Samsung",
-    "storage": [
-      "128GB · 4GB RAM",
-      "128GB · 4GB RAM 5G",
-      "256GB · 6GB RAM 5G",
-      "128GB · 6GB RAM",
-      "256GB · 8GB RAM"
-    ],
-    "price": 270000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A17",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A17 128GB · 4GB RAM",
-      "Samsung Galaxy A17 128GB · 4GB RAM 5G",
-      "Samsung Galaxy A17 256GB · 6GB RAM 5G",
-      "Samsung Galaxy A17 128GB · 6GB RAM",
-      "Samsung Galaxy A17 256GB · 8GB RAM",
-      "128GB · 4GB RAM",
-      "128GB · 4GB RAM 5G",
-      "256GB · 6GB RAM 5G",
-      "128GB · 6GB RAM",
-      "256GB · 8GB RAM",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -1509,240 +1764,6 @@
       "Samsung Galaxy A27 128GB · 6GB RAM",
       "256GB · 6GB RAM",
       "128GB · 6GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A37",
-    "route": "/samsung-a37",
-    "brand": "Samsung",
-    "storage": [
-      "128GB · 6GB RAM",
-      "256GB · 8GB RAM"
-    ],
-    "price": 420000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A37",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A37 128GB · 6GB RAM",
-      "Samsung Galaxy A37 256GB · 8GB RAM",
-      "128GB · 6GB RAM",
-      "256GB · 8GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A57",
-    "route": "/samsung-a57",
-    "brand": "Samsung",
-    "storage": [
-      "128GB · 8GB RAM",
-      "256GB · 8GB RAM"
-    ],
-    "price": 490000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A57",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A57 128GB · 8GB RAM",
-      "Samsung Galaxy A57 256GB · 8GB RAM",
-      "128GB · 8GB RAM",
-      "256GB · 8GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A06",
-    "route": "/samsung-a06",
-    "brand": "Samsung",
-    "storage": [
-      "64GB · 4GB RAM",
-      "128GB · 4GB RAM"
-    ],
-    "price": 210000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A06",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A06 64GB · 4GB RAM",
-      "Samsung Galaxy A06 128GB · 4GB RAM",
-      "64GB · 4GB RAM",
-      "128GB · 4GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A16",
-    "route": "/samsung-a16",
-    "brand": "Samsung",
-    "storage": [
-      "128GB · 4GB RAM",
-      "128GB · 6GB RAM",
-      "256GB · 8GB RAM"
-    ],
-    "price": 240000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A16",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A16 128GB · 4GB RAM",
-      "Samsung Galaxy A16 128GB · 6GB RAM",
-      "Samsung Galaxy A16 256GB · 8GB RAM",
-      "128GB · 4GB RAM",
-      "128GB · 6GB RAM",
-      "256GB · 8GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A16",
-    "route": "/samsung-a16-open-box",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
-    ],
-    "price": 190000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A16",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A16 Standard",
-      "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A16",
-    "route": "/samsung-a16-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
-    ],
-    "price": 175000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A16",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A16 Standard",
-      "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A26",
-    "route": "/samsung-a26",
-    "brand": "Samsung",
-    "storage": [
-      "128GB · 6GB RAM",
-      "256GB · 6GB RAM"
-    ],
-    "price": 350000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A26",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A26 128GB · 6GB RAM",
-      "Samsung Galaxy A26 256GB · 6GB RAM",
-      "128GB · 6GB RAM",
-      "256GB · 6GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A36",
-    "route": "/samsung-a36",
-    "brand": "Samsung",
-    "storage": [
-      "128GB · 8GB RAM",
-      "256GB · 8GB RAM"
-    ],
-    "price": 410000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A36",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A36 128GB · 8GB RAM",
-      "Samsung Galaxy A36 256GB · 8GB RAM",
-      "128GB · 8GB RAM",
-      "256GB · 8GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A56",
-    "route": "/samsung-a56",
-    "brand": "Samsung",
-    "storage": [
-      "128GB · 8GB RAM",
-      "256GB · 8GB RAM"
-    ],
-    "price": 490000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A56",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A56 128GB · 8GB RAM",
-      "Samsung Galaxy A56 256GB · 8GB RAM",
-      "128GB · 8GB RAM",
-      "256GB · 8GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Fold 5",
-    "route": "/samsung-z-fold-5",
-    "brand": "Samsung",
-    "storage": [
-      "256GB"
-    ],
-    "price": 750000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Z Fold 5",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Fold 5 256GB",
-      "256GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -1784,27 +1805,6 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy Z Fold 3 256GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Flip 4",
-    "route": "/samsung-z-flip-4",
-    "brand": "Samsung",
-    "storage": [
-      "256GB"
-    ],
-    "price": 360000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Z Flip 4",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Flip 4 256GB",
       "256GB",
       "price in Nigeria",
       "Easy Buy",
