@@ -26,17 +26,18 @@ test('iPhone 11–15 pages label UK Used without a selector; later models expose
   assert.equal(selectedCondition(product,'Brand New'),'UK Used');
   const dom=new JSDOM(await readFile(`${product.slug}/index.html`,'utf8'));
   assert.equal(dom.window.document.querySelector('[data-condition-select]'),null);
-  assert.equal(dom.window.document.querySelector('.condition-badge')?.textContent,'UK Used');
+  const family=JSON.parse(dom.window.document.getElementById('discovery-family').textContent);
+  assert.ok(family.variants.filter(v=>v.slug===slug).every(v=>v.condition==='UK Used'));
   assert.doesNotMatch(dom.window.document.querySelector('.condition-panel').textContent,/Brand New/);
   dom.window.close();
  }
  const sixteen=new JSDOM(await readFile('iphone-16/index.html','utf8'));
  assert.equal(sixteen.window.document.querySelector('[data-condition-select]'),null);
- assert.match(sixteen.window.document.querySelector('.condition-badge').textContent,/Brand New/);
+ assert.match(sixteen.window.document.getElementById('discovery-family').textContent,/Brand New/);
  sixteen.window.close();
  const eighteen=new JSDOM(await readFile('iphone-18-pro/index.html','utf8'));
  assert.equal(eighteen.window.document.querySelector('[data-condition-select]'),null);
- assert.match(eighteen.window.document.querySelector('.condition-badge').textContent,/Brand New/);
+ assert.match(eighteen.window.document.getElementById('discovery-family').textContent,/Brand New/);
  eighteen.window.close();
 });
 

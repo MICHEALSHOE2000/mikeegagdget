@@ -61,12 +61,12 @@ test('cards and category pages show current non-phone products and Confirm Price
  for(const category of ['tablets','watches','airpods','audio','accessories']){
   const page=await readFile(`shop/${category}/index.html`,'utf8');
   assert.match(page,/CURRENT CATALOGUE/);
-  assert.match(page,/VIEW OPTIONS/);
+  assert.match(page,/View Options/i);
  }
  const tablet=await readFile('shop/tablets/index.html','utf8');
  assert.match(tablet,/Samsung Galaxy Tab A11/);
  const samsung=await readFile('samsung-s23/index.html','utf8');
- assert.match(samsung,/Confirm Price/);
+ assert.match(samsung,/Confirm Price/i);
  const store=await readFile('assets/store-catalog.json','utf8');
  assert.doesNotMatch(store,/revenes\.com|\/images\/pixel\//i);
 });

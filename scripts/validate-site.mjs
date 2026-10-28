@@ -129,8 +129,9 @@ for (const product of products) {
   assert(html.includes(`data-action="easyBuy"`), `${product.slug}: Easy Buy purchase path is missing.`);
   assert(html.includes(`data-action="swap"`), `${product.slug}: swap enquiry path is missing.`);
   assert(html.includes(`wa.me/${commerceSite.whatsappNumber}?text=`), `${product.slug}: prefilled WhatsApp link is missing.`);
-  assert(count(html, /data-storage="/g) === product.variants.length, `${product.slug}: rendered storage selector does not match product data.`);
-  assert(count(html, /data-variant-card="/g) === product.variants.length, `${product.slug}: rendered variant cards do not match product data.`);
+  const family = JSON.parse(html.match(/<script type="application\/json" id="discovery-family">([\s\S]*?)<\/script>/)?.[1] || '{}');
+  assert(product.variants.every(v=>family.variants?.some(o=>o.legacyId===`${product.slug}|${v.storage}`&&o.price===v.price)), `${product.slug}: normalized selector lost a supplied offer or price.`);
+  assert(html.includes('data-option-fields') && html.includes('data-offer-actions'), `${product.slug}: variant selector controls missing.`);
   assert(count(html, /<details class="product-faq"/g) === 7, `${product.slug}: expected seven product FAQs.`);
   assert(!html.includes("InStock"), `${product.slug}: schema must not invent a stock availability claim.`);
   assert(!html.includes("aggregateRating"), `${product.slug}: page must not invent product reviews or ratings.`);
