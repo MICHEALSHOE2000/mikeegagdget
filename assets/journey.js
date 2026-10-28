@@ -260,7 +260,7 @@ if(root){
   const entries=[
    ['Phone',phone.model],
    ['Storage',phone.storage],
-   ['Condition',condition()],
+   ['Condition',condition()],['SIM',phone.sim||'Other / Unconfirmed'],['Network',phone.network||'Unconfirmed'],
    ...(colour?[['Colour',colour]]:[]),
    ['Phone price',money(phone.price)],
    ['Minimum deposit required',money(plan.minimumDeposit)],
@@ -415,8 +415,8 @@ if(root){
     'I want to swap my phone.',
     `New phone: ${phone.label}`,
     `New phone price: ${money(phone.price)}${phone.offerId?' (Hot Deal)':''}`,
-    `Preferred condition: ${condition()}`,
-    `Preferred colour: ${query.get('color')||'Please confirm'}`,
+    `Preferred condition: ${condition()}`,`SIM: ${phone.sim||'Other / Unconfirmed'}`,`Network: ${phone.network||'Unconfirmed'}`,
+    `Preferred colour: ${phone.color?.split('/').map(c=>c.trim()).includes(query.get('color'))?query.get('color'):'Please confirm'}`,
     `Current phone: ${current().label}`,
     ...questions().map(item=>`${item.label} ${state.answers[item.key]!==Boolean(item.invert)?'Yes':'No'}`)
    ];

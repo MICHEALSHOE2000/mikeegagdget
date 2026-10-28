@@ -1,8 +1,5 @@
-// Only advertise condition choices actually recorded for the model. Older
-// iPhones are sold as UK Used, regardless of legacy catalogue labels.
+// Only advertise the recorded condition; age does not establish condition.
 export function availableConditions(slug, recorded = []) {
-  const series = Number(slug?.match(/^iphone-(\d+)(?:-|$)/)?.[1]);
-  if (slug?.startsWith('iphone-') && (!series || series <= 15)) return ['UK Used'];
   return [...new Set(recorded)];
 }
 

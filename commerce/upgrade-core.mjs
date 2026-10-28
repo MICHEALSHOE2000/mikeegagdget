@@ -1,3 +1,6 @@
+import {retailInventory} from './retail-inventory.mjs';
+import {normalizeOffer} from './discovery.mjs';
+const normalizedOffers=new Map(retailInventory.flatMap(item=>item.variants.map(v=>{const offer=normalizeOffer(item,v);return [offer.legacyId,offer];})));
 import { calculateSwapValue, calculateOutstandingBalance } from './pricing.mjs';
 import { products } from './catalog.mjs';
 import { tradeInReferences } from './trade-in-reference.mjs';
@@ -6,16 +9,18 @@ import { FINANCE_PLATFORMS, FINANCE_DURATIONS, calculatePlan } from '../easy-buy
 export { FINANCE_PLATFORMS, FINANCE_DURATIONS };
 export const money = value => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(value);
 const saleChoices = products.flatMap(product => product.variants.map(variant => ({
+  ...normalizedOffers.get(`${product.slug}|${variant.storage}`),
   id: `${product.slug}|${variant.storage}`, slug: product.slug, model: product.model,
   storage: variant.storage, swapReferencePrice: Number.isFinite(variant.price) ? variant.price : null,
-  color: variant.color, availability:variant.availability, category:product.family, price: variant.priceNeedsExtraConfirmation ? null : variant.price,
-  image: product.images[0] || '', brand: product.brand, forSale: true,
+  color: variant.color, availability:normalizedOffers.get(`${product.slug}|${variant.storage}`)?.availability || variant.availability, category:product.family, price: variant.priceNeedsExtraConfirmation ? null : variant.price,
+  image: normalizedOffers.get(`${product.slug}|${variant.storage}`)?.image || product.images[0] || '', brand: product.brand, forSale: true,
   hasFaceId: product.brand === 'Apple' && !/^iphone-(6|7|8|se)/.test(product.slug),
   hasGlassBack: product.brand === 'Apple' && !/^iphone-(6|7)/.test(product.slug),
-  label: `${product.model} · ${variant.storage}`, finance: product.easyBuyEligible === true, conditions:product.conditions
+  label: `${product.model} · ${variant.storage}`, finance: product.easyBuyEligible === true, conditions:[normalizedOffers.get(`${product.slug}|${variant.storage}`)?.condition || product.conditions[0]]
 })));
 const saleIds = new Set(saleChoices.map(phone=>phone.id));
 const legacySwapChoices = tradeInReferences.flatMap(product=>product.variants.map(variant=>({
+  ...normalizedOffers.get(`${product.slug}|${variant.storage}`),
   id: `${product.slug}|${variant.storage}`, slug:product.slug, model:product.model,
   storage:variant.storage, swapReferencePrice:variant.swapReferencePrice,
   color:null, availability:'Trade-in reference only; final value follows inspection',

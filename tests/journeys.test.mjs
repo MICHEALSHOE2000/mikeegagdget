@@ -103,21 +103,21 @@ test('Homepage instant search, empty search and image fallback stay usable',asyn
  value('homePhoneSearch','zzzz-no-device','input');await turn();assert.match(document.getElementById('searchResults').textContent,/No match/);
  value('homePhoneSearch','Samsung','input');await turn();assert.match(document.getElementById('searchResults').textContent,/Samsung/);assert.match(document.querySelector('#searchResults a').href,/samsung-/);
  const img=document.querySelector('.device-media img');event(img,'error');assert.ok(img.closest('.device-media').classList.contains('is-missing'));
- value('searchInput','zzzz-no-device','input');await turn();assert.match(document.getElementById('productGrid').textContent,/No devices match/);document.getElementById('clearEmpty').click();await turn();await turn();assert.ok(document.querySelectorAll('#productGrid .store-phone').length>0);dom.window.close();
+ value('searchInput','zzzz-no-device','input');await turn();assert.match(document.getElementById('productGrid').textContent,/No matching devices/);document.querySelector('[data-clear-filters]').click();await turn();await turn();assert.ok(document.querySelectorAll('#productGrid .store-phone').length>0);dom.window.close();
 });
 test('Product storage selection carries its final price, condition and colour into all purchase paths',async()=>{
  const dom=await setup('iphone-14-pro-max/index.html','/iphone-14-pro-max?utm_source=meta');await import(`../assets/commerce.js?test=${++serial}`);
- document.querySelector('[data-storage="256GB"]').click();const id='iphone-14-pro-max|256GB',phone=offerChoice(choices.find(p=>p.id===id));
+ document.querySelector('[name=storage]').value='256GB';event(document.querySelector('[name=storage]'),'change');const id='iphone-14-pro-max|256GB',phone=offerChoice(choices.find(p=>p.id===id));
  const buy=document.querySelector('[data-action="buy"]'),easy=document.querySelector('[data-action="easyBuy"]'),swap=document.querySelector('[data-action="swap"]');
  assert.equal(new URL(buy.href).pathname,'/buy/');assert.equal(new URL(buy.href).searchParams.get('phone'),id);assert.equal(new URL(easy.href).pathname,'/easybuy/');assert.equal(new URL(easy.href).searchParams.get('phone'),id);assert.equal(new URL(swap.href).searchParams.get('target'),id);
  assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.storage==='256GB'&&e.value===phone.price));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='ViewContent'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='CustomizeProduct'));
- assert.equal(document.querySelector('[data-storage="256GB"]').getAttribute('aria-pressed'),'true');assert.match(document.querySelector('[data-storage="256GB"]').textContent,new RegExp(phone.price.toLocaleString('en-NG')));
+ assert.equal(document.querySelector('[name=storage]').value,'256GB');assert.match(document.querySelector('[data-offer-summary]').textContent,new RegExp(phone.price.toLocaleString('en-NG')));
  buy.addEventListener('click',event=>event.preventDefault(),{once:true});event(buy,'click');assert.equal(new URL(buy.href).searchParams.get('text'),null);assert.equal(window.ttq.filter(e=>e[0]==='track'&&e[1]==='Contact').length,0);dom.window.close();
 });
 test('iPhone 16 without recorded condition variants has no selector; older models stay UK Used',async()=>{
  const sixteen=await setup('iphone-16/index.html','/iphone-16/');await import(`../assets/commerce.js?test=${++serial}`);
  assert.equal(document.querySelector('[data-condition-select]'),null);
- assert.match(document.querySelector('.condition-badge').textContent,/Brand New/);
+ assert.match(document.querySelector('[name=condition]').value,/Brand New/);
  const easyUrl=new URL(document.querySelector('[data-action="easyBuy"]').href);
  sixteen.window.close();
  const easy=await setup('easybuy/index.html',`${easyUrl.pathname}${easyUrl.search}`);await import(`../assets/journey.js?test=${++serial}`);
@@ -187,14 +187,14 @@ test('Buy Outright order flow sends its selection without attribution',async()=>
 });
 test('new colour groups cannot send a Burgundy quote at the Silver/Blue price',async()=>{
  const dom=await setup('iphone-18-pro-max/index.html','/iphone-18-pro-max');await import(`../assets/commerce.js?test=${++serial}`);
- document.querySelector('[data-storage="512GB · Burgundy"]').click();
- assert.equal(document.querySelector('[data-color-select]').value,'Burgundy');
+ document.querySelector('[name=storage]').value='512GB';event(document.querySelector('[name=storage]'),'change');
+ assert.equal(document.querySelector('[name=colour]').value,'Burgundy');
  let href=document.querySelector('[data-action="buy"]').href;
  assert.equal(new URL(href).searchParams.get('phone'),'iphone-18-pro-max|512GB · Burgundy');
  assert.equal(new URL(href).searchParams.get('color'),'Burgundy');
- document.querySelector('[data-storage="256GB · Silver\/Blue"]').click();
- assert.deepEqual([...document.querySelector('[data-color-select]').options].map(o=>o.value),['Silver','Blue']);
- document.querySelector('[data-color-select]').value='Blue';event(document.querySelector('[data-color-select]'),'change');
+ document.querySelector('[name=storage]').value='256GB';event(document.querySelector('[name=storage]'),'change');
+ assert.ok([...document.querySelector('[name=colour]').options].some(o=>o.value==='Blue'));
+ document.querySelector('[name=colour]').value='Blue';event(document.querySelector('[name=colour]'),'change');
  href=document.querySelector('[data-action="buy"]').href;
  assert.equal(new URL(href).searchParams.get('phone'),'iphone-18-pro-max|256GB · Silver/Blue');assert.equal(new URL(href).searchParams.get('color'),'Blue');
  dom.window.close();

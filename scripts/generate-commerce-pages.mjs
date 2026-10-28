@@ -1,3 +1,7 @@
+import {retailInventory} from '../commerce/retail-inventory.mjs';
+import {buildFamilies} from '../commerce/discovery.mjs';
+import {familyCard,selectionPanel} from '../assets/discovery-ui.mjs';
+const families=buildFamilies(retailInventory);
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -424,7 +428,7 @@ const renderProductPage = (product) => {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/media.css"><link rel="stylesheet" href="/assets/commerce.css"><link rel="stylesheet" href="/assets/sales.css">
+  <link rel="stylesheet" href="/assets/media.css"><link rel="stylesheet" href="/assets/commerce.css"><link rel="stylesheet" href="/assets/sales.css"><link rel="stylesheet" href="/assets/discovery.css">
   <script type="application/ld+json">${escapeJson(productSchema(product))}</script>
   <script type="application/ld+json">${escapeJson(breadcrumbSchema(breadcrumbs))}</script>
   <script type="application/ld+json">${escapeJson(faqSchema(faqs))}</script>
@@ -451,10 +455,10 @@ const renderProductPage = (product) => {
           <span><strong>Delivery</strong>Lagos & nationwide</span>
           <span><strong>Payment</strong>${product.listingPending ? "Options pending" : "Outright or Easy Buy"}</span>
         </div>
-        ${renderVariantSelector(product)}<div class="product-trust"><span>Inspect before payment</span><span>Computer Village store</span><span>Nationwide delivery</span><span>Device checked before payment</span></div>
+        ${selectionPanel(families.find(f=>f.variants.some(v=>v.slug===product.slug)),product.slug)}<div class="product-trust"><span>Inspect before payment</span><span>Computer Village store</span><span>Nationwide delivery</span><span>Device checked before payment</span></div>
       </div>
     </section>
-    ${renderVariantCards(product)}
+
     ${renderDetails(product)}
     ${renderRelated(product)}
     ${renderDelivery()}
@@ -480,6 +484,7 @@ const minimumKnownPrice = (product) => {
 
 const categoryProducts = (category) => {
   let matches = category.contentOnly ? [] : [...products].sort((a,b)=>Number(isComplete(b))-Number(isComplete(a)));
+  if (category.condition) matches = matches.filter(product=>product.conditions.includes(category.condition));
   if (category.brand) matches = matches.filter((product) => product.brand === category.brand);
   if (category.easyBuy) matches = matches.filter((product) => Boolean(product.easyBuyEligible));
   if (category.swap) matches = matches.filter((product) => product.swapEligible);
@@ -520,6 +525,7 @@ const renderContentOnly = (category) => {
 
 const renderCategoryPage = (category) => {
   const matches = categoryProducts(category);
+  const groupedMatches=[...new Set(matches.map(p=>`${p.brand}|${p.model}`))].map(id=>families.find(f=>f.id===id)).filter(Boolean).map(f=>({...f,variants:f.variants.filter(v=>!category.condition||v.condition===category.condition)})).filter(f=>f.variants.length).map(f=>({...f,conditions:[...new Set(f.variants.map(v=>v.condition))]}));
   const canonical = `${commerceSite.baseUrl}${category.route}`;
   const breadcrumbs = [{ name: "Home", href: "/" }, { name: category.h1, href: category.route }];
   const categoryMessage = category.contentOnly === "laptops"
@@ -550,7 +556,7 @@ const renderCategoryPage = (category) => {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/media.css"><link rel="stylesheet" href="/assets/commerce.css"><link rel="stylesheet" href="/assets/sales.css">
+  <link rel="stylesheet" href="/assets/media.css"><link rel="stylesheet" href="/assets/commerce.css"><link rel="stylesheet" href="/assets/sales.css"><link rel="stylesheet" href="/assets/discovery.css">
   <script type="application/ld+json">${escapeJson(breadcrumbSchema(breadcrumbs))}</script>
   <!-- TikTok Pixel Code Start --><script src="/assets/tiktok-pixel.js"></script><!-- TikTok Pixel Code End -->
 </head>
@@ -569,7 +575,7 @@ const renderCategoryPage = (category) => {
         </div>
       </div>
       <aside>
-        <span>${matches.length || "Current"} ${matches.length === 1 ? "model" : "options"}</span>
+        <span>${groupedMatches.length || "Current"} ${groupedMatches.length === 1 ? "model" : "models"}</span>
         <strong>Choose → Confirm → Buy</strong>
         <p>Pay outright, spread your payment or swap your current phone. Collect in Ikeja or arrange delivery.</p>
       </aside>
@@ -586,11 +592,11 @@ const renderCategoryPage = (category) => {
       <section class="commerce-section catalogue-section">
         <div class="catalogue-toolbar">
           <div><p class="commerce-eyebrow">Find the exact match</p><h2>${escapeHtml(category.h1)}</h2></div>
-          <label><span>Search this list</span><input type="search" data-category-filter placeholder="Search model or storage"></label>
+          <a href="/search/?brand=${encodeURIComponent(category.brand||'')}">Filter storage, condition, SIM &amp; budget →</a><label><span>Search this list</span><input type="search" data-category-filter placeholder="Search model or storage"></label>
         </div>
         ${category.condition === "UK Used" ? `<p class="category-disclaimer">This page is an enquiry route. Confirm which exact devices are available in UK-used condition before payment.</p>` : ""}
-        <div class="catalogue-grid" data-category-grid>
-          ${matches.map(renderCategoryCard).join("")}
+        <script type="application/json" id="category-family-data">${escapeJson(groupedMatches)}</script><div class="catalogue-grid" data-category-grid>
+          ${groupedMatches.map(familyCard).join("")}
         </div>
         <p class="empty-catalogue" data-empty-catalogue hidden>No matching phone found. Try a shorter model name or use the full-site search.</p>
       </section>`}
