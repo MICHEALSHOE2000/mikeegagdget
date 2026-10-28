@@ -68,3 +68,6 @@
  .plan-comparison{gap:16px}.plan-comparison strong{font-size:29px}
  .store-home .hero .hero-text{font-size:16px;margin-bottom:12px}
 }
+
+/* One-minute shopping finder */
+.shop-quick-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.shop-quick-links button{border:1px solid #dededb;background:#fff;padding:8px 12px;border-radius:999px;color:#333;font-size:12px;cursor:pointer}.shop-quick-links button:hover{border-color:#bd913b;background:#fbf7ed}.shop-finder{border:1px solid #e6e5e1;border-radius:14px;padding:17px 20px;margin:0 0 18px;background:#faf9f6}.shop-finder-title{font-size:17px;font-weight:800;margin:0 0 10px}.shop-finder-steps{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;font-weight:650}.shop-finder-steps span{padding:7px 11px;background:#fff;border:1px solid #e8e6e0;border-radius:9px}.shop-finder-note{color:#60646c;font-size:12px;margin:11px 0 0}.search-view-all{width:100%;background:#f3f5f3;border:0;padding:13px;text-align:left;font-weight:700;cursor:pointer;color:#08623f}@media(max-width:640px){.shop-finder{padding:14px}.shop-finder-steps{gap:6px}.shop-finder-steps span{font-size:11px;padding:7px}}
