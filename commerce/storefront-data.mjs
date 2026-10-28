@@ -37,7 +37,8 @@ const makeVariant = v => ({
  color:v.color,
  warranty:v.warranty,
  connectivity:v.connectivity||(/wi[ -]?fi[ -]?only/i.test(v.storage)?'Wi-Fi Only':null),
- activationStatus:v.activationStatus||(/non-active/i.test(v.storage)?'Not Activated':null)
+ activationStatus:v.activationStatus||(/non-active/i.test(v.storage)?'Not Activated':null),
+ simType:v.simType||(/physical\s*(?:sim)?\s*(?:\+|plus|and)\s*e\s*sim/i.test(v.storage)?'Physical SIM + eSIM':/e\s*sim\s*only/i.test(v.storage)?'eSIM Only':null)
 });
 const phoneItems = products.map(p=>{
  const entry=retailInventory.find(item=>item.slug===p.slug);
