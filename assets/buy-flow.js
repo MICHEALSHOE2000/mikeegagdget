@@ -14,6 +14,10 @@ if (form) {
   const reference='MIKEE-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
   const customerBox=document.createElement('div');customerBox.innerHTML='<label id=quantity-label>Quantity<input id=order-quantity type=number min=1 max=20 step=1 value=1 required></label>'+customerFields();
   form.querySelector('[data-screen="3"]').appendChild(customerBox);bindCustomerFields();
+  const emailLabel=document.createElement('label');emailLabel.textContent='Email address for your payment receipt';
+  const checkoutEmail=document.createElement('input');checkoutEmail.id='checkout-email';checkoutEmail.type='email';checkoutEmail.autocomplete='email';checkoutEmail.placeholder='you@example.com';checkoutEmail.maxLength=200;emailLabel.append(checkoutEmail);customerBox.append(emailLabel);
+  const checkoutButton=document.createElement('button');checkoutButton.type='button';checkoutButton.id='checkout-online';checkoutButton.className='button';checkoutButton.textContent='Pay securely online';
+  checkoutButton.hidden=true;form.querySelector('.flow-actions').append(checkoutButton);
   customerBox.addEventListener('input',()=>render());
   customerBox.addEventListener('focusin',()=>track('buy_outright_form_started'),{once:true});
   const query = new URLSearchParams(location.search);
@@ -176,6 +180,12 @@ if (form) {
     $('order-summary').innerHTML = summary;
     const ready = step === 3 && !q.pending && !depositError && (!isSwap || !missingAnswers().length);
     $('order-whatsapp').hidden = !ready;
+    // Payment is only available for straightforward, priced, pickup-only orders.
+    const eligibleForCheckout = ready && !easy && !isSwap && !q.manual && customerData().method !== 'Delivery' && Number.isInteger(Number($('order-quantity').value)) && Number($('order-quantity').value) >= 1 && Number($('order-quantity').value) <= 20;
+    checkoutButton.hidden = !eligibleForCheckout;
+    emailLabel.hidden = !eligibleForCheckout;
+    checkoutEmail.required = eligibleForCheckout;
+    if (eligibleForCheckout) $('order-whatsapp').textContent='Prefer to order via WhatsApp ↗';
     const customer=customerData();
     const quantity=Number($('order-quantity').value);
     let finalMessage=message.concat(customerLines(customer)).join('\n');
@@ -218,6 +228,21 @@ if (form) {
   $('flow-next').addEventListener('click',() => showStep(Math.min(3,step+1)));
   $('flow-back').addEventListener('click',() => { error(''); showStep(Math.max(1,step-1)); });
   document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click',() => showStep(Number(button.dataset.step))));
+  checkoutButton.addEventListener('click',async()=>{
+    if(!validate(3)||!validateCustomer()||!checkoutEmail.reportValidity()||!$('order-quantity').reportValidity())return;
+    const phone=selected();const customer=customerData();
+    checkoutButton.disabled=true;checkoutButton.textContent='Starting secure checkout…';error('');
+    try{
+      const result=await fetch('/api/checkout/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        sku:phone.id,quantity:Number($('order-quantity').value),
+        name:customer.name,email:checkoutEmail.value.trim(),phone:customer.phone,fulfillment:'pickup'
+      })});
+      const data=await result.json();
+      if(!result.ok||!/^https:\\/\\/checkout\\.paystack\\.com\\//.test(data.checkout_url||''))throw Error(data.error||'Unable to start checkout');
+      track('checkout_started',{product_id:phone.id,quantity:Number($('order-quantity').value)});
+      location.assign(data.checkout_url);
+    }catch(err){error(err.message||'Checkout unavailable. Please contact Mikee.');checkoutButton.disabled=false;checkoutButton.textContent='Pay securely online';}
+  });
   $('order-whatsapp').addEventListener('click',event => { if (!validate(3)||!validateCustomer()||!$('order-quantity').reportValidity()){event.preventDefault();event.stopPropagation();return;} render();track(radio('purchase')==='swap'?'swap_request_submitted':radio('payment')==='easy'?'financing_inquiry_submitted':'buy_outright_order_submitted',{product_id:selected()?.id}); });
   form.addEventListener('submit',event => { event.preventDefault(); if (step < 3) showStep(step+1); });
   render();
