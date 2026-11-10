@@ -1,0 +1,4 @@
+import {retailProducts} from '../commerce/retail.mjs';
+const quote=s=>"'"+String(s).replaceAll("'","''")+"'";
+console.log('-- Existing merchant prices and stock are preserved; all listed variants are enabled for supplier order requests, not confirmed stock.');
+for(const p of retailProducts)for(const v of p.variants){const data={...v,label:`${p.model} · ${v.storage}`,brand:p.brand,category:p.category,series:p.series,model:p.model,conditions:p.conditions,images:[p.image],availability:'Available to Order'};console.log(`insert into public.checkout_inventory(sku,price_ngn,stock,enabled,product_data) values(${quote(v.sku)},${Number.isSafeInteger(v.price)&&v.price>0?v.price:'null'},0,true,${quote(JSON.stringify(data))}::jsonb) on conflict(sku) do update set product_data=excluded.product_data,enabled=true;`);}
