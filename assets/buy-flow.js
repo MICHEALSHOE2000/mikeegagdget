@@ -185,7 +185,7 @@ if (form) {
     checkoutButton.hidden = !eligibleForCheckout;
     emailLabel.hidden = !eligibleForCheckout;
     checkoutEmail.required = eligibleForCheckout;
-    if (eligibleForCheckout) $('order-whatsapp').textContent='Prefer to order via WhatsApp ↗';
+
     const customer=customerData();
     const quantity=Number($('order-quantity').value);
     let finalMessage=message.concat(customerLines(customer)).join('\n');
@@ -194,7 +194,7 @@ if (form) {
       const review=document.createElement('p');review.className='fine';review.textContent=`Quantity: ${quantity} · Product subtotal: ${phone.price?money(phone.price*quantity):'To confirm'} · ${customer.method==='Delivery'?'Total pending delivery quotation':'Pickup at Computer Village, Ikeja'}`;$('order-summary').appendChild(review);
     }
     $('order-whatsapp').href = `https://wa.me/${commerceSite.whatsappNumber}?text=${encodeURIComponent(finalMessage)}`;
-    $('order-whatsapp').textContent = q.manual ? 'Ask for my final quote ↗' : (!easy&&!isSwap?'Place Order via WhatsApp ↗':'Send my selection on WhatsApp ↗');
+    $('order-whatsapp').textContent = q.manual ? 'Ask for my final quote ↗' : (!easy&&!isSwap?(eligibleForCheckout?'Order via WhatsApp ↗':'Place Order via WhatsApp ↗'):'Send my selection on WhatsApp ↗');
     if (easy) $('order-whatsapp').dataset.easyBuy = 'true'; else delete $('order-whatsapp').dataset.easyBuy;
     if (step === 3) error(depositError);
     const url = new URL(location.href); url.searchParams.set('phone',phone.id); url.searchParams.set('purchase',radio('purchase')); url.searchParams.set('payment',radio('payment')); url.searchParams.set('condition',targetCondition); history.replaceState({},'',url);
@@ -238,7 +238,7 @@ if (form) {
         name:customer.name,email:checkoutEmail.value.trim(),phone:customer.phone,fulfillment:'pickup'
       })});
       const data=await result.json();
-      if(!result.ok||!/^https:\\/\\/checkout\\.paystack\\.com\\//.test(data.checkout_url||''))throw Error(data.error||'Unable to start checkout');
+      if(!result.ok||!data.checkout_url||new URL(data.checkout_url).hostname!=='checkout.paystack.com'||new URL(data.checkout_url).protocol!=='https:')throw Error(data.error||'Unable to start checkout');
       track('checkout_started',{product_id:phone.id,quantity:Number($('order-quantity').value)});
       location.assign(data.checkout_url);
     }catch(err){error(err.message||'Checkout unavailable. Please contact Mikee.');checkoutButton.disabled=false;checkoutButton.textContent='Pay securely online';}
