@@ -1,19 +1,19 @@
-# Supplier-backed checkout
-Every priced phone variant is orderable from the catalogue, even when stock is sourced from Computer Village partners.
-Payment MUST stay disabled until the merchant verifies the exact device, quantity, and price.
-This path is separate from the original upfront-payment checkout and does not decrement `checkout_inventory.stock`.
+# Supplier-backed direct checkout
 
-## Deploy
-1. Run `supabase/migrations/002_supplier_orders.sql` in Supabase.
-2. Set Vercel server-only environment variables: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `PAYSTACK_SECRET_KEY` (test key), `SITE_URL`.
-3. Test the flow on a preview deployment. Customer submits a request and receives /order/?token=...
-4. For manual pilot approval in Supabase Table Editor, open `supplier_orders`, find the request, set `confirmed_price_ngn` to a checked price per unit, set `quote_expires_at` to a timestamp in the near future (e.g. 2 hours), then set `status` to `approved`. Only do this after supplier confirmation. Never share the database service role key.
-5. Customer opens their original order link, sees the approved total and pays with Paystack test checkout.
-6. Set a signed Paystack webhook to /api/checkout/webhook (existing signature handling) and verify the charge.success event, idempotence, expiry and mismatch handling. Confirm `supplier_orders.status=paid`.
-7. Avoid enabling live checkout before protected admin approval, rate limiting, refund/manual review workflow, webhook and checkout tests.
+The store treats all priced phone variants as **Available to Order** because the merchant sources them from Computer Village suppliers. The customer selects a device, enters their details, and goes directly to Paystack. There is **no pre-payment supplier confirmation** in this flow. Do not misrepresent supplier availability as a physically reserved unit.
 
-## Security & operations
-Order tokens grant access to order status/payment, so treat the URL as sensitive. Do not publish links. No privileged public approval endpoint.
-A failed payment initialization leaves the quote `awaiting_payment` until manual review. Late paid transactions enter `manual_review` and need refund or fulfilment decisions.
-No automatic customer email/SMS, admin dashboard or delivery fee logic exists yet; status/approval is manual.
-The legacy /api/checkout/create still exists; do not expose the legacy payment button for supplier checkout.
+## Installation
+
+1. Run `supabase/migrations/002_supplier_orders.sql` in Supabase SQL Editor.
+2. Ensure Vercel has server-only `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `PAYSTACK_SECRET_KEY` (test), `SITE_URL` (correct deployment domain). No secrets in GitHub or browser code.
+3. Deploy this branch to a preview, test /buy/: submit a priced phone → server stores supplier order → redirects to Paystack → callback /order/?token=...&reference=... → verification → paid status.
+4. Configure and test signed webhook at /api/checkout/webhook. Check duplicate events, payment failure, late payments, mismatched amount, and manual review.
+
+## Operations
+
+- The `supplier_orders` table is the source of truth for customer requests and payment state. `checkout_inventory.stock` is not used for supplier-backed purchases.
+- Supplier-backed products are orderable but not reserved; you must source the purchased unit and contact the buyer about pickup.
+- A failed Paystack initialization leaves an `awaiting_payment` order for manual review. A late successful payment enters `manual_review`. Do not fulfill or refund automatically without investigating.
+- Current supported fulfilment: **store pickup only**. Swap and Pay Small Small retain their prior WhatsApp flows.
+- Important launch blockers: add an authenticated admin dashboard, notifications, rate limiting, a cancellation/refund process, order-to-supplier sourcing checks, customer-facing disclosure of fulfilment timelines, and end-to-end tests.
+- Do NOT switch to live Paystack keys simply because the code deploys.
