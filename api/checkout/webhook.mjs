@@ -1,5 +1,6 @@
 import {createHmac,timingSafeEqual} from 'node:crypto';
 import {confirmPayment,env,sendJson} from '../_checkout.mjs';
+import {verifySupplierPayment} from '../supplier/verify.mjs';
 export const config={api:{bodyParser:false}};
 async function rawBody(req){const chunks=[];for await(const part of req){chunks.push(Buffer.from(part));if(chunks.reduce((n,b)=>n+b.length,0)>1024*1024)throw Error('Webhook too large');}return Buffer.concat(chunks);}
 function signatureValid(raw,req){
@@ -23,7 +24,11 @@ export default async function handler(req,res){
  const raw=await rawBody(req);
  if(!signatureValid(raw,req))return sendJson(res,401,{error:'Invalid signature'});
  const event=JSON.parse(raw.toString('utf8'));
- if(event.event==='charge.success'&&/^MGP-[a-f0-9]{32}$/.test(String(event.data?.reference||'')))await confirmPayment(event.data.reference);
+ if(event.event==='charge.success'){
+   const reference=String(event.data?.reference||'');
+   if(/^MGP-[a-f0-9]{32}$/.test(reference))await confirmPayment(reference);
+   if(/^MGS-[a-f0-9]{32}$/.test(reference))await verifySupplierPayment(reference);
+ }
  return sendJson(res,200,{ok:true});
  }catch(error){console.error('Webhook processing error',error.message);return sendJson(res,500,{error:'Unable to process webhook'});}
 }
