@@ -230,9 +230,9 @@ if (productDataElement) {
         link.dataset.productId=`${product.slug}|${selectedStorage}`;
         link.dataset.value=price||'';
         const q=new URLSearchParams({phone:`${product.slug}|${selectedStorage}`,condition:selectedCondition(),color:selectedColor()});
-        if(link.dataset.action==='buy') {link.href=`/buy/?${q}`;link.textContent=price?'Buy Outright': 'Ask for Price';}
-        if(link.dataset.action==='easyBuy'){link.href=`/easybuy/?${q}`;link.textContent='Check Pay Small Small Plan';}
-        if(link.dataset.action==='swap'){q.set('target',q.get('phone'));link.href=`/swap/?${q}`;link.textContent='Swap to this phone →';}
+        if(link.dataset.action==='buy') {link.href=`/checkout/?${q}`;link.textContent=price?'Buy Now': 'Ask for Price';}
+        if(link.dataset.action==='easyBuy'){q.set('method','finance');link.href=`/checkout/?${q}`;link.textContent='Pay Small Small';}
+        if(link.dataset.action==='swap'){q.set('target',q.get('phone'));link.href=whatsappHref(product.whatsappNumber,`Swap request: ${product.model} · ${selectedStorage}. SKU: ${product.slug}|${selectedStorage}. Condition: ${selectedCondition()}. Colour: ${selectedColor()}. My current device: [model, storage, condition]. I understand valuation requires assessment.`);link.textContent='Swap to this phone →';}
         if(!price && link.dataset.action!=='buy'){link.href=whatsappHref(product.whatsappNumber,messageFor(link.dataset.action));link.textContent=link.dataset.action==='easyBuy'?'Ask About Pay Small Small':'Ask About a Swap';}
         link.removeAttribute('target');
 

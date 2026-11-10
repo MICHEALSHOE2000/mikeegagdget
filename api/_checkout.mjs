@@ -1,6 +1,5 @@
-import { choices } from '../commerce/upgrade-core.mjs';
-import { offerChoice } from '../commerce/offers.mjs';
-const catalog = new Map(choices.filter(p=>p.forSale !== false).map(p=>{ const item=offerChoice(p);return [item.id,item]; }));
+import {retailVariants} from '../commerce/retail.mjs';
+const catalog=retailVariants;
 export const env = (key) => {const value=process.env[key];if(!value)throw Error('Missing server configuration: '+key);return value;};
 export async function db(path,{method='GET',body}={}) {
  const res=await fetch(env('SUPABASE_URL')+'/rest/v1/'+path,{

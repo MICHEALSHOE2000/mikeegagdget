@@ -1,0 +1,1 @@
+const q=new URLSearchParams(location.search);if(q.get('phone')&&['/buy','/buy/','/easybuy','/easybuy/'].includes(location.pathname)&&!q.has('purchase')){if(location.pathname.includes('easybuy'))q.set('method','finance');location.replace('/checkout/?'+q);}
