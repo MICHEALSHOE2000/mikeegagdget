@@ -16,7 +16,7 @@ if (form) {
   form.querySelector('[data-screen="3"]').appendChild(customerBox);bindCustomerFields();
   const emailLabel=document.createElement('label');emailLabel.textContent='Email address for your payment receipt';
   const checkoutEmail=document.createElement('input');checkoutEmail.id='checkout-email';checkoutEmail.type='email';checkoutEmail.autocomplete='email';checkoutEmail.placeholder='you@example.com';checkoutEmail.maxLength=200;emailLabel.append(checkoutEmail);customerBox.append(emailLabel);
-  const checkoutButton=document.createElement('button');checkoutButton.type='button';checkoutButton.id='checkout-online';checkoutButton.className='button';checkoutButton.textContent='Pay securely online';
+  const checkoutButton=document.createElement('button');checkoutButton.type='button';checkoutButton.id='checkout-online';checkoutButton.className='button';checkoutButton.textContent='Proceed to secure payment';
   checkoutButton.hidden=true;form.querySelector('.flow-actions').append(checkoutButton);
   customerBox.addEventListener('input',()=>render());
   customerBox.addEventListener('focusin',()=>track('buy_outright_form_started'),{once:true});
@@ -231,17 +231,27 @@ if (form) {
   checkoutButton.addEventListener('click',async()=>{
     if(!validate(3)||!validateCustomer()||!checkoutEmail.reportValidity()||!$('order-quantity').reportValidity())return;
     const phone=selected();const customer=customerData();
-    checkoutButton.disabled=true;checkoutButton.textContent='Starting secure checkout…';error('');
+    checkoutButton.disabled=true;checkoutButton.textContent='Preparing secure payment…';error('');
     try{
-      const result=await fetch('/api/checkout/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      const result=await fetch('/api/supplier/request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
         sku:phone.id,quantity:Number($('order-quantity').value),
         name:customer.name,email:checkoutEmail.value.trim(),phone:customer.phone,fulfillment:'pickup'
       })});
       const data=await result.json();
-      if(!result.ok||!data.checkout_url||new URL(data.checkout_url).hostname!=='checkout.paystack.com'||new URL(data.checkout_url).protocol!=='https:')throw Error(data.error||'Unable to start checkout');
-      track('checkout_started',{product_id:phone.id,quantity:Number($('order-quantity').value)});
-      location.assign(data.checkout_url);
-    }catch(err){error(err.message||'Checkout unavailable. Please contact Mikee.');checkoutButton.disabled=false;checkoutButton.textContent='Pay securely online';}
+      if(!result.ok||!data.token)throw Error(data.error||'Unable to submit order');
+      track('supplier_order_requested',{product_id:phone.id,quantity:Number($('order-quantity').value)});
+      const orderUrl='/order/?token='+encodeURIComponent(data.token);
+      // Keep a recoverable order link if the payment provider is unavailable.
+      const payment=await fetch('/api/supplier/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:data.token})});
+      const paymentData=await payment.json();
+      if(!payment.ok||!paymentData.checkout_url){
+        location.assign(orderUrl);
+        return;
+      }
+      const payUrl=new URL(paymentData.checkout_url);
+      if(payUrl.protocol!=='https:'||payUrl.hostname!=='checkout.paystack.com')throw Error('Unexpected payment destination');
+      location.assign(payUrl.href);
+    }catch(err){error(err.message||'Checkout unavailable. Please contact Mikee.');checkoutButton.disabled=false;checkoutButton.textContent='Request this phone';}
   });
   $('order-whatsapp').addEventListener('click',event => { if (!validate(3)||!validateCustomer()||!$('order-quantity').reportValidity()){event.preventDefault();event.stopPropagation();return;} render();track(radio('purchase')==='swap'?'swap_request_submitted':radio('payment')==='easy'?'financing_inquiry_submitted':'buy_outright_order_submitted',{product_id:selected()?.id}); });
   form.addEventListener('submit',event => { event.preventDefault(); if (step < 3) showStep(step+1); });
