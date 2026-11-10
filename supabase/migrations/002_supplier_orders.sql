@@ -30,14 +30,14 @@ language plpgsql security definer set search_path=public as $$
 declare ord public.supplier_orders%rowtype;
 begin
  select * into ord from public.supplier_orders where token=p_token for update;
- if not found or ord.status<>'approved' or ord.quote_expires_at<=now() then
+ if not found or ord.status<>'requested' then
    raise exception 'This quotation is not ready for payment';
  end if;
  update public.supplier_orders
-  set status='awaiting_payment',paystack_reference=p_reference,
+  set confirmed_price_ngn=ord.listed_price_ngn, status='awaiting_payment',paystack_reference=p_reference,
       payment_expires_at=now()+interval '15 minutes'
   where id=ord.id;
- return query select ord.id,ord.confirmed_price_ngn*ord.quantity,ord.customer_email;
+ return query select ord.id,ord.listed_price_ngn*ord.quantity,ord.customer_email;
 end $$;
 create or replace function public.supplier_confirm_payment(p_reference text,p_amount_kobo bigint)
 returns text language plpgsql security definer set search_path=public as $$
