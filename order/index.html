@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Your order | Mikee Gadget Plug</title><style>body{background:#f7f8f5;color:#123b30;font:16px system-ui;margin:0;padding:6vh 16px}main{max-width:560px;margin:auto;background:white;padding:28px;border-radius:18px;box-shadow:0 8px 35px #123b3015}button{background:#123b30;color:white;padding:13px 20px;border:0;border-radius:9px;font-size:16px}button:disabled{opacity:.5}a{color:#123b30}</style></head><body><main><a href="/">MIKEE GADGET PLUG</a><h1>Your order request</h1><p id="status" role="status">Checking your order…</p><p id="details"></p><button id="pay" hidden>Pay securely with Paystack</button><p><a href="https://wa.me/2347086865133">Need help? Contact Mikee on WhatsApp</a></p></main><script type="module">
+const token=new URLSearchParams(location.search).get('token'),msg=document.querySelector('#status'),details=document.querySelector('#details'),pay=document.querySelector('#pay');
+if(!token){msg.textContent='Order reference missing.';}else{
+ const params=new URLSearchParams(location.search); const reference=params.get('reference')||params.get('trxref');
+ if(/^MGS-[a-f0-9]{32}$/.test(reference||'')){await fetch('/api/supplier/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({reference})}).catch(()=>null);}
+ try{
+ const response=await fetch('/api/supplier/status?token='+encodeURIComponent(token),{cache:'no-store'});
+ const order=await response.json();if(!response.ok)throw Error(order.error||'Order unavailable');
+ details.textContent=order.product_name+' × '+order.quantity;
+ const messages={requested:'Order received. We are confirming your exact phone and current price with our supplier.',approved:'Your phone and price are confirmed. You can now pay securely.',awaiting_payment:'Payment is being processed. If you have paid, please contact us with your order reference.',paid:'Payment confirmed. Your order is being prepared.',expired:'This quotation expired. Contact us for a new quote.',declined:'We could not confirm this order.',manual_review:'Payment needs manual review. Contact us before trying again.'};
+ msg.textContent=messages[order.status]||'Please contact Mikee for an update.';
+ if(order.payable){pay.hidden=false;pay.textContent='Pay ₦'+Number(order.confirmed_price_ngn*order.quantity).toLocaleString('en-NG')+' securely';}
+ pay.addEventListener('click',async()=>{pay.disabled=true;try{const r=await fetch('/api/supplier/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})});const result=await r.json();if(!r.ok||new URL(result.checkout_url).hostname!=='checkout.paystack.com')throw Error(result.error||'Unable to start payment');location.assign(result.checkout_url);}catch(e){msg.textContent=e.message;pay.disabled=false;}});
+ }catch(e){msg.textContent=e.message;}
+}
+</script></body></html>
