@@ -7,10 +7,10 @@ if(!token){msg.textContent='Order reference missing.';}else{
  const response=await fetch('/api/supplier/status?token='+encodeURIComponent(token),{cache:'no-store'});
  const order=await response.json();if(!response.ok)throw Error(order.error||'Order unavailable');
  details.textContent=order.product_name+' × '+order.quantity;
- const messages={requested:'Order received. We are confirming your exact phone and current price with our supplier.',approved:'Your phone and price are confirmed. You can now pay securely.',awaiting_payment:'Payment is being processed. If you have paid, please contact us with your order reference.',paid:'Payment confirmed. Your order is being prepared.',expired:'This quotation expired. Contact us for a new quote.',declined:'We could not confirm this order.',manual_review:'Payment needs manual review. Contact us before trying again.'};
+ const messages={requested:'Order received. Proceed to secure payment for your selected phone.',approved:'You can now proceed to secure payment.',awaiting_payment:'Payment is being processed. If you have paid, please contact us with your order reference.',paid:'Payment confirmed. We are sourcing your phone for pickup.',expired:'This quotation expired. Contact us for a new quote.',declined:'We could not confirm this order.',manual_review:'Payment needs manual review. Contact us before trying again.'};
  msg.textContent=messages[order.status]||'Please contact Mikee for an update.';
- if(order.payable){pay.hidden=false;pay.textContent='Pay ₦'+Number(order.confirmed_price_ngn*order.quantity).toLocaleString('en-NG')+' securely';}
- pay.addEventListener('click',async()=>{pay.disabled=true;try{const r=await fetch('/api/supplier/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})});const result=await r.json();if(!r.ok||new URL(result.checkout_url).hostname!=='checkout.paystack.com')throw Error(result.error||'Unable to start payment');location.assign(result.checkout_url);}catch(e){msg.textContent=e.message;pay.disabled=false;}});
+ if(order.payable){pay.hidden=false;pay.textContent='Continue to secure payment';}
+ pay.addEventListener('click',async()=>{pay.disabled=true;try{const r=await fetch('/api/supplier/pay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})});const result=await r.json();if(!r.ok||!result.checkout_url||new URL(result.checkout_url).protocol!=='https:'||new URL(result.checkout_url).hostname!=='checkout.paystack.com')throw Error(result.error||'Unable to start payment');location.assign(result.checkout_url);}catch(e){msg.textContent=e.message;pay.disabled=false;}});
  }catch(e){msg.textContent=e.message;}
 }
 </script></body></html>
