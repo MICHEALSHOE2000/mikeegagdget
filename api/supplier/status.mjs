@@ -6,7 +6,7 @@ export default async function handler(req,res){
  try{
   const rows=await db('supplier_orders?select=status,product_name,quantity,confirmed_price_ngn,quote_expires_at&token=eq.'+encodeURIComponent(token)+'&limit=1');
   if(!rows?.length)return sendJson(res,404,{error:'Request not found'});
-  const order=rows[0]; const valid=order.status==='approved'&&new Date(order.quote_expires_at)>new Date();
+  const order=rows[0]; const valid=order.status==='requested';
   return sendJson(res,200,{...order,payable:valid,confirmed_price_ngn:valid?order.confirmed_price_ngn:null});
  }catch(e){console.error(e.message);return sendJson(res,503,{error:'Order status unavailable'});}
 }
