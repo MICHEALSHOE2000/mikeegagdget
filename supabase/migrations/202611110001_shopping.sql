@@ -71,4 +71,27 @@ begin
 end $$;
 revoke all on function public.shop_create_order(uuid,jsonb,jsonb,text),public.shop_confirm_payment(text,bigint,text) from public,anon,authenticated;
 grant execute on function public.shop_create_order(uuid,jsonb,jsonb,text),public.shop_confirm_payment(text,bigint,text) to service_role;
+create table public.shop_admin_audit (
+ id bigint generated always as identity primary key,
+ actor_id uuid not null references auth.users(id), sku text not null,
+ previous_value jsonb not null, new_value jsonb not null, created_at timestamptz not null default now()
+);
+alter table public.shop_admin_audit enable row level security;
+revoke all on public.shop_admin_audit from public,anon,authenticated;
+grant all on public.shop_admin_audit to service_role;
+grant usage,select on sequence public.shop_admin_audit_id_seq to service_role;
+create function public.shop_admin_update_price(p_actor uuid,p_sku text,p_price bigint,p_enabled boolean,p_updated_at timestamptz) returns jsonb
+language plpgsql security invoker set search_path=public as $$
+declare old checkout_inventory%rowtype; current_row checkout_inventory%rowtype;
+begin
+ if not exists(select 1 from auth.users where id=p_actor and lower(email)='aderintomicheal6@gmail.com' and email_confirmed_at is not null) then raise exception 'Administrator access required';end if;
+ if p_price<=0 or p_price>100000000 or (p_enabled and p_price is null) then raise exception 'Invalid price';end if;
+ select * into old from checkout_inventory where sku=p_sku for update;
+ if not found or old.updated_at<>p_updated_at then raise exception 'Inventory changed; reload before editing';end if;
+ update checkout_inventory set price_ngn=p_price,enabled=p_enabled,updated_at=clock_timestamp() where sku=p_sku returning * into current_row;
+ insert into shop_admin_audit(actor_id,sku,previous_value,new_value) values(p_actor,p_sku,jsonb_build_object('price',old.price_ngn,'enabled',old.enabled),jsonb_build_object('price',p_price,'enabled',p_enabled));
+ return to_jsonb(current_row);
+end $$;
+revoke all on function public.shop_admin_update_price(uuid,text,bigint,boolean,timestamptz) from public,anon,authenticated;
+grant execute on function public.shop_admin_update_price(uuid,text,bigint,boolean,timestamptz) to service_role;
 commit;

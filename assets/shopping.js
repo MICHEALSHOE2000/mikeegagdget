@@ -41,3 +41,5 @@ if($('payment-status')){
 }
 if($('gadget-variant')){const update=()=>{const v=find($('gadget-variant').value);$('gadget-price').textContent=v?.price>0?money(v.price):'Price being updated';};$('gadget-variant').addEventListener('change',update);update();for(const [id,go]of[['gadget-buy',true],['gadget-cart',false]])$(id).addEventListener('click',()=>{try{add($('gadget-variant').value,'',go);$('gadget-message').textContent='Added to cart.';}catch(e){$('gadget-message').textContent=e.message;}});}
 activateImages();
+
+if($('financing-selection')){const v=find(query.get('sku')||query.get('phone'));if(v)$('financing-selection').innerHTML=`<h2>${escape(v.model)}</h2><p>${escape(v.storage)} · ${escape(v.condition)}</p><p>${v.price>0?money(v.price):'Price being updated'}</p><a class="btn btn-primary" href="/${escape(v.slug)}/?storage=${encodeURIComponent(v.storage)}">View selected device</a>`;}

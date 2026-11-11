@@ -366,6 +366,11 @@ if (productDataElement) {
   });
   durationSelect?.addEventListener("change", updateCalculator);
 
+  // Admin price edits are read from the same authority used by checkout.
+  try {
+    const response=await fetch('/api/shop/catalog');
+    if(response.ok){const rows=await response.json();if(Array.isArray(rows))for(const variant of product.variants){const current=rows.find(row=>row.sku===product.slug+'|'+variant.storage);if(current)variant.price=current.price;}}
+  } catch { /* Static preview retains its catalogue prices; checkout revalidates. */ }
   const requestedStorage = new URL(window.location.href).searchParams.get("storage");
   updateSelection(
     product.variants.some((variant) => variant.storage === requestedStorage)

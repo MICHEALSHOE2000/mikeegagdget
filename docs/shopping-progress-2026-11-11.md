@@ -31,3 +31,19 @@ Paystack webhook path: `/api/shop/webhook`; callback: `/checkout/complete/`.
 Run `npm ci`, `npm run check`, and review SQL plus inventory changes. Configure an isolated database and preview environment first. Do not apply `supabase/shopping-catalogue-review.sql` blindly: existing rows intentionally keep their existing prices/enabled flags.
 
 Production deployment requires separate approval after outstanding acceptance tests pass. Roll back application code to backup branch `backup/restored-homepage-2026-11-11`; retain order records and use a reviewed forward fix for database issues rather than deleting tables with customer data.
+
+## Owner deployment request and administrator setup
+Owner approved deployment on 11 November and deferred official Credit Direct checkout. Administrator email: `aderintomicheal6@gmail.com`.
+
+Prepared since the checkpoint:
+- `/admin/` with email-link sign-in, authenticated inventory price updates and recent-order viewing. Server validates the user through Supabase Auth, requires a confirmed email matching the owner, and ignores editable user metadata. No marketing scripts load on the auth callback page.
+- Draft admin audit table and transactional price-update function with concurrent-edit checks. Not yet applied.
+- Credit Direct hold page and temporary redirects from EasyBuy checkout paths; homepage financing rates/deposits are removed while held.
+- Product pages refresh their selected prices from the server catalogue when available.
+- `npm run check`: **57 tests pass**, including administrator identity rejection and absence of tracking on the auth callback page.
+
+Vercel connection was confirmed by the user, but no Vercel operations were exposed in the tool registry after connection. This is a tool availability problem, not a request to reconnect. Existing GitHub checks confirmed the prior feature-branch Vercel build succeeded. Production has not been promoted.
+
+Additional admin setting: `SUPABASE_PUBLISHABLE_KEY` (publishable/anon key, never the service-role key). Configure Supabase Auth redirect allowlist for the exact `/admin/` URL and email delivery before testing sign-in. The owner email did not yet exist in Auth at inspection; the email-link request can create it, but admin access requires email verification. No email was sent by this implementation session.
+
+Release still requires migration execution/testing, catalogue reconciliation, deployed environment verification, and a real Paystack test transaction. Production authorization is recorded; do not ask for it again merely because this checklist remains. Do not promote the unfinished checkout until these concrete checks can be completed.

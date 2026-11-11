@@ -3,8 +3,33 @@
     {
       "source": "/images/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/easybuy",
+      "destination": "/financing/",
+      "permanent": false
+    },
+    {
+      "source": "/easybuy/:path*",
+      "destination": "/financing/",
+      "permanent": false
+    },
+    {
+      "source": "/easy-buy",
+      "destination": "/financing/",
+      "permanent": false
+    },
+    {
+      "source": "/easy-buy/:path*",
+      "destination": "/financing/",
+      "permanent": false
     }
   ]
 }
