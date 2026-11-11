@@ -226,7 +226,7 @@ const renderProductArtwork = (product) => {
 
 const renderVariantSelector = (product) => `
   <div class="purchase-panel" data-purchase-panel>
-    <div class="availability-line"><span></span>Available to Order</div>
+    <div class="availability-line"><span></span>${escapeHtml(product.stockStatus)}</div>
     <p class="purchase-label">Choose storage</p>
     <div class="selector-pills" data-storage-options>
       ${product.variants.map((variant) => `
@@ -250,7 +250,7 @@ const renderVariantSelector = (product) => `
     </div>
     <div class="buying-facts">
       <span><b>Battery health</b>${product.listingPending ? "Details coming soon" : product.brand === "Apple" ? "UK-used units: above 83%; confirm exact reading" : "Reading available for the exact used unit"}</span>
-      <span><b>Warranty &amp; returns</b>Written terms are provided with your confirmed quote before payment</span>
+      <span><b>Warranty</b>Confirm written terms for the exact unit</span>
       <span><b>Delivery</b>Lagos and nationwide options</span>
     </div>
     <div class="price-display">
@@ -263,8 +263,8 @@ const renderVariantSelector = (product) => `
       <small data-price-note>Confirm today’s price, condition and stock before payment.</small>
     </div>
     <div class="purchase-actions">
-      <a class="commerce-button commerce-button-primary" data-action="buy" href="/checkout/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Now</a>
-      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/checkout/?method=finance&phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Pay Small Small</a>
+      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Now on WhatsApp</a>
+      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Check Pay Small Small Plan</a>
       <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Swap to this phone →</a>
     </div>
     <p class="purchase-action-help">Trade in your current phone and pay the difference. Or get this phone now and spread your payment.</p>
@@ -462,8 +462,8 @@ const renderProductPage = (product) => {
   </main>
   ${renderFooter()}
   <div class="mobile-purchase-bar" aria-label="Quick purchase actions">
-    <a data-action="buy" href="/checkout/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>₦</span>Buy outright</a>
-    <a data-action="easyBuy" href="/checkout/?method=finance&phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>◷</span>Pay Small Small</a>
+    <a data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>₦</span>Buy outright</a>
+    <a data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>◷</span>Pay Small Small</a>
     <a data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>↔</span>Swap to this phone →</a>
   </div>
   <script type="application/json" id="product-data">${escapeJson(productData)}</script>
