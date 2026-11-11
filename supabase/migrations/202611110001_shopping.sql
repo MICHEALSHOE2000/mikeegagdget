@@ -3,11 +3,17 @@ begin;
 alter table public.checkout_inventory add column if not exists product_data jsonb not null default '{}';
 -- Existing constraints still reject nonpositive prices; NULL means not yet priced.
 alter table public.checkout_inventory alter column price_ngn drop not null;
+create table public.shop_admins(user_id uuid primary key references auth.users(id),created_at timestamptz not null default now());
+alter table public.shop_admins enable row level security;
+revoke all on public.shop_admins from public,anon,authenticated;
+grant select on public.shop_admins to service_role;
 create table public.shop_orders (
  id uuid primary key default gen_random_uuid(), request_id uuid not null unique,
  reference text not null unique default ('MGP2-'||replace(gen_random_uuid()::text,'-','')),
  customer jsonb not null, requested_items jsonb not null, amount_ngn bigint not null default 0 check(amount_ngn>=0),
  delivery_fee_ngn bigint not null default 0 check(delivery_fee_ngn>=0),
+ fulfillment_status text not null default 'processing' check(fulfillment_status in ('processing','ready_for_pickup','dispatched','delivered','cancelled')),
+ supplier_status text not null default 'pending_confirmation' check(supplier_status in ('pending_confirmation','confirmed','issue')),
  status text not null default 'awaiting_payment' check(status in ('awaiting_payment','paid','manual_review')),
  policy_version text not null, consent_at timestamptz not null default now(),
  authorization_url text, payment_transaction_id text unique,
@@ -84,7 +90,7 @@ create function public.shop_admin_update_price(p_actor uuid,p_sku text,p_price b
 language plpgsql security invoker set search_path=public as $$
 declare old checkout_inventory%rowtype; current_row checkout_inventory%rowtype;
 begin
- if not exists(select 1 from auth.users where id=p_actor and lower(email)='aderintomicheal6@gmail.com' and email_confirmed_at is not null) then raise exception 'Administrator access required';end if;
+ if not exists(select 1 from auth.users where id=p_actor and exists(select 1 from public.shop_admins a where a.user_id=p_actor) and lower(email)='aderintomicheal6@gmail.com' and email_confirmed_at is not null) then raise exception 'Administrator access required';end if;
  if p_price<=0 or p_price>100000000 or (p_enabled and p_price is null) then raise exception 'Invalid price';end if;
  select * into old from checkout_inventory where sku=p_sku for update;
  if not found or old.updated_at<>p_updated_at then raise exception 'Inventory changed; reload before editing';end if;
@@ -94,4 +100,12 @@ begin
 end $$;
 revoke all on function public.shop_admin_update_price(uuid,text,bigint,boolean,timestamptz) from public,anon,authenticated;
 grant execute on function public.shop_admin_update_price(uuid,text,bigint,boolean,timestamptz) to service_role;
+commit;
+
+begin;
+create table public.shop_settings(id text primary key check(id='store'),community_url text not null default '',financing_notes text not null default '',updated_at timestamptz not null default now());
+alter table public.shop_settings enable row level security;
+revoke all on public.shop_settings from public,anon,authenticated;
+grant select,update on public.shop_settings to service_role;
+insert into public.shop_settings(id) values('store');
 commit;

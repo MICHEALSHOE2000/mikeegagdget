@@ -9,7 +9,7 @@ const base = {current,target};
 
 test('swap deductions are cumulative and use the customer-visible reference every time', () => {
   const reference=current.swapReferencePrice;
-  const cases = [[{},40],[{screenChanged:true},50],[{screenChanged:true,batteryChanged:true},55],[{screenChanged:true,batteryChanged:true,backChanged:true},57],[{screenChanged:true,batteryChanged:true,backChanged:true,faceIdBroken:true},65]];
+  const cases = [[{},40],[{screenChanged:true},50],[{screenChanged:true,batteryChanged:true},55],[{screenChanged:true,batteryChanged:true,backChanged:true},60],[{screenChanged:true,batteryChanged:true,backChanged:true,faceIdBroken:true},60]];
   for (const [changes,deductionPercent] of cases) {
     const quote = estimateSwap({...base,...changes});
     assert.equal(quote.deductionPercent,deductionPercent);
@@ -21,10 +21,10 @@ test('models without Face ID or glass backs never receive those deductions', () 
   const old={brand:'Apple',slug:'iphone-7',swapReferencePrice:100000,hasFaceId:false,hasGlassBack:false};
   assert.equal(estimateSwap({current:old,target,faceIdBroken:true}).value,60000);
   assert.equal(estimateSwap({current:old,target,backChanged:true}).value,60000);
-  assert.equal(estimateSwap({...base,backChanged:true}).value,Math.round(current.swapReferencePrice*.58));
+  assert.equal(estimateSwap({...base,backChanged:true}).value,Math.round(current.swapReferencePrice*.55));
 });
 test('cracks share one deduction with changed parts; missing prices require a quote', () => {
-  assert.equal(estimateSwap({...base,screenCracked:true,screenChanged:true,backCracked:true,backChanged:true}).value,Math.round(current.swapReferencePrice*.48));
+  assert.equal(estimateSwap({...base,screenCracked:true,screenChanged:true,backCracked:true,backChanged:true}).value,Math.round(current.swapReferencePrice*.45));
   assert.equal(estimateSwap({...base,screenCracked:true}).value,Math.round(current.swapReferencePrice*.5));
   assert.equal(estimateSwap({...base,target:phone('samsung-s25-edge|256GB')}).manual,true);
   assert.equal(estimateSwap({...base,target:phone('samsung-s23|128GB')}).manual,true);

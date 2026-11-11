@@ -1,0 +1,1 @@
+const q=new URLSearchParams(location.search);const sku=q.get('sku')||q.get('phone');if(sku){const target=new URLSearchParams({sku});if(q.get('color'))target.set('color',q.get('color'));location.replace('/checkout/?'+target);}else location.replace('/search/');

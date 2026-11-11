@@ -32,5 +32,5 @@ test('outright orders show quantity and quoted delivery without financing or pay
 test('catalogue keeps exact variant shortcuts while financing is on hold',async()=>{
  const {card}=await import('../assets/storefront-ui.mjs');
  const html=card({slug:'iphone-18-pro',model:'iPhone 18 Pro',category:'iphones',brand:'Apple',route:'/iphone-18-pro',conditions:['Brand New'],easy:true,variants:[{storage:'256GB · Burgundy',price:1970000},{storage:'256GB · Glacier',price:1920000}]});
- assert.match(html,/From ₦1,920,000/);assert.match(html,/Financing checkout on hold/);assert.doesNotMatch(html,/ deposit/);assert.match(html,/phone=iphone-18-pro%7C256GB%20%C2%B7%20Glacier/);
+ assert.match(html,/From ₦1,920,000/);assert.doesNotMatch(html,/Financing checkout on hold/);assert.doesNotMatch(html,/ deposit/);assert.match(html,/storage=256GB%20%C2%B7%20Glacier/);
 });

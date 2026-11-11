@@ -65,7 +65,7 @@ test('Swap asks one condition at a time, preserves valuation and sends truthful 
  for(let i=0;i<6;i++){assert.equal(document.querySelectorAll('[name="answer"]').length,2);document.querySelector(`[name="answer"][value="${i===0?'yes':'no'}"]`).click();next();}
  assert.equal(headline(),'Your estimated phone value.');assert.ok(document.getElementById('journey-screen').textContent.includes(Math.round(choices.find(p=>p.id==='iphone-x|64GB').swapReferencePrice*.6).toLocaleString('en-NG')));
  next();assert.equal(headline(),'Your next upgrade.');assert.equal(document.querySelector('[data-journey]').dataset.targetPhone,id);
- const result=estimateSwap({current:choices.find(p=>p.id==='iphone-x|64GB'),target});assert.match(message(),/Does Face ID work\? Yes/);assert.match(message(),/Has the battery been changed\? No/);assert.match(message(),/Is the screen cracked\? No/);assert.ok(message().includes(`Estimated amount to add: ₦${result.topUp.toLocaleString('en-NG')}`));
+ const result=estimateSwap({current:choices.find(p=>p.id==='iphone-x|64GB'),target});assert.match(message(),/Does Face ID work\? Yes/);assert.match(message(),/Does the battery have an issue or has it been changed\? No/);assert.match(message(),/Is the screen cracked\? No/);assert.ok(message().includes(`Estimated amount to add: ₦${result.topUp.toLocaleString('en-NG')}`));
  if(document.getElementById('finance-customer-name')){value('finance-customer-name','Test Buyer','input');value('finance-customer-phone','08012345678','input');}
  const whatsapp=document.getElementById('journey-whatsapp');whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();assert.doesNotMatch(message(),attributionInMessage);assert.ok(message().endsWith('Please confirm the exact unit, stock, condition, inspection and complete terms before payment.'));
  assert.ok(window.dataLayer.some(e=>e.event==='valuation_complete'&&e.value===Math.round(choices.find(p=>p.id==='iphone-x|64GB').swapReferencePrice*.6)));assert.ok(window.dataLayer.some(e=>e.event==='whatsapp_click'&&e.ttclid==='qa-test'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));dom.window.close();
@@ -109,7 +109,7 @@ test('Product storage selection carries its final price, condition and colour in
  const dom=await setup('iphone-14-pro-max/index.html','/iphone-14-pro-max?utm_source=meta');await import(`../assets/commerce.js?test=${++serial}`);
  document.querySelector('[data-storage="256GB"]').click();const id='iphone-14-pro-max|256GB',phone=offerChoice(choices.find(p=>p.id===id));
  const buy=document.querySelector('[data-action="buy"]'),easy=document.querySelector('[data-action="easyBuy"]'),swap=document.querySelector('[data-action="swap"]');
- assert.equal(new URL(buy.href).pathname,'/checkout/');assert.equal(new URL(buy.href).searchParams.get('sku'),id);assert.equal(new URL(easy.href).pathname,'/easybuy/');assert.equal(new URL(easy.href).searchParams.get('phone'),id);assert.equal(new URL(swap.href).searchParams.get('target'),id);
+ assert.equal(new URL(buy.href).pathname,'/checkout/');assert.equal(new URL(buy.href).searchParams.get('sku'),id);assert.equal(new URL(easy.href).pathname,'/easybuy/');assert.equal(new URL(easy.href).searchParams.get('phone'),id);assert.equal(swap,null);
  assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.storage==='256GB'&&e.value===phone.price));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='ViewContent'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='CustomizeProduct'));
  assert.equal(document.querySelector('[data-storage="256GB"]').getAttribute('aria-pressed'),'true');assert.match(document.querySelector('[data-storage="256GB"]').textContent,new RegExp(phone.price.toLocaleString('en-NG')));
  buy.addEventListener('click',event=>event.preventDefault(),{once:true});event(buy,'click');assert.equal(new URL(buy.href).searchParams.get('text'),null);assert.equal(window.ttq.filter(e=>e[0]==='track'&&e[1]==='Contact').length,0);dom.window.close();
@@ -126,29 +126,6 @@ test('iPhone 16 without recorded condition variants has no selector; older model
  const phone=offerChoice(choices.find(p=>p.id==='iphone-16|128GB'));
  assert.match(message(),new RegExp(`Deposit: ₦${financePlan({amount:phone.price,phone}).deposit.toLocaleString('en-NG')}`));
  easy.window.close();
- const fifteen=await setup('buy/index.html','/buy/?phone=iphone-15-pro-max%7C256GB&condition=Brand+New');globalThis.Option=fifteen.window.Option;
- await import(`../assets/buy-flow.js?test=${++serial}`);
- assert.equal(document.querySelector('#buy-condition-select'),null);
- assert.equal(document.querySelector('.buy-condition-badge').textContent,'UK Used');
- document.getElementById('flow-next').click();
- assert.match(new URL(document.getElementById('order-whatsapp').href).searchParams.get('text'),/Condition: UK Used/);
- fifteen.window.close();
-});
-test('storage changes carry the chosen price into the Buy flow and standard repayment',async()=>{
- const dom=await setup('buy/index.html','/buy/?phone=iphone-11%7C64GB&utm_source=tiktok');globalThis.Option=dom.window.Option;
- await import(`../assets/buy-flow.js?test=${++serial}`);
- document.getElementById('flow-back').click();
- const chip=document.querySelector('[data-buy-storage="iphone-11|128GB"]');assert.ok(chip);chip.click();
- const target=offerChoice(choices.find(p=>p.id==='iphone-11|128GB'));
- assert.equal(document.getElementById('buy-variant').value,target.id);
- assert.equal(document.querySelector('[data-buy-storage="iphone-11|128GB"]').getAttribute('aria-pressed'),'true');
- document.getElementById('flow-next').click();
- document.querySelector('[name="purchase"][value="easy"]').click();document.getElementById('flow-next').click();
- assert.equal(document.querySelector('[name="platform"]'),null);
- assert.match(document.getElementById('order-summary').textContent,new RegExp(target.price.toLocaleString('en-NG')));
- const msg=new URL(document.getElementById('order-whatsapp').href).searchParams.get('text');
- assert.match(msg,new RegExp(target.price.toLocaleString('en-NG')));assert.match(msg,/Standard \(20% monthly\)/);assert.doesNotMatch(msg,/Processing Fee/);assert.doesNotMatch(msg,attributionInMessage);
- assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.value===target.price));dom.window.close();
 });
 test('interest reminder appears once after financing engagement and leads to the qualification flow',async()=>{
  const dom=await setup('easybuy/index.html','/easybuy/?phone=iphone-12-pro-max%7C128GB');
@@ -176,15 +153,6 @@ test('General chat and mobile Chat keep the message clean while tracking attribu
  assert.ok(window.dataLayer.some(e=>e.event==='whatsapp_click'&&e.utm_campaign==='qa-campaign'&&e.fbclid==='fb-test'));
  assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));dom.window.close();
 });
-test('Buy Outright order flow sends its selection without attribution',async()=>{
- const dom=await setup('buy/index.html','/buy/?phone=iphone-14-pro-max%7C128GB&utm_source=tiktok&gclid=qa-gclid');
- globalThis.Option=dom.window.Option;await import(`../assets/buy-flow.js?test=${++serial}`);
- document.getElementById('flow-next').click();
- value('customer-name','Test Buyer','input');value('customer-phone','08012345678','input');
- const whatsapp=document.getElementById('order-whatsapp');assert.ok(!whatsapp.hidden);whatsapp.addEventListener('click',event=>event.preventDefault(),{once:true});whatsapp.click();
- const text=new URL(whatsapp.href).searchParams.get('text');assert.match(text,/outright purchase order/);assert.match(text,/Name: Test Buyer/);assert.doesNotMatch(text,/Interest|financ|deposit/i);assert.doesNotMatch(text,attributionInMessage);
- assert.ok(window.dataLayer.some(e=>e.event==='whatsapp_click'&&e.gclid==='qa-gclid'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='Contact'));dom.window.close();
-});
 test('new colour groups cannot send a Burgundy quote at the Silver/Blue price',async()=>{
  const dom=await setup('iphone-18-pro-max/index.html','/iphone-18-pro-max');await import(`../assets/commerce.js?test=${++serial}`);
  document.querySelector('[data-storage="512GB · Burgundy"]').click();
@@ -200,27 +168,3 @@ test('new colour groups cannot send a Burgundy quote at the Silver/Blue price',a
  dom.window.close();
 });
 
-test('outright delivery validates fields, updates quantity and keeps PII out of tracking',async()=>{
- const dom=await setup('buy/index.html','/buy/?phone=iphone-13-pro%7C256GB');globalThis.Option=dom.window.Option;
- await import(`../assets/buy-flow.js?test=${++serial}`);document.getElementById('flow-next').click();
- const link=document.getElementById('order-whatsapp');
- link.click();assert.ok(!window.dataLayer.some(e=>e.event==='buy_outright_order_submitted'));
- value('customer-name','Private Buyer','input');value('customer-phone','08012345678','input');value('customer-method','Delivery');
- link.click();assert.ok(!window.dataLayer.some(e=>e.event==='buy_outright_order_submitted'));
- value('customer-state','Lagos','input');value('customer-address','Private address','input');value('order-quantity',2,'input');
- link.addEventListener('click',event=>event.preventDefault(),{once:true});link.click();
- const text=new URL(link.href).searchParams.get('text');assert.match(text,/Quantity: 2/);assert.match(text,/Address: Private address/);
- assert.equal(window.dataLayer.filter(e=>e.event==='buy_outright_order_submitted').length,1);
- const tracking=JSON.stringify(window.dataLayer);assert.doesNotMatch(tracking,/Private Buyer|08012345678|Private address|text=/);
- dom.window.close();
-});
-test('changing colour groups clears incompatible colour and quantity cannot be fractional',async()=>{
- const dom=await setup('buy/index.html','/buy/?phone=iphone-18-pro-max%7C256GB%20%C2%B7%20Silver%2FBlue&color=Blue');globalThis.Option=dom.window.Option;
- await import(`../assets/buy-flow.js?test=${++serial}`);document.getElementById('flow-back').click();
- assert.equal(document.getElementById('buy-colour-select').value,'Blue');
- value('buy-variant','iphone-18-pro-max|512GB · Burgundy');assert.equal(document.getElementById('buy-colour-select').value,'Burgundy');
- document.getElementById('flow-next').click();document.getElementById('flow-next').click();
- value('customer-name','Buyer','input');value('customer-phone','08012345678','input');value('order-quantity',1.5,'input');
- document.getElementById('order-whatsapp').click();assert.ok(!window.dataLayer.some(e=>e.event==='buy_outright_order_submitted'));
- dom.window.close();
-});

@@ -82,5 +82,5 @@ test('product action and storage colors have readable contrast with mobile navig
  assert.match(css,/\.selector-pills button\.is-active \.storage-price\{color:#15321e!important\}/);
  assert.match(css,/body\[data-page-type="product"\]\{padding-bottom:calc\(110px \+ env\(safe-area-inset-bottom\)\)\}/);
  assert.ok(html.indexOf('/assets/sales.css')>html.indexOf('/assets/commerce.css'));
- assert.match(html,/Swap to this phone →/);
+ assert.doesNotMatch(html,/Swap to this phone →/);
 });

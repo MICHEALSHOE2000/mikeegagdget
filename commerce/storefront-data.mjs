@@ -5,7 +5,7 @@ import {categoryImages} from './product-images.mjs';
 import {offerProduct} from './offers.mjs';
 
 const products=baseProducts.map(offerProduct);
-const categoryOrder=['iphones','samsung','pixel','tablets','laptops','ps5','accessories','macbooks','ipads','watches','airpods','audio','games'];
+const categoryOrder=['iphones','samsung','pixel','tablets','laptops','ps5','accessories','macbooks','ipads','watches','airpods','wifi-only','games'];
 export const categories = [
  ['iphones','iPhones','Apple'],
  ['samsung','Samsung','Samsung'],
@@ -15,7 +15,7 @@ export const categories = [
  ['ipads','iPads','Apple'],
  ['watches','Smartwatches','Various'],
  ['airpods','AirPods','Apple'],
- ['audio','Audio','Various'],
+ ['wifi-only','WiFi Only Phones','Various'],
  ['ps5','PlayStation 5','Sony'],
  ['games','Games','Sony'],
  ['laptops','Laptops','Various'],

@@ -49,7 +49,7 @@ if(root){
  };
  const questions=()=>[
   {key:'faceIdBroken',label:'Does Face ID work?',invert:true,applies:current()?.hasFaceId},
-  {key:'batteryChanged',label:'Has the battery been changed?',applies:true},
+  {key:'batteryChanged',label:'Does the battery have an issue or has it been changed?',applies:true},
   {key:'screenChanged',label:'Has the screen been changed?',applies:true},
   {key:'screenCracked',label:'Is the screen cracked?',applies:true},
   {key:'backChanged',label:'Has the back glass been changed?',applies:current()?.hasGlassBack},
@@ -401,7 +401,7 @@ if(root){
    index=4;
    label='Your estimated value';
    const result=valuation();
-   html=`<p class="journey-section-label">SEE WHAT IT IS WORTH</p><h2>${result.manual?'Your phone needs a personal quote.':'Your estimated phone value.'}</h2>${device(current(),false)}${result.manual?'<p>We do not have a confirmed reference price for this model. We’ll value it after inspection.</p>':`<div class="journey-amount"><span>YOUR PHONE IS WORTH ABOUT</span><strong>${money(result.value)}</strong></div><details><summary>See valuation breakdown</summary>${rows([['Market reference',money(current().swapReferencePrice)],...result.deductions.map(item=>[item.label,`${item.percent}% · ${money(current().swapReferencePrice*item.percent/100)}`])])}</details>`}<p class="journey-help">Final value is subject to physical inspection.</p>`;
+   html=`<p class="journey-section-label">SEE WHAT IT IS WORTH</p><h2>${result.manual?'Your phone needs a personal quote.':'Your estimated phone value.'}</h2>${device(current(),false)}${result.manual?'<p>We do not have a confirmed reference price for this model. We’ll value it after inspection.</p>':`<div class="journey-amount"><span>YOUR PHONE IS WORTH ABOUT</span><strong>${money(result.value)}</strong></div><details><summary>See valuation breakdown</summary>${rows([['Market reference',money(current().swapReferencePrice)],...result.deductions.map(item=>[item.label,`${item.percent}% · ${money(current().swapReferencePrice*item.percent/100)}`])])}</details>`}<p class="journey-help">Final value is subject to physical inspection. Face ID issues require manual assessment; no automatic deduction is applied.</p>`;
    $('journey-next').textContent='Calculate What I’ll Pay →';
   }
 

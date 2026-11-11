@@ -58,13 +58,13 @@ test('iPhone brand new and UK Used listings stay distinct with matching Easy Buy
 });
 
 test('cards and category pages show current non-phone products and Confirm Price labels',async()=>{
- for(const category of ['tablets','watches','airpods','audio','accessories']){
+ for(const category of ['tablets','watches','airpods','accessories']){
   const page=await readFile(`shop/${category}/index.html`,'utf8');
-  assert.match(page,/CURRENT CATALOGUE/);
-  assert.match(page,/VIEW OPTIONS/);
+  assert.match(page,/Find your next device/);
+  assert.match(page,/View Details/);
  }
  const tablet=await readFile('shop/tablets/index.html','utf8');
- assert.match(tablet,/Samsung Galaxy Tab A11/);
+ assert.match(tablet,/data-category-scope="tablets"/);
  const samsung=await readFile('samsung-s23/index.html','utf8');
  assert.match(samsung,/Confirm Price/);
  const store=await readFile('assets/store-catalog.json','utf8');

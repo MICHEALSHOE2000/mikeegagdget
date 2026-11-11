@@ -309,8 +309,8 @@ if (productDataElement) {
     if (productPrice) productPrice.textContent = variant.price ? naira.format(variant.price) : "Confirm Price";
     if (priceNote) {
       priceNote.textContent = variant.price
-        ? [variant.connectivity,'Available to Order','Free nationwide delivery','7-day warranty'].filter(Boolean).join(' · ')
-        : 'Available to Order. Price is being updated for this variant; your selection can be saved in the cart.';
+        ? [variant.connectivity,'Available','Free nationwide delivery','7-day warranty'].filter(Boolean).join(' · ')
+        : 'Available. Price is being updated for this variant; your selection can be saved in the cart.';
     }
 
     if (priceInput) {
