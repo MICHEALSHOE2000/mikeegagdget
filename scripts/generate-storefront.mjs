@@ -8,7 +8,7 @@ html=html.replace('{{COLOUR_OPTIONS}}',[...new Set(storeItems.flatMap(item=>item
 const trust=html.match(/<div class="trust-loop">([\s\S]*?)<\/div>/)?.[1]||'';
 html=html.replace('{{TRUST_DUPLICATE}}','<div class="trust-loop" aria-hidden="true">'+trust+'</div>');
 const categoryHtml=categories.map(c=>`<a class="category-tile" href="${c.route}" data-category="${c.id}">${media(c.image,c.name)}<strong>${c.name}</strong><span aria-hidden="true">Shop ↗</span></a>`).join('');
-html=html.replace('{{SERIES_OPTIONS}}',[...new Set(storeItems.map(p=>p.series).filter(Boolean))].map(series=>`<option value="${series}">iPhone ${series}</option>`).join('')).replace('{{CATEGORIES}}',categoryHtml).replace('{{CATEGORY_OPTIONS}}',categories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')).replace('{{PRODUCTS}}',storeItems.filter(p=>p.variants.some(v=>v.price>0)).slice(0,8).map(card).join('')).replace('{{HOT_DEALS}}',featuredDeals(storeItems).map(card).join('')||'<p class="empty-deals">Current catalogue prices are shown above. Contact Mikee to ask about current offers.</p>');
+html=html.replace('{{SERIES_OPTIONS}}',[...new Set(storeItems.map(p=>p.series).filter(Boolean))].map(series=>`<option value="${series}">iPhone ${series}</option>`).join('')).replace('{{CATEGORIES}}',categoryHtml).replace('{{CATEGORY_OPTIONS}}',categories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')).replace('{{PRODUCTS}}',storeItems.filter(p=>p.variants.some(v=>v.price>0)).slice(0,8).map(card).join('')).replace('{{HOT_DEALS}}',featuredDeals(storeItems).map(card).join('')||'<p class="empty-deals">Featured phones will appear here.</p>');
 await writeFile('index.html',html);
 await writeFile('assets/store-catalog.json',JSON.stringify(storeItems));
 // Dedicated enquiry pages keep category browsing on the site until customers are ready.
@@ -32,3 +32,9 @@ for(const c of shopCategories){
  await mkdir(`shop/${c.id}`,{recursive:true});await writeFile(`shop/${c.id}/index.html`,page);
 }
 console.log(`Generated storefront, compact catalogue and ${shopCategories.length} gadget category pages.`);
+
+// Search results reuse the approved header, filters, cards and mobile navigation.
+const filters=html.match(/<section class="store-section filters-section"[\s\S]*?<\/section>/)?.[0];
+if(!filters)throw Error('Homepage catalogue section missing');
+const searchHtml=html.replace(/<main id="main">[\s\S]*?<\/main>/,`<main id="main"><section class="store-section"><h1>Find your next device</h1><div class="home-catalog-search"><label for="homePhoneSearch">What are you looking for?</label><input type="search" id="homePhoneSearch" autocomplete="off" aria-expanded="false" aria-controls="searchResults"><div id="searchResults" hidden></div></div><p id="method-note" role="status"></p></section>${filters}</main>`).replace(/<title>.*?<\/title>/,'<title>Search products | Mikee Gadget Plug</title>').replace(/<link rel="canonical"[^>]*>/,'<link rel="canonical" href="https://www.mikeegadget.com.ng/search/">').replace('id="products"','id="products"');
+await mkdir('search',{recursive:true});await writeFile('search/index.html',searchHtml);

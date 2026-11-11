@@ -55,7 +55,7 @@ const whatsappFor = item => {
 };
 const otherItems = retailInventory.filter(item=>!item.isPhone).map(item=>({
  slug:item.slug,model:item.model,brand:item.brand,category:item.category,image:item.image||'',
- route:whatsappFor(item),conditions:[item.condition],availability:'Confirm exact unit and availability',
+ route:`/${item.slug}/`,conditions:[item.condition],availability:'Confirm exact unit and availability',
  easy:false,swap:false,variants:item.variants.map(makeVariant)
 }));
 export const storeItems = [...phoneItems,...otherItems];

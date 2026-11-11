@@ -1,0 +1,47 @@
+[
+  {
+    "sku": "iphone-17-pro-max|2TB",
+    "priceNgn": 3000000,
+    "color": "Cosmic Orange",
+    "source": "https://revenes.com/product/iphone-17-pro-max-physical-sim-brand-new/",
+    "checkedOn": "2026-11-11",
+    "method": "Selected storage and colour in live product UI",
+    "note": "Existing priced variants unchanged. Price applies to recorded colour/configuration only."
+  },
+  {
+    "sku": "iphone-16-uk-used|256GB",
+    "priceNgn": 925000,
+    "color": "Teal",
+    "source": "https://revenes.com/product/iphone-16-physical-sim-uk-used/",
+    "checkedOn": "2026-11-11",
+    "method": "Selected storage and colour in live product UI",
+    "note": "Existing priced variants unchanged. Price applies to recorded colour/configuration only."
+  },
+  {
+    "sku": "iphone-15-pro-uk-used|256GB",
+    "priceNgn": 875000,
+    "color": "Black Titanium",
+    "source": "https://revenes.com/product/iphone-15-pro-esim-uk-used/",
+    "checkedOn": "2026-11-11",
+    "method": "Selected storage and colour in live product UI",
+    "note": "Existing priced variants unchanged. Price applies to recorded colour/configuration only."
+  },
+  {
+    "sku": "samsung-s25-ultra|256GB",
+    "priceNgn": 1230000,
+    "color": "Titanium Silverblue",
+    "source": "https://revenes.com/product/samsung-galaxy-s25-ultra-dual-sim-brand-new/",
+    "checkedOn": "2026-11-11",
+    "method": "Selected storage and colour in live product UI",
+    "note": "Existing priced variants unchanged. Price applies to recorded colour/configuration only."
+  },
+  {
+    "sku": "samsung-s25-ultra|512GB",
+    "priceNgn": 1330000,
+    "color": "Titanium Silverblue",
+    "source": "https://revenes.com/product/samsung-galaxy-s25-ultra-dual-sim-brand-new/",
+    "checkedOn": "2026-11-11",
+    "method": "Selected storage and colour in live product UI",
+    "note": "Existing priced variants unchanged. Price applies to recorded colour/configuration only."
+  }
+]

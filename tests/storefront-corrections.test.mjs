@@ -9,12 +9,12 @@ import {choices,financePlan} from '../commerce/upgrade-core.mjs';
 import {selectedCondition} from '../commerce/conditions.mjs';
 
 test('homepage preserves the Hot Deals slot without changing required final prices',async()=>{
- assert.equal(HOT_DEALS_LIMIT,5);
+ assert.equal(HOT_DEALS_LIMIT,6);
  assert.deepEqual(promotion.models,[]);
- assert.deepEqual(featuredDeals(storeItems),[]);
+ assert.equal(featuredDeals(storeItems).length,6);
  const dom=new JSDOM(await readFile('index.html','utf8'));
- assert.match(dom.window.document.getElementById('deals').textContent,/current offers/i);
- assert.equal(dom.window.document.querySelectorAll('#hotDeals > article').length,0);
+ assert.doesNotMatch(dom.window.document.getElementById('deals').textContent,/current offers/i);
+ assert.equal(dom.window.document.querySelectorAll('#hotDeals > article').length,6);
  assert.doesNotMatch(dom.window.document.getElementById('deals').textContent,/\d+%\s*(?:off|discount)/i);
  dom.window.close();
 });

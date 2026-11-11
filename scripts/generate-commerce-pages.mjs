@@ -62,7 +62,7 @@ const productFaqs = (product) => {
   return [
     {
       question: `What is the price of ${product.model} in Nigeria?`,
-      answer: `The price depends on storage, condition, colour and current market availability. This page shows prices where available. Confirm today’s price and stock before payment.`
+      answer: `Select your exact storage, condition and colour to see its listed price. Review your order total at checkout before paying.`
     },
     {
       question: `How much is ${product.model} ${exampleStorage}?`,
@@ -82,7 +82,7 @@ const productFaqs = (product) => {
     },
     {
       question: "Do you deliver outside Lagos?",
-      answer: `Delivery is available in Lagos and across Nigeria. Confirm the fee, timing and payment or handover arrangement for your location before ordering.`
+      answer: `Delivery is free nationwide: same-day in Lagos and 24–48 hours to other states.`
     },
     {
       question: `Does ${product.model} come with a warranty?`,
@@ -250,8 +250,8 @@ const renderVariantSelector = (product) => `
     </div>
     <div class="buying-facts">
       <span><b>Battery health</b>${product.listingPending ? "Details coming soon" : product.brand === "Apple" ? "UK-used units: above 83%; confirm exact reading" : "Reading available for the exact used unit"}</span>
-      <span><b>Warranty</b>Confirm written terms for the exact unit</span>
-      <span><b>Delivery</b>Lagos and nationwide options</span>
+      <span><b>Warranty</b>7-day warranty on all products</span>
+      <span><b>Delivery</b>Free nationwide delivery</span>
     </div>
     <div class="price-display">
       <span data-variant-label>${escapeHtml(product.model)} ${escapeHtml(product.defaultStorage)}</span>
@@ -260,10 +260,10 @@ const renderVariantSelector = (product) => `
           ? formatNaira(product.variants.find((variant) => variant.storage === product.defaultStorage).price)
           : "Confirm Price"
       )}</strong>
-      <small data-price-note>Confirm today’s price, condition and stock before payment.</small>
+      <small data-price-note>Available to Order · Free nationwide delivery</small>
     </div>
     <div class="purchase-actions">
-      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Now on WhatsApp</a>
+      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Now</a>
       <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Check Pay Small Small Plan</a>
       <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Swap to this phone →</a>
     </div>
@@ -350,9 +350,9 @@ const renderDelivery = () => `
       <a class="text-link" href="${commerceSite.directionsUrl}" target="_blank" rel="noopener">Get directions to the store →</a>
     </div>
     <div class="delivery-grid">
-      <article><span>01</span><h3>Lagos delivery</h3><p>Ask for timing, fee and whether a payment-on-delivery arrangement applies to your location.</p></article>
+      <article><span>01</span><h3>Lagos delivery</h3><p>Free same-day delivery in Lagos.</p></article>
       <article><span>02</span><h3>Store pickup</h3><p>Visit ${escapeHtml(commerceSite.address)} and ask to inspect the exact unit before payment.</p></article>
-      <article><span>03</span><h3>Nationwide delivery</h3><p>Confirm courier, fee, timing and handover process for your state before ordering.</p></article>
+      <article><span>03</span><h3>Nationwide delivery</h3><p>Free delivery within 24–48 hours to other states.</p></article>
     </div>
   </section>`;
 
@@ -445,7 +445,7 @@ const renderProductPage = (product) => {
       <div class="product-hero-copy">
         <p class="commerce-eyebrow">${escapeHtml(product.brand)} · Buy in Nigeria</p>
         <h1>${escapeHtml(product.model)}</h1>
-        <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : `${escapeHtml(product.conditions.join(' / ') || 'Condition to confirm')}. Confirm the exact unit and stock before payment.`}</p>
+        <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : `${escapeHtml(product.conditions.join(' / ') || 'Condition to confirm')}. Available to Order.`}</p>
         <div class="hero-fact-row">
           <span><strong>Storage</strong>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</span>
           <span><strong>Delivery</strong>Lagos & nationwide</span>

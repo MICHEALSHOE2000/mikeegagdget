@@ -1,5 +1,5 @@
 # Mikee Gadget shopping audit and proposed implementation
-Date: 11 November 2026. Status: audit complete enough for scope review; implementation not started.
+Date: 11 November 2026. Historical pre-implementation audit. See [current checkpoint](shopping-progress-2026-11-11.md) for implementation status and owner overrides.
 
 ## Protected baseline
 - Repository: MICHEALSHOE2000/mikeegagdget
@@ -112,3 +112,4 @@ Keep main at the restored baseline until release approval. Preview from the feat
 
 ## Approval requested
 Approve implementation of stages 1–7 on the isolated feature branch, with missing business configuration left inactive and production deployment reserved for separate approval. This scope approval gate comes from Phase 15 of the supplied brief.
+
