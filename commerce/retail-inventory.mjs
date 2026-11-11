@@ -214,7 +214,9 @@ export const retailInventory = Object.freeze([
       },
       {
         "storage": "2TB",
-        "price": null
+        "price": 3000000,
+        "color": "Cosmic Orange",
+        "connectivity": "Physical SIM"
       }
     ],
     "colors": [
@@ -267,7 +269,9 @@ export const retailInventory = Object.freeze([
       },
       {
         "storage": "256GB",
-        "price": null
+        "price": 925000,
+        "color": "Teal",
+        "connectivity": "Physical SIM"
       }
     ],
     "colors": []
@@ -435,7 +439,9 @@ export const retailInventory = Object.freeze([
     "variants": [
       {
         "storage": "256GB",
-        "price": null
+        "price": 875000,
+        "color": "Black Titanium",
+        "connectivity": "Physical SIM"
       }
     ],
     "colors": []
@@ -1176,11 +1182,15 @@ export const retailInventory = Object.freeze([
     "variants": [
       {
         "storage": "256GB",
-        "price": null
+        "price": 1230000,
+        "color": "Titanium Silverblue",
+        "connectivity": "Dual SIM"
       },
       {
         "storage": "512GB",
-        "price": null
+        "price": 1330000,
+        "color": "Titanium Silverblue",
+        "connectivity": "Dual SIM"
       },
       {
         "storage": "1TB",
@@ -3279,8 +3289,9 @@ export const retailPhoneProducts = Object.freeze(retailInventory.filter(item => 
     price: variant.price,
     color: variant.color || null,
     ram: variant.ram || null,
+    connectivity: variant.connectivity || null,
     warranty: variant.warranty || null,
-    availability: variant.price === null ? "Confirm price and availability" : "Confirm availability",
+    availability: "Available to Order",
     priceNeedsExtraConfirmation: variant.price === null,
     oldPrice: null
   })),
@@ -3288,10 +3299,10 @@ export const retailPhoneProducts = Object.freeze(retailInventory.filter(item => 
   colors: item.colors.length ? item.colors : ["Ask for today’s available colours"],
   conditions: [item.condition],
   images: item.image ? [item.image, ...(item.gallery || [])].slice(0, 3) : [],
-  stockStatus: "Confirm the exact unit and availability before payment",
+  stockStatus: "Available to Order",
   easyBuyEligible: true,
   swapEligible: true,
-  warranty: "Confirm written terms for the exact unit",
+  warranty: "7-day warranty on all products",
   batteryHealth: "Ask for battery-condition details when considering a used unit.",
   specifications: {
     display: "Confirm the exact unit’s display",

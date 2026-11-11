@@ -379,6 +379,27 @@
   },
   {
     "type": "product",
+    "label": "iPhone 15 Pro",
+    "route": "/iphone-15-pro-uk-used",
+    "brand": "Apple",
+    "storage": [
+      "256GB"
+    ],
+    "price": 875000,
+    "image": "/images/store/15pro-1-720.webp",
+    "keywords": [
+      "iPhone 15 Pro",
+      "Apple",
+      "iPhone",
+      "iPhone 15 Pro 256GB",
+      "256GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
     "label": "iPhone 15 Plus",
     "route": "/iphone-15-plus",
     "brand": "Apple",
@@ -768,7 +789,7 @@
       "512GB",
       "1TB"
     ],
-    "price": 1740000,
+    "price": 1230000,
     "image": "/images/store/samsung/samsung-galaxy-s25-ultra-1-720.webp",
     "keywords": [
       "Samsung Galaxy S25 Ultra",
@@ -1481,27 +1502,6 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy Z Flip 4 256GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "iPhone 15 Pro",
-    "route": "/iphone-15-pro-uk-used",
-    "brand": "Apple",
-    "storage": [
-      "256GB"
-    ],
-    "price": null,
-    "image": "/images/store/15pro-1-720.webp",
-    "keywords": [
-      "iPhone 15 Pro",
-      "Apple",
-      "iPhone",
-      "iPhone 15 Pro 256GB",
       "256GB",
       "price in Nigeria",
       "Easy Buy",

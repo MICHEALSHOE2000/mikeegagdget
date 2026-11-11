@@ -10,8 +10,8 @@ import {retailInventory} from '../commerce/retail-inventory.mjs';
 
 test('retail selling prices stay final across product, store and calculator data',async()=>{
  assert.deepEqual(promotion.models,[]);
- assert.equal(HOT_DEALS_LIMIT,5);
- assert.deepEqual(featuredDeals(storeItems),[]);
+ assert.equal(HOT_DEALS_LIMIT,6);
+ assert.equal(featuredDeals(storeItems).length,6);
  for(const base of products){
   assert.ok(base.variants.length>0);
   const display=offerProduct(base),item=storeItems.find(p=>p.slug===base.slug);
@@ -51,7 +51,7 @@ test('homepage keeps its buying and enquiry routes without applying stale discou
  const html=await readFile('index.html','utf8');
  assert.ok(html.indexOf('hot-deals')<html.indexOf('id="categories"'));
  assert.ok(html.includes('data-model="iphone-18-pro-max"'));
- assert.match(html,/Contact Mikee to ask about current offers/);
+ assert.doesNotMatch(html,/Contact Mikee to ask about current offers/);
  for(const route of ['easybuy','swap','deals','iphone-14-pro-max','iphone-13','pixel-11','samsung-s23']){
   const page=await readFile(`${route}/index.html`,'utf8');
   assert.ok(page.includes('<h1>'),route);

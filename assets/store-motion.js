@@ -17,7 +17,6 @@ reduced.addEventListener?.('change',()=>{
 const rail=document.getElementById('hotDeals'),pause=document.getElementById('deals-pause');
 if(rail&&pause){
  const cards=[...rail.children];
- for(let i=cards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[cards[i],cards[j]]=[cards[j],cards[i]];}
  rail.replaceChildren(...cards);
  let stopped=reduced.matches,hover=false,visible=true;
  const update=()=>{pause.setAttribute('aria-pressed',String(stopped));pause.setAttribute('aria-label',stopped?'Resume automatic deals':'Pause automatic deals');pause.textContent=stopped?'▶':'Ⅱ';};

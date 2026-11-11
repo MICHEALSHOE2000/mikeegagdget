@@ -37,10 +37,10 @@ test('example prices follow their specified group and ambiguous prices remain Co
  assert.equal(price('samsung-s22-plus','256GB'),390_000);
  assert.equal(price('samsung-s23','128GB'),null);
  assert.equal(price('samsung-s23','256GB'),null);
- assert.equal(price('samsung-s25-ultra','256GB'),null);
- assert.equal(price('iphone-15-pro-uk-used','256GB'),null);
- assert.equal(retailInventory.flatMap(item=>item.variants).filter(variant=>variant.price===null).length,22);
- assert.equal(retailInventory.filter(item=>item.variants.some(variant=>variant.price===null)).length,17);
+ assert.equal(price('samsung-s25-ultra','256GB'),1230000);
+ assert.equal(price('iphone-15-pro-uk-used','256GB'),875000);
+ assert.equal(retailInventory.flatMap(item=>item.variants).filter(variant=>variant.price===null).length,17);
+ assert.equal(retailInventory.filter(item=>item.variants.some(variant=>variant.price===null)).length,13);
 });
 
 test('iPhone brand new and UK Used listings stay distinct with matching Easy Buy data',()=>{

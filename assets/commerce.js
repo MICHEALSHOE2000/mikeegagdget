@@ -1,3 +1,4 @@
+import {addToCart} from '../commerce/cart.mjs';
 import {financePlan} from '../commerce/upgrade-core.mjs';
 import {financeMessage} from '../commerce/order-messages.mjs';
 import {activateImages} from './storefront-ui.mjs';
@@ -210,6 +211,12 @@ if (productDataElement) {
 
   const selectedColor = () => colorSelect?.value || "Confirm available colour";
   const selectedCondition = () => conditionFor(product, conditionSelect?.value);
+  const cartButton=document.createElement('button');cartButton.type='button';cartButton.className='commerce-button commerce-button-ghost';cartButton.textContent='Add to cart';
+  const cartStatus=document.createElement('p');cartStatus.setAttribute('role','status');
+  const cartLink=document.createElement('a');cartLink.href='/cart/';cartLink.textContent='View cart';
+  document.querySelector('.purchase-actions')?.append(cartButton,cartLink,cartStatus);
+  cartButton.addEventListener('click',()=>{try{const v=selectedVariant();addToCart(localStorage,{sku:`${product.slug}|${selectedStorage}`,color:v.color?selectedColor():'',quantity:1});cartStatus.textContent='Added to cart.';}catch{cartStatus.textContent='Could not save your cart. Please enable browser storage.';}});
+
 
   function messageFor(intent) {
     const name = `${product.model} ${selectedStorage}`.trim();
@@ -230,7 +237,7 @@ if (productDataElement) {
         link.dataset.productId=`${product.slug}|${selectedStorage}`;
         link.dataset.value=price||'';
         const q=new URLSearchParams({phone:`${product.slug}|${selectedStorage}`,condition:selectedCondition(),color:selectedColor()});
-        if(link.dataset.action==='buy') {link.href=`/buy/?${q}`;link.textContent=price?'Buy Outright': 'Ask for Price';}
+        if(link.dataset.action==='buy') {const checkout=new URLSearchParams({sku:`${product.slug}|${selectedStorage}`,color:selectedVariant().color?selectedColor():''});link.href=`/checkout/?${checkout}`;link.textContent='Buy Now';}
         if(link.dataset.action==='easyBuy'){link.href=`/easybuy/?${q}`;link.textContent='Check Pay Small Small Plan';}
         if(link.dataset.action==='swap'){q.set('target',q.get('phone'));link.href=`/swap/?${q}`;link.textContent='Swap to this phone →';}
         if(!price && link.dataset.action!=='buy'){link.href=whatsappHref(product.whatsappNumber,messageFor(link.dataset.action));link.textContent=link.dataset.action==='easyBuy'?'Ask About Pay Small Small':'Ask About a Swap';}
@@ -301,13 +308,9 @@ if (productDataElement) {
     if (variantLabel) variantLabel.textContent = `${product.model} ${selectedStorage}`;
     if (productPrice) productPrice.textContent = variant.price ? naira.format(variant.price) : "Confirm Price";
     if (priceNote) {
-      priceNote.textContent = variant.availability?.includes('out of stock')
-        ? "This source variant was out of stock when checked. Ask Mikee Gadget Plug to confirm availability and today's price."
-        : variant.priceNeedsExtraConfirmation
-        ? "This supplied guide price needs extra confirmation. Ask Mikee Gadget Plug for today’s exact price before planning."
-        : variant.price
-          ? (variant.offerId ? `Hot Deal · regular price ${naira.format(variant.regularPrice)}. Confirm the exact unit before payment.` : "Confirm today’s price, condition and stock before payment.")
-          : "No price was supplied for this variant. Request today’s exact price before payment.";
+      priceNote.textContent = variant.price
+        ? [variant.connectivity,'Available to Order','Free nationwide delivery','7-day warranty'].filter(Boolean).join(' · ')
+        : 'Available to Order. Price is being updated for this variant; your selection can be saved in the cart.';
     }
 
     if (priceInput) {
@@ -363,6 +366,11 @@ if (productDataElement) {
   });
   durationSelect?.addEventListener("change", updateCalculator);
 
+  // Admin price edits are read from the same authority used by checkout.
+  try {
+    const response=await fetch('/api/shop/catalog');
+    if(response.ok){const rows=await response.json();if(Array.isArray(rows))for(const variant of product.variants){const current=rows.find(row=>row.sku===product.slug+'|'+variant.storage);if(current)variant.price=current.price;}}
+  } catch { /* Static preview retains its catalogue prices; checkout revalidates. */ }
   const requestedStorage = new URL(window.location.href).searchParams.get("storage");
   updateSelection(
     product.variants.some((variant) => variant.storage === requestedStorage)
