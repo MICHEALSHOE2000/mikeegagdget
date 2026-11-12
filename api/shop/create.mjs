@@ -5,7 +5,7 @@ export default async function handler(req,res){
  try{
   if(!sameOrigin(req))return reply(res,403,{error:'Please submit from the checkout page.'});
   let order;try{order=validateCheckout(req.body);}catch(e){return reply(res,400,{error:e.message});}
-  const result=await db('rpc/shop_create_order',{method:'POST',body:{p_request_id:order.requestId,p_items:order.items,p_customer:order.customer,p_policy:order.policyVersion}});
+  const result=await db('rpc/shop_create_order_deals',{method:'POST',body:{p_request_id:order.requestId,p_items:order.items,p_customer:order.customer,p_policy:order.policyVersion}});
   if(result.status==='paid')return reply(res,200,{url:new URL('/checkout/complete/?reference='+encodeURIComponent(result.reference),env('SHOP_ORIGIN')).href});
   if(!Number.isSafeInteger(req.body.expectedTotalNgn)||req.body.expectedTotalNgn!==Number(result.amount_ngn))return reply(res,409,{error:'The current price has changed. Refresh checkout and review the updated total before paying.'});
   if(result.authorization_url)return reply(res,200,{url:result.authorization_url});
