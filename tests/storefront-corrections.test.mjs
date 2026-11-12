@@ -32,11 +32,11 @@ test('iPhone 11–15 pages label UK Used without a selector; later models expose
  }
  const sixteen=new JSDOM(await readFile('iphone-16/index.html','utf8'));
  assert.equal(sixteen.window.document.querySelector('[data-condition-select]'),null);
- assert.match(sixteen.window.document.querySelector('.condition-badge').textContent,/Brand New/);
+ assert.match(sixteen.window.document.querySelector('.condition-badge').textContent,/UK Used/);
  sixteen.window.close();
  const eighteen=new JSDOM(await readFile('iphone-18-pro/index.html','utf8'));
- assert.equal(eighteen.window.document.querySelector('[data-condition-select]'),null);
- assert.match(eighteen.window.document.querySelector('.condition-badge').textContent,/Brand New/);
+ assert.ok(eighteen.window.document.querySelector('[data-condition-select]'));
+ assert.match(eighteen.window.document.querySelector('[data-condition-select]').textContent,/Brand New.*UK Used/);
  eighteen.window.close();
 });
 

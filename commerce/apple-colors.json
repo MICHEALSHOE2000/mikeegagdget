@@ -1,0 +1,324 @@
+{
+  "source": "https://support.apple.com/en-us/108044",
+  "verified": "2026-11-12",
+  "models": {
+    "iPhone Duo": [
+      "Night Sky",
+      "Star White"
+    ],
+    "iPhone 18 Pro Max": [
+      "Black",
+      "Silver",
+      "Glacier",
+      "Burgundy"
+    ],
+    "iPhone 18 Pro": [
+      "Black",
+      "Silver",
+      "Glacier",
+      "Burgundy"
+    ],
+    "iPhone 17e": [
+      "Black",
+      "White",
+      "Soft Pink"
+    ],
+    "iPhone 17 Pro Max": [
+      "Silver",
+      "Cosmic Orange",
+      "Deep Blue"
+    ],
+    "iPhone 17 Pro": [
+      "Silver",
+      "Cosmic Orange",
+      "Deep Blue"
+    ],
+    "iPhone 17": [
+      "Black",
+      "White",
+      "Mist Blue",
+      "Sage",
+      "Lavender"
+    ],
+    "iPhone Air": [
+      "Space Black",
+      "Cloud White",
+      "Light Gold",
+      "Sky Blue"
+    ],
+    "iPhone 16e": [
+      "Black",
+      "White"
+    ],
+    "iPhone 16 Pro Max": [
+      "Black Titanium",
+      "White Titanium",
+      "Natural Titanium",
+      "Desert Titanium"
+    ],
+    "iPhone 16 Pro": [
+      "Black Titanium",
+      "White Titanium",
+      "Natural Titanium",
+      "Desert Titanium"
+    ],
+    "iPhone 16 Plus": [
+      "Black",
+      "White",
+      "Pink",
+      "Teal",
+      "Ultramarine"
+    ],
+    "iPhone 16": [
+      "Black",
+      "White",
+      "Pink",
+      "Teal",
+      "Ultramarine"
+    ],
+    "iPhone 15 Pro Max": [
+      "Black Titanium",
+      "White Titanium",
+      "Blue Titanium",
+      "Natural Titanium"
+    ],
+    "iPhone 15 Pro": [
+      "Black Titanium",
+      "White Titanium",
+      "Blue Titanium",
+      "Natural Titanium"
+    ],
+    "iPhone 15 Plus": [
+      "Black",
+      "Blue",
+      "Green",
+      "Yellow",
+      "Pink"
+    ],
+    "iPhone 15": [
+      "Black",
+      "Blue",
+      "Green",
+      "Yellow",
+      "Pink"
+    ],
+    "iPhone 14 Pro Max": [
+      "Silver",
+      "gold",
+      "space black",
+      "deep purple"
+    ],
+    "iPhone 14 Pro": [
+      "Silver",
+      "gold",
+      "space black",
+      "deep purple"
+    ],
+    "iPhone 14 Plus": [
+      "Midnight",
+      "starlight",
+      "(PRODUCT)RED",
+      "blue",
+      "purple",
+      "yellow"
+    ],
+    "iPhone 14": [
+      "Midnight",
+      "starlight",
+      "(PRODUCT)RED",
+      "blue",
+      "purple",
+      "yellow"
+    ],
+    "iPhone SE (3rd generation)": [
+      "(PRODUCT)RED",
+      "starlight",
+      "midnight"
+    ],
+    "iPhone 13 Pro Max": [
+      "Graphite",
+      "gold",
+      "silver",
+      "sierra blue",
+      "alpine green"
+    ],
+    "iPhone 13 Pro": [
+      "Graphite",
+      "gold",
+      "silver",
+      "sierra blue",
+      "alpine green"
+    ],
+    "iPhone 13": [
+      "(PRODUCT)RED",
+      "starlight",
+      "midnight",
+      "blue",
+      "pink",
+      "green"
+    ],
+    "iPhone 13 mini": [
+      "(PRODUCT)RED",
+      "starlight",
+      "midnight",
+      "blue",
+      "pink",
+      "green"
+    ],
+    "iPhone 12 Pro Max": [
+      "Silver",
+      "graphite",
+      "gold",
+      "pacific blue"
+    ],
+    "iPhone 12 Pro": [
+      "Silver",
+      "graphite",
+      "gold",
+      "pacific blue"
+    ],
+    "iPhone 12": [
+      "Black",
+      "white",
+      "(PRODUCT)RED",
+      "green",
+      "blue",
+      "purple"
+    ],
+    "iPhone 12 mini": [
+      "Black",
+      "white",
+      "(PRODUCT)RED",
+      "green",
+      "blue",
+      "purple"
+    ],
+    "iPhone SE (2nd generation)": [
+      "White",
+      "black",
+      "(PRODUCT)RED"
+    ],
+    "iPhone 11 Pro": [
+      "Silver",
+      "space gray",
+      "gold",
+      "midnight green"
+    ],
+    "iPhone 11 Pro Max": [
+      "Silver",
+      "space gray",
+      "gold",
+      "midnight green"
+    ],
+    "iPhone 11": [
+      "Purple",
+      "green",
+      "yellow",
+      "black",
+      "white",
+      "(PRODUCT)RED"
+    ],
+    "iPhone XS": [
+      "Silver",
+      "space gray",
+      "gold"
+    ],
+    "iPhone XS Max": [
+      "Silver",
+      "space gray",
+      "gold"
+    ],
+    "iPhone XR": [
+      "Black",
+      "white",
+      "blue",
+      "yellow",
+      "coral",
+      "(PRODUCT)RED"
+    ],
+    "iPhone X": [
+      "Silver",
+      "space gray"
+    ],
+    "iPhone 8": [
+      "Gold",
+      "silver",
+      "space gray",
+      "(PRODUCT)RED"
+    ],
+    "iPhone 8 Plus": [
+      "Gold",
+      "silver",
+      "space gray",
+      "(PRODUCT)RED"
+    ],
+    "iPhone 7": [
+      "Black",
+      "jet black",
+      "gold",
+      "rose gold",
+      "silver",
+      "(PRODUCT)RED"
+    ],
+    "iPhone 7 Plus": [
+      "Black",
+      "jet black",
+      "gold",
+      "rose gold",
+      "silver",
+      "(PRODUCT)RED"
+    ],
+    "iPhone SE (1st generation)": [
+      "Space gray",
+      "silver",
+      "gold",
+      "rose gold"
+    ],
+    "iPhone 6s": [
+      "Space gray",
+      "silver",
+      "gold",
+      "rose gold"
+    ],
+    "iPhone 6s Plus": [
+      "Space gray",
+      "silver",
+      "gold",
+      "rose gold"
+    ],
+    "iPhone 6": [
+      "Space gray",
+      "silver",
+      "gold"
+    ],
+    "iPhone 6 Plus": [
+      "Space gray",
+      "silver",
+      "gold"
+    ],
+    "iPhone 5s": [
+      "Space gray",
+      "silver",
+      "gold"
+    ],
+    "iPhone 5c": [
+      "White",
+      "blue",
+      "pink",
+      "green",
+      "yellow"
+    ],
+    "iPhone 5": [
+      "Black and white"
+    ],
+    "iPhone 4s": [
+      "Black and white"
+    ],
+    "iPhone 4": [
+      "Black and white"
+    ],
+    "iPhone 3GS": [
+      "Black and white"
+    ]
+  }
+}

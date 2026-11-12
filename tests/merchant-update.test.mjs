@@ -25,7 +25,7 @@ test('Group 1 final prices reach product pages, cards and calculator choices unc
  };
  for(const [slug,variants] of Object.entries(expected)){
   const product=products.find(p=>p.slug===slug),item=storeItems.find(p=>p.slug===slug);
-  assert.deepEqual(product.conditions,['Brand New']);
+  assert.deepEqual(product.conditions,['Brand New','UK Used']);
   assert.ok(product.images[0]);assert.equal(product.listingPending,false);assert.equal(product.easyBuyEligible,true);
   const html=await readFile(`${slug}/index.html`,'utf8');
   for(const [storage,price] of Object.entries(variants)){

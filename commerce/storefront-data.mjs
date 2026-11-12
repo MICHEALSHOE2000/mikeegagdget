@@ -5,7 +5,7 @@ import {categoryImages} from './product-images.mjs';
 import {offerProduct} from './offers.mjs';
 
 const products=baseProducts.map(offerProduct);
-const categoryOrder=['iphones','samsung','pixel','tablets','laptops','ps5','accessories','macbooks','ipads','watches','airpods','wifi-only','games'];
+const categoryOrder=['iphones','samsung','pixel','tablets','wifi-only','laptops','ps5','accessories','macbooks','ipads','watches','airpods','games'];
 export const categories = [
  ['iphones','iPhones','Apple'],
  ['samsung','Samsung','Samsung'],
@@ -15,7 +15,7 @@ export const categories = [
  ['ipads','iPads','Apple'],
  ['watches','Smartwatches','Various'],
  ['airpods','AirPods','Apple'],
- ['wifi-only','WiFi Only Phones','Various'],
+ ['wifi-only','WiFi Only iPhones','Apple'],
  ['ps5','PlayStation 5','Sony'],
  ['games','Games','Sony'],
  ['laptops','Laptops','Various'],
@@ -29,6 +29,7 @@ export const shopCategories = categories.filter(c=>!['iphones','samsung','pixel'
 
 const seriesFor = model => model.match(/^iPhone (\d+)/)?.[1] || (model.startsWith('iPhone X')?'X':model.startsWith('iPhone SE')?'SE':'');
 const makeVariant = v => ({
+ ...v,
  storage:v.storage,
  price:v.price,
  regularPrice:v.regularPrice,
