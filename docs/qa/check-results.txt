@@ -1,0 +1,97 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> mikee-gadget-plug-communication@1.0.0 check
+> npm run lint && npm run build && npm run test
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> mikee-gadget-plug-communication@1.0.0 lint
+> node --check easy-buy/easy-buy.js && node --check easy-buy/easy-buy-core.mjs && node --check assets/tiktok-pixel.js && node --check assets/landing-page.js && node --check assets/commerce.js && node --check landing-pages/config.mjs && node --check commerce/catalog.mjs && node --check commerce/retail-inventory.mjs && node --check commerce/trade-in-reference.mjs && node --check commerce/storefront-data.mjs && node --check scripts/generate-landing-pages.mjs && node --check scripts/generate-commerce-pages.mjs && node --check scripts/validate-site.mjs && node --check commerce/upgrade-core.mjs && node --check commerce/device-hierarchy.mjs && node --check assets/interest-rescue.js && node --check assets/upgrade.js && node --check scripts/generate-upgrade-pages.mjs && node --check assets/buy-flow.js && node --check assets/storefront.js && node --check assets/storefront-ui.mjs && node --check commerce/catalog-order.mjs && node --check scripts/generate-storefront.mjs && node --check assets/journey.js && node --check assets/sales.js && node --check commerce/offers.mjs && node --check assets/store-motion.js && node --check assets/shopping.js && node --check commerce/search.mjs && node --check api/shop/create.mjs && node --check api/shop/verify.mjs && node --check api/shop/webhook.mjs && node --check api/admin/_auth.mjs && node --check api/admin/login.mjs && node --check api/admin/manage.mjs && node --check assets/admin.js && node --check assets/community.js && node --check assets/legacy-checkout.js && node --check assets/shared-header.js && node --check api/admin/order.mjs && node --check api/admin/settings.mjs && node --check api/shop/settings.mjs && node --check commerce/financing-provider.mjs && node --check scripts/unify-shopping.mjs
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> mikee-gadget-plug-communication@1.0.0 build
+> node scripts/generate-landing-pages.mjs && node scripts/generate-commerce-pages.mjs && node scripts/generate-upgrade-pages.mjs && node scripts/generate-storefront.mjs && node scripts/generate-shopping.mjs && node scripts/unify-shopping.mjs
+
+Generated 23 intent-matched landing pages.
+Generated 122 product pages and 11 commerce category pages.
+Generated buying, swap, financing and deals pages.
+Generated storefront, compact catalogue and 10 gadget category pages.
+Generated shopping pages and 483 catalogue variants.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> mikee-gadget-plug-communication@1.0.0 test
+> node scripts/validate-site.mjs && node --test tests/*.test.mjs
+
+Validated 23 landing pages, 239 HTML files and all required tracking events.
+✔ admin checks a server-verified confirmed identity, never user metadata (2.075241ms)
+✔ admin callback page has no tracking and financing routes stay on hold (0.613156ms)
+✔ color and condition selection never borrows another price (0.950561ms)
+✔ WiFi SKUs are unique, price-pending and ordered after tablets (0.619225ms)
+✔ admin rejects invalid model colors and incorrect old-iPhone conditions (0.803931ms)
+✔ CSV handles commas, quotes and multiline cells without corrupting SKU keys (0.994036ms)
+✔ acceptance queries use the real catalogue with Pro before Pro Max (24.67794ms)
+✔ financing redirects cannot intercept browser JavaScript dependencies (0.516912ms)
+✔ server creates payment from database total and reuses existing authorization (3.614271ms)
+✔ failed and pending payments never call the paid-order function; verified success does (0.967946ms)
+✔ existing SITE_URL configuration is accepted without trusting request host (0.245657ms)
+✔ mismatched currency and reference cannot reach payment confirmation (1.000846ms)
+✔ EasyBuy shows one to three monthly repayments and keeps attribution internal (232.90568ms)
+✔ Swap asks one condition at a time, preserves valuation and sends truthful answers (73.707688ms)
+✔ Unknown current-phone reference stays a manual swap quote (55.200674ms)
+✔ Swap quick search and searchable model picker share current-phone state without touching the target (68.366241ms)
+✔ Homepage uses the supplied lightweight hero, static motion fallback and truthful location treatment (2.128631ms)
+✔ Reduced-motion visitors keep the hero poster and do not load or play video (57.932538ms)
+✔ Homepage instant search, empty search and image fallback stay usable (553.496513ms)
+✔ Product storage selection carries its final price, condition and colour into all purchase paths (52.320679ms)
+✔ iPhone 16 condition stays UK Used through the financing journey (69.022783ms)
+✔ interest reminder appears once after financing engagement and leads to the qualification flow (50.27223ms)
+✔ General chat and mobile Chat keep the message clean while tracking attribution (56.839206ms)
+✔ new colour groups cannot send a Burgundy quote at the Silver/Blue price (60.180467ms)
+✔ the supplied shop image replaces the illustration with responsive lightweight assets (13.903293ms)
+✔ Group 1 final prices reach product pages, cards and calculator choices unchanged (37.107425ms)
+✔ three-month standard and approved plans share the same down-payment policy (1.581073ms)
+✔ one-month brief example reconciles without a zero-fee line (23.626174ms)
+✔ flat interest and final installment rounding include upfront credit fees (2.255351ms)
+✔ outright orders show quantity and quoted delivery without financing or payment claims (0.923711ms)
+✔ catalogue keeps exact variant shortcuts while financing is on hold (1.332001ms)
+✔ all supplied products and variants are represented once with conditions kept separate (1.281425ms)
+✔ example prices follow their specified group and ambiguous prices remain Confirm Price (0.50166ms)
+✔ iPhone brand new and UK Used listings stay distinct with matching Easy Buy data (1.066614ms)
+✔ cards and category pages show current non-phone products and Confirm Price labels (15.705262ms)
+✔ verified local images are the only images attached to the new catalog (0.629831ms)
+✔ generic store cards use only the available shop image sizes (0.331495ms)
+✔ retail selling prices stay final across product, store and calculator data (36.21389ms)
+✔ Easy Buy and Swap continue to use final listed target prices (1.284049ms)
+✔ homepage keeps its buying and enquiry routes without applying stale discounts (5.31301ms)
+✔ approved Samsung photographs reach every assigned listing and buying choice (2.47591ms)
+✔ Samsung responsive images and gallery thumbnails are valid local WebP files (23.644932ms)
+✔ unverified Samsung models retain placeholders and detail galleries use assigned assets (5.653439ms)
+✔ cart merges exact colour SKUs and rejects malformed quantities (1.13055ms)
+✔ search ranks exact models, handles typos and keeps model numbers distinct (0.666987ms)
+✔ checkout requires delivery address and consent, ignores client prices (0.759235ms)
+✔ server verifies reference and currency before attempting to mark paid (0.564904ms)
+✔ webhooks accept authentic raw bodies and reject altered payloads (1.864837ms)
+✔ homepage preserves the Hot Deals slot without changing required final prices (105.000625ms)
+✔ iPhone 11–15 pages label UK Used without a selector; later models expose only recorded choices (210.260409ms)
+✔ each iPhone bracket carries its required down payment into the default 20% monthly plan (3.561943ms)
+✔ generated landing copy uses model-specific iPhone deposits and UK Used-only older series (6.772692ms)
+✔ product action and storage colors have readable contrast with mobile navigation clearance (1.620382ms)
+✔ swap deductions are cumulative and use the customer-visible reference every time (1.062127ms)
+✔ models without Face ID or glass backs never receive those deductions (0.142603ms)
+✔ cracks share one deduction with changed parts; missing prices require a quote (0.213819ms)
+✔ a higher-value trade-in shows zero top-up and a separately agreed surplus (0.325697ms)
+✔ standard Apple and non-Apple plans calculate interest on the remaining balance (1.196819ms)
+✔ Apple defaults to 20%; the lower 7.5% plan requires qualification (0.651324ms)
+✔ current-phone choices follow generation and tier, independent of price and storage (0.510243ms)
+✔ swap credit comes off before the deposit and financing interest (0.229763ms)
+✔ rounded schedules reconcile for every priced sale variant, duration and platform (1.941641ms)
+✔ invalid inputs are rejected and full upfront deposits carry no interest (14.336456ms)
+ℹ tests 63
+ℹ suites 0
+ℹ pass 63
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1854.854675

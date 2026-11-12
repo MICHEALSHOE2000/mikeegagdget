@@ -290,7 +290,7 @@ const renderDetails = (product) => `
       <p class="commerce-eyebrow">Device details</p>
       <h2>Know what you’re choosing</h2>
       <p>Review the selected storage, colour and condition above.</p>
-      ${product.specificationsPending ? '<p>Detailed specifications are being updated.</p>' : `<div class="spec-grid">
+      ${product.specificationsPending ? `<div class="spec-grid"><article><span>Brand</span><strong>${escapeHtml(product.brand)}</strong></article><article><span>Model</span><strong>${escapeHtml(product.model)}</strong></article><article><span>Storage</span><strong data-spec-storage>${escapeHtml(product.defaultStorage.split(' · ')[0])}</strong></article><article><span>Color</span><strong data-spec-color>Choose above</strong></article><article><span>Condition</span><strong data-spec-condition>${escapeHtml(product.conditions.join(' / '))}</strong></article><article><span>Warranty</span><strong>7 days</strong></article><article><span>Connectivity</span><strong data-spec-connectivity>Confirm the exact unit’s SIM and network support</strong></article></div>` : `<div class="spec-grid">
         ${product.ram ? `<article><span>RAM</span><strong>${escapeHtml(product.ram)}</strong></article>` : ''}
         <article><span>Display</span><strong>${escapeHtml(product.specifications.display)}</strong></article>
         <article><span>Camera</span><strong>${escapeHtml(product.specifications.camera)}</strong></article>
@@ -334,7 +334,7 @@ const renderRelated = (product) => {
           <a href="${item.route}">
             <span>Compare model</span>
             <strong>${escapeHtml(item.model)}</strong>
-            <small>${escapeHtml(item.variants.map((variant) => variant.storage).join(" · "))}</small>
+            <small>${escapeHtml([...new Set(item.variants.map((variant) => variant.capacity||variant.storage.split(" · ")[0]))].join(" · "))}</small>
           </a>`).join("")}
       </div>
     </section>`;
@@ -453,10 +453,10 @@ const renderProductPage = (product) => {
         ${renderVariantSelector(product)}<div class="product-trust"><span>Inspect before payment</span><span>Computer Village store</span><span>Nationwide delivery</span><span>Device checked before payment</span></div>
       </div>
     </section>
-    ${renderVariantCards(product)}
+
     ${renderDetails(product)}
-    ${renderRelated(product)}
     ${renderDelivery()}
+    ${renderRelated(product)}
     ${renderFaq(faqs)}
   </main>
   ${renderFooter()}
@@ -493,7 +493,7 @@ const renderCategoryCard = (product) => {
         ${media(product.images[0],product.model)}
       </a>
       <div>
-        <span class="catalog-brand">${!isComplete(product)?"COMING SOON · ":""}${escapeHtml(product.conditions.includes('Details coming soon')?'Details coming soon':product.brand === 'Apple' ? 'UK Used / Brand New' : product.brand === 'Google' ? `Google · ${product.conditions[0]}` : product.brand)}</span>
+        <span class="catalog-brand">${!isComplete(product)?"COMING SOON · ":""}${escapeHtml(product.conditions.includes('Details coming soon')?'Details coming soon':product.brand === 'Apple' ? product.conditions.join(' / ') : product.brand === 'Google' ? `Google · ${product.conditions[0]}` : product.brand)}</span>
         <h2><a href="${product.route}">${escapeHtml(product.model)}</a></h2>
         <p>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</p>
         <strong>${Number.isFinite(minPrice) ? `From ${formatNaira(minPrice)}` : "Confirm Price"}</strong>

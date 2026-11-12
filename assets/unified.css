@@ -20,3 +20,33 @@ input,select,textarea,.journey input,.journey select{background:#fff!important;c
 .store-home[data-page-type="category"] #main>.store-section:first-child .home-catalog-search,.store-home[data-page-type="category"] #products>.store-heading{display:none}.store-home[data-page-type="category"] #main>.store-section:first-child{padding-bottom:0}.store-home[data-page-type="category"] .catalog-title{margin-bottom:0}
 body:not(.store-home){background:#fff!important;color:#151819!important}body:not(.store-home) .brand{line-height:1.05;white-space:nowrap}body:not(.store-home) .brand-second{display:block;font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin-top:4px}body:not(.store-home) .nav-contact{font-size:12px;color:#17634e;white-space:nowrap}.journey .model-picker>summary,.journey .model-picker-panel,.journey .model-search-results{background:#fff;color:#123b30;border-color:#b6bdb7}.journey .model-result b{color:#765b20}.journey .eyebrow{color:#765b20}.journey-progress{flex-wrap:wrap}.journey progress{max-width:100%}
 @media(max-width:760px){body:not(.store-home) .nav{padding:14px 16px;gap:10px}body:not(.store-home) .brand{font-size:22px;gap:8px}body:not(.store-home) .brand-mark{width:36px;height:36px;flex-shrink:0}body:not(.store-home) .nav-contact{order:2}body:not(.store-home) .menu-toggle{order:3;flex-shrink:0}}
+/* Targeted product controls: explicit colors override legacy dark button styles. */
+[data-purchase-panel] .variant-field{border:0;padding:0;margin:22px 0;min-width:0}
+.variant-field legend{font-weight:700;color:#18251f;margin-bottom:12px}
+[data-purchase-panel] .selector-pills{display:flex;flex-wrap:wrap;gap:10px}
+[data-purchase-panel] .selector-pills button{background:#fff;color:#17271f;border:1px solid #c5cdc7;border-radius:12px;padding:12px;min-height:48px;flex:1 0 90px;display:grid;gap:5px;text-align:left}
+[data-purchase-panel] .selector-pills button small{color:#37463c;font-size:12px}
+[data-purchase-panel] .selector-pills button[aria-pressed=true]{background:#f4e3af;border:2px solid #8c6a17;color:#17271f}
+.color-swatches{display:flex;flex-wrap:wrap;gap:10px}
+[data-purchase-panel] .color-option{background:white;color:#18251f;border:1px solid transparent;padding:7px;min-width:56px;min-height:72px;display:grid;justify-items:center;gap:7px;font-size:12px;max-width:98px;border-radius:10px}
+.swatch{display:block;width:34px;height:34px;border-radius:50%;border:1px solid #859087;box-shadow:0 0 0 3px white}
+.color-option[aria-pressed=true] .swatch{outline:3px solid #8c6a17;outline-offset:3px}
+.color-option[aria-pressed=true]{font-weight:700!important;background:#faf6e9!important}
+.color-option.is-unavailable .swatch{background-image:linear-gradient(135deg,transparent 47%,#777 48%,#777 52%,transparent 53%)!important}
+[data-purchase-panel] button:focus-visible{outline:3px solid #075336;outline-offset:3px}
+[data-purchase-panel] .price-display{margin:12px 0;overflow-wrap:anywhere}
+[data-purchase-panel] .price-display strong{color:#123d2b;font-size:clamp(25px,6vw,38px)}
+a[aria-disabled=true],button:disabled{opacity:.55;cursor:not-allowed}
+.product-hero-copy,.purchase-panel,.variant-field{min-width:0}
+.hero-fact-row{display:none}
+.wifi-notice{padding:14px;border:1px solid #b59b53;border-radius:12px;background:#faf6e9}
+.store-home .category-rail{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:180px;overflow-x:auto;gap:16px;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain}
+.category-tile{scroll-snap-align:start}
+.category-progress{display:flex;align-items:center;gap:12px;margin-top:12px;font-size:13px;color:#284637}
+.category-progress progress{accent-color:#947327;max-width:150px;height:5px}
+@media(max-width:600px){.store-home .category-rail{grid-auto-columns:58%;gap:12px}.product-hero{grid-template-columns:minmax(0,1fr)}.purchase-panel{padding:16px}.color-swatches{gap:5px}.color-option{font-size:11px!important}.store-phone h3{overflow:visible;-webkit-line-clamp:unset;max-height:none}.category-controls{display:flex!important}}
+@media(prefers-reduced-motion:reduce){.category-rail{scroll-behavior:auto}}
+.product-hero-copy .product-lead,.commerce-breadcrumbs span,.purchase-panel p{color:#34433a}
+.product-hero-copy .purchase-panel{display:block}
+.product-hero-copy .selection-condition{margin:0;font-weight:600;color:#34433a}
+.product-hero-copy .price-display{display:grid;gap:5px}

@@ -1,5 +1,6 @@
 // Customer-facing inventory. All prices are final Naira prices; supplier prices and markups are not stored here.
-export const retailInventory = Object.freeze([
+import {repairCatalogue} from "./catalogue-repair.mjs";
+export const retailInventory = Object.freeze(repairCatalogue([
   {
     "brand": "Apple",
     "model": "iPhone 18 Pro",
@@ -3272,7 +3273,7 @@ export const retailInventory = Object.freeze([
       "/images/store/samsung/samsung-galaxy-s22-2-720.webp"
     ]
   }
-]);
+]));
 
 export const replacedPhoneModels = Object.freeze([...new Set(retailInventory.filter(item => item.isPhone).map(item => `${item.brand}|${item.model}`))]);
 
@@ -3285,6 +3286,7 @@ export const retailPhoneProducts = Object.freeze(retailInventory.filter(item => 
   listingPending: false,
   specificationsPending: true,
   variants: item.variants.map(variant => ({
+    ...variant,
     storage: variant.storage,
     price: variant.price,
     color: variant.color || null,
@@ -3297,7 +3299,7 @@ export const retailPhoneProducts = Object.freeze(retailInventory.filter(item => 
   })),
   defaultStorage: item.variants[0]?.storage || "Confirm variant",
   colors: item.colors.length ? item.colors : ["Ask for today’s available colours"],
-  conditions: [item.condition],
+  conditions: [...new Set(item.variants.map(v=>v.condition||item.condition))],
   images: item.image ? [item.image, ...(item.gallery || [])].slice(0, 3) : [],
   stockStatus: "Available to Order",
   easyBuyEligible: true,
@@ -3312,7 +3314,7 @@ export const retailPhoneProducts = Object.freeze(retailInventory.filter(item => 
     security: "Confirm supported security features",
     sim: "Confirm SIM options for the exact unit"
   },
-  description: `Choose a listed ${item.condition.toLowerCase()} ${item.model} variant, then confirm exact stock, colour, warranty and delivery with Mikee Gadget Plug.`,
-  seoTitle: `Buy ${item.model} ${item.condition} in Nigeria | Mikee Gadget Plug`,
-  metaDescription: `View ${item.condition.toLowerCase()} ${item.model} storage and colour options at Mikee Gadget Plug. Confirm stock, warranty, Easy Buy, swap and delivery details before payment.`
+  description: item.description || `Choose a listed ${item.condition.toLowerCase()} ${item.model} variant, then confirm exact stock, colour, warranty and delivery with Mikee Gadget Plug.`,
+  seoTitle: `Buy ${item.model} ${item.condition} in Nigeria | ${item.slug} | Mikee Gadget Plug`,
+  metaDescription: `View ${item.slug}: ${item.condition.toLowerCase()} ${item.model} storage and colour options at Mikee Gadget Plug. Confirm stock, warranty, Easy Buy, swap and delivery details before payment.`
 })));

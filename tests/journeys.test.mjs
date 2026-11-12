@@ -107,22 +107,22 @@ test('Homepage instant search, empty search and image fallback stay usable',asyn
 });
 test('Product storage selection carries its final price, condition and colour into all purchase paths',async()=>{
  const dom=await setup('iphone-14-pro-max/index.html','/iphone-14-pro-max?utm_source=meta');await import(`../assets/commerce.js?test=${++serial}`);
- document.querySelector('[data-storage="256GB"]').click();const id='iphone-14-pro-max|256GB',phone=offerChoice(choices.find(p=>p.id===id));
+ document.querySelector('[data-capacity="256GB"]').click();const id='iphone-14-pro-max|256GB',phone=offerChoice(choices.find(p=>p.id===id));
  const buy=document.querySelector('[data-action="buy"]'),easy=document.querySelector('[data-action="easyBuy"]'),swap=document.querySelector('[data-action="swap"]');
  assert.equal(new URL(buy.href).pathname,'/checkout/');assert.equal(new URL(buy.href).searchParams.get('sku'),id);assert.equal(new URL(easy.href).pathname,'/easybuy/');assert.equal(new URL(easy.href).searchParams.get('phone'),id);assert.equal(swap,null);
  assert.ok(window.dataLayer.some(e=>e.event==='select_storage'&&e.storage==='256GB'&&e.value===phone.price));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='ViewContent'));assert.ok(window.ttq.some(e=>e[0]==='track'&&e[1]==='CustomizeProduct'));
- assert.equal(document.querySelector('[data-storage="256GB"]').getAttribute('aria-pressed'),'true');assert.match(document.querySelector('[data-storage="256GB"]').textContent,new RegExp(phone.price.toLocaleString('en-NG')));
+ assert.equal(document.querySelector('[data-capacity="256GB"]').getAttribute('aria-pressed'),'true');assert.match(document.querySelector('[data-capacity="256GB"]').textContent,new RegExp(phone.price.toLocaleString('en-NG')));
  buy.addEventListener('click',event=>event.preventDefault(),{once:true});event(buy,'click');assert.equal(new URL(buy.href).searchParams.get('text'),null);assert.equal(window.ttq.filter(e=>e[0]==='track'&&e[1]==='Contact').length,0);dom.window.close();
 });
-test('iPhone 16 without recorded condition variants has no selector; older models stay UK Used',async()=>{
+test('iPhone 16 condition stays UK Used through the financing journey',async()=>{
  const sixteen=await setup('iphone-16/index.html','/iphone-16/');await import(`../assets/commerce.js?test=${++serial}`);
  assert.equal(document.querySelector('[data-condition-select]'),null);
- assert.match(document.querySelector('.condition-badge').textContent,/Brand New/);
+ assert.match(document.querySelector('[data-condition-label]').textContent,/UK Used/);
  const easyUrl=new URL(document.querySelector('[data-action="easyBuy"]').href);
  sixteen.window.close();
  const easy=await setup('easybuy/index.html',`${easyUrl.pathname}${easyUrl.search}`);await import(`../assets/journey.js?test=${++serial}`);
  assert.match(document.getElementById('journey-screen').textContent,/70%/);
- assert.match(message(),/Condition: Brand New/);
+ assert.match(message(),/Condition: UK Used/);
  const phone=offerChoice(choices.find(p=>p.id==='iphone-16|128GB'));
  assert.match(message(),new RegExp(`Deposit: ₦${financePlan({amount:phone.price,phone}).deposit.toLocaleString('en-NG')}`));
  easy.window.close();
@@ -155,16 +155,18 @@ test('General chat and mobile Chat keep the message clean while tracking attribu
 });
 test('new colour groups cannot send a Burgundy quote at the Silver/Blue price',async()=>{
  const dom=await setup('iphone-18-pro-max/index.html','/iphone-18-pro-max');await import(`../assets/commerce.js?test=${++serial}`);
- document.querySelector('[data-storage="512GB · Burgundy"]').click();
- assert.equal(document.querySelector('[data-color-select]').value,'Burgundy');
+ document.querySelector('[data-capacity="512GB"]').click();
+ assert.equal(document.querySelector('[data-color="Burgundy"]').getAttribute('aria-pressed'),'true');
  let href=document.querySelector('[data-action="buy"]').href;
  assert.equal(new URL(href).searchParams.get('sku'),'iphone-18-pro-max|512GB · Burgundy');
  assert.equal(new URL(href).searchParams.get('color'),'Burgundy');
- document.querySelector('[data-storage="256GB · Silver\/Blue"]').click();
- assert.deepEqual([...document.querySelector('[data-color-select]').options].map(o=>o.value),['Silver','Blue']);
- document.querySelector('[data-color-select]').value='Blue';event(document.querySelector('[data-color-select]'),'change');
- href=document.querySelector('[data-action="buy"]').href;
- assert.equal(new URL(href).searchParams.get('sku'),'iphone-18-pro-max|256GB · Silver/Blue');assert.equal(new URL(href).searchParams.get('color'),'Blue');
+ document.querySelector('[data-capacity="256GB"]').click();
+ document.querySelector('[data-color="Silver"]').click();
+ assert.equal(document.querySelector('[data-action="buy"]').hasAttribute('href'),false);
+ assert.match(document.querySelector('[data-product-price]').textContent,/pending verification/);
+ document.querySelector('[data-color="Glacier"]').click();
+ assert.equal(document.querySelector('[data-capacity="256GB"]').getAttribute('aria-pressed'),'true');
+ assert.equal(document.querySelector('[data-action="buy"]').hasAttribute('href'),false);
  dom.window.close();
 });
 

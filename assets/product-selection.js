@@ -1,0 +1,38 @@
+import {capacityOf,colorsOf,resolveVariant,purchasable,swatchColor} from '../commerce/variant-selection.mjs';
+import {escape,money,activateImages} from './storefront-ui.mjs';
+import {addToCart} from '../commerce/cart.mjs';
+export async function mountProductSelection(product){
+ const panel=document.querySelector('[data-purchase-panel]');if(!panel)return;
+ // Start from embedded metadata. Only an exact SKU may refresh its price.
+ try{const r=await fetch('/api/shop/catalog');if(r.ok){const rows=await r.json();for(const v of product.variants){const live=rows.find(x=>x.sku===product.slug+'|'+v.storage);if(live){Object.assign(v,{price:live.price,enabled:live.enabled,capacity:live.capacity||v.capacity,condition:live.condition||v.condition,colors:live.colors,image:live.image,description:live.description});}}}}catch{}
+ const params=new URLSearchParams(location.search);
+ const initial=product.variants.find(v=>v.storage===params.get('storage'))||product.variants[0];
+ const state={capacity:capacityOf(initial),condition:initial.condition||product.conditions[0],color:colorsOf(initial)[0]||''};
+ if(params.has('color'))state.color=params.get('color');
+ if(params.has('condition'))state.condition=params.get('condition');
+ const capacities=[...new Set(product.variants.map(capacityOf))];
+ const colors=[...new Set([...product.colors.filter(c=>!c.startsWith('Ask ')),...product.variants.flatMap(colorsOf)])];
+ const conditions=[...new Set(product.variants.map(v=>v.condition||product.conditions[0]))];
+ panel.innerHTML=`<p class="selection-condition" data-condition-label></p><div class="price-display"><strong data-product-price aria-live="polite"></strong><small data-price-note></small></div><fieldset class="variant-field"><legend>Choose storage</legend><div class="selector-pills">${capacities.map(c=>`<button type="button" data-capacity="${escape(c)}"><span>${escape(c)}</span><small data-capacity-price></small></button>`).join('')}</div></fieldset><fieldset class="variant-field"><legend>Choose color</legend><div class="color-swatches">${colors.map(c=>`<button type="button" class="color-option" data-color="${escape(c)}" aria-label="${escape(c)}"><span class="swatch" style="background:${swatchColor(c)}"></span><span>${escape(c)}</span></button>`).join('')}${product.variants.some(v=>!colorsOf(v).length)?'<button type="button" class="color-option unknown-color" data-color="">Color to confirm</button>':''}</div><p data-color-label></p></fieldset><fieldset class="variant-field"><legend>Condition</legend><div class="selector-pills">${conditions.map(c=>`<button type="button" data-condition="${escape(c)}">${escape(c)}</button>`).join('')}</div></fieldset><p data-variant-label role="status"></p><p data-product-description></p><div class="purchase-actions"><a class="commerce-button commerce-button-primary" data-action="buy">Buy Now</a><a class="commerce-button commerce-button-dark" data-action="easyBuy">Pay Small Small</a><button type="button" class="commerce-button commerce-button-ghost" data-cart>Add to cart</button></div><p data-selection-status role="status"></p><p>Lagos: same-day delivery, subject to confirmation and eligibility. Other states: estimated 24–48 hours, subject to dispatch and destination.</p><p>Pickup: 1 Ola Ayeni Street, Computer Village, Ikeja, Lagos. Warranty: 7 days.</p>${product.slug.endsWith('-wifi-only')?'<p class="wifi-notice">WiFi Only device: cellular calls, mobile data and SIM/eSIM may be unavailable. Confirm the exact restrictions and activation status of the individual device before purchase.</p>':''}`;
+ const current=()=>resolveVariant(product.variants,state);
+ function render(){
+  const v=current(),valid=purchasable(v);
+  window.MikeeGadgetPlugTracking?.pushEvent('select_storage',{phone_model:product.model,product_name:product.model,storage:state.capacity,device_condition:state.condition,value:v?.price});
+  for(const b of panel.querySelectorAll('[data-capacity]')){const selected=b.dataset.capacity===state.capacity;b.setAttribute('aria-pressed',String(selected));const x=resolveVariant(product.variants,{...state,capacity:b.dataset.capacity});b.querySelector('small').textContent=x?(x.price>0?money(x.price):'Price coming soon'):'Unavailable';}
+  for(const [key,field] of [['color','color'],['condition','condition']])for(const b of panel.querySelectorAll(`[data-${key}]`)){b.setAttribute('aria-pressed',String(b.dataset[key]===state[field]));const match=resolveVariant(product.variants,{...state,[field]:b.dataset[key]});b.classList.toggle('is-unavailable',!match);b.title=match?'':'Unavailable for this selection';}
+  panel.querySelector('[data-condition-label]').textContent=state.condition;
+  panel.querySelector('[data-color-label]').textContent='Selected color: '+(state.color||'To confirm for the exact unit');
+  panel.querySelector('[data-product-price]').textContent=v?(v.reviewRequired?'Price pending verification':v.price>0?money(v.price):'Price coming soon'):'Combination unavailable';
+  panel.querySelector('[data-price-note]').textContent=valid?'7-day warranty':v?.reviewRequired?'The legacy color group needs merchant verification.':v?'Payment is unavailable until this variant has a verified price.':'Choose another combination; your storage has been kept.';
+  panel.querySelector('[data-variant-label]').textContent=[product.model,state.capacity,state.color,state.condition,v?.connectivity].filter(Boolean).join(' · ');
+  document.querySelectorAll('[data-action="buy"],[data-action="easyBuy"]').forEach(a=>{a.setAttribute('aria-disabled',String(!valid));if(valid){const q=new URLSearchParams({sku:product.slug+'|'+v.storage,phone:product.slug+'|'+v.storage,color:state.color,condition:state.condition});a.href=(a.dataset.action==='buy'?'/checkout/?':'/easybuy/?')+q;}else a.removeAttribute('href');});
+  panel.querySelector('[data-cart]').disabled=!valid;
+  for(const [key,value] of Object.entries({storage:state.capacity,color:state.color||'Confirm exact unit',condition:state.condition,connectivity:v?.connectivity||'Confirm the exact unit’s SIM and network support'})){const el=document.querySelector('[data-spec-'+key+']');if(el)el.textContent=value;}
+  panel.querySelector('[data-product-description]').textContent=v?.description||'';
+  const image=v?.image;if(image){const img=document.querySelector('[data-main-image]');if(img){img.removeAttribute('srcset');img.src=image;img.alt=product.model;activateImages();}}
+  const url=new URL(location.href);url.searchParams.set('storage',v?.storage||state.capacity);url.searchParams.set('color',state.color);url.searchParams.set('condition',state.condition);history.replaceState(null,'',url);
+ }
+ panel.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;for(const field of ['capacity','color','condition'])if(field in b.dataset){state[field]=b.dataset[field];render();}if(b.hasAttribute('data-cart')){const v=current();if(!purchasable(v))return;try{addToCart(localStorage,{sku:product.slug+'|'+v.storage,color:state.color,quantity:1});panel.querySelector('[data-selection-status]').textContent='Added to cart.';}catch{panel.querySelector('[data-selection-status]').textContent='Unable to save cart. Check browser storage.';}}});
+ panel.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)||e.target.tagName!=='BUTTON')return;const buttons=[...e.target.parentElement.querySelectorAll('button')];let i=buttons.indexOf(e.target);i=e.key==='Home'?0:e.key==='End'?buttons.length-1:(i+(e.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length;e.preventDefault();buttons[i].focus();buttons[i].click();});
+ render();
+}
