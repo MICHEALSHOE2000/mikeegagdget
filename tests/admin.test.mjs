@@ -11,7 +11,7 @@ test('admin checks a server-verified confirmed identity, never user metadata',as
   globalThis.fetch=async()=>({ok:true,json:async()=>({id:'fixture',email:'other@example.com',email_confirmed_at:'2026-11-11',user_metadata:{role:'admin',email:ADMIN_EMAIL}})});
   await assert.rejects(requireAdmin(request),/Administrator/);
   globalThis.fetch=async()=>({ok:true,json:async()=>({id:'fixture',email:ADMIN_EMAIL})});await assert.rejects(requireAdmin(request),/Administrator/);
-  globalThis.fetch=async()=>({ok:true,json:async()=>({id:'fixture',email:ADMIN_EMAIL,email_confirmed_at:'2026-11-11'})});assert.equal((await requireAdmin(request)).id,'fixture');
+  globalThis.fetch=async url=>({ok:true,json:async()=>url.includes('/rest/')?[{user_id:'fixture'}]:({id:'fixture',email:ADMIN_EMAIL,email_confirmed_at:'2026-11-11'})});assert.equal((await requireAdmin(request)).id,'fixture');
  }finally{globalThis.fetch=old;if(oldUrl===undefined)delete process.env.SUPABASE_URL;else process.env.SUPABASE_URL=oldUrl;if(oldKey===undefined)delete process.env.SUPABASE_SERVICE_ROLE_KEY;else process.env.SUPABASE_SERVICE_ROLE_KEY=oldKey;}
 });
 test('admin callback page has no tracking and financing routes stay on hold',()=>{

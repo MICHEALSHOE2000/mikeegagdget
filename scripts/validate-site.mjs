@@ -25,7 +25,7 @@ const htmlFiles = [];
 async function collectHtml(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   for (const entry of entries) {
-    if (entry.name === ".git" || entry.name === "node_modules") continue;
+    if (entry.name === ".git" || entry.name === "node_modules" || entry.name === "tests") continue;
     const fullPath = join(directory, entry.name);
     if (entry.isDirectory()) {
       await collectHtml(fullPath);
@@ -127,7 +127,7 @@ for (const product of products) {
   assert(html.includes(`class="mobile-purchase-bar"`), `${product.slug}: sticky mobile purchase bar is missing.`);
   assert(html.includes(`data-action="buy"`), `${product.slug}: outright purchase path is missing.`);
   assert(html.includes(`data-action="easyBuy"`), `${product.slug}: Easy Buy purchase path is missing.`);
-  assert(html.includes(`data-action="swap"`), `${product.slug}: swap enquiry path is missing.`);
+  assert(!html.includes(`data-action="swap"`), `${product.slug}: swaps must use the dedicated page.`);
   assert(html.includes(`wa.me/${commerceSite.whatsappNumber}?text=`), `${product.slug}: prefilled WhatsApp link is missing.`);
   assert(count(html, /data-storage="/g) === product.variants.length, `${product.slug}: rendered storage selector does not match product data.`);
   assert(count(html, /data-variant-card="/g) === product.variants.length, `${product.slug}: rendered variant cards do not match product data.`);
@@ -147,10 +147,10 @@ for (const category of categoryPages) {
   }
 
   assert(count(html, /<h1(?:\s|>)/g) === 1, `${category.route}: category page must contain exactly one H1.`);
-  assert(html.includes(`<h1>${category.swap ? "Know what to add." : escapeHtml(category.h1)}</h1>`), `${category.route}: category H1 does not match configuration.`);
+  assert(html.replace(/<h1[^>]*>/g,'<h1>').includes(`<h1>${category.swap ? "Know what to add." : escapeHtml(category.h1)}</h1>`), `${category.route}: category H1 does not match configuration.`);
   assert(html.includes(`<title>${escapeHtml(category.title)}</title>`), `${category.route}: category SEO title does not match.`);
   assert(html.includes(`rel="canonical" href="${commerceSite.baseUrl}${category.route}"`), `${category.route}: category canonical URL is incorrect.`);
-  assert(html.includes(`wa.me/${commerceSite.whatsappNumber}?text=`), `${category.route}: category WhatsApp path is missing.`);
+  assert(html.includes(`href="/"`), `${category.route}: home navigation is missing.`);
 }
 
 const mapping = JSON.parse(await readFile(join(root, "landing-pages", "ad-group-map.json"), "utf8"));

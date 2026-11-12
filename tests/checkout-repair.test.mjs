@@ -1,0 +1,28 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {searchCatalogue} from '../commerce/search.mjs';
+import {verify,env,sameOrigin} from '../api/_shop.mjs';
+import create from '../api/shop/create.mjs';
+const data=JSON.parse(readFileSync('assets/store-catalog.json','utf8'));
+test('acceptance queries use the real catalogue with Pro before Pro Max',()=>{assert.deepEqual(searchCatalogue(data,'17 pro').slice(0,2).map(p=>p.model),['iPhone 17 Pro','iPhone 17 Pro Max']);for(const q of ['samsung s24','iphone 13','pixel 8','ipad'])assert.ok(searchCatalogue(data,q).length,q);});
+test('financing redirects cannot intercept browser JavaScript dependencies',()=>{const config=JSON.parse(readFileSync('vercel.json'));assert.ok(!config.redirects.some(r=>r.source==='/easy-buy/:path*'));});
+test('server creates payment from database total and reuses existing authorization',async()=>{const oldFetch=globalThis.fetch;const previous={...process.env};Object.assign(process.env,{SUPABASE_URL:'https://fixture.invalid',SUPABASE_SERVICE_ROLE_KEY:'fixture',PAYSTACK_SECRET_KEY:'sk_test_fixture',SHOP_ORIGIN:'https://shop.example'});const calls=[];let cached=false;globalThis.fetch=async(url,opts)=>{calls.push([url,opts]);if(url.includes('shop_create_order'))return {ok:true,json:async()=>({reference:'MGP2-'+'a'.repeat(32),amount_ngn:2540000,...(cached?{authorization_url:'https://checkout.paystack.com/fixture'}:{})})};if(url.includes('initialize'))return {ok:true,json:async()=>({status:true,data:{authorization_url:'https://checkout.paystack.com/fixture'}})};return {ok:true,json:async()=>[]};};const req={method:'POST',headers:{origin:'https://shop.example'},body:{requestId:'12345678-1234-1234-1234-123456789abc',firstName:'Test',lastName:'Buyer',email:'test@example.com',phone:'08012345678',agreed:true,fulfillment:'pickup',items:[{sku:'iphone-18-pro-max|256GB · Burgundy',color:'Burgundy',quantity:1,price:1}],expectedTotalNgn:2540000}};let status,body;const res={status(n){status=n;return this},setHeader(){return this},json(v){body=v;return this}};try{await create(req,res);assert.equal(status,200);assert.equal(JSON.parse(calls.find(([url])=>url.includes('initialize'))[1].body).amount,254000000);assert.equal(body.url,'https://checkout.paystack.com/fixture');cached=true;calls.length=0;await create(req,res);assert.equal(status,200);assert.ok(!calls.some(([url])=>url.includes('initialize')));req.body.expectedTotalNgn=1;await create(req,res);assert.equal(status,409);}finally{globalThis.fetch=oldFetch;for(const k of ['SUPABASE_URL','SUPABASE_SERVICE_ROLE_KEY','PAYSTACK_SECRET_KEY','SHOP_ORIGIN'])if(previous[k]===undefined)delete process.env[k];else process.env[k]=previous[k];}});
+test('failed and pending payments never call the paid-order function; verified success does',async()=>{const original=globalThis.fetch;const saved={...process.env};Object.assign(process.env,{PAYSTACK_SECRET_KEY:'sk_test_fixture',SUPABASE_URL:'https://fixture.invalid',SUPABASE_SERVICE_ROLE_KEY:'fixture'});try{for(const status of ['failed','pending','abandoned','success']){let marked=false;globalThis.fetch=async url=>url.includes('paystack')?{ok:true,json:async()=>({status:true,data:{reference:'expected',currency:'NGN',status,amount:254000000,id:123}})}: (marked=true,{ok:true,json:async()=>'paid'});const result=await verify('expected');assert.equal(marked,status==='success');assert.equal(result.status,status==='success'?'paid':status==='abandoned'?'cancelled':status);}}finally{globalThis.fetch=original;for(const k of ['PAYSTACK_SECRET_KEY','SUPABASE_URL','SUPABASE_SERVICE_ROLE_KEY'])if(saved[k]===undefined)delete process.env[k];else process.env[k]=saved[k];}});
+
+test('existing SITE_URL configuration is accepted without trusting request host',()=>{
+ const oldOrigin=process.env.SHOP_ORIGIN,oldSite=process.env.SITE_URL;
+ try{delete process.env.SHOP_ORIGIN;process.env.SITE_URL='https://mikeegadget.com.ng';
+ assert.equal(env('SHOP_ORIGIN'),'https://mikeegadget.com.ng');
+ assert.equal(sameOrigin({headers:{origin:'https://mikeegadget.com.ng'}}),true);
+ assert.equal(sameOrigin({headers:{origin:'https://attacker.example',host:'mikeegadget.com.ng'}}),false);
+ process.env.SHOP_ORIGIN='https://preview.example';assert.equal(env('SHOP_ORIGIN'),'https://preview.example');
+ }finally{if(oldOrigin===undefined)delete process.env.SHOP_ORIGIN;else process.env.SHOP_ORIGIN=oldOrigin;if(oldSite===undefined)delete process.env.SITE_URL;else process.env.SITE_URL=oldSite;}
+});
+test('mismatched currency and reference cannot reach payment confirmation',async()=>{
+ const original=globalThis.fetch,oldKey=process.env.PAYSTACK_SECRET_KEY;process.env.PAYSTACK_SECRET_KEY='sk_test_fixture';
+ try{for(const tx of [{reference:'wrong',currency:'NGN'},{reference:'expected',currency:'USD'}]){let calls=0;
+ globalThis.fetch=async()=>{calls++;return {ok:true,json:async()=>({status:true,data:{...tx,status:'success',amount:254000000,id:123}})}};
+ await assert.rejects(verify('expected'),/do not match/);assert.equal(calls,1);
+ }}finally{globalThis.fetch=original;if(oldKey===undefined)delete process.env.PAYSTACK_SECRET_KEY;else process.env.PAYSTACK_SECRET_KEY=oldKey;}
+});

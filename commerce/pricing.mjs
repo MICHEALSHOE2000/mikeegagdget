@@ -8,10 +8,10 @@ export function calculateSwapValue({ basePrice, screenChanged=false, screenCrack
   const deductions = [{label:'Standard used adjustment',percent:40}];
   if (screenChanged || screenCracked) deductions.push({label:'Screen changed or cracked',percent:10});
   if (batteryChanged) deductions.push({label:'Battery changed',percent:5});
-  if (backGlassChanged || backGlassCracked) deductions.push({label:'Back glass changed or cracked',percent:2});
-  if (!faceIdWorking) deductions.push({label:'Face ID not working',percent:8});
+  if (backGlassChanged || backGlassCracked) deductions.push({label:'Back glass changed or cracked',percent:5});
+  const requiresAssessment = !faceIdWorking;
   const deductionPercent = deductions.reduce((sum,item)=>sum+item.percent,0);
-  return { deductions, deductionPercent, value:Math.max(0,Math.round(basePrice*(100-deductionPercent)/100)) };
+  return { requiresAssessment, deductions, deductionPercent, value:Math.max(0,Math.round(basePrice*(100-deductionPercent)/100)) };
 }
 export function calculateOutstandingBalance({sellingPrice,swapValue=0,deposit=0}) {
   if (![sellingPrice,swapValue,deposit].every(Number.isFinite) || sellingPrice<=0 || swapValue<0 || deposit<0) throw new TypeError('Valid non-negative amounts are required.');

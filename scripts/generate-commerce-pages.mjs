@@ -260,14 +260,13 @@ const renderVariantSelector = (product) => `
           ? formatNaira(product.variants.find((variant) => variant.storage === product.defaultStorage).price)
           : "Confirm Price"
       )}</strong>
-      <small data-price-note>Available to Order · Free nationwide delivery</small>
+      <small data-price-note>Available · Free nationwide delivery</small>
     </div>
     <div class="purchase-actions">
-      <a class="commerce-button commerce-button-primary" data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Now</a>
+      <a class="commerce-button commerce-button-primary" data-action="buy" href="/checkout/?sku=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Now</a>
       <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Check Pay Small Small Plan</a>
-      <a class="commerce-button commerce-button-ghost" data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Swap to this phone →</a>
     </div>
-    <p class="purchase-action-help">Trade in your current phone and pay the difference. Or get this phone now and spread your payment.</p>
+    <p class="purchase-action-help">Select your preferred variant, then continue to secure checkout.</p>
     <p class="purchase-safety"><a data-action="price" href="${whatsappHref(productMessage(product, product.defaultStorage, 'price'))}" target="_blank" rel="noopener">Have a question? Chat on WhatsApp ↗</a></p>
   </div>`;
 
@@ -290,8 +289,8 @@ const renderDetails = (product) => `
     <div class="details-copy">
       <p class="commerce-eyebrow">Device details</p>
       <h2>Know what you’re choosing</h2>
-      <p>We’ll confirm the colour, condition and SIM options for your exact device.</p>
-      ${product.specificationsPending ? '<p>Ask Mikee for the specifications of the exact unit before ordering.</p>' : `<div class="spec-grid">
+      <p>Review the selected storage, colour and condition above.</p>
+      ${product.specificationsPending ? '<p>Detailed specifications are being updated.</p>' : `<div class="spec-grid">
         ${product.ram ? `<article><span>RAM</span><strong>${escapeHtml(product.ram)}</strong></article>` : ''}
         <article><span>Display</span><strong>${escapeHtml(product.specifications.display)}</strong></article>
         <article><span>Camera</span><strong>${escapeHtml(product.specifications.camera)}</strong></article>
@@ -304,7 +303,7 @@ const renderDetails = (product) => `
     <aside class="condition-panel">
       <p class="commerce-eyebrow">Condition guide</p>
       ${product.conditions.includes('UK Used') ? '<article><span>01</span><div><h3>UK Used</h3><p>Request photos, battery information and the condition of the exact device before payment.</p></div></article>' : ''}
-      ${product.conditions.includes('Brand New') ? '<article><span>02</span><div><h3>Brand New</h3><p>Ask what comes with the exact unit and confirm availability.</p></div></article>' : ''}
+      ${product.conditions.includes('Brand New') ? '<article><span>02</span><div><h3>Brand New</h3><p>Brand-new device. Includes our 7-day warranty.</p></div></article>' : ''}
       ${!product.conditions.includes('UK Used') && !product.conditions.includes('Brand New') ? '<article><span>01</span><div><h3>Condition to confirm</h3><p>Ask Mikee for the exact unit details before payment.</p></div></article>' : ''}
     </aside>
   </section>`;
@@ -350,9 +349,9 @@ const renderDelivery = () => `
       <a class="text-link" href="${commerceSite.directionsUrl}" target="_blank" rel="noopener">Get directions to the store →</a>
     </div>
     <div class="delivery-grid">
-      <article><span>01</span><h3>Lagos delivery</h3><p>Free same-day delivery in Lagos.</p></article>
+      <article><span>01</span><h3>Lagos delivery</h3><p>Free delivery in Lagos. Same-day delivery where operationally feasible.</p></article>
       <article><span>02</span><h3>Store pickup</h3><p>Visit ${escapeHtml(commerceSite.address)} and ask to inspect the exact unit before payment.</p></article>
-      <article><span>03</span><h3>Nationwide delivery</h3><p>Free delivery within 24–48 hours to other states.</p></article>
+      <article><span>03</span><h3>Nationwide delivery</h3><p>Free nationwide delivery. Target: 24–48 hours, subject to dispatch and carrier confirmation.</p></article>
     </div>
   </section>`;
 
@@ -445,7 +444,7 @@ const renderProductPage = (product) => {
       <div class="product-hero-copy">
         <p class="commerce-eyebrow">${escapeHtml(product.brand)} · Buy in Nigeria</p>
         <h1>${escapeHtml(product.model)}</h1>
-        <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : `${escapeHtml(product.conditions.join(' / ') || 'Condition to confirm')}. Available to Order.`}</p>
+        <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : `${escapeHtml(product.conditions.join(' / ') || 'Condition to confirm')}. Available.`}</p>
         <div class="hero-fact-row">
           <span><strong>Storage</strong>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</span>
           <span><strong>Delivery</strong>Lagos & nationwide</span>
@@ -462,9 +461,8 @@ const renderProductPage = (product) => {
   </main>
   ${renderFooter()}
   <div class="mobile-purchase-bar" aria-label="Quick purchase actions">
-    <a data-action="buy" href="/buy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>₦</span>Buy outright</a>
+    <a data-action="buy" href="/checkout/?sku=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>₦</span>Buy outright</a>
     <a data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>◷</span>Pay Small Small</a>
-    <a data-action="swap" href="/swap/?target=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>↔</span>Swap to this phone →</a>
   </div>
   <script type="application/json" id="product-data">${escapeJson(productData)}</script>
   <script type="module" src="/assets/commerce.js"></script>
@@ -602,8 +600,8 @@ const renderCategoryPage = (category) => {
       <a href="/phone-swap"><span>Upgrade</span><strong>Swap your phone</strong></a>
     </section>
     <section class="commerce-section community-banner">
-      <div><p class="commerce-eyebrow">Not ready to buy?</p><h2>Join the Mikee Gadget Plug gadget deals community</h2><p>Get arrival alerts, price drops, UK-used deals, swap updates, Easy Buy offers and accessory deals.</p></div>
-      <a class="commerce-button commerce-button-light" href="${escapeHtml(communityHref)}" target="_blank" rel="noopener">${commerceSite.communityUrl ? "Join the WhatsApp Group" : "Request the Group Link"}</a>
+      <div><p class="commerce-eyebrow">Not ready to buy?</p><h2>Join Our Gadget Deals Community</h2><p>Get arrival alerts, price drops, UK-used deals, swap updates, Easy Buy offers and accessory deals.</p></div>
+      <a class="commerce-button commerce-button-light" href="${escapeHtml(communityHref)}" target="_blank" rel="noopener">${commerceSite.communityUrl ? "Join Group" : "Community opening soon"}</a>
     </section>
   </main>
   ${renderFooter()}

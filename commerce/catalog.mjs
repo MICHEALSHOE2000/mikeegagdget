@@ -11,7 +11,7 @@ export const commerceSite = Object.freeze({
   address: "1 Ola Ayeni Street, Off Simbiat Abiola Way, Ikeja, Computer Village, Lagos, Nigeria",
   directionsUrl: "https://www.google.com/maps/search/?api=1&query=1%20Ola%20Ayeni%20Street%2C%20Off%20Simbiat%20Abiola%20Way%2C%20Ikeja%2C%20Computer%20Village%2C%20Lagos%2C%20Nigeria",
   communityUrl: "",
-  delivery: "Free nationwide delivery. Same-day delivery in Lagos; 24–48 hours to other states. Pickup available at our Computer Village store.",
+  delivery: "Free nationwide delivery. Same-day delivery in Lagos where feasible; 24–48-hour target to other states, subject to dispatch and carrier confirmation. Pickup at 1 Ola Ayeni Street, Computer Village, Ikeja.",
   warranty: "All products come with a 7-day warranty.",
   usedIphoneBattery: "UK-used iPhones are supplied with battery health above 83%. Ask for the exact reading for the unit offered and confirm it during inspection.",
   easyBuyUrl: "/easy-buy/"

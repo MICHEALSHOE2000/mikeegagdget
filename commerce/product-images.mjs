@@ -176,6 +176,8 @@ export const productImages = {
 // Category photography lives here alongside individual model photography.
 // Replace paths with merchant photos; card proportions stay unchanged.
 export const categoryImages = {
+ tablets: '/images/catalog/samsung-tab-s9-category.jpg',
+ 'wifi-only': '/images/store/13-1-360.webp',
  iphones: '/images/store/17promax-1-360.webp',
  samsung: '/images/store/samsung.webp', pixel: '/images/store/pixel.webp',
  macbooks: '/images/store/macbooks.webp', ipads: '/images/store/ipads.webp',

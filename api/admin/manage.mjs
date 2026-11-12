@@ -7,7 +7,7 @@ export default async function handler(req,res){
   if(req.method==='GET'){
    const kind=req.query?.kind;
    if(kind==='inventory')return reply(res,200,await db('checkout_inventory?select=sku,price_ngn,enabled,product_data,updated_at&order=sku&limit=1000'));
-   if(kind==='orders')return reply(res,200,await db('shop_orders?select=reference,amount_ngn,status,created_at,customer,shop_order_items(sku,quantity,unit_price_ngn,selected_color)&order=created_at.desc&limit=100'));
+   if(kind==='orders')return reply(res,200,await db('shop_orders?select=reference,amount_ngn,status,fulfillment_status,supplier_status,created_at,customer,shop_order_items(sku,quantity,unit_price_ngn,selected_color)&order=created_at.desc&limit=100'));
    return reply(res,400,{error:'Choose inventory or orders.'});
   }
   if(!sameOrigin(req))return reply(res,403,{error:'Use the administrator page.'});
