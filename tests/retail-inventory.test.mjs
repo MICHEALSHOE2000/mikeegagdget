@@ -60,7 +60,8 @@ test('iPhone brand new and UK Used listings stay distinct with matching Easy Buy
 test('cards and category pages show current non-phone products and Confirm Price labels',async()=>{
  for(const category of ['tablets','watches','airpods','accessories']){
   const page=await readFile(`shop/${category}/index.html`,'utf8');
-  assert.match(page,/Find your next device/);
+  assert.match(page,/<h1[^>]*>[^<]+<\/h1>/);
+  assert.match(page,/id="searchInput"/);
   assert.match(page,/View Details/);
  }
  const tablet=await readFile('shop/tablets/index.html','utf8');

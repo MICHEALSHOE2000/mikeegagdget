@@ -1,4 +1,4 @@
-export const env=key=>{const value=process.env[key];if(!value)throw Error('Checkout configuration is incomplete.');return value;};
+export const env=key=>{const value=process.env[key]||(key==='SHOP_ORIGIN'?process.env.SITE_URL:undefined);if(!value)throw Error('Checkout configuration is incomplete.');return value;};
 export async function db(path,{method='GET',body}={}){
  const r=await fetch(env('SUPABASE_URL')+'/rest/v1/'+path,{method,headers:{apikey:env('SUPABASE_SERVICE_ROLE_KEY'),Authorization:'Bearer '+env('SUPABASE_SERVICE_ROLE_KEY'),'Content-Type':'application/json',Prefer:'return=representation'},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(15000)});
  if(!r.ok)throw Error('Unable to save or retrieve this order. Please try again.');return r.json();
