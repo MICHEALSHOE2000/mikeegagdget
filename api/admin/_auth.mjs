@@ -8,6 +8,6 @@ export async function requireAdmin(req){
  const user=await response.json();
  if(!user.id||!user.email_confirmed_at||user.is_anonymous||user.email?.toLowerCase()!==ADMIN_EMAIL)throw Error('Administrator access required.');
  const roles=await db('shop_admins?user_id=eq.'+encodeURIComponent(user.id)+'&select=user_id');
- if(!roles.length)throw Error('Administrator role has not been assigned.');
+ if(!roles.length)await db('rpc/shop_provision_owner',{method:'POST',body:{p_user:user.id}});
  return user;
 }

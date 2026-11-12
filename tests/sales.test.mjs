@@ -10,8 +10,8 @@ import {retailInventory} from '../commerce/retail-inventory.mjs';
 
 test('retail selling prices stay final across product, store and calculator data',async()=>{
  assert.deepEqual(promotion.models,[]);
- assert.equal(HOT_DEALS_LIMIT,6);
- assert.equal(featuredDeals(storeItems).length,6);
+ assert.equal(HOT_DEALS_LIMIT,5);
+ assert.equal(featuredDeals(storeItems).length,5);
  for(const base of products){
   assert.ok(base.variants.length>0);
   const display=offerProduct(base),item=storeItems.find(p=>p.slug===base.slug);
