@@ -49,3 +49,16 @@ test('Pay Small Small never routes to EasyBuy and the footer has no financing it
  const fin=await readFile('financing/index.html','utf8');assert.match(fin,/not available online yet/);
  const js=await readFile('assets/shopping.js','utf8');assert.match(js,/data-credit-direct disabled/);assert.match(js,/financing\?\.available/);
 });
+test('one page per model: condition and SIM are variant choices, not separate pages',async()=>{
+ const {resolveVariant}=await import('../commerce/variant-selection.mjs');
+ const pixel=storeItems.find(p=>p.slug==='pixel-10-pro');
+ assert.deepEqual(pixel.conditions,['Brand New','UK Used']);
+ const bn=resolveVariant(pixel.variants,{capacity:'128GB',condition:'Brand New',sim:'Physical SIM + eSIM'});
+ const esim=resolveVariant(pixel.variants,{capacity:'128GB',condition:'Brand New',sim:'eSIM only'});
+ const uk=resolveVariant(pixel.variants,{capacity:'128GB',condition:'UK Used',sim:'Physical SIM + eSIM'});
+ assert.equal(bn.price,1_050_000);assert.equal(esim.price,910_000);assert.equal(uk.price,767_000);
+ assert.equal(resolveVariant(pixel.variants,{capacity:'1TB',condition:'Brand New',sim:'Physical SIM + eSIM'}),undefined);
+ const ukOnly=storeItems.find(p=>p.slug==='samsung-s22-ultra');assert.deepEqual(ukOnly.conditions,['UK Used']);
+ const bnOnly=storeItems.find(p=>p.slug==='pixel-11-pro-xl');assert.deepEqual(bnOnly.conditions,['Brand New']);
+ assert.equal(new Set(storeItems.flatMap(p=>p.variants.map(v=>p.slug+'|'+v.storage))).size,storeItems.reduce((n,p)=>n+p.variants.length,0));
+});

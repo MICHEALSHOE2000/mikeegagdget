@@ -1,7 +1,8 @@
 export const capacityOf = v => v.capacity || v.storage.split(/\s*·\s*/)[0];
 export const colorsOf = v => v.colors || (v.color||'').split('/').map(x=>x.trim()).filter(Boolean);
-export function resolveVariant(variants,{capacity,color,condition}) {
- return variants.find(v=>capacityOf(v)===capacity&&(v.condition||condition)===condition&&(color?colorsOf(v).includes(color):colorsOf(v).length===0));
+// sim is only passed when a model offers more than one SIM type; otherwise it is ignored.
+export function resolveVariant(variants,{capacity,color,condition,sim}) {
+ return variants.find(v=>capacityOf(v)===capacity&&(v.condition||condition)===condition&&(sim===undefined||(v.connectivity||'')===sim)&&(color?colorsOf(v).includes(color):colorsOf(v).length===0));
 }
 export const purchasable = v => !!v && v.price>0 && v.enabled!==false && !v.reviewRequired;
 export const swatchColor = name => {

@@ -15,7 +15,7 @@ test('all supplied products and variants are represented once with conditions ke
  assert.equal(original.length,159);
  assert.equal(retailInventory.filter(p=>p.category==='wifi-only').length,16);
  assert.equal(new Set(retailInventory.map(p=>p.slug)).size,retailInventory.length);
- assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),483);
+ assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),511); // 483 + 28 supplier variants (2026-11-14)
  assert.equal(storeItems.length,retailInventory.length);
  for(const p of original.filter(p=>p.category==='iphones'&&!p.slug.startsWith('iphone-18-')))assert.equal(p.condition,'UK Used');
 
@@ -27,13 +27,16 @@ test('example prices follow their specified group and ambiguous prices remain Co
  assert.equal(price('iphone-15-uk-used','128GB'),625_000);
  assert.equal(price('samsung-a05-uk-used','Standard'),150_000);
  assert.equal(price('samsung-a05','Standard'),160_000);
- assert.equal(price('samsung-s22-plus','256GB'),390_000);
- assert.equal(price('samsung-s23','128GB'),null);
- assert.equal(price('samsung-s23','256GB'),null);
+ assert.equal(price('samsung-s22-plus','256GB'),320_000); // highest supplier quote, UK Used
+ assert.equal(price('samsung-s23','128GB'),360_000);
+ assert.equal(price('samsung-s23','256GB'),380_000);
+ assert.equal(price('pixel-8','128GB'),420_000);
+ assert.equal(price('pixel-8','128GB · UK Used'),347_000);
+ assert.equal(price('pixel-10-pro','128GB · eSIM only'),910_000);
  assert.equal(price('samsung-s25-ultra','256GB'),1230000);
  assert.equal(price('iphone-15-pro-uk-used','256GB'),875000);
- assert.equal(retailInventory.flatMap(item=>item.variants).filter(variant=>variant.price===null).length,236);
- assert.equal(retailInventory.filter(item=>item.variants.some(variant=>variant.price===null)).length,31);
+ assert.equal(retailInventory.flatMap(item=>item.variants).filter(variant=>variant.price===null).length,234);
+ assert.equal(retailInventory.filter(item=>item.variants.some(variant=>variant.price===null)).length,30);
 });
 
 test('iPhone brand new and UK Used listings stay distinct with matching Easy Buy data',()=>{
@@ -59,7 +62,7 @@ test('cards and category pages show current non-phone products and Confirm Price
  }
  const tablet=await readFile('shop/tablets/index.html','utf8');
  assert.match(tablet,/data-category-scope="tablets"/);
- const samsung=await readFile('samsung-s23/index.html','utf8');
+ const samsung=await readFile('samsung-s25-edge/index.html','utf8');
  assert.match(samsung,/Confirm Price/);
  const store=await readFile('assets/store-catalog.json','utf8');
  assert.doesNotMatch(store,/revenes\.com|\/images\/pixel\//i);
