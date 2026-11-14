@@ -1,7 +1,7 @@
 import {storeSettings} from './store-settings.mjs';
 // The new retailer list contains final selling prices and no separately approved discounts.
 // Keep the offer helpers ready for a future authorized promotion without altering these prices.
-export const HOT_DEALS_LIMIT = 9;
+export const HOT_DEALS_LIMIT = 5;
 export const promotion = Object.freeze({id:'mikee-hot-deals', discount:0.08, models:[]});
 export function withOffer(variant, slug) {
  if (!promotion.models.includes(slug) || !Number.isFinite(variant.price) || variant.price <= 0) return {...variant};

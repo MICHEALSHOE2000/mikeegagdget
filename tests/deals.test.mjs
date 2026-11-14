@@ -13,10 +13,10 @@ test('fixed discount rounds whole naira half up without changing catalogue data'
  assert.equal(pricedVariant({...row,enabled:false},true).deal,false);
  assert.equal(pricedVariant({...row,product_data:{reviewRequired:true}},true).price,800000);
 });
-test('publication accepts empty or nine unique variants and rejects forged input',()=>{
+test('publication accepts empty or five unique variants and rejects forged input',()=>{
  assert.deepEqual(validateDeals({revision:0,skus:[]}),{revision:0,skus:[]});
- assert.equal(validateDeals({revision:1,skus:['a','b','c','d','e','f','g','h','i']}).skus.length,9);
- for(const body of [{revision:0,skus:['a','a']},{revision:0,skus:['a','b','c','d','e','f','g','h','i','j']},{revision:-1,skus:[]},{revision:0,skus:[null]}])assert.throws(()=>validateDeals(body));
+ assert.equal(validateDeals({revision:1,skus:['a','b','c','d','e']}).skus.length,5);
+ for(const body of [{revision:0,skus:['a','a']},{revision:0,skus:['a','b','c','d','e','f']},{revision:-1,skus:[]},{revision:0,skus:[null]}])assert.throws(()=>validateDeals(body));
 });
 test('deals endpoint rejects unauthenticated reads and writes',async()=>{
  for(const method of ['GET','PUT']){const res={status(n){this.code=n;return this;},setHeader(){return this;},json(body){this.body=body;return this;}};await handler({method,headers:{}},res);assert.equal(res.code,401);}

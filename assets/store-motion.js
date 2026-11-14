@@ -14,24 +14,27 @@ reduced.addEventListener?.('change',()=>{
  else if(heroVideo?.querySelector('source:not([src])'))loadHeroVideo();
  else heroVideo?.play().catch(()=>{});
 });
-// Keep the carousel controls usable even though the Play/Pause button is removed.
-const rail=document.getElementById('hotDeals');
-if(rail){
- let hover=false,visible=true,lastManual=0;
+const rail=document.getElementById('hotDeals'),pause=document.getElementById('deals-pause');
+if(rail&&pause){
+ const cards=[...rail.children];
+ rail.replaceChildren(...cards);
+ let stopped=reduced.matches,hover=false,visible=true;
+ const update=()=>{pause.setAttribute('aria-pressed',String(stopped));pause.setAttribute('aria-label',stopped?'Resume automatic deals':'Pause automatic deals');pause.textContent=stopped?'▶':'Ⅱ';};
  const move=direction=>{
-  const gap=parseFloat(getComputedStyle(rail).columnGap)||0;
-  const step=(rail.firstElementChild?.getBoundingClientRect().width||250)+gap;
-  const end=Math.max(0,rail.scrollWidth-rail.clientWidth);
-  if(end<2)return;
-  const next=rail.scrollLeft+step*direction;
-  rail.scrollTo({left:direction>0&&next>end+2?0:direction<0&&next<0?end:Math.max(0,Math.min(next,end)),behavior:reduced.matches?'instant':'smooth'});
+  const gap=parseFloat(getComputedStyle(rail).columnGap)||0,step=(rail.firstElementChild?.getBoundingClientRect().width||250)+gap;
+  const end=rail.scrollWidth-rail.clientWidth;
+  let next=rail.scrollLeft+step*direction;
+  if(direction>0&&rail.scrollLeft>=end-3)next=0;
+  if(direction<0&&rail.scrollLeft<3)next=end;
+  rail.scrollTo({left:Math.max(0,Math.min(next,end)),behavior:reduced.matches?'instant':'smooth'});
  };
- document.querySelectorAll('[data-deal-direction]').forEach(button=>button.addEventListener('click',()=>{lastManual=Date.now();move(Number(button.dataset.dealDirection));}));
- rail.addEventListener('mouseenter',()=>hover=true);
- rail.addEventListener('mouseleave',()=>hover=false);
- rail.addEventListener('pointerdown',()=>{lastManual=Date.now();});
- rail.addEventListener('focusin',()=>{lastManual=Date.now();});
+ pause.addEventListener('click',()=>{stopped=!stopped;update();});
+ document.querySelectorAll('[data-deal-direction]').forEach(button=>button.addEventListener('click',()=>{stopped=true;update();move(Number(button.dataset.dealDirection));}));
+ rail.addEventListener('mouseenter',()=>hover=true);rail.addEventListener('mouseleave',()=>hover=false);
+ rail.addEventListener('pointerdown',()=>{stopped=true;update();});
+ rail.addEventListener('focusin',()=>{stopped=true;update();});
  if('IntersectionObserver' in window)new IntersectionObserver(entries=>visible=entries[0].isIntersecting).observe(rail);
- const timer=setInterval(()=>{if(!reduced.matches&&!hover&&visible&&!document.hidden&&Date.now()-lastManual>12000)move(1);},5500);
- window.addEventListener('pagehide',()=>clearInterval(timer),{once:true});
+ reduced.addEventListener?.('change',()=>{if(reduced.matches){stopped=true;update();}});
+ const timer=setInterval(()=>{if(!stopped&&!hover&&visible&&!document.hidden)move(1);},5500);
+ window.addEventListener('pagehide',()=>clearInterval(timer),{once:true});update();
 }
