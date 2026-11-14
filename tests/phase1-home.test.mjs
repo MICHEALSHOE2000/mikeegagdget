@@ -1,22 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {readFileSync} from 'node:fs';
 import {CATEGORY_TIMING,createSchedule} from '../assets/category-carousel.js';
 import {categories} from '../commerce/storefront-data.mjs';
 import {card} from '../assets/storefront-ui.mjs';
 
-test('category carousel holds on iPhones for 90 seconds, then advances every 5-7 seconds',()=>{
- assert.equal(CATEGORY_TIMING.initialHold,90000);
- assert.ok(CATEGORY_TIMING.interval>=5000&&CATEGORY_TIMING.interval<=7000);
- const s=createSchedule();
- assert.equal(s.due(0),false);assert.equal(s.due(89999),false);assert.equal(s.due(90000),true);
- s.moved(90000);assert.equal(s.due(95999),false);assert.equal(s.due(96000),true);
-});
-test('manual interaction pauses temporarily and never shortens the initial hold',()=>{
- const early=createSchedule();early.touched(1000);early.resumed(2000);
- assert.equal(early.due(89999),false);assert.equal(early.due(90000),true);
- const late=createSchedule();late.moved(100000);late.touched(101000);
- assert.equal(late.due(106000),false);assert.equal(late.due(101000+CATEGORY_TIMING.resumeAfter),true);
+test('category carousel moves every 4 seconds from page load and keeps going',()=>{
+ assert.equal(CATEGORY_TIMING.interval,4000);
+ const s=createSchedule(CATEGORY_TIMING,0);
+ assert.equal(s.due(3999),false);assert.equal(s.due(4000),true);
+ s.moved(4000);assert.equal(s.due(7999),false);assert.equal(s.due(8000),true);
+ const js=readFileSync('assets/category-carousel.js','utf8');
+ assert.doesNotMatch(js,/pointerenter|focusin|mouseenter|touched|resumeAfter|initialHold/);
 });
 test('category discovery order starts with iPhones and keeps every category',()=>{
  assert.deepEqual(categories.map(c=>c.id).slice(0,9),['iphones','samsung','pixel','macbooks','laptops','tablets','wifi-only','watches','accessories']);

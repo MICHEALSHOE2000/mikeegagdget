@@ -40,3 +40,12 @@ test('a product without a verified price keeps View Details and has no Buy Now',
  assert.match(html,/Price coming soon/);assert.match(html,/View Details/);assert.doesNotMatch(html,/Buy Now/);
  assert.match(html,/<p class="store-condition">UK Used<\/p>/);
 });
+test('Pay Small Small never routes to EasyBuy and the footer has no financing item',async()=>{
+ const {readdir}=await import('node:fs/promises');
+ const pages=['index.html','iphone-17-pro/index.html','checkout/index.html','search/index.html','financing/index.html'];
+ for(const file of pages){const html=await readFile(file,'utf8');const footer=html.match(/<footer[\s\S]*?<\/footer>/)?.[0]||'';assert.doesNotMatch(footer,/EasyBuy|Easy Buy|Financing explained|Pay Small Small/i,file);assert.doesNotMatch(html,/data-action="easyBuy" href="\/easybuy/,file);}
+ const product=await readFile('iphone-17-pro/index.html','utf8');assert.match(product,/data-action="easyBuy" href="\/financing\/\?sku=/);
+ const shop=await readFile('assets/storefront.js','utf8');assert.doesNotMatch(shop,/`\/easybuy\/\?\$\{q\}`/.source==='x'?/x/:/method==='easy'\)q\.set/);
+ const fin=await readFile('financing/index.html','utf8');assert.match(fin,/not available online yet/);
+ const js=await readFile('assets/shopping.js','utf8');assert.match(js,/data-credit-direct disabled/);assert.match(js,/financing\?\.available/);
+});
