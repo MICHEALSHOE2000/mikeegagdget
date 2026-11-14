@@ -1,7 +1,7 @@
 // Credit Direct (Pay Small Small) server-side helpers. Never import this file from browser code.
-// Signing and webhook rules follow the merchant's integration brief; confirm each against the official
-// Credit Direct documentation in sandbox before CREDIT_DIRECT_ENABLED is switched on.
-import {createHmac,timingSafeEqual} from 'node:crypto';
+// Follows Credit Direct Checkout API Documentation v2.0 (Feb 2026). Amounts are whole naira integers; the document
+// does not name the unit, so confirm with Credit Direct during sandbox testing before going live.
+import {createHmac,timingSafeEqual,randomInt} from 'node:crypto';
 
 export const CREDIT_DIRECT_SCRIPT='https://checkout.creditdirect.ng/bnpl/checkout.min.js';
 export const CREDIT_DIRECT_EVENTS=Object.freeze(['Checkout_Customer_Payment_Completed','Checkout_Merchant_Payment_Completed']);
@@ -13,8 +13,12 @@ export function creditDirectConfig(source=typeof process==='undefined'?{}:proces
  const ready=source.CREDIT_DIRECT_ENABLED==='true'&&!!publicKey&&!!privateKey&&!!webhookSecret;
  return {ready,publicKey,privateKey,webhookSecret,isLive:source.CREDIT_DIRECT_IS_LIVE==='true'};
 }
-export function createCreditDirectTransaction({sessionId,customerEmail,customerPhone,products,metaData={}}){
- if(typeof sessionId!=='string'||!/^[A-Za-z0-9_-]{12,80}$/.test(sessionId))throw Error('Invalid checkout session.');
+// The document requires a new sessionId each time the widget opens.
+const SESSION_CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+export function newSessionId(length=24){let out='';for(let i=0;i<length;i++)out+=SESSION_CHARS[randomInt(SESSION_CHARS.length)];return out;}
+export function createCreditDirectTransaction({sessionId,customerEmail,customerPhone,products,metaData=''}){
+ if(typeof sessionId!=='string'||!/^[A-Za-z0-9]{15,64}$/.test(sessionId))throw Error('Invalid checkout session.');
+ if(typeof metaData!=='string'||metaData.length>200)throw Error('Invalid checkout metadata.');
  if(typeof customerEmail!=='string'||!/^\S+@\S+\.\S+$/.test(customerEmail))throw Error('Valid customer email required.');
  if(typeof customerPhone!=='string'||customerPhone.length<7||customerPhone.length>30)throw Error('Valid phone required.');
  if(!Array.isArray(products)||products.length<1||products.length>30)throw Error('Choose a valid product.');
@@ -31,10 +35,10 @@ export function signCreditDirectTransaction(transaction,privateKey){
  return createHmac('sha256',privateKey).update(transaction.sessionId+transaction.customerEmail+String(transaction.totalAmount),'utf8').digest('hex');
 }
 // Ties a browser-reported checkoutTransactionId to the order that browser actually started.
-export function linkToken(reference,privateKey){return createHmac('sha256',privateKey).update('link:'+reference,'utf8').digest('hex');}
-export function validLinkToken(reference,token,privateKey){
+export function linkToken(reference,privateKey,sessionId=''){return createHmac('sha256',privateKey).update('link:'+reference+':'+sessionId,'utf8').digest('hex');}
+export function validLinkToken(reference,token,privateKey,sessionId=''){
  if(typeof token!=='string'||!/^[0-9a-f]{64}$/.test(token))return false;
- return timingSafeEqual(Buffer.from(token,'hex'),Buffer.from(linkToken(reference,privateKey),'hex'));
+ return timingSafeEqual(Buffer.from(token,'hex'),Buffer.from(linkToken(reference,privateKey,sessionId),'hex'));
 }
 // Svix-style verification over the raw body: HMAC-SHA256(base64-decoded secret, id + "." + timestamp + "." + rawBody).
 export function verifyCreditDirectWebhook({headers,rawBody,secret,nowMs=Date.now()}){
@@ -57,9 +61,12 @@ export function verifyCreditDirectWebhook({headers,rawBody,secret,nowMs=Date.now
  if(!event||typeof event!=='object'||Array.isArray(event))throw Error('Invalid webhook event.');
  return {id,event};
 }
-// Field names below are assumptions until checked against a real sandbox webhook.
+// Webhook body per the document: eventType, checkoutTransactionId, metaData, products[{productId,productName,productAmount}].
+// productAmount arrives as a string; there is no total or sessionId, so the total is the sum of the products.
 export function readCreditDirectEvent(event){
- const data=event.data&&typeof event.data==='object'?event.data:event,text=v=>typeof v==='string'&&v&&v.length<=200?v:null;
- const total=data.totalAmount??data.amount;
- return {type:text(event.event??event.eventType??event.type),transactionId:text(data.checkoutTransactionId??data.transactionId),sessionId:text(data.sessionId),totalAmount:Number.isSafeInteger(total)?total:null};
+ const text=v=>typeof v==='string'&&v&&v.length<=200?v:null;
+ const products=Array.isArray(event.products)?event.products:[];
+ const amounts=products.map(p=>typeof p?.productAmount==='number'?p.productAmount:/^\d{1,12}$/.test(String(p?.productAmount??''))?Number(p.productAmount):NaN);
+ const total=amounts.length&&amounts.every(Number.isSafeInteger)?amounts.reduce((a,b)=>a+b,0):null;
+ return {type:text(event.eventType),transactionId:text(event.checkoutTransactionId),reference:typeof event.metaData==='string'&&/^MGP2-[a-f0-9]{32}$/.test(event.metaData)?event.metaData:null,totalAmount:total,productIds:products.map(p=>text(p?.productId)).filter(Boolean)};
 }

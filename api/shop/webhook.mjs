@@ -9,8 +9,8 @@ export async function creditDirectWebhook(raw,headers,res,settings=creditDirectC
  let verified;try{verified=verifyCreditDirectWebhook({headers,rawBody:raw.toString('utf8'),secret:settings.webhookSecret});}catch{return reply(res,401,{error:'Invalid signature'});}
  const event=readCreditDirectEvent(verified.event);
  if(!CREDIT_DIRECT_EVENTS.includes(event.type))return reply(res,200,{received:true,ignored:true});
- if(!event.transactionId&&!event.sessionId)return reply(res,422,{error:'Event has no transaction reference.'});
- const status=await store('rpc/shop_credit_direct_event',{method:'POST',body:{p_event_id:verified.id,p_event_type:event.type,p_session_id:event.sessionId,p_transaction_id:event.transactionId,p_total_ngn:event.totalAmount}});
+ if(!event.transactionId)return reply(res,422,{error:'Event has no checkoutTransactionId.'});
+ const status=await store('rpc/shop_credit_direct_event',{method:'POST',body:{p_event_id:verified.id,p_event_type:event.type,p_transaction_id:event.transactionId,p_reference_hint:event.reference,p_total_ngn:event.totalAmount,p_product_ids:event.productIds}});
  return reply(res,200,{received:true,status});
 }
 export default async function handler(req,res){

@@ -7,7 +7,7 @@ export async function openCreditDirect(session,notify){
  await load();
  if(typeof window.Connect!=='function')throw Error('Pay Small Small is unavailable right now. You can pay outright instead.');
  const status='/checkout/complete/?reference='+encodeURIComponent(session.reference);
- const link=data=>{const id=data?.checkoutTransactionId;if(typeof id!=='string'||!id)return Promise.resolve();return fetch('/api/shop/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'credit_direct_link',reference:session.reference,token:session.linkToken,checkoutTransactionId:id})}).catch(()=>{});};
+ const link=data=>{const id=data?.checkoutTransactionId;if(typeof id!=='string'||!id)return Promise.resolve();return fetch('/api/shop/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'credit_direct_link',reference:session.reference,sessionId:session.transaction.sessionId,token:session.linkToken,checkoutTransactionId:id}),keepalive:true}).catch(()=>{});};
  const widget=new window.Connect({publicKey:session.publicKey,transaction:session.transaction,signature:session.signature,isLive:session.isLive===true,
   onPopup:data=>{link(data);},
   onSuccess:async data=>{await link(data);location.assign(status);},

@@ -1,13 +1,13 @@
 import {db,paystack,reply,sameOrigin,env} from '../_shop.mjs';
 import {validateCheckout} from '../../commerce/checkout-validation.mjs';
-import {creditDirectConfig,createCreditDirectTransaction,signCreditDirectTransaction,linkToken,validLinkToken} from '../../commerce/credit-direct.mjs';
+import {creditDirectConfig,createCreditDirectTransaction,signCreditDirectTransaction,linkToken,validLinkToken,newSessionId} from '../../commerce/credit-direct.mjs';
 const FINANCING_OFF='Pay Small Small is not available right now. You can pay outright with Paystack.';
 const REFERENCE=/^MGP2-[a-f0-9]{32}$/;
 // Browser reports the provider's checkoutTransactionId; it is accepted only with the token issued for that order.
 async function linkCreditDirect(req,res,config){
- const {reference,token,checkoutTransactionId}=req.body||{};
- if(typeof reference!=='string'||!REFERENCE.test(reference)||!validLinkToken(reference,token,config.privateKey)||typeof checkoutTransactionId!=='string'||!/^[\w.:-]{3,200}$/.test(checkoutTransactionId))return reply(res,400,{error:'Invalid checkout session.'});
- try{await db('rpc/shop_credit_direct_link',{method:'POST',body:{p_reference:reference,p_transaction_id:checkoutTransactionId}});return reply(res,200,{linked:true});}
+ const {reference,sessionId,token,checkoutTransactionId}=req.body||{};
+ if(typeof reference!=='string'||!REFERENCE.test(reference)||typeof sessionId!=='string'||!/^[A-Za-z0-9]{15,64}$/.test(sessionId)||!validLinkToken(reference,token,config.privateKey,sessionId)||typeof checkoutTransactionId!=='string'||!/^[\w.:-]{3,200}$/.test(checkoutTransactionId))return reply(res,400,{error:'Invalid checkout session.'});
+ try{await db('rpc/shop_credit_direct_link',{method:'POST',body:{p_reference:reference,p_session_id:sessionId,p_transaction_id:checkoutTransactionId}});return reply(res,200,{linked:true});}
  catch{return reply(res,409,{error:'This checkout session could not be linked.'});}
 }
 export default async function handler(req,res){
@@ -23,10 +23,10 @@ export default async function handler(req,res){
   if(!Number.isSafeInteger(req.body.expectedTotalNgn)||req.body.expectedTotalNgn!==Number(result.amount_ngn))return reply(res,409,{error:'The current price has changed. Refresh checkout and review the updated total before paying.'});
   if(financed){
    // Prices, products and total come from the order the database just priced, never from the browser.
-   let session;try{session=await db('rpc/shop_credit_direct_begin',{method:'POST',body:{p_reference:result.reference}});}catch{return reply(res,409,{error:'This order cannot use Pay Small Small. Refresh checkout and try again, or pay outright.'});}
-   const transaction=createCreditDirectTransaction({sessionId:session.sessionId,customerEmail:session.email,customerPhone:session.phone,products:session.products,metaData:{orderReference:result.reference}});
+   let session;try{session=await db('rpc/shop_credit_direct_begin',{method:'POST',body:{p_reference:result.reference,p_session_id:newSessionId()}});}catch{return reply(res,409,{error:'This order cannot use Pay Small Small. Refresh checkout and try again, or pay outright.'});}
+   const transaction=createCreditDirectTransaction({sessionId:session.sessionId,customerEmail:session.email,customerPhone:session.phone,products:session.products,metaData:result.reference});
    if(transaction.totalAmount!==Number(result.amount_ngn))throw Error('Order total mismatch.');
-   return reply(res,200,{provider:'credit_direct',reference:result.reference,publicKey:config.publicKey,isLive:config.isLive,transaction,signature:signCreditDirectTransaction(transaction,config.privateKey),linkToken:linkToken(result.reference,config.privateKey)});
+   return reply(res,200,{provider:'credit_direct',reference:result.reference,publicKey:config.publicKey,isLive:config.isLive,transaction,signature:signCreditDirectTransaction(transaction,config.privateKey),linkToken:linkToken(result.reference,config.privateKey,transaction.sessionId)});
   }
   if(result.authorization_url)return reply(res,200,{url:result.authorization_url});
   if(config.ready){const row=(await db('shop_orders?reference=eq.'+encodeURIComponent(result.reference)+'&select=payment_provider'))[0];if(row?.payment_provider==='credit_direct')return reply(res,409,{error:'This order was started with Pay Small Small. Refresh checkout to pay outright instead.'});}
