@@ -1,6 +1,6 @@
--- REVIEW ONLY. NOT APPLIED. Credit Direct (Pay Small Small) order tracking, per Credit Direct Checkout API v2.0.
+-- APPLIED to production 2026-11-14 (owner approved). Credit Direct (Pay Small Small) order tracking, per Credit Direct Checkout API v2.0.
 -- Additive: existing Paystack orders keep payment_provider='paystack' and are otherwise untouched.
--- Rollback: supabase/review/credit-direct-rollback.sql
+-- Rollback: supabase/credit-direct-rollback.sql
 --
 -- How matching works (the webhook carries no sessionId and no total):
 -- 1. Each widget opening gets a new random sessionId (one row in shop_credit_direct_sessions).

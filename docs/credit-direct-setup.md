@@ -7,7 +7,7 @@ Built against Credit Direct Checkout API Documentation v2.0 (Feb 2026). Switched
 2. Vercel → Settings → Environment Variables, **Preview only** first:
    - `CREDIT_DIRECT_PUBLIC_KEY`, `CREDIT_DIRECT_PRIVATE_KEY`, `CREDIT_DIRECT_WEBHOOK_SECRET`
    - `CREDIT_DIRECT_IS_LIVE` = `false`, `CREDIT_DIRECT_ENABLED` = `true`
-3. Approve applying `supabase/review/credit-direct.sql` (additive; rollback in `credit-direct-rollback.sql`).
+3. Database tables applied 2026-11-14 (`supabase/migrations/20261114183500_credit_direct_checkout.sql`; rollback in `supabase/credit-direct-rollback.sql`).
 4. Give Credit Direct the webhook URL `https://mikeegadget.com.ng/api/shop/webhook` and redirect URL
    `https://mikeegadget.com.ng/checkout/complete/` during onboarding.
 
