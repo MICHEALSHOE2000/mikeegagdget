@@ -979,23 +979,50 @@
   },
   {
     "type": "product",
-    "label": "Samsung Galaxy S22 Ultra",
-    "route": "/samsung-s22-ultra",
+    "label": "Samsung Galaxy S23",
+    "route": "/samsung-s23",
     "brand": "Samsung",
     "storage": [
       "256GB",
       "128GB"
     ],
-    "price": 500000,
+    "price": 360000,
+    "image": "/images/store/samsung/samsung-galaxy-s23-1-720.webp",
+    "keywords": [
+      "Samsung Galaxy S23",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S23 256GB",
+      "Samsung Galaxy S23 128GB",
+      "256GB",
+      "128GB",
+      "price in Nigeria",
+      "Easy Buy",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S22 Ultra",
+    "route": "/samsung-s22-ultra",
+    "brand": "Samsung",
+    "storage": [
+      "128GB",
+      "256GB",
+      "512GB"
+    ],
+    "price": 430000,
     "image": "/images/store/samsung/samsung-galaxy-s22-ultra-1-720.webp",
     "keywords": [
       "Samsung Galaxy S22 Ultra",
       "Samsung",
       "Galaxy",
-      "Samsung Galaxy S22 Ultra 256GB",
       "Samsung Galaxy S22 Ultra 128GB",
-      "256GB",
+      "Samsung Galaxy S22 Ultra 256GB",
+      "Samsung Galaxy S22 Ultra 512GB",
       "128GB",
+      "256GB",
+      "512GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -1010,7 +1037,7 @@
       "256GB",
       "128GB"
     ],
-    "price": 360000,
+    "price": 285000,
     "image": "/images/store/samsung/samsung-galaxy-s22-plus-1-720.webp",
     "keywords": [
       "Samsung Galaxy S22 Plus",
@@ -1031,15 +1058,21 @@
     "route": "/samsung-s22",
     "brand": "Samsung",
     "storage": [
+      "128GB · UK Used",
+      "256GB · UK Used",
       "Standard"
     ],
-    "price": 330000,
+    "price": 260000,
     "image": "/images/store/samsung/samsung-galaxy-s22-1-720.webp",
     "keywords": [
       "Samsung Galaxy S22",
       "Samsung",
       "Galaxy",
+      "Samsung Galaxy S22 128GB · UK Used",
+      "Samsung Galaxy S22 256GB · UK Used",
       "Samsung Galaxy S22 Standard",
+      "128GB · UK Used",
+      "256GB · UK Used",
       "Standard",
       "price in Nigeria",
       "Easy Buy",
@@ -1055,7 +1088,7 @@
       "256GB",
       "128GB"
     ],
-    "price": 420000,
+    "price": 300000,
     "image": "/images/store/samsung/samsung-galaxy-s21-ultra-1-720.webp",
     "keywords": [
       "Samsung Galaxy S21 Ultra",
@@ -1079,7 +1112,7 @@
       "256GB",
       "128GB"
     ],
-    "price": 315000,
+    "price": 245000,
     "image": "/images/store/samsung/samsung-galaxy-s21-plus-1-720.webp",
     "keywords": [
       "Samsung Galaxy S21 Plus",
@@ -1100,15 +1133,21 @@
     "route": "/samsung-s21",
     "brand": "Samsung",
     "storage": [
+      "128GB · UK Used",
+      "256GB · UK Used",
       "Standard"
     ],
-    "price": 245000,
+    "price": 220000,
     "image": "/images/store/samsung/samsung-galaxy-s21-1-720.webp",
     "keywords": [
       "Samsung Galaxy S21",
       "Samsung",
       "Galaxy",
+      "Samsung Galaxy S21 128GB · UK Used",
+      "Samsung Galaxy S21 256GB · UK Used",
       "Samsung Galaxy S21 Standard",
+      "128GB · UK Used",
+      "256GB · UK Used",
       "Standard",
       "price in Nigeria",
       "Easy Buy",
@@ -1576,7 +1615,7 @@
     "storage": [
       "256GB"
     ],
-    "price": 750000,
+    "price": 650000,
     "image": "/images/store/samsung/samsung-galaxy-z-fold-5-1-720.webp",
     "keywords": [
       "Samsung Galaxy Z Fold 5",
@@ -2551,7 +2590,7 @@
     "storage": [
       "256GB"
     ],
-    "price": 490000,
+    "price": 440000,
     "image": null,
     "keywords": [
       "Samsung Galaxy S23 Plus",
@@ -2559,30 +2598,6 @@
       "Galaxy",
       "Samsung Galaxy S23 Plus 256GB",
       "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S23",
-    "route": "/samsung-s23",
-    "brand": "Samsung",
-    "storage": [
-      "256GB",
-      "128GB"
-    ],
-    "price": null,
-    "image": "/images/store/samsung/samsung-galaxy-s23-1-720.webp",
-    "keywords": [
-      "Samsung Galaxy S23",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S23 256GB",
-      "Samsung Galaxy S23 128GB",
-      "256GB",
-      "128GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -2762,15 +2777,18 @@
     "route": "/samsung-note-20",
     "brand": "Samsung",
     "storage": [
+      "128GB",
       "256GB"
     ],
-    "price": 325000,
+    "price": 220000,
     "image": null,
     "keywords": [
       "Samsung Galaxy Note 20",
       "Samsung",
       "Galaxy",
+      "Samsung Galaxy Note 20 128GB",
       "Samsung Galaxy Note 20 256GB",
+      "128GB",
       "256GB",
       "price in Nigeria",
       "Easy Buy",
@@ -3164,7 +3182,7 @@
       "256GB",
       "512GB"
     ],
-    "price": 1450000,
+    "price": 1410000,
     "image": null,
     "keywords": [
       "Google Pixel 11 Pro XL",
@@ -3186,9 +3204,10 @@
     "brand": "Google",
     "storage": [
       "256GB",
-      "512GB"
+      "512GB",
+      "512GB · eSIM only"
     ],
-    "price": 1430000,
+    "price": 1250000,
     "image": null,
     "keywords": [
       "Google Pixel 11 Pro",
@@ -3196,8 +3215,10 @@
       "Pixel",
       "Google Pixel 11 Pro 256GB",
       "Google Pixel 11 Pro 512GB",
+      "Google Pixel 11 Pro 512GB · eSIM only",
       "256GB",
       "512GB",
+      "512GB · eSIM only",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -3230,22 +3251,37 @@
     "route": "/pixel-10-pro-xl",
     "brand": "Google",
     "storage": [
-      "1TB",
+      "256GB",
+      "256GB · eSIM only",
+      "256GB · eSIM only · UK Used",
+      "256GB · UK Used",
       "512GB",
-      "256GB"
+      "512GB · eSIM only",
+      "512GB · eSIM only · UK Used",
+      "1TB"
     ],
-    "price": 1290000,
+    "price": 850000,
     "image": null,
     "keywords": [
       "Google Pixel 10 Pro XL",
       "Google",
       "Pixel",
-      "Google Pixel 10 Pro XL 1TB",
-      "Google Pixel 10 Pro XL 512GB",
       "Google Pixel 10 Pro XL 256GB",
-      "1TB",
-      "512GB",
+      "Google Pixel 10 Pro XL 256GB · eSIM only",
+      "Google Pixel 10 Pro XL 256GB · eSIM only · UK Used",
+      "Google Pixel 10 Pro XL 256GB · UK Used",
+      "Google Pixel 10 Pro XL 512GB",
+      "Google Pixel 10 Pro XL 512GB · eSIM only",
+      "Google Pixel 10 Pro XL 512GB · eSIM only · UK Used",
+      "Google Pixel 10 Pro XL 1TB",
       "256GB",
+      "256GB · eSIM only",
+      "256GB · eSIM only · UK Used",
+      "256GB · UK Used",
+      "512GB",
+      "512GB · eSIM only",
+      "512GB · eSIM only · UK Used",
+      "1TB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -3282,21 +3318,33 @@
     "brand": "Google",
     "storage": [
       "128GB",
+      "128GB · eSIM only",
+      "128GB · UK Used",
       "256GB",
-      "512GB"
+      "256GB · UK Used",
+      "512GB",
+      "1TB · eSIM only"
     ],
-    "price": 1240000,
+    "price": 767000,
     "image": null,
     "keywords": [
       "Google Pixel 10 Pro",
       "Google",
       "Pixel",
       "Google Pixel 10 Pro 128GB",
+      "Google Pixel 10 Pro 128GB · eSIM only",
+      "Google Pixel 10 Pro 128GB · UK Used",
       "Google Pixel 10 Pro 256GB",
+      "Google Pixel 10 Pro 256GB · UK Used",
       "Google Pixel 10 Pro 512GB",
+      "Google Pixel 10 Pro 1TB · eSIM only",
       "128GB",
+      "128GB · eSIM only",
+      "128GB · UK Used",
       "256GB",
+      "256GB · UK Used",
       "512GB",
+      "1TB · eSIM only",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -3308,15 +3356,21 @@
     "route": "/pixel-10",
     "brand": "Google",
     "storage": [
+      "128GB",
+      "128GB · UK Used",
       "256GB"
     ],
-    "price": 1010000,
+    "price": 647000,
     "image": null,
     "keywords": [
       "Google Pixel 10",
       "Google",
       "Pixel",
+      "Google Pixel 10 128GB",
+      "Google Pixel 10 128GB · UK Used",
       "Google Pixel 10 256GB",
+      "128GB",
+      "128GB · UK Used",
       "256GB",
       "price in Nigeria",
       "Easy Buy",
@@ -3329,19 +3383,22 @@
     "route": "/pixel-10a",
     "brand": "Google",
     "storage": [
-      "256GB",
-      "128GB"
+      "128GB",
+      "128GB · UK Used",
+      "256GB"
     ],
-    "price": 640000,
+    "price": 517000,
     "image": null,
     "keywords": [
       "Google Pixel 10a",
       "Google",
       "Pixel",
-      "Google Pixel 10a 256GB",
       "Google Pixel 10a 128GB",
-      "256GB",
+      "Google Pixel 10a 128GB · UK Used",
+      "Google Pixel 10a 256GB",
       "128GB",
+      "128GB · UK Used",
+      "256GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -3353,15 +3410,18 @@
     "route": "/pixel-9-pro-fold",
     "brand": "Google",
     "storage": [
+      "256GB",
       "512GB · 12GB RAM"
     ],
-    "price": 2040000,
+    "price": 900000,
     "image": null,
     "keywords": [
       "Google Pixel 9 Pro Fold",
       "Google",
       "Pixel",
+      "Google Pixel 9 Pro Fold 256GB",
       "Google Pixel 9 Pro Fold 512GB · 12GB RAM",
+      "256GB",
       "512GB · 12GB RAM",
       "price in Nigeria",
       "Easy Buy",
@@ -3374,16 +3434,28 @@
     "route": "/pixel-9-pro",
     "brand": "Google",
     "storage": [
-      "128GB · 16GB RAM"
+      "128GB · 16GB RAM",
+      "128GB · UK Used",
+      "256GB",
+      "256GB · UK Used",
+      "512GB"
     ],
-    "price": 840000,
+    "price": 667000,
     "image": null,
     "keywords": [
       "Google Pixel 9 Pro",
       "Google",
       "Pixel",
       "Google Pixel 9 Pro 128GB · 16GB RAM",
+      "Google Pixel 9 Pro 128GB · UK Used",
+      "Google Pixel 9 Pro 256GB",
+      "Google Pixel 9 Pro 256GB · UK Used",
+      "Google Pixel 9 Pro 512GB",
       "128GB · 16GB RAM",
+      "128GB · UK Used",
+      "256GB",
+      "256GB · UK Used",
+      "512GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -3396,17 +3468,20 @@
     "brand": "Google",
     "storage": [
       "128GB",
+      "128GB · UK Used",
       "256GB"
     ],
-    "price": 560000,
+    "price": 417000,
     "image": null,
     "keywords": [
       "Google Pixel 9a",
       "Google",
       "Pixel",
       "Google Pixel 9a 128GB",
+      "Google Pixel 9a 128GB · UK Used",
       "Google Pixel 9a 256GB",
       "128GB",
+      "128GB · UK Used",
       "256GB",
       "price in Nigeria",
       "Easy Buy",
@@ -3419,16 +3494,25 @@
     "route": "/pixel-8",
     "brand": "Google",
     "storage": [
-      "128GB"
+      "128GB",
+      "128GB · UK Used",
+      "256GB",
+      "256GB · UK Used"
     ],
-    "price": 700000,
+    "price": 347000,
     "image": null,
     "keywords": [
       "Google Pixel 8",
       "Google",
       "Pixel",
       "Google Pixel 8 128GB",
+      "Google Pixel 8 128GB · UK Used",
+      "Google Pixel 8 256GB",
+      "Google Pixel 8 256GB · UK Used",
       "128GB",
+      "128GB · UK Used",
+      "256GB",
+      "256GB · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"

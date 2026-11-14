@@ -1,0 +1,2252 @@
+{
+ "new_variant": [
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 830000,
+   "quotes": "Pixel supplier A: ₦830,000; Initial Pixel list: ₦770,000",
+   "supplier_count": "2",
+   "slug": "pixel-10",
+   "new_sku": "pixel-10|128GB"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "eSIM only",
+   "highest": 910000,
+   "quotes": "Pixel supplier C: ₦910,000",
+   "supplier_count": "1",
+   "slug": "pixel-10-pro",
+   "new_sku": "pixel-10-pro|128GB · eSIM only"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro",
+   "storage": "1TB",
+   "condition": "Brand New",
+   "sim": "eSIM only",
+   "highest": 1120000,
+   "quotes": "Pixel supplier C: ₦1,120,000",
+   "supplier_count": "1",
+   "slug": "pixel-10-pro",
+   "new_sku": "pixel-10-pro|1TB · eSIM only"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro XL",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "eSIM only",
+   "highest": 1020000,
+   "quotes": "Pixel supplier C: ₦1,020,000",
+   "supplier_count": "1",
+   "slug": "pixel-10-pro-xl",
+   "new_sku": "pixel-10-pro-xl|256GB · eSIM only"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro XL",
+   "storage": "512GB",
+   "condition": "Brand New",
+   "sim": "eSIM only",
+   "highest": 1200000,
+   "quotes": "Pixel supplier C: ₦1,200,000",
+   "supplier_count": "1",
+   "slug": "pixel-10-pro-xl",
+   "new_sku": "pixel-10-pro-xl|512GB · eSIM only"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 11 Pro",
+   "storage": "512GB",
+   "condition": "Brand New",
+   "sim": "eSIM only",
+   "highest": 1250000,
+   "quotes": "Pixel supplier B: ₦1,250,000",
+   "supplier_count": "1",
+   "slug": "pixel-11-pro",
+   "new_sku": "pixel-11-pro|512GB · eSIM only"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 8",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 480000,
+   "quotes": "Pixel supplier A: ₦480,000; Initial Pixel list: ₦440,000",
+   "supplier_count": "2",
+   "slug": "pixel-8",
+   "new_sku": "pixel-8|256GB"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 840000,
+   "quotes": "Pixel supplier A: ₦820,000; Initial Pixel list: ₦840,000",
+   "supplier_count": "2",
+   "slug": "pixel-9-pro",
+   "new_sku": "pixel-9-pro|256GB"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro",
+   "storage": "512GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 890000,
+   "quotes": "Initial Pixel list: ₦890,000",
+   "supplier_count": "1",
+   "slug": "pixel-9-pro",
+   "new_sku": "pixel-9-pro|512GB"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro Fold",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 900000,
+   "quotes": "Initial Pixel list: ₦900,000",
+   "supplier_count": "1",
+   "slug": "pixel-9-pro-fold",
+   "new_sku": "pixel-9-pro-fold|256GB"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 647000,
+   "quotes": "Pixel supplier A: ₦647,000",
+   "supplier_count": "1",
+   "slug": "pixel-10",
+   "new_sku": "pixel-10|128GB · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 A",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 517000,
+   "quotes": "Pixel supplier A: ₦517,000",
+   "supplier_count": "1",
+   "slug": "pixel-10a",
+   "new_sku": "pixel-10a|128GB · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 767000,
+   "quotes": "Pixel supplier A: ₦767,000",
+   "supplier_count": "1",
+   "slug": "pixel-10-pro",
+   "new_sku": "pixel-10-pro|128GB · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 887000,
+   "quotes": "Pixel supplier A: ₦887,000",
+   "supplier_count": "1",
+   "slug": "pixel-10-pro",
+   "new_sku": "pixel-10-pro|256GB · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro XL",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 967000,
+   "quotes": "Pixel supplier A: ₦967,000",
+   "supplier_count": "1",
+   "slug": "pixel-10-pro-xl",
+   "new_sku": "pixel-10-pro-xl|256GB · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro XL",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "eSIM only",
+   "highest": 850000,
+   "quotes": "Pixel supplier C: ₦850,000",
+   "supplier_count": "1",
+   "slug": "pixel-10-pro-xl",
+   "new_sku": "pixel-10-pro-xl|256GB · eSIM only · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro XL",
+   "storage": "512GB",
+   "condition": "UK Used",
+   "sim": "eSIM only",
+   "highest": 950000,
+   "quotes": "Pixel supplier C: ₦950,000",
+   "supplier_count": "1",
+   "slug": "pixel-10-pro-xl",
+   "new_sku": "pixel-10-pro-xl|512GB · eSIM only · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 8",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 347000,
+   "quotes": "Pixel supplier A: ₦347,000; Pixel supplier B: ₦300,000",
+   "supplier_count": "2",
+   "slug": "pixel-8",
+   "new_sku": "pixel-8|128GB · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 8",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 350000,
+   "quotes": "Pixel supplier B: ₦350,000",
+   "supplier_count": "1",
+   "slug": "pixel-8",
+   "new_sku": "pixel-8|256GB · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 A",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 417000,
+   "quotes": "Pixel supplier A: ₦417,000",
+   "supplier_count": "1",
+   "slug": "pixel-9a",
+   "new_sku": "pixel-9a|128GB · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 667000,
+   "quotes": "Pixel supplier A: ₦667,000",
+   "supplier_count": "1",
+   "slug": "pixel-9-pro",
+   "new_sku": "pixel-9-pro|128GB · UK Used"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 727000,
+   "quotes": "Pixel supplier A: ₦727,000; Pixel supplier B: ₦720,000",
+   "supplier_count": "2",
+   "slug": "pixel-9-pro",
+   "new_sku": "pixel-9-pro|256GB · UK Used"
+  },
+  {
+   "category": "Samsung",
+   "model": "Note 20",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 220000,
+   "quotes": "Initial Samsung list: ₦220,000",
+   "supplier_count": "1",
+   "slug": "samsung-note-20",
+   "new_sku": "samsung-note-20|128GB · UK Used"
+  },
+  {
+   "category": "Samsung",
+   "model": "S21",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 220000,
+   "quotes": "Initial Samsung list: ₦220,000",
+   "supplier_count": "1",
+   "slug": "samsung-s21",
+   "new_sku": "samsung-s21|128GB · UK Used"
+  },
+  {
+   "category": "Samsung",
+   "model": "S21",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 235000,
+   "quotes": "Initial Samsung list: ₦235,000",
+   "supplier_count": "1",
+   "slug": "samsung-s21",
+   "new_sku": "samsung-s21|256GB · UK Used"
+  },
+  {
+   "category": "Samsung",
+   "model": "S22",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 260000,
+   "quotes": "Initial Samsung list: ₦260,000",
+   "supplier_count": "1",
+   "slug": "samsung-s22",
+   "new_sku": "samsung-s22|128GB · UK Used"
+  },
+  {
+   "category": "Samsung",
+   "model": "S22",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 280000,
+   "quotes": "Initial Samsung list: ₦280,000",
+   "supplier_count": "1",
+   "slug": "samsung-s22",
+   "new_sku": "samsung-s22|256GB · UK Used"
+  },
+  {
+   "category": "Samsung",
+   "model": "S22 Ultra",
+   "storage": "512GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 515000,
+   "quotes": "Initial Samsung list: ₦515,000",
+   "supplier_count": "1",
+   "slug": "samsung-s22-ultra",
+   "new_sku": "samsung-s22-ultra|512GB · UK Used"
+  }
+ ],
+ "matched": [
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 930000,
+   "quotes": "Pixel supplier A: ₦930,000",
+   "supplier_count": "1",
+   "slug": "pixel-10",
+   "sku": "pixel-10|256GB",
+   "old": 1010000,
+   "old_condition": "Brand New",
+   "enabled": true
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 A",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 720000,
+   "quotes": "Pixel supplier A: ₦720,000",
+   "supplier_count": "1",
+   "slug": "pixel-10a",
+   "sku": "pixel-10a|256GB",
+   "old": 710000,
+   "old_condition": "Brand New",
+   "enabled": true
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 1050000,
+   "quotes": "Pixel supplier B: ₦1,050,000; Initial Pixel list: ₦930,000",
+   "supplier_count": "2",
+   "slug": "pixel-10-pro",
+   "sku": "pixel-10-pro|128GB",
+   "old": 1240000,
+   "old_condition": "Brand New",
+   "enabled": true
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 10 Pro XL",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 1170000,
+   "quotes": "Pixel supplier A: ₦1,170,000; Initial Pixel list: ₦1,120,000",
+   "supplier_count": "2",
+   "slug": "pixel-10-pro-xl",
+   "sku": "pixel-10-pro-xl|256GB",
+   "old": 1290000,
+   "old_condition": "Brand New",
+   "enabled": true
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 11 Pro",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 1390000,
+   "quotes": "Pixel supplier B: ₦1,350,000; Pixel supplier C: ₦1,390,000",
+   "supplier_count": "2",
+   "slug": "pixel-11-pro",
+   "sku": "pixel-11-pro|256GB",
+   "old": 1430000,
+   "old_condition": "Brand New",
+   "enabled": true
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 11 Pro XL",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 1410000,
+   "quotes": "Pixel supplier B: ₦1,360,000; Pixel supplier C: ₦1,410,000",
+   "supplier_count": "2",
+   "slug": "pixel-11-pro-xl",
+   "sku": "pixel-11-pro-xl|256GB",
+   "old": 1450000,
+   "old_condition": "Brand New",
+   "enabled": true
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 11 Pro XL",
+   "storage": "512GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 1720000,
+   "quotes": "Pixel supplier B: ₦1,680,000; Pixel supplier C: ₦1,720,000",
+   "supplier_count": "2",
+   "slug": "pixel-11-pro-xl",
+   "sku": "pixel-11-pro-xl|512GB",
+   "old": 1770000,
+   "old_condition": "Brand New",
+   "enabled": true
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 8",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 420000,
+   "quotes": "Pixel supplier A: ₦420,000; Initial Pixel list: ₦380,000",
+   "supplier_count": "2",
+   "slug": "pixel-8",
+   "sku": "pixel-8|128GB",
+   "old": 700000,
+   "old_condition": "Brand New",
+   "enabled": true
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 700000,
+   "quotes": "Pixel supplier A: ₦700,000",
+   "supplier_count": "1",
+   "slug": "pixel-9-pro",
+   "sku": "pixel-9-pro|128GB · 16GB RAM",
+   "old": 840000,
+   "old_condition": "Brand New",
+   "enabled": true
+  }
+ ],
+ "new_model": [
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 6",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 270000,
+   "quotes": "Initial Pixel list: ₦270,000",
+   "supplier_count": "1",
+   "slug": "pixel-6",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 6",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 300000,
+   "quotes": "Initial Pixel list: ₦300,000",
+   "supplier_count": "1",
+   "slug": "pixel-6",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 6 Pro",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 350000,
+   "quotes": "Initial Pixel list: ₦350,000",
+   "supplier_count": "1",
+   "slug": "pixel-6-pro",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 6 Pro",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 400000,
+   "quotes": "Initial Pixel list: ₦400,000",
+   "supplier_count": "1",
+   "slug": "pixel-6-pro",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 7",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 320000,
+   "quotes": "Pixel supplier A: ₦305,000; Initial Pixel list: ₦320,000",
+   "supplier_count": "2",
+   "slug": "pixel-7",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 7",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 360000,
+   "quotes": "Initial Pixel list: ₦360,000",
+   "supplier_count": "1",
+   "slug": "pixel-7",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 7 A",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 300000,
+   "quotes": "Pixel supplier A: ₦300,000",
+   "supplier_count": "1",
+   "slug": "pixel-7a",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 7 Pro",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 440000,
+   "quotes": "Initial Pixel list: ₦440,000",
+   "supplier_count": "1",
+   "slug": "pixel-7-pro",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 7 Pro",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 530000,
+   "quotes": "Pixel supplier A: ₦530,000; Initial Pixel list: ₦490,000",
+   "supplier_count": "2",
+   "slug": "pixel-7-pro",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 8 Pro",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 600000,
+   "quotes": "Pixel supplier A: ₦533,000; Pixel supplier C: ₦600,000; Initial Pixel list: ₦500,000",
+   "supplier_count": "3",
+   "slug": "pixel-8-pro",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 8 Pro",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 587000,
+   "quotes": "Pixel supplier A: ₦587,000; Initial Pixel list: ₦560,000",
+   "supplier_count": "2",
+   "slug": "pixel-8-pro",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 630000,
+   "quotes": "Pixel supplier A: ₦630,000; Initial Pixel list: ₦620,000",
+   "supplier_count": "2",
+   "slug": "pixel-9",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 760000,
+   "quotes": "Pixel supplier A: ₦760,000",
+   "supplier_count": "1",
+   "slug": "pixel-9",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro XL",
+   "storage": "128GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 820000,
+   "quotes": "Pixel supplier A: ₦740,000; Initial Pixel list: ₦820,000",
+   "supplier_count": "2",
+   "slug": "pixel-9-pro-xl",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro XL",
+   "storage": "256GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 870000,
+   "quotes": "Pixel supplier A: ₦847,000; Initial Pixel list: ₦870,000",
+   "supplier_count": "2",
+   "slug": "pixel-9-pro-xl",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro XL",
+   "storage": "512GB",
+   "condition": "Brand New",
+   "sim": "Physical / unspecified",
+   "highest": 950000,
+   "quotes": "Pixel supplier A: ₦950,000",
+   "supplier_count": "1",
+   "slug": "pixel-9-pro-xl",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 6 A",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 237000,
+   "quotes": "Pixel supplier A: ₦237,000",
+   "supplier_count": "1",
+   "slug": "pixel-6a",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 7",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 287000,
+   "quotes": "Pixel supplier A: ₦287,000; Pixel supplier B: ₦260,000",
+   "supplier_count": "2",
+   "slug": "pixel-7",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 7 Pro",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 367000,
+   "quotes": "Pixel supplier A: ₦367,000; Pixel supplier B: ₦330,000",
+   "supplier_count": "2",
+   "slug": "pixel-7-pro",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 8 A",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 310000,
+   "quotes": "Pixel supplier B: ₦310,000",
+   "supplier_count": "1",
+   "slug": "pixel-8a",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 8 Pro",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 467000,
+   "quotes": "Pixel supplier A: ₦467,000; Pixel supplier B: ₦410,000",
+   "supplier_count": "2",
+   "slug": "pixel-8-pro",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 8 Pro",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 467000,
+   "quotes": "Pixel supplier A: ₦467,000",
+   "supplier_count": "1",
+   "slug": "pixel-8-pro",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 567000,
+   "quotes": "Pixel supplier A: ₦567,000; Pixel supplier B: ₦550,000",
+   "supplier_count": "2",
+   "slug": "pixel-9",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro XL",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 630000,
+   "quotes": "Pixel supplier B: ₦630,000",
+   "supplier_count": "1",
+   "slug": "pixel-9-pro-xl",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Google Pixel",
+   "model": "Pixel 9 Pro XL",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 730000,
+   "quotes": "Pixel supplier B: ₦730,000; Pixel supplier C: ₦720,000",
+   "supplier_count": "2",
+   "slug": "pixel-9-pro-xl",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "Note 10",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 215000,
+   "quotes": "Initial Samsung list: ₦215,000",
+   "supplier_count": "1",
+   "slug": "samsung-note-10",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "Note 10+",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 270000,
+   "quotes": "Initial Samsung list: ₦270,000",
+   "supplier_count": "1",
+   "slug": "samsung-note-10-plus",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "Note 10+",
+   "storage": "512GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 300000,
+   "quotes": "Initial Samsung list: ₦300,000",
+   "supplier_count": "1",
+   "slug": "samsung-note-10-plus",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "Note 20 Ultra",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 350000,
+   "quotes": "Initial Samsung list: ₦350,000",
+   "supplier_count": "1",
+   "slug": "samsung-note-20-ultra",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "Note 20 Ultra",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 370000,
+   "quotes": "Initial Samsung list: ₦370,000",
+   "supplier_count": "1",
+   "slug": "samsung-note-20-ultra",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S10",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 195000,
+   "quotes": "Initial Samsung list: ₦195,000",
+   "supplier_count": "1",
+   "slug": "samsung-s10",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S10 Lite",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 155000,
+   "quotes": "Initial Samsung list: ₦155,000",
+   "supplier_count": "1",
+   "slug": "samsung-s10-lite",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S10+",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 230000,
+   "quotes": "Initial Samsung list: ₦230,000",
+   "supplier_count": "1",
+   "slug": "samsung-s10-plus",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S10e",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 165000,
+   "quotes": "Initial Samsung list: ₦165,000",
+   "supplier_count": "1",
+   "slug": "samsung-s10e",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S20 Ultra",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 280000,
+   "quotes": "Initial Samsung list: ₦280,000",
+   "supplier_count": "1",
+   "slug": "samsung-s20-ultra",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S21 FE",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 210000,
+   "quotes": "Initial Samsung list: ₦210,000",
+   "supplier_count": "1",
+   "slug": "samsung-s21-fe",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S8",
+   "storage": "64GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 125000,
+   "quotes": "Initial Samsung list: ₦125,000",
+   "supplier_count": "1",
+   "slug": "samsung-s8",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S9",
+   "storage": "64GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 135000,
+   "quotes": "Initial Samsung list: ₦135,000",
+   "supplier_count": "1",
+   "slug": "samsung-s9",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S9+",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 175000,
+   "quotes": "Initial Samsung list: ₦175,000",
+   "supplier_count": "1",
+   "slug": "samsung-s9-plus",
+   "reason": "Model not in catalogue"
+  },
+  {
+   "category": "Samsung",
+   "model": "S9+",
+   "storage": "64GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 155000,
+   "quotes": "Initial Samsung list: ₦155,000",
+   "supplier_count": "1",
+   "slug": "samsung-s9-plus",
+   "reason": "Model not in catalogue"
+  }
+ ],
+ "excluded": [
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook 2017 12\" 256 8 silver",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 350000,
+   "quotes": "Laptop supplier: ₦350,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook Pro 2020 i7 512 16 13\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 700000,
+   "quotes": "Laptop supplier: ₦700,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook air 2013 i5 13\" 256 4gb",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 180000,
+   "quotes": "Laptop supplier: ₦180,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook air 2020 i3 128 8 13\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 400000,
+   "quotes": "Laptop supplier: ₦400,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook air 2020 i7 1tb 16 13\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 700000,
+   "quotes": "Laptop supplier: ₦700,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook air m1 chip 2020 13\" 512 8",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 700000,
+   "quotes": "Laptop supplier: ₦700,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook air m2 13\" 512 16 2022",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1150000,
+   "quotes": "Laptop supplier: ₦1,150,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook air m4 15\" 256 16 2025",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1300000,
+   "quotes": "Laptop supplier: ₦1,300,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook air m4 512 16 2025 13\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1500000,
+   "quotes": "Laptop supplier: ₦1,500,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook m1 pro 16\" 512 16 2021",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1200000,
+   "quotes": "Laptop supplier: ₦1,200,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook m1 pro 2021 14\" 1tb 16  #",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1300000,
+   "quotes": "Laptop supplier: ₦1,300,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook m1 pro 2021 16\" 1tb 32gb MDM-bypassed",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1200000,
+   "quotes": "Laptop supplier: ₦1,200,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook m1 pro 2021 16\" 512 16 MDM-bypassed",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1000000,
+   "quotes": "Laptop supplier: ₦1,000,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook m2 pro 14\" 512 16 2023",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1500000,
+   "quotes": "Laptop supplier: ₦1,500,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook m2 pro 1tb 32 16\" 2023",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 2000000,
+   "quotes": "Laptop supplier: ₦2,000,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2015 i5 256 8 13\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 320000,
+   "quotes": "Laptop supplier: ₦320,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2015 i7 15\" 512 16",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 400000,
+   "quotes": "Laptop supplier: ₦400,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2018 15\" 1tb 32 i9  4gb Ded",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 700000,
+   "quotes": "Laptop supplier: ₦700,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2018 i7 512 32 15\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 600000,
+   "quotes": "Laptop supplier: ₦600,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2019 13\" 512 16 i7",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 600000,
+   "quotes": "Laptop supplier: ₦600,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2019 15\" 1tb 32 i7 4gb dedicated",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 700000,
+   "quotes": "Laptop supplier: ₦700,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2019 15\" 512 16 i7 4gb Dedicated graphics",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 600000,
+   "quotes": "Laptop supplier: ₦600,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2019 16\" 1tb  32 i9 4gb Dedicated graphics",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 700000,
+   "quotes": "Laptop supplier: ₦700,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2019 16\" 1tb  32 i9 8gb Dedicated graphics",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 950000,
+   "quotes": "Laptop supplier: ₦950,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2019 i9 16\" 1tb 64gb 4gb Dedicated",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 900000,
+   "quotes": "Laptop supplier: ₦900,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro 2020 i5 256 8gb 13\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 600000,
+   "quotes": "Laptop supplier: ₦600,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro m1 max 16\" 512 64gb",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1800000,
+   "quotes": "Laptop supplier: ₦1,800,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro m1 max 1tb 32 16\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1750000,
+   "quotes": "Laptop supplier: ₦1,750,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro m4 512 16 2024 14\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1900000,
+   "quotes": "Laptop supplier: ₦1,900,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "MacBook pro m5 chip 512 16",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 2100000,
+   "quotes": "Laptop supplier: ₦2,100,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "Uk m1 max 512 32 16\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1600000,
+   "quotes": "Laptop supplier: ₦1,600,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "iMac 2012 21.5\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 200000,
+   "quotes": "Laptop supplier: ₦200,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "MacBook / Apple computer",
+   "model": "mac mini 2011 500gb 8gb ram i5",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 100000,
+   "quotes": "Laptop supplier: ₦100,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "Windows laptop",
+   "model": "Dell latitude 5420 i7 11th gen 512 16",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 450000,
+   "quotes": "Laptop supplier: ₦450,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "Windows laptop",
+   "model": "Dell latitude 7210 2-in-1 corei7 10th gen detachable laptop 512 16gb touchscreen keyboard light 12\"",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 450000,
+   "quotes": "Laptop supplier: ₦450,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "Windows laptop",
+   "model": "Dell precision 5560 i7 11th gen 1tb 32 touchscreen 4gb Nvidia 15inches",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 1100000,
+   "quotes": "Laptop supplier: ₦1,100,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "Windows laptop",
+   "model": "Hp zbook firefly i7-11th gen 512 16 i7 14\" NonTouch",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 600000,
+   "quotes": "Laptop supplier: ₦600,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: laptops/computers"
+  },
+  {
+   "category": "iPhone",
+   "model": "iPhone 16+ 128gb",
+   "storage": "See model",
+   "condition": "Not specified",
+   "sim": "Physical / unspecified",
+   "highest": 750000,
+   "quotes": "Laptop supplier: ₦750,000",
+   "supplier_count": "1",
+   "reason": "Excluded this phase: iPhone row from a laptop supplier with storage \"See model\""
+  }
+ ],
+ "condition_change": [
+  {
+   "category": "Samsung",
+   "model": "Fold 5",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 650000,
+   "quotes": "Initial Samsung list: ₦650,000",
+   "supplier_count": "1",
+   "slug": "samsung-z-fold-5",
+   "sku": "samsung-z-fold-5|256GB",
+   "old": 750000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "Note 20",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 240000,
+   "quotes": "Initial Samsung list: ₦240,000",
+   "supplier_count": "1",
+   "slug": "samsung-note-20",
+   "sku": "samsung-note-20|256GB",
+   "old": 325000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S21 Ultra",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 300000,
+   "quotes": "Initial Samsung list: ₦300,000",
+   "supplier_count": "1",
+   "slug": "samsung-s21-ultra",
+   "sku": "samsung-s21-ultra|128GB",
+   "old": 420000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S21 Ultra",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 370000,
+   "quotes": "Initial Samsung list: ₦370,000",
+   "supplier_count": "1",
+   "slug": "samsung-s21-ultra",
+   "sku": "samsung-s21-ultra|256GB",
+   "old": 480000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S21+",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 245000,
+   "quotes": "Initial Samsung list: ₦245,000",
+   "supplier_count": "1",
+   "slug": "samsung-s21-plus",
+   "sku": "samsung-s21-plus|128GB",
+   "old": 315000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S22 Ultra",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 430000,
+   "quotes": "Initial Samsung list: ₦430,000",
+   "supplier_count": "1",
+   "slug": "samsung-s22-ultra",
+   "sku": "samsung-s22-ultra|128GB",
+   "old": 500000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S22 Ultra",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 480000,
+   "quotes": "Initial Samsung list: ₦480,000",
+   "supplier_count": "1",
+   "slug": "samsung-s22-ultra",
+   "sku": "samsung-s22-ultra|256GB",
+   "old": 590000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S22+",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 285000,
+   "quotes": "Initial Samsung list: ₦285,000",
+   "supplier_count": "1",
+   "slug": "samsung-s22-plus",
+   "sku": "samsung-s22-plus|128GB",
+   "old": 360000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S22+",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 320000,
+   "quotes": "Initial Samsung list: ₦320,000",
+   "supplier_count": "1",
+   "slug": "samsung-s22-plus",
+   "sku": "samsung-s22-plus|256GB",
+   "old": 390000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S23",
+   "storage": "128GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 360000,
+   "quotes": "Initial Samsung list: ₦360,000",
+   "supplier_count": "1",
+   "slug": "samsung-s23",
+   "sku": "samsung-s23|128GB",
+   "old": null,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S23",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 380000,
+   "quotes": "Initial Samsung list: ₦380,000",
+   "supplier_count": "1",
+   "slug": "samsung-s23",
+   "sku": "samsung-s23|256GB",
+   "old": null,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  },
+  {
+   "category": "Samsung",
+   "model": "S23+",
+   "storage": "256GB",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 440000,
+   "quotes": "Initial Samsung list: ₦440,000",
+   "supplier_count": "1",
+   "slug": "samsung-s23-plus",
+   "sku": "samsung-s23-plus|256GB",
+   "old": 490000,
+   "old_condition": "Confirm condition",
+   "enabled": true
+  }
+ ],
+ "ambiguous": [
+  {
+   "category": "Samsung",
+   "model": "S20",
+   "storage": "Unspecified",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 210000,
+   "quotes": "Initial Samsung list: ₦210,000",
+   "supplier_count": "1",
+   "reason": "Storage or price unclear (storage: Unspecified)"
+  },
+  {
+   "category": "Samsung",
+   "model": "S20 FE",
+   "storage": "Unspecified",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 175000,
+   "quotes": "Initial Samsung list: ₦175,000",
+   "supplier_count": "1",
+   "reason": "Storage or price unclear (storage: Unspecified)"
+  },
+  {
+   "category": "Samsung",
+   "model": "S20+",
+   "storage": "Unspecified",
+   "condition": "UK Used",
+   "sim": "Physical / unspecified",
+   "highest": 220000,
+   "quotes": "Initial Samsung list: ₦220,000",
+   "supplier_count": "1",
+   "reason": "Storage or price unclear (storage: Unspecified)"
+  }
+ ],
+ "no_quote": [
+  {
+   "sku": "samsung-s26-ultra|1TB",
+   "model": "Samsung Galaxy S26 Ultra",
+   "condition": "Brand New",
+   "price": 1910000
+  },
+  {
+   "sku": "samsung-s26-ultra|512GB · Warranty",
+   "model": "Samsung Galaxy S26 Ultra",
+   "condition": "Brand New",
+   "price": 1540000
+  },
+  {
+   "sku": "samsung-s26-ultra|256GB · Warranty",
+   "model": "Samsung Galaxy S26 Ultra",
+   "condition": "Brand New",
+   "price": 1310000
+  },
+  {
+   "sku": "samsung-s26-ultra|256GB · International Warranty",
+   "model": "Samsung Galaxy S26 Ultra",
+   "condition": "Brand New",
+   "price": 1290000
+  },
+  {
+   "sku": "samsung-s26-ultra|512GB",
+   "model": "Samsung Galaxy S26 Ultra",
+   "condition": "Brand New",
+   "price": 1550000
+  },
+  {
+   "sku": "samsung-s26-ultra|256GB",
+   "model": "Samsung Galaxy S26 Ultra",
+   "condition": "Brand New",
+   "price": 1300000
+  },
+  {
+   "sku": "samsung-s26-plus|512GB · 12GB RAM",
+   "model": "Samsung Galaxy S26 Plus",
+   "condition": "Brand New",
+   "price": 1240000
+  },
+  {
+   "sku": "samsung-s26-plus|256GB · 12GB RAM",
+   "model": "Samsung Galaxy S26 Plus",
+   "condition": "Brand New",
+   "price": 1140000
+  },
+  {
+   "sku": "samsung-s26|256GB · 12GB RAM",
+   "model": "Samsung Galaxy S26",
+   "condition": "Brand New",
+   "price": 1040000
+  },
+  {
+   "sku": "samsung-s26|512GB · 12GB RAM",
+   "model": "Samsung Galaxy S26",
+   "condition": "Brand New",
+   "price": 1140000
+  },
+  {
+   "sku": "samsung-s25-ultra|256GB",
+   "model": "Samsung Galaxy S25 Ultra",
+   "condition": "Brand New",
+   "price": 1230000
+  },
+  {
+   "sku": "samsung-s25-ultra|512GB",
+   "model": "Samsung Galaxy S25 Ultra",
+   "condition": "Brand New",
+   "price": 1330000
+  },
+  {
+   "sku": "samsung-s25-ultra|1TB",
+   "model": "Samsung Galaxy S25 Ultra",
+   "condition": "Brand New",
+   "price": 1740000
+  },
+  {
+   "sku": "samsung-s25-plus|256GB",
+   "model": "Samsung Galaxy S25 Plus",
+   "condition": "Brand New",
+   "price": null
+  },
+  {
+   "sku": "samsung-s25-plus|512GB",
+   "model": "Samsung Galaxy S25 Plus",
+   "condition": "Brand New",
+   "price": null
+  },
+  {
+   "sku": "samsung-s25|256GB · 8GB RAM",
+   "model": "Samsung Galaxy S25",
+   "condition": "Brand New",
+   "price": 840000
+  },
+  {
+   "sku": "samsung-s25-edge|256GB",
+   "model": "Samsung Galaxy S25 Edge",
+   "condition": "Brand New",
+   "price": null
+  },
+  {
+   "sku": "samsung-s25-edge|512GB",
+   "model": "Samsung Galaxy S25 Edge",
+   "condition": "Brand New",
+   "price": null
+  },
+  {
+   "sku": "samsung-s25-fe|256GB · 8GB RAM",
+   "model": "Samsung Galaxy S25 FE",
+   "condition": "Brand New",
+   "price": 770000
+  },
+  {
+   "sku": "samsung-s24-ultra|512GB",
+   "model": "Samsung Galaxy S24 Ultra",
+   "condition": "Confirm condition",
+   "price": 945000
+  },
+  {
+   "sku": "samsung-s24-ultra|256GB",
+   "model": "Samsung Galaxy S24 Ultra",
+   "condition": "Confirm condition",
+   "price": 895000
+  },
+  {
+   "sku": "samsung-s24-plus|256GB",
+   "model": "Samsung Galaxy S24 Plus",
+   "condition": "Confirm condition",
+   "price": 670000
+  },
+  {
+   "sku": "samsung-s23-ultra|512GB",
+   "model": "Samsung Galaxy S23 Ultra",
+   "condition": "Confirm condition",
+   "price": 740000
+  },
+  {
+   "sku": "samsung-s23-ultra|256GB",
+   "model": "Samsung Galaxy S23 Ultra",
+   "condition": "Confirm condition",
+   "price": 700000
+  },
+  {
+   "sku": "samsung-s22|Standard",
+   "model": "Samsung Galaxy S22",
+   "condition": "Confirm condition",
+   "price": 330000
+  },
+  {
+   "sku": "samsung-s21-plus|256GB",
+   "model": "Samsung Galaxy S21 Plus",
+   "condition": "Confirm condition",
+   "price": 320000
+  },
+  {
+   "sku": "samsung-s21|Standard",
+   "model": "Samsung Galaxy S21",
+   "condition": "Confirm condition",
+   "price": 245000
+  },
+  {
+   "sku": "samsung-s20-fe|Standard",
+   "model": "Samsung Galaxy S20 FE",
+   "condition": "Confirm condition",
+   "price": 175000
+  },
+  {
+   "sku": "samsung-z-fold-8-ultra|1TB · 16GB RAM",
+   "model": "Samsung Galaxy Z Fold 8 Ultra",
+   "condition": "Brand New",
+   "price": 2970000
+  },
+  {
+   "sku": "samsung-z-fold-8-ultra|512GB · 12GB RAM · Warranty",
+   "model": "Samsung Galaxy Z Fold 8 Ultra",
+   "condition": "Brand New",
+   "price": 2240000
+  },
+  {
+   "sku": "samsung-z-fold-8-ultra|256GB · 12GB RAM · Warranty",
+   "model": "Samsung Galaxy Z Fold 8 Ultra",
+   "condition": "Brand New",
+   "price": 2040000
+  },
+  {
+   "sku": "samsung-z-fold-8-ultra|256GB",
+   "model": "Samsung Galaxy Z Fold 8 Ultra",
+   "condition": "Brand New",
+   "price": 2000000
+  },
+  {
+   "sku": "samsung-z-fold-8|1TB · 12GB RAM · Warranty",
+   "model": "Samsung Galaxy Z Fold 8",
+   "condition": "Brand New",
+   "price": 2690000
+  },
+  {
+   "sku": "samsung-z-fold-8|512GB · 12GB RAM · Warranty",
+   "model": "Samsung Galaxy Z Fold 8",
+   "condition": "Brand New",
+   "price": 2040000
+  },
+  {
+   "sku": "samsung-z-fold-8|256GB · 12GB RAM · Warranty",
+   "model": "Samsung Galaxy Z Fold 8",
+   "condition": "Brand New",
+   "price": 1910000
+  },
+  {
+   "sku": "samsung-z-fold-8|256GB",
+   "model": "Samsung Galaxy Z Fold 8",
+   "condition": "Brand New",
+   "price": 1890000
+  },
+  {
+   "sku": "samsung-z-trifold|512GB · 16GB RAM RAM · Dual SIM",
+   "model": "Samsung Galaxy Z TriFold",
+   "condition": "Brand New",
+   "price": null
+  },
+  {
+   "sku": "samsung-z-fold-7|1TB",
+   "model": "Samsung Galaxy Z Fold 7",
+   "condition": "Brand New",
+   "price": 2740000
+  },
+  {
+   "sku": "samsung-z-fold-7|512GB · Black",
+   "model": "Samsung Galaxy Z Fold 7",
+   "condition": "Brand New",
+   "price": 1990000
+  },
+  {
+   "sku": "samsung-z-fold-7|256GB",
+   "model": "Samsung Galaxy Z Fold 7",
+   "condition": "Brand New",
+   "price": 1670000
+  },
+  {
+   "sku": "samsung-z-fold-6|1TB",
+   "model": "Samsung Galaxy Z Fold 6",
+   "condition": "Brand New",
+   "price": null
+  },
+  {
+   "sku": "samsung-z-fold-6|512GB",
+   "model": "Samsung Galaxy Z Fold 6",
+   "condition": "Brand New",
+   "price": null
+  },
+  {
+   "sku": "samsung-z-fold-6|256GB",
+   "model": "Samsung Galaxy Z Fold 6",
+   "condition": "Brand New",
+   "price": 1440000
+  },
+  {
+   "sku": "samsung-z-fold-6-confirm-condition|256GB",
+   "model": "Samsung Galaxy Z Fold 6",
+   "condition": "Confirm condition",
+   "price": 1060000
+  },
+  {
+   "sku": "samsung-z-flip-7|512GB",
+   "model": "Samsung Galaxy Z Flip 7",
+   "condition": "Brand New",
+   "price": 1320000
+  },
+  {
+   "sku": "samsung-z-flip-7|256GB",
+   "model": "Samsung Galaxy Z Flip 7",
+   "condition": "Brand New",
+   "price": 1220000
+  },
+  {
+   "sku": "samsung-z-flip-6|256GB",
+   "model": "Samsung Galaxy Z Flip 6",
+   "condition": "Brand New",
+   "price": 870000
+  },
+  {
+   "sku": "samsung-z-flip-6|512GB",
+   "model": "Samsung Galaxy Z Flip 6",
+   "condition": "Brand New",
+   "price": null
+  },
+  {
+   "sku": "samsung-z-flip-6-confirm-condition|256GB",
+   "model": "Samsung Galaxy Z Flip 6",
+   "condition": "Confirm condition",
+   "price": 530000
+  },
+  {
+   "sku": "samsung-a07|128GB · 4GB RAM",
+   "model": "Samsung Galaxy A07",
+   "condition": "Brand New",
+   "price": 240000
+  },
+  {
+   "sku": "samsung-a07-open-box|Standard",
+   "model": "Samsung Galaxy A07",
+   "condition": "Open Box",
+   "price": 170000
+  },
+  {
+   "sku": "samsung-a07-uk-used|Standard",
+   "model": "Samsung Galaxy A07",
+   "condition": "UK Used",
+   "price": 160000
+  },
+  {
+   "sku": "samsung-a17|128GB · 4GB RAM",
+   "model": "Samsung Galaxy A17",
+   "condition": "Brand New",
+   "price": 270000
+  },
+  {
+   "sku": "samsung-a17|128GB · 4GB RAM 5G",
+   "model": "Samsung Galaxy A17",
+   "condition": "Brand New",
+   "price": 290000
+  },
+  {
+   "sku": "samsung-a17|256GB · 6GB RAM 5G",
+   "model": "Samsung Galaxy A17",
+   "condition": "Brand New",
+   "price": 410000
+  },
+  {
+   "sku": "samsung-a17|128GB · 6GB RAM",
+   "model": "Samsung Galaxy A17",
+   "condition": "Brand New",
+   "price": 310000
+  },
+  {
+   "sku": "samsung-a17|256GB · 8GB RAM",
+   "model": "Samsung Galaxy A17",
+   "condition": "Brand New",
+   "price": 360000
+  },
+  {
+   "sku": "samsung-a27|256GB · 6GB RAM",
+   "model": "Samsung Galaxy A27",
+   "condition": "Brand New",
+   "price": 440000
+  },
+  {
+   "sku": "samsung-a27|128GB · 6GB RAM",
+   "model": "Samsung Galaxy A27",
+   "condition": "Brand New",
+   "price": 390000
+  },
+  {
+   "sku": "samsung-a37|128GB · 6GB RAM",
+   "model": "Samsung Galaxy A37",
+   "condition": "Brand New",
+   "price": 420000
+  },
+  {
+   "sku": "samsung-a37|256GB · 8GB RAM",
+   "model": "Samsung Galaxy A37",
+   "condition": "Brand New",
+   "price": 490000
+  },
+  {
+   "sku": "samsung-a57|128GB · 8GB RAM",
+   "model": "Samsung Galaxy A57",
+   "condition": "Brand New",
+   "price": 490000
+  },
+  {
+   "sku": "samsung-a57|256GB · 8GB RAM",
+   "model": "Samsung Galaxy A57",
+   "condition": "Brand New",
+   "price": 590000
+  },
+  {
+   "sku": "samsung-a06|64GB · 4GB RAM",
+   "model": "Samsung Galaxy A06",
+   "condition": "Brand New",
+   "price": null
+  },
+  {
+   "sku": "samsung-a06|128GB · 4GB RAM",
+   "model": "Samsung Galaxy A06",
+   "condition": "Brand New",
+   "price": 210000
+  },
+  {
+   "sku": "samsung-a16|128GB · 4GB RAM",
+   "model": "Samsung Galaxy A16",
+   "condition": "Brand New",
+   "price": 240000
+  },
+  {
+   "sku": "samsung-a16|128GB · 6GB RAM",
+   "model": "Samsung Galaxy A16",
+   "condition": "Brand New",
+   "price": 280000
+  },
+  {
+   "sku": "samsung-a16|256GB · 8GB RAM",
+   "model": "Samsung Galaxy A16",
+   "condition": "Brand New",
+   "price": 330000
+  },
+  {
+   "sku": "samsung-a16-open-box|Standard",
+   "model": "Samsung Galaxy A16",
+   "condition": "Open Box",
+   "price": 190000
+  },
+  {
+   "sku": "samsung-a16-uk-used|Standard",
+   "model": "Samsung Galaxy A16",
+   "condition": "UK Used",
+   "price": 175000
+  },
+  {
+   "sku": "samsung-a26|128GB · 6GB RAM",
+   "model": "Samsung Galaxy A26",
+   "condition": "Brand New",
+   "price": 350000
+  },
+  {
+   "sku": "samsung-a26|256GB · 6GB RAM",
+   "model": "Samsung Galaxy A26",
+   "condition": "Brand New",
+   "price": 420000
+  },
+  {
+   "sku": "samsung-a36|128GB · 8GB RAM",
+   "model": "Samsung Galaxy A36",
+   "condition": "Brand New",
+   "price": 410000
+  },
+  {
+   "sku": "samsung-a36|256GB · 8GB RAM",
+   "model": "Samsung Galaxy A36",
+   "condition": "Brand New",
+   "price": 450000
+  },
+  {
+   "sku": "samsung-a56|128GB · 8GB RAM",
+   "model": "Samsung Galaxy A56",
+   "condition": "Brand New",
+   "price": 490000
+  },
+  {
+   "sku": "samsung-a56|256GB · 8GB RAM",
+   "model": "Samsung Galaxy A56",
+   "condition": "Brand New",
+   "price": 520000
+  },
+  {
+   "sku": "samsung-z-fold-4|256GB",
+   "model": "Samsung Galaxy Z Fold 4",
+   "condition": "Confirm condition",
+   "price": 610000
+  },
+  {
+   "sku": "samsung-z-fold-3|256GB",
+   "model": "Samsung Galaxy Z Fold 3",
+   "condition": "Confirm condition",
+   "price": 560000
+  },
+  {
+   "sku": "samsung-z-flip-4|256GB",
+   "model": "Samsung Galaxy Z Flip 4",
+   "condition": "Confirm condition",
+   "price": 360000
+  },
+  {
+   "sku": "samsung-a05|Standard",
+   "model": "Samsung Galaxy A05",
+   "condition": "Open Box",
+   "price": 160000
+  },
+  {
+   "sku": "samsung-a05-uk-used|Standard",
+   "model": "Samsung Galaxy A05",
+   "condition": "UK Used",
+   "price": 150000
+  },
+  {
+   "sku": "samsung-a13|Standard",
+   "model": "Samsung Galaxy A13",
+   "condition": "Open Box",
+   "price": 150000
+  },
+  {
+   "sku": "samsung-a13-uk-used|Standard",
+   "model": "Samsung Galaxy A13",
+   "condition": "UK Used",
+   "price": 140000
+  },
+  {
+   "sku": "samsung-a14|Standard",
+   "model": "Samsung Galaxy A14",
+   "condition": "Open Box",
+   "price": 140000
+  },
+  {
+   "sku": "samsung-a14-uk-used|Standard",
+   "model": "Samsung Galaxy A14",
+   "condition": "UK Used",
+   "price": 125000
+  },
+  {
+   "sku": "samsung-a15|Standard",
+   "model": "Samsung Galaxy A15",
+   "condition": "Open Box",
+   "price": 180000
+  },
+  {
+   "sku": "samsung-a15-uk-used|Standard",
+   "model": "Samsung Galaxy A15",
+   "condition": "UK Used",
+   "price": 165000
+  },
+  {
+   "sku": "samsung-a52|Standard",
+   "model": "Samsung Galaxy A52",
+   "condition": "Open Box",
+   "price": 210000
+  },
+  {
+   "sku": "samsung-a52-uk-used|Standard",
+   "model": "Samsung Galaxy A52",
+   "condition": "UK Used",
+   "price": 200000
+  },
+  {
+   "sku": "samsung-a53|Standard",
+   "model": "Samsung Galaxy A53",
+   "condition": "Open Box",
+   "price": 200000
+  },
+  {
+   "sku": "samsung-a53-uk-used|Standard",
+   "model": "Samsung Galaxy A53",
+   "condition": "UK Used",
+   "price": 180000
+  },
+  {
+   "sku": "samsung-a71|Standard",
+   "model": "Samsung Galaxy A71",
+   "condition": "Open Box",
+   "price": 200000
+  },
+  {
+   "sku": "samsung-a71-uk-used|Standard",
+   "model": "Samsung Galaxy A71",
+   "condition": "UK Used",
+   "price": 180000
+  },
+  {
+   "sku": "samsung-a70|Standard",
+   "model": "Samsung Galaxy A70",
+   "condition": "Open Box",
+   "price": 200000
+  },
+  {
+   "sku": "samsung-a70-uk-used|Standard",
+   "model": "Samsung Galaxy A70",
+   "condition": "UK Used",
+   "price": 180000
+  },
+  {
+   "sku": "samsung-a90|Standard",
+   "model": "Samsung Galaxy A90",
+   "condition": "Open Box",
+   "price": 200000
+  },
+  {
+   "sku": "samsung-a90-uk-used|Standard",
+   "model": "Samsung Galaxy A90",
+   "condition": "UK Used",
+   "price": 180000
+  },
+  {
+   "sku": "pixel-11-pro|512GB",
+   "model": "Google Pixel 11 Pro",
+   "condition": "Brand New",
+   "price": 1590000
+  },
+  {
+   "sku": "pixel-11|256GB",
+   "model": "Google Pixel 11",
+   "condition": "Brand New",
+   "price": 1090000
+  },
+  {
+   "sku": "pixel-10-pro-xl|1TB",
+   "model": "Google Pixel 10 Pro XL",
+   "condition": "Brand New",
+   "price": 1790000
+  },
+  {
+   "sku": "pixel-10-pro-xl|512GB",
+   "model": "Google Pixel 10 Pro XL",
+   "condition": "Brand New",
+   "price": 1580000
+  },
+  {
+   "sku": "pixel-10-pro-fold|256GB",
+   "model": "Google Pixel 10 Pro Fold",
+   "condition": "Brand New",
+   "price": 1670000
+  },
+  {
+   "sku": "pixel-10-pro-fold|512GB",
+   "model": "Google Pixel 10 Pro Fold",
+   "condition": "Brand New",
+   "price": 2190000
+  },
+  {
+   "sku": "pixel-10-pro|256GB",
+   "model": "Google Pixel 10 Pro",
+   "condition": "Brand New",
+   "price": 1270000
+  },
+  {
+   "sku": "pixel-10-pro|512GB",
+   "model": "Google Pixel 10 Pro",
+   "condition": "Brand New",
+   "price": 1540000
+  },
+  {
+   "sku": "pixel-10a|128GB",
+   "model": "Google Pixel 10a",
+   "condition": "Brand New",
+   "price": 640000
+  },
+  {
+   "sku": "pixel-9-pro-fold|512GB · 12GB RAM",
+   "model": "Google Pixel 9 Pro Fold",
+   "condition": "Brand New",
+   "price": 2040000
+  },
+  {
+   "sku": "pixel-9a|128GB",
+   "model": "Google Pixel 9a",
+   "condition": "Brand New",
+   "price": 560000
+  },
+  {
+   "sku": "pixel-9a|256GB",
+   "model": "Google Pixel 9a",
+   "condition": "Brand New",
+   "price": 610000
+  }
+ ]
+}

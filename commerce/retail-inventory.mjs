@@ -2107,7 +2107,8 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 1090000
+        "price": 1090000,
+        "connectivity": "Physical SIM + eSIM"
       }
     ],
     "colors": []
@@ -2124,11 +2125,18 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 1430000
+        "price": 1390000,
+        "connectivity": "Physical SIM + eSIM"
       },
       {
         "storage": "512GB",
-        "price": 1590000
+        "price": 1590000,
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "512GB · eSIM only",
+        "price": 1250000,
+        "connectivity": "eSIM only"
       }
     ],
     "colors": []
@@ -2145,11 +2153,13 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 1450000
+        "price": 1410000,
+        "connectivity": "Physical SIM + eSIM"
       },
       {
         "storage": "512GB",
-        "price": 1770000
+        "price": 1720000,
+        "connectivity": "Physical SIM + eSIM"
       }
     ],
     "colors": []
@@ -2166,11 +2176,13 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 1670000
+        "price": 1670000,
+        "connectivity": "Physical SIM + eSIM"
       },
       {
         "storage": "512GB",
-        "price": 2190000
+        "price": 2190000,
+        "connectivity": "Physical SIM + eSIM"
       }
     ],
     "colors": []
@@ -2186,16 +2198,52 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "image": "",
     "variants": [
       {
-        "storage": "1TB",
-        "price": 1790000
+        "storage": "256GB",
+        "price": 1170000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "256GB · eSIM only",
+        "price": 1020000,
+        "connectivity": "eSIM only",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "256GB · eSIM only · UK Used",
+        "price": 850000,
+        "condition": "UK Used",
+        "connectivity": "eSIM only"
+      },
+      {
+        "storage": "256GB · UK Used",
+        "price": 967000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
       },
       {
         "storage": "512GB",
-        "price": 1580000
+        "price": 1580000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
       },
       {
-        "storage": "256GB",
-        "price": 1290000
+        "storage": "512GB · eSIM only",
+        "price": 1200000,
+        "connectivity": "eSIM only",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "512GB · eSIM only · UK Used",
+        "price": 950000,
+        "condition": "UK Used",
+        "connectivity": "eSIM only"
+      },
+      {
+        "storage": "1TB",
+        "price": 1790000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
       }
     ],
     "colors": []
@@ -2212,15 +2260,45 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "128GB",
-        "price": 1240000
+        "price": 1050000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "128GB · eSIM only",
+        "price": 910000,
+        "connectivity": "eSIM only",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "price": 767000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
       },
       {
         "storage": "256GB",
-        "price": 1270000
+        "price": 1270000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "256GB · UK Used",
+        "price": 887000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
       },
       {
         "storage": "512GB",
-        "price": 1540000
+        "price": 1540000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "1TB · eSIM only",
+        "price": 1120000,
+        "connectivity": "eSIM only",
+        "condition": "Brand New"
       }
     ],
     "colors": []
@@ -2236,8 +2314,22 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "image": "",
     "variants": [
       {
+        "storage": "128GB",
+        "price": 830000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "price": 647000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
         "storage": "256GB",
-        "price": 1010000
+        "price": 930000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
       }
     ],
     "colors": []
@@ -2253,12 +2345,22 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "image": "",
     "variants": [
       {
-        "storage": "256GB",
-        "price": 710000
+        "storage": "128GB",
+        "price": 640000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
       },
       {
-        "storage": "128GB",
-        "price": 640000
+        "storage": "128GB · UK Used",
+        "price": 517000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
+        "price": 720000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
       }
     ],
     "colors": []
@@ -2290,9 +2392,15 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "image": "",
     "variants": [
       {
+        "storage": "256GB",
+        "price": 900000,
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
         "storage": "512GB · 12GB RAM",
         "price": 2040000,
-        "ram": "12GB RAM"
+        "ram": "12GB RAM",
+        "connectivity": "Physical SIM + eSIM"
       }
     ],
     "colors": []
@@ -2309,8 +2417,34 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "128GB · 16GB RAM",
+        "price": 700000,
+        "ram": "16GB RAM",
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "price": 667000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
         "price": 840000,
-        "ram": "16GB RAM"
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "256GB · UK Used",
+        "price": 727000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "512GB",
+        "price": 890000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
       }
     ],
     "colors": []
@@ -2327,11 +2461,21 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "128GB",
-        "price": 560000
+        "price": 560000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "price": 417000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
       },
       {
         "storage": "256GB",
-        "price": 610000
+        "price": 610000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
       }
     ],
     "colors": []
@@ -2348,7 +2492,27 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "128GB",
-        "price": 700000
+        "price": 420000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "price": 347000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
+        "price": 480000,
+        "connectivity": "Physical SIM + eSIM",
+        "condition": "Brand New"
+      },
+      {
+        "storage": "256GB · UK Used",
+        "price": 350000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
       }
     ],
     "colors": []
@@ -2628,7 +2792,8 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 750000
+        "price": 650000,
+        "condition": "UK Used"
       }
     ],
     "colors": [],
@@ -2768,7 +2933,8 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 490000
+        "price": 440000,
+        "condition": "UK Used"
       }
     ],
     "colors": []
@@ -2785,11 +2951,13 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": null
+        "price": 380000,
+        "condition": "UK Used"
       },
       {
         "storage": "128GB",
-        "price": null
+        "price": 360000,
+        "condition": "UK Used"
       }
     ],
     "colors": [],
@@ -2808,12 +2976,19 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "image": "/images/store/samsung/samsung-galaxy-s22-ultra-1-720.webp",
     "variants": [
       {
-        "storage": "256GB",
-        "price": 590000
+        "storage": "128GB",
+        "price": 430000,
+        "condition": "UK Used"
       },
       {
-        "storage": "128GB",
-        "price": 500000
+        "storage": "256GB",
+        "price": 480000,
+        "condition": "UK Used"
+      },
+      {
+        "storage": "512GB",
+        "price": 515000,
+        "condition": "UK Used"
       }
     ],
     "colors": [],
@@ -2833,11 +3008,13 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 390000
+        "price": 320000,
+        "condition": "UK Used"
       },
       {
         "storage": "128GB",
-        "price": 360000
+        "price": 285000,
+        "condition": "UK Used"
       }
     ],
     "colors": [],
@@ -2857,11 +3034,13 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 480000
+        "price": 370000,
+        "condition": "UK Used"
       },
       {
         "storage": "128GB",
-        "price": 420000
+        "price": 300000,
+        "condition": "UK Used"
       }
     ],
     "colors": [],
@@ -2881,11 +3060,13 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 320000
+        "price": 320000,
+        "condition": "Confirm condition"
       },
       {
         "storage": "128GB",
-        "price": 315000
+        "price": 245000,
+        "condition": "UK Used"
       }
     ],
     "colors": [],
@@ -2904,8 +3085,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "image": "",
     "variants": [
       {
+        "storage": "128GB",
+        "price": 220000,
+        "condition": "UK Used"
+      },
+      {
         "storage": "256GB",
-        "price": 325000
+        "price": 240000,
+        "condition": "UK Used"
       }
     ],
     "colors": []
@@ -3244,8 +3431,19 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "image": "/images/store/samsung/samsung-galaxy-s21-1-720.webp",
     "variants": [
       {
+        "storage": "128GB · UK Used",
+        "price": 220000,
+        "condition": "UK Used"
+      },
+      {
+        "storage": "256GB · UK Used",
+        "price": 235000,
+        "condition": "UK Used"
+      },
+      {
         "storage": "Standard",
-        "price": 245000
+        "price": 245000,
+        "condition": "Confirm condition"
       }
     ],
     "colors": [],
@@ -3264,8 +3462,19 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "image": "/images/store/samsung/samsung-galaxy-s22-1-720.webp",
     "variants": [
       {
+        "storage": "128GB · UK Used",
+        "price": 260000,
+        "condition": "UK Used"
+      },
+      {
+        "storage": "256GB · UK Used",
+        "price": 280000,
+        "condition": "UK Used"
+      },
+      {
         "storage": "Standard",
-        "price": 330000
+        "price": 330000,
+        "condition": "Confirm condition"
       }
     ],
     "colors": [],
