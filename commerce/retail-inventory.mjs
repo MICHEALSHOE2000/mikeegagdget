@@ -2390,6 +2390,311 @@ export const retailInventory = Object.freeze(repairCatalogue([
   },
   {
     "brand": "Google",
+    "model": "Google Pixel 6",
+    "category": "pixel",
+    "condition": "Brand New",
+    "slug": "pixel-6",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 270000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 300000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
+    "model": "Google Pixel 6 Pro",
+    "category": "pixel",
+    "condition": "Brand New",
+    "slug": "pixel-6-pro",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 350000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 400000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
+    "model": "Google Pixel 6a",
+    "category": "pixel",
+    "condition": "UK Used",
+    "slug": "pixel-6a",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 237000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
+    "model": "Google Pixel 7",
+    "category": "pixel",
+    "condition": "Brand New",
+    "slug": "pixel-7",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 320000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "capacity": "128GB",
+        "price": 287000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 360000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
+    "model": "Google Pixel 7 Pro",
+    "category": "pixel",
+    "condition": "Brand New",
+    "slug": "pixel-7-pro",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 440000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "capacity": "128GB",
+        "price": 367000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 530000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
+    "model": "Google Pixel 7a",
+    "category": "pixel",
+    "condition": "Brand New",
+    "slug": "pixel-7a",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 300000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
+    "model": "Google Pixel 8 Pro",
+    "category": "pixel",
+    "condition": "Brand New",
+    "slug": "pixel-8-pro",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 600000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "capacity": "128GB",
+        "price": 467000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 587000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB · UK Used",
+        "capacity": "256GB",
+        "price": 467000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
+    "model": "Google Pixel 8a",
+    "category": "pixel",
+    "condition": "UK Used",
+    "slug": "pixel-8a",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 310000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
+    "model": "Google Pixel 9",
+    "category": "pixel",
+    "condition": "Brand New",
+    "slug": "pixel-9",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 630000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "capacity": "128GB",
+        "price": 567000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 760000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
+    "model": "Google Pixel 9 Pro XL",
+    "category": "pixel",
+    "condition": "Brand New",
+    "slug": "pixel-9-pro-xl",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 820000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "128GB · UK Used",
+        "capacity": "128GB",
+        "price": 630000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 870000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "256GB · UK Used",
+        "capacity": "256GB",
+        "price": 730000,
+        "condition": "UK Used",
+        "connectivity": "Physical SIM + eSIM"
+      },
+      {
+        "storage": "512GB",
+        "capacity": "512GB",
+        "price": 950000,
+        "condition": "Brand New",
+        "connectivity": "Physical SIM + eSIM"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Google",
     "model": "Google Pixel Watch 3",
     "category": "watches",
     "condition": "Brand New",
@@ -3283,6 +3588,252 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "gallery": [
       "/images/store/samsung/samsung-galaxy-s22-2-720.webp"
     ]
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy Note 10",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-note-10",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 215000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy Note 10 Plus",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-note-10-plus",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 270000,
+        "condition": "UK Used"
+      },
+      {
+        "storage": "512GB",
+        "capacity": "512GB",
+        "price": 300000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy Note 20 Ultra",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-note-20-ultra",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 350000,
+        "condition": "UK Used"
+      },
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 370000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy S10",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-s10",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 195000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy S10 Lite",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-s10-lite",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 155000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy S10 Plus",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-s10-plus",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 230000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy S10e",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-s10e",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 165000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy S20 Ultra",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-s20-ultra",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 280000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy S21 FE",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-s21-fe",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "128GB",
+        "capacity": "128GB",
+        "price": 210000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy S8",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-s8",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "64GB",
+        "capacity": "64GB",
+        "price": 125000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy S9",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-s9",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "64GB",
+        "capacity": "64GB",
+        "price": 135000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy S9 Plus",
+    "category": "samsung",
+    "condition": "UK Used",
+    "slug": "samsung-s9-plus",
+    "legacySlug": null,
+    "isPhone": true,
+    "image": "",
+    "variants": [
+      {
+        "storage": "64GB",
+        "capacity": "64GB",
+        "price": 155000,
+        "condition": "UK Used"
+      },
+      {
+        "storage": "256GB",
+        "capacity": "256GB",
+        "price": 175000,
+        "condition": "UK Used"
+      }
+    ],
+    "colors": []
   }
 ]));
 
