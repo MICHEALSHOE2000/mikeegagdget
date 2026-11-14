@@ -62,3 +62,13 @@ test('one page per model: condition and SIM are variant choices, not separate pa
  const bnOnly=storeItems.find(p=>p.slug==='pixel-11-pro-xl');assert.deepEqual(bnOnly.conditions,['Brand New']);
  assert.equal(new Set(storeItems.flatMap(p=>p.variants.map(v=>p.slug+'|'+v.storage))).size,storeItems.reduce((n,p)=>n+p.variants.length,0));
 });
+test('every product page variant can be reached: no two share storage, condition, colour and SIM',async()=>{
+ // Mirrors the live price feed: a variant's storage pill is its capacity, else its whole label.
+ const {retailInventory}=await import('../commerce/retail-inventory.mjs');
+ const colorsOf=v=>(v.color||'').split('/').map(x=>x.trim()).filter(Boolean);
+ const clashes=[];
+ for(const p of retailInventory){const seen=new Map();for(const v of p.variants){
+  const key=[v.capacity||v.storage,v.condition||p.condition,colorsOf(v).sort().join('/'),v.connectivity||''].join('|');
+  if(seen.has(key))clashes.push(p.slug+': '+seen.get(key)+' / '+v.storage);else seen.set(key,v.storage);}}
+ assert.deepEqual(clashes,[]);
+});

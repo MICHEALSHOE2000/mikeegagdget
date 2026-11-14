@@ -115,7 +115,7 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB · Non-Active",
-        "price": 1240000
+        "price": 1070000
       },
       {
         "storage": "512GB · Non-Active",
@@ -124,23 +124,6 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "1TB · Non-Active",
         "price": 1570000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Apple",
-    "model": "iPhone 17 Air",
-    "category": "iphones",
-    "condition": "UK Used",
-    "slug": "iphone-17-air-uk-used",
-    "legacySlug": "iphone-17-air",
-    "isPhone": true,
-    "image": "/images/store/17air-1-720.webp",
-    "variants": [
-      {
-        "storage": "256GB",
-        "price": 1070000
       }
     ],
     "colors": []
@@ -237,42 +220,15 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "128GB",
-        "price": 1080000
-      },
-      {
-        "storage": "256GB",
-        "price": 1190000
-      },
-      {
-        "storage": "256GB · Active",
-        "price": 1090000
-      },
-      {
-        "storage": "512GB",
-        "price": 1360000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Apple",
-    "model": "iPhone 16",
-    "category": "iphones",
-    "condition": "UK Used",
-    "slug": "iphone-16-uk-used",
-    "legacySlug": "iphone-16",
-    "isPhone": true,
-    "image": "/images/store/16-1-720.webp",
-    "variants": [
-      {
-        "storage": "128GB",
         "price": 840000
       },
       {
         "storage": "256GB",
-        "price": 925000,
-        "color": "Teal",
-        "connectivity": "Physical SIM"
+        "price": 925000
+      },
+      {
+        "storage": "512GB",
+        "price": 1360000
       }
     ],
     "colors": []
@@ -314,7 +270,7 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 1570000
+        "price": 1220000
       },
       {
         "storage": "512GB",
@@ -323,23 +279,6 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "1TB",
         "price": 2140000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Apple",
-    "model": "iPhone 16 Pro Max",
-    "category": "iphones",
-    "condition": "UK Used",
-    "slug": "iphone-16-pro-max-uk-used",
-    "legacySlug": "iphone-16-pro-max",
-    "isPhone": true,
-    "image": "/images/store/16promax-1-720.webp",
-    "variants": [
-      {
-        "storage": "256GB",
-        "price": 1220000
       }
     ],
     "colors": []
@@ -356,28 +295,11 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "128GB",
-        "price": 890000
+        "price": 625000
       },
       {
         "storage": "256GB",
         "price": 1040000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Apple",
-    "model": "iPhone 15",
-    "category": "iphones",
-    "condition": "UK Used",
-    "slug": "iphone-15-uk-used",
-    "legacySlug": "iphone-15",
-    "isPhone": true,
-    "image": "/images/store/15-1-720.webp",
-    "variants": [
-      {
-        "storage": "128GB",
-        "price": 625000
       }
     ],
     "colors": []
@@ -419,30 +341,11 @@ export const retailInventory = Object.freeze(repairCatalogue([
       },
       {
         "storage": "256GB",
-        "price": 1340000
+        "price": 875000
       },
       {
         "storage": "512GB",
         "price": 1540000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Apple",
-    "model": "iPhone 15 Pro",
-    "category": "iphones",
-    "condition": "UK Used",
-    "slug": "iphone-15-pro-uk-used",
-    "legacySlug": "iphone-15-pro",
-    "isPhone": true,
-    "image": "/images/store/15pro-1-720.webp",
-    "variants": [
-      {
-        "storage": "256GB",
-        "price": 875000,
-        "color": "Black Titanium",
-        "connectivity": "Physical SIM"
       }
     ],
     "colors": []
@@ -970,36 +873,24 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "1TB",
-        "price": null
+        "price": null,
+        "condition": "Brand New"
       },
       {
         "storage": "512GB",
-        "price": null
+        "price": null,
+        "condition": "Brand New"
       },
       {
         "storage": "256GB",
-        "price": 1440000
-      }
-    ],
-    "colors": [],
-    "gallery": [
-      "/images/store/samsung/samsung-galaxy-z-fold-6-2-720.webp",
-      "/images/store/samsung/samsung-galaxy-z-fold-6-3-720.webp"
-    ]
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy Z Fold 6",
-    "category": "samsung",
-    "condition": "Confirm condition",
-    "slug": "samsung-z-fold-6-confirm-condition",
-    "legacySlug": "samsung-z-fold-6",
-    "isPhone": true,
-    "image": "/images/store/samsung/samsung-galaxy-z-fold-6-1-720.webp",
-    "variants": [
+        "price": 1440000,
+        "condition": "Brand New"
+      },
       {
-        "storage": "256GB",
-        "price": 1060000
+        "storage": "256GB · Confirm condition",
+        "price": 1060000,
+        "condition": "Confirm condition",
+        "capacity": "256GB"
       }
     ],
     "colors": [],
@@ -1044,31 +935,19 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "256GB",
-        "price": 870000
+        "price": 870000,
+        "condition": "Brand New"
       },
       {
         "storage": "512GB",
-        "price": null
-      }
-    ],
-    "colors": [],
-    "gallery": [
-      "/images/store/samsung/samsung-galaxy-z-flip-6-2-720.webp"
-    ]
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy Z Flip 6",
-    "category": "samsung",
-    "condition": "Confirm condition",
-    "slug": "samsung-z-flip-6-confirm-condition",
-    "legacySlug": "samsung-z-flip-6",
-    "isPhone": true,
-    "image": "/images/store/samsung/samsung-galaxy-z-flip-6-1-720.webp",
-    "variants": [
+        "price": null,
+        "condition": "Brand New"
+      },
       {
-        "storage": "256GB",
-        "price": 530000
+        "storage": "256GB · Confirm condition",
+        "price": 530000,
+        "condition": "Confirm condition",
+        "capacity": "256GB"
       }
     ],
     "colors": [],
@@ -1297,41 +1176,19 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "128GB · 4GB RAM",
         "price": 240000,
-        "ram": "4GB RAM"
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A07",
-    "category": "samsung",
-    "condition": "Open Box",
-    "slug": "samsung-a07-open-box",
-    "legacySlug": "samsung-a07",
-    "isPhone": true,
-    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
-    "variants": [
+        "ram": "4GB RAM",
+        "condition": "Brand New"
+      },
       {
         "storage": "Standard",
-        "price": 170000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A07",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a07-uk-used",
-    "legacySlug": "samsung-a07",
-    "isPhone": true,
-    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
-    "variants": [
+        "price": 170000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 160000
+        "storage": "Standard · UK Used",
+        "price": 160000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []
@@ -1488,57 +1345,31 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "128GB · 4GB RAM",
         "price": 240000,
-        "ram": "4GB RAM"
+        "ram": "4GB RAM",
+        "condition": "Brand New"
       },
       {
         "storage": "128GB · 6GB RAM",
         "price": 280000,
-        "ram": "6GB RAM"
+        "ram": "6GB RAM",
+        "condition": "Brand New"
       },
       {
         "storage": "256GB · 8GB RAM",
         "price": 330000,
-        "ram": "8GB RAM"
-      }
-    ],
-    "colors": [],
-    "gallery": [
-      "/images/store/samsung/samsung-galaxy-a16-2-720.webp"
-    ]
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A16",
-    "category": "samsung",
-    "condition": "Open Box",
-    "slug": "samsung-a16-open-box",
-    "legacySlug": "samsung-a16",
-    "isPhone": true,
-    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
-    "variants": [
+        "ram": "8GB RAM",
+        "condition": "Brand New"
+      },
       {
         "storage": "Standard",
-        "price": 190000
-      }
-    ],
-    "colors": [],
-    "gallery": [
-      "/images/store/samsung/samsung-galaxy-a16-2-720.webp"
-    ]
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A16",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a16-uk-used",
-    "legacySlug": "samsung-a16",
-    "isPhone": true,
-    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
-    "variants": [
+        "price": 190000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 175000
+        "storage": "Standard · UK Used",
+        "price": 175000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": [],
@@ -3164,24 +2995,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "Standard",
-        "price": 160000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A05",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a05-uk-used",
-    "legacySlug": "samsung-a05",
-    "isPhone": true,
-    "image": "",
-    "variants": [
+        "price": 160000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 150000
+        "storage": "Standard · UK Used",
+        "price": 150000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []
@@ -3198,24 +3019,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "Standard",
-        "price": 150000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A13",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a13-uk-used",
-    "legacySlug": "samsung-a13",
-    "isPhone": true,
-    "image": "",
-    "variants": [
+        "price": 150000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 140000
+        "storage": "Standard · UK Used",
+        "price": 140000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []
@@ -3232,24 +3043,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "Standard",
-        "price": 140000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A14",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a14-uk-used",
-    "legacySlug": "samsung-a14",
-    "isPhone": true,
-    "image": "",
-    "variants": [
+        "price": 140000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 125000
+        "storage": "Standard · UK Used",
+        "price": 125000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []
@@ -3266,24 +3067,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "Standard",
-        "price": 180000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A15",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a15-uk-used",
-    "legacySlug": "samsung-a15",
-    "isPhone": true,
-    "image": "",
-    "variants": [
+        "price": 180000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 165000
+        "storage": "Standard · UK Used",
+        "price": 165000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []
@@ -3300,24 +3091,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "Standard",
-        "price": 210000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A52",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a52-uk-used",
-    "legacySlug": "samsung-a52",
-    "isPhone": true,
-    "image": "",
-    "variants": [
+        "price": 210000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 200000
+        "storage": "Standard · UK Used",
+        "price": 200000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []
@@ -3334,24 +3115,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "Standard",
-        "price": 200000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A53",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a53-uk-used",
-    "legacySlug": "samsung-a53",
-    "isPhone": true,
-    "image": "",
-    "variants": [
+        "price": 200000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 180000
+        "storage": "Standard · UK Used",
+        "price": 180000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []
@@ -3368,24 +3139,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "Standard",
-        "price": 200000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A71",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a71-uk-used",
-    "legacySlug": "samsung-a71",
-    "isPhone": true,
-    "image": "",
-    "variants": [
+        "price": 200000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 180000
+        "storage": "Standard · UK Used",
+        "price": 180000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []
@@ -3402,24 +3163,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "Standard",
-        "price": 200000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A70",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a70-uk-used",
-    "legacySlug": "samsung-a70",
-    "isPhone": true,
-    "image": "",
-    "variants": [
+        "price": 200000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 180000
+        "storage": "Standard · UK Used",
+        "price": 180000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []
@@ -3436,24 +3187,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
     "variants": [
       {
         "storage": "Standard",
-        "price": 200000
-      }
-    ],
-    "colors": []
-  },
-  {
-    "brand": "Samsung",
-    "model": "Samsung Galaxy A90",
-    "category": "samsung",
-    "condition": "UK Used",
-    "slug": "samsung-a90-uk-used",
-    "legacySlug": "samsung-a90",
-    "isPhone": true,
-    "image": "",
-    "variants": [
+        "price": 200000,
+        "condition": "Open Box"
+      },
       {
-        "storage": "Standard",
-        "price": 180000
+        "storage": "Standard · UK Used",
+        "price": 180000,
+        "condition": "UK Used",
+        "capacity": "Standard"
       }
     ],
     "colors": []

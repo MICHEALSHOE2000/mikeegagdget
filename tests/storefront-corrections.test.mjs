@@ -21,7 +21,7 @@ test('homepage preserves the deals slot and loads only published promotions',asy
 });
 
 test('iPhone 11–15 pages label UK Used without a selector; later models expose only recorded choices',async()=>{
- for(const slug of ['iphone-8','iphone-xr','iphone-11','iphone-12','iphone-13','iphone-15-uk-used','iphone-17-air-uk-used']){
+ for(const slug of ['iphone-8','iphone-xr','iphone-11','iphone-12','iphone-13','iphone-15','iphone-17-air']){
   const product=products.find(phone=>phone.slug===slug);
   assert.deepEqual(product.conditions,['UK Used']);
   assert.equal(selectedCondition(product,'Brand New'),'UK Used');

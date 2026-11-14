@@ -264,7 +264,7 @@
       "512GB · Non-Active",
       "1TB · Non-Active"
     ],
-    "price": 1240000,
+    "price": 1070000,
     "image": "/images/store/17air-1-720.webp",
     "keywords": [
       "iPhone 17 Air",
@@ -283,27 +283,6 @@
   },
   {
     "type": "product",
-    "label": "iPhone 17 Air",
-    "route": "/iphone-17-air-uk-used",
-    "brand": "Apple",
-    "storage": [
-      "256GB"
-    ],
-    "price": 1070000,
-    "image": "/images/store/17air-1-720.webp",
-    "keywords": [
-      "iPhone 17 Air",
-      "Apple",
-      "iPhone",
-      "iPhone 17 Air 256GB",
-      "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
     "label": "iPhone 16 Pro Max",
     "route": "/iphone-16-pro-max",
     "brand": "Apple",
@@ -312,7 +291,7 @@
       "512GB",
       "1TB"
     ],
-    "price": 1570000,
+    "price": 1220000,
     "image": "/images/store/16promax-1-720.webp",
     "keywords": [
       "iPhone 16 Pro Max",
@@ -324,27 +303,6 @@
       "256GB",
       "512GB",
       "1TB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "iPhone 16 Pro Max",
-    "route": "/iphone-16-pro-max-uk-used",
-    "brand": "Apple",
-    "storage": [
-      "256GB"
-    ],
-    "price": 1220000,
-    "image": "/images/store/16promax-1-720.webp",
-    "keywords": [
-      "iPhone 16 Pro Max",
-      "Apple",
-      "iPhone",
-      "iPhone 16 Pro Max 256GB",
-      "256GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -385,36 +343,7 @@
     "storage": [
       "128GB",
       "256GB",
-      "256GB · Active",
       "512GB"
-    ],
-    "price": 1080000,
-    "image": "/images/store/16-1-720.webp",
-    "keywords": [
-      "iPhone 16",
-      "Apple",
-      "iPhone",
-      "iPhone 16 128GB",
-      "iPhone 16 256GB",
-      "iPhone 16 256GB · Active",
-      "iPhone 16 512GB",
-      "128GB",
-      "256GB",
-      "256GB · Active",
-      "512GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "iPhone 16",
-    "route": "/iphone-16-uk-used",
-    "brand": "Apple",
-    "storage": [
-      "128GB",
-      "256GB"
     ],
     "price": 840000,
     "image": "/images/store/16-1-720.webp",
@@ -424,8 +353,10 @@
       "iPhone",
       "iPhone 16 128GB",
       "iPhone 16 256GB",
+      "iPhone 16 512GB",
       "128GB",
       "256GB",
+      "512GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -462,7 +393,7 @@
       "256GB",
       "512GB"
     ],
-    "price": 1190000,
+    "price": 875000,
     "image": "/images/store/15pro-1-720.webp",
     "keywords": [
       "iPhone 15 Pro",
@@ -474,27 +405,6 @@
       "128GB",
       "256GB",
       "512GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "iPhone 15 Pro",
-    "route": "/iphone-15-pro-uk-used",
-    "brand": "Apple",
-    "storage": [
-      "256GB"
-    ],
-    "price": 875000,
-    "image": "/images/store/15pro-1-720.webp",
-    "keywords": [
-      "iPhone 15 Pro",
-      "Apple",
-      "iPhone",
-      "iPhone 15 Pro 256GB",
-      "256GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -533,7 +443,7 @@
       "128GB",
       "256GB"
     ],
-    "price": 890000,
+    "price": 625000,
     "image": "/images/store/15-1-720.webp",
     "keywords": [
       "iPhone 15",
@@ -543,27 +453,6 @@
       "iPhone 15 256GB",
       "128GB",
       "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "iPhone 15",
-    "route": "/iphone-15-uk-used",
-    "brand": "Apple",
-    "storage": [
-      "128GB"
-    ],
-    "price": 625000,
-    "image": "/images/store/15-1-720.webp",
-    "keywords": [
-      "iPhone 15",
-      "Apple",
-      "iPhone",
-      "iPhone 15 128GB",
-      "128GB",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -1189,9 +1078,10 @@
     "storage": [
       "1TB",
       "512GB",
-      "256GB"
+      "256GB",
+      "256GB · Confirm condition"
     ],
-    "price": 1440000,
+    "price": 1060000,
     "image": "/images/store/samsung/samsung-galaxy-z-fold-6-1-720.webp",
     "keywords": [
       "Samsung Galaxy Z Fold 6",
@@ -1200,30 +1090,11 @@
       "Samsung Galaxy Z Fold 6 1TB",
       "Samsung Galaxy Z Fold 6 512GB",
       "Samsung Galaxy Z Fold 6 256GB",
+      "Samsung Galaxy Z Fold 6 256GB · Confirm condition",
       "1TB",
       "512GB",
       "256GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Fold 6",
-    "route": "/samsung-z-fold-6-confirm-condition",
-    "brand": "Samsung",
-    "storage": [
-      "256GB"
-    ],
-    "price": 1060000,
-    "image": "/images/store/samsung/samsung-galaxy-z-fold-6-1-720.webp",
-    "keywords": [
-      "Samsung Galaxy Z Fold 6",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Fold 6 256GB",
-      "256GB",
+      "256GB · Confirm condition",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -1260,30 +1131,8 @@
     "brand": "Samsung",
     "storage": [
       "256GB",
-      "512GB"
-    ],
-    "price": 870000,
-    "image": "/images/store/samsung/samsung-galaxy-z-flip-6-1-720.webp",
-    "keywords": [
-      "Samsung Galaxy Z Flip 6",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Flip 6 256GB",
-      "Samsung Galaxy Z Flip 6 512GB",
-      "256GB",
       "512GB",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Flip 6",
-    "route": "/samsung-z-flip-6-confirm-condition",
-    "brand": "Samsung",
-    "storage": [
-      "256GB"
+      "256GB · Confirm condition"
     ],
     "price": 530000,
     "image": "/images/store/samsung/samsung-galaxy-z-flip-6-1-720.webp",
@@ -1292,7 +1141,11 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy Z Flip 6 256GB",
+      "Samsung Galaxy Z Flip 6 512GB",
+      "Samsung Galaxy Z Flip 6 256GB · Confirm condition",
       "256GB",
+      "512GB",
+      "256GB · Confirm condition",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -1304,49 +1157,9 @@
     "route": "/samsung-a07",
     "brand": "Samsung",
     "storage": [
-      "128GB · 4GB RAM"
-    ],
-    "price": 240000,
-    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
-    "keywords": [
-      "Samsung Galaxy A07",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A07 128GB · 4GB RAM",
       "128GB · 4GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A07",
-    "route": "/samsung-a07-open-box",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
-    ],
-    "price": 170000,
-    "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
-    "keywords": [
-      "Samsung Galaxy A07",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A07 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A07",
-    "route": "/samsung-a07-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 160000,
     "image": "/images/store/samsung/samsung-galaxy-a07-1-720.webp",
@@ -1354,8 +1167,12 @@
       "Samsung Galaxy A07",
       "Samsung",
       "Galaxy",
+      "Samsung Galaxy A07 128GB · 4GB RAM",
       "Samsung Galaxy A07 Standard",
+      "Samsung Galaxy A07 Standard · UK Used",
+      "128GB · 4GB RAM",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -1474,9 +1291,11 @@
     "storage": [
       "128GB · 4GB RAM",
       "128GB · 6GB RAM",
-      "256GB · 8GB RAM"
+      "256GB · 8GB RAM",
+      "Standard",
+      "Standard · UK Used"
     ],
-    "price": 240000,
+    "price": 175000,
     "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
     "keywords": [
       "Samsung Galaxy A16",
@@ -1485,51 +1304,13 @@
       "Samsung Galaxy A16 128GB · 4GB RAM",
       "Samsung Galaxy A16 128GB · 6GB RAM",
       "Samsung Galaxy A16 256GB · 8GB RAM",
+      "Samsung Galaxy A16 Standard",
+      "Samsung Galaxy A16 Standard · UK Used",
       "128GB · 4GB RAM",
       "128GB · 6GB RAM",
       "256GB · 8GB RAM",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A16",
-    "route": "/samsung-a16-open-box",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
-    ],
-    "price": 190000,
-    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
-    "keywords": [
-      "Samsung Galaxy A16",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A16 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A16",
-    "route": "/samsung-a16-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
-    ],
-    "price": 175000,
-    "image": "/images/store/samsung/samsung-galaxy-a16-1-720.webp",
-    "keywords": [
-      "Samsung Galaxy A16",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A16 Standard",
-      "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -2801,28 +2582,8 @@
     "route": "/samsung-a05",
     "brand": "Samsung",
     "storage": [
-      "Standard"
-    ],
-    "price": 160000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A05",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A05 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A05",
-    "route": "/samsung-a05-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 150000,
     "image": null,
@@ -2831,7 +2592,9 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy A05 Standard",
+      "Samsung Galaxy A05 Standard · UK Used",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -2843,28 +2606,8 @@
     "route": "/samsung-a13",
     "brand": "Samsung",
     "storage": [
-      "Standard"
-    ],
-    "price": 150000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A13",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A13 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A13",
-    "route": "/samsung-a13-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 140000,
     "image": null,
@@ -2873,7 +2616,9 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy A13 Standard",
+      "Samsung Galaxy A13 Standard · UK Used",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -2885,28 +2630,8 @@
     "route": "/samsung-a14",
     "brand": "Samsung",
     "storage": [
-      "Standard"
-    ],
-    "price": 140000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A14",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A14 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A14",
-    "route": "/samsung-a14-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 125000,
     "image": null,
@@ -2915,7 +2640,9 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy A14 Standard",
+      "Samsung Galaxy A14 Standard · UK Used",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -2927,28 +2654,8 @@
     "route": "/samsung-a15",
     "brand": "Samsung",
     "storage": [
-      "Standard"
-    ],
-    "price": 180000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A15",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A15 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A15",
-    "route": "/samsung-a15-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 165000,
     "image": null,
@@ -2957,7 +2664,9 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy A15 Standard",
+      "Samsung Galaxy A15 Standard · UK Used",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -2969,28 +2678,8 @@
     "route": "/samsung-a52",
     "brand": "Samsung",
     "storage": [
-      "Standard"
-    ],
-    "price": 210000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A52",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A52 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A52",
-    "route": "/samsung-a52-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 200000,
     "image": null,
@@ -2999,7 +2688,9 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy A52 Standard",
+      "Samsung Galaxy A52 Standard · UK Used",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -3011,28 +2702,8 @@
     "route": "/samsung-a53",
     "brand": "Samsung",
     "storage": [
-      "Standard"
-    ],
-    "price": 200000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A53",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A53 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A53",
-    "route": "/samsung-a53-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 180000,
     "image": null,
@@ -3041,7 +2712,9 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy A53 Standard",
+      "Samsung Galaxy A53 Standard · UK Used",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -3053,28 +2726,8 @@
     "route": "/samsung-a71",
     "brand": "Samsung",
     "storage": [
-      "Standard"
-    ],
-    "price": 200000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A71",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A71 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A71",
-    "route": "/samsung-a71-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 180000,
     "image": null,
@@ -3083,7 +2736,9 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy A71 Standard",
+      "Samsung Galaxy A71 Standard · UK Used",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -3095,28 +2750,8 @@
     "route": "/samsung-a70",
     "brand": "Samsung",
     "storage": [
-      "Standard"
-    ],
-    "price": 200000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A70",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A70 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A70",
-    "route": "/samsung-a70-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 180000,
     "image": null,
@@ -3125,7 +2760,9 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy A70 Standard",
+      "Samsung Galaxy A70 Standard · UK Used",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
@@ -3137,28 +2774,8 @@
     "route": "/samsung-a90",
     "brand": "Samsung",
     "storage": [
-      "Standard"
-    ],
-    "price": 200000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy A90",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy A90 Standard",
       "Standard",
-      "price in Nigeria",
-      "Easy Buy",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy A90",
-    "route": "/samsung-a90-uk-used",
-    "brand": "Samsung",
-    "storage": [
-      "Standard"
+      "Standard · UK Used"
     ],
     "price": 180000,
     "image": null,
@@ -3167,7 +2784,9 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy A90 Standard",
+      "Samsung Galaxy A90 Standard · UK Used",
       "Standard",
+      "Standard · UK Used",
       "price in Nigeria",
       "Easy Buy",
       "swap"
