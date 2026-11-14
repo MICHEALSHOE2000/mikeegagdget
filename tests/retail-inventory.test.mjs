@@ -12,10 +12,10 @@ const price=(slug,storage)=>record(slug)?.variants.find(variant=>variant.storage
 
 test('all supplied products and variants are represented once with conditions kept separate',()=>{
  const original=retailInventory.filter(p=>p.category!=='wifi-only');
- assert.equal(original.length,159);
+ assert.equal(original.length,139); // 159 minus 20 duplicate pages merged 2026-11-14
  assert.equal(retailInventory.filter(p=>p.category==='wifi-only').length,16);
  assert.equal(new Set(retailInventory.map(p=>p.slug)).size,retailInventory.length);
- assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),511); // 483 + 28 supplier variants (2026-11-14)
+ assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),504); // +28 supplier variants, -6 duplicates merged (2026-11-14)
  assert.equal(storeItems.length,retailInventory.length);
  for(const p of original.filter(p=>p.category==='iphones'&&!p.slug.startsWith('iphone-18-')))assert.equal(p.condition,'UK Used');
 
@@ -24,8 +24,8 @@ test('all supplied products and variants are represented once with conditions ke
 test('example prices follow their specified group and ambiguous prices remain Confirm Price',()=>{
  assert.equal(price('iphone-18-pro','256GB · Burgundy'),1_970_000);
  assert.equal(price('iphone-13','128GB'),370_000);
- assert.equal(price('iphone-15-uk-used','128GB'),625_000);
- assert.equal(price('samsung-a05-uk-used','Standard'),150_000);
+ assert.equal(price('iphone-15','128GB'),625_000); // merged, lower price kept
+ assert.equal(price('samsung-a05','Standard · UK Used'),150_000);
  assert.equal(price('samsung-a05','Standard'),160_000);
  assert.equal(price('samsung-s22-plus','256GB'),320_000); // highest supplier quote, UK Used
  assert.equal(price('samsung-s23','128GB'),360_000);
@@ -34,23 +34,19 @@ test('example prices follow their specified group and ambiguous prices remain Co
  assert.equal(price('pixel-8','128GB · UK Used'),347_000);
  assert.equal(price('pixel-10-pro','128GB · eSIM only'),910_000);
  assert.equal(price('samsung-s25-ultra','256GB'),1230000);
- assert.equal(price('iphone-15-pro-uk-used','256GB'),875000);
+ assert.equal(price('iphone-15-pro','256GB'),875000);
  assert.equal(retailInventory.flatMap(item=>item.variants).filter(variant=>variant.price===null).length,234);
  assert.equal(retailInventory.filter(item=>item.variants.some(variant=>variant.price===null)).length,30);
 });
 
-test('iPhone brand new and UK Used listings stay distinct with matching Easy Buy data',()=>{
- const brandNew=products.find(item=>item.slug==='iphone-16');
- const used=products.find(item=>item.slug==='iphone-16-uk-used');
- assert.deepEqual(brandNew.conditions,['UK Used']);
- assert.deepEqual(used.conditions,['UK Used']);
- assert.notEqual(brandNew.slug,used.slug);
- const newChoice=choices.find(item=>item.id==='iphone-16|128GB');
- assert.equal(newChoice.price,1_080_000);
- assert.equal(newChoice.forSale,true);
- const usedChoice=choices.find(item=>item.id==='iphone-16-uk-used|128GB');
- assert.equal(usedChoice.price,840_000);
- assert.equal(usedChoice.conditions[0],'UK Used');
+test('duplicate model pages are merged into one page at the lower price (owner decision 2026-11-14)',()=>{
+ for(const slug of ['iphone-16-uk-used','iphone-15-uk-used','samsung-a05-uk-used','samsung-a07-open-box','samsung-z-fold-6-confirm-condition'])assert.equal(products.find(item=>item.slug===slug),undefined,slug);
+ const iphone16=products.find(item=>item.slug==='iphone-16');
+ assert.deepEqual(iphone16.conditions,['UK Used']);
+ assert.equal(choices.find(item=>item.id==='iphone-16|128GB').price,840_000);
+ const a05=products.find(item=>item.slug==='samsung-a05');
+ assert.deepEqual([...a05.conditions].sort(),['Open Box','UK Used']);
+ assert.equal(choices.find(item=>item.id==='samsung-a05|Standard · UK Used').price,150_000);
 });
 
 test('cards and category pages show current non-phone products and Confirm Price labels',async()=>{
@@ -71,8 +67,8 @@ test('cards and category pages show current non-phone products and Confirm Price
 test('verified local images are the only images attached to the new catalog',()=>{
  assert.ok(retailInventory.filter(item=>item.image).length>0);
  assert.ok(retailInventory.every(item=>!item.image||item.image.startsWith('/images/store/')||item.image.startsWith('/images/catalog/')));
- assert.equal(retailInventory.filter(item=>item.image).length,81);
- assert.equal(retailInventory.filter(item=>!item.image).length,94);
+ assert.equal(retailInventory.filter(item=>item.image).length,70); // merged duplicate pages no longer counted
+ assert.equal(retailInventory.filter(item=>!item.image).length,85); // 9 photo-less duplicate pages merged 2026-11-14
 });
 
 test('generic store cards use only the available shop image sizes',()=>{

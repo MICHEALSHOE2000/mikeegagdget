@@ -20,6 +20,206 @@
       "source": "/easy-buy",
       "destination": "/financing/",
       "permanent": false
+    },
+    {
+      "source": "/iphone-17-air-uk-used",
+      "destination": "/iphone-17-air/",
+      "permanent": true
+    },
+    {
+      "source": "/iphone-17-air-uk-used/",
+      "destination": "/iphone-17-air/",
+      "permanent": true
+    },
+    {
+      "source": "/iphone-16-pro-max-uk-used",
+      "destination": "/iphone-16-pro-max/",
+      "permanent": true
+    },
+    {
+      "source": "/iphone-16-pro-max-uk-used/",
+      "destination": "/iphone-16-pro-max/",
+      "permanent": true
+    },
+    {
+      "source": "/iphone-16-uk-used",
+      "destination": "/iphone-16/",
+      "permanent": true
+    },
+    {
+      "source": "/iphone-16-uk-used/",
+      "destination": "/iphone-16/",
+      "permanent": true
+    },
+    {
+      "source": "/iphone-15-pro-uk-used",
+      "destination": "/iphone-15-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/iphone-15-pro-uk-used/",
+      "destination": "/iphone-15-pro/",
+      "permanent": true
+    },
+    {
+      "source": "/iphone-15-uk-used",
+      "destination": "/iphone-15/",
+      "permanent": true
+    },
+    {
+      "source": "/iphone-15-uk-used/",
+      "destination": "/iphone-15/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-z-fold-6-confirm-condition",
+      "destination": "/samsung-z-fold-6/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-z-fold-6-confirm-condition/",
+      "destination": "/samsung-z-fold-6/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-z-flip-6-confirm-condition",
+      "destination": "/samsung-z-flip-6/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-z-flip-6-confirm-condition/",
+      "destination": "/samsung-z-flip-6/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a07-open-box",
+      "destination": "/samsung-a07/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a07-open-box/",
+      "destination": "/samsung-a07/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a07-uk-used",
+      "destination": "/samsung-a07/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a07-uk-used/",
+      "destination": "/samsung-a07/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a16-open-box",
+      "destination": "/samsung-a16/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a16-open-box/",
+      "destination": "/samsung-a16/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a16-uk-used",
+      "destination": "/samsung-a16/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a16-uk-used/",
+      "destination": "/samsung-a16/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a05-uk-used",
+      "destination": "/samsung-a05/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a05-uk-used/",
+      "destination": "/samsung-a05/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a13-uk-used",
+      "destination": "/samsung-a13/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a13-uk-used/",
+      "destination": "/samsung-a13/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a14-uk-used",
+      "destination": "/samsung-a14/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a14-uk-used/",
+      "destination": "/samsung-a14/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a15-uk-used",
+      "destination": "/samsung-a15/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a15-uk-used/",
+      "destination": "/samsung-a15/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a52-uk-used",
+      "destination": "/samsung-a52/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a52-uk-used/",
+      "destination": "/samsung-a52/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a53-uk-used",
+      "destination": "/samsung-a53/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a53-uk-used/",
+      "destination": "/samsung-a53/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a70-uk-used",
+      "destination": "/samsung-a70/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a70-uk-used/",
+      "destination": "/samsung-a70/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a71-uk-used",
+      "destination": "/samsung-a71/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a71-uk-used/",
+      "destination": "/samsung-a71/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a90-uk-used",
+      "destination": "/samsung-a90/",
+      "permanent": true
+    },
+    {
+      "source": "/samsung-a90-uk-used/",
+      "destination": "/samsung-a90/",
+      "permanent": true
     }
   ]
 }
