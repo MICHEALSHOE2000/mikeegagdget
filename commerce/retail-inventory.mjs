@@ -2126,17 +2126,20 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "256GB",
         "price": 1390000,
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "256GB"
       },
       {
         "storage": "512GB",
         "price": 1590000,
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "512GB"
       },
       {
         "storage": "512GB · eSIM only",
         "price": 1250000,
-        "connectivity": "eSIM only"
+        "connectivity": "eSIM only",
+        "capacity": "512GB"
       }
     ],
     "colors": []
@@ -2154,12 +2157,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "256GB",
         "price": 1410000,
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "256GB"
       },
       {
         "storage": "512GB",
         "price": 1720000,
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "512GB"
       }
     ],
     "colors": []
@@ -2201,49 +2206,57 @@ export const retailInventory = Object.freeze(repairCatalogue([
         "storage": "256GB",
         "price": 1170000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "256GB"
       },
       {
         "storage": "256GB · eSIM only",
         "price": 1020000,
         "connectivity": "eSIM only",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "256GB"
       },
       {
         "storage": "256GB · eSIM only · UK Used",
         "price": 850000,
         "condition": "UK Used",
-        "connectivity": "eSIM only"
+        "connectivity": "eSIM only",
+        "capacity": "256GB"
       },
       {
         "storage": "256GB · UK Used",
         "price": 967000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "256GB"
       },
       {
         "storage": "512GB",
         "price": 1580000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "512GB"
       },
       {
         "storage": "512GB · eSIM only",
         "price": 1200000,
         "connectivity": "eSIM only",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "512GB"
       },
       {
         "storage": "512GB · eSIM only · UK Used",
         "price": 950000,
         "condition": "UK Used",
-        "connectivity": "eSIM only"
+        "connectivity": "eSIM only",
+        "capacity": "512GB"
       },
       {
         "storage": "1TB",
         "price": 1790000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "1TB"
       }
     ],
     "colors": []
@@ -2262,43 +2275,50 @@ export const retailInventory = Object.freeze(repairCatalogue([
         "storage": "128GB",
         "price": 1050000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "128GB"
       },
       {
         "storage": "128GB · eSIM only",
         "price": 910000,
         "connectivity": "eSIM only",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "128GB"
       },
       {
         "storage": "128GB · UK Used",
         "price": 767000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB",
         "price": 1270000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "256GB"
       },
       {
         "storage": "256GB · UK Used",
         "price": 887000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "256GB"
       },
       {
         "storage": "512GB",
         "price": 1540000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "512GB"
       },
       {
         "storage": "1TB · eSIM only",
         "price": 1120000,
         "connectivity": "eSIM only",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "1TB"
       }
     ],
     "colors": []
@@ -2317,19 +2337,22 @@ export const retailInventory = Object.freeze(repairCatalogue([
         "storage": "128GB",
         "price": 830000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "128GB"
       },
       {
         "storage": "128GB · UK Used",
         "price": 647000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB",
         "price": 930000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "256GB"
       }
     ],
     "colors": []
@@ -2348,19 +2371,22 @@ export const retailInventory = Object.freeze(repairCatalogue([
         "storage": "128GB",
         "price": 640000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "128GB"
       },
       {
         "storage": "128GB · UK Used",
         "price": 517000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB",
         "price": 720000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "256GB"
       }
     ],
     "colors": []
@@ -2394,13 +2420,15 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "256GB",
         "price": 900000,
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "256GB"
       },
       {
         "storage": "512GB · 12GB RAM",
         "price": 2040000,
         "ram": "12GB RAM",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "512GB"
       }
     ],
     "colors": []
@@ -2420,31 +2448,36 @@ export const retailInventory = Object.freeze(repairCatalogue([
         "price": 700000,
         "ram": "16GB RAM",
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "128GB"
       },
       {
         "storage": "128GB · UK Used",
         "price": 667000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB",
         "price": 840000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "256GB"
       },
       {
         "storage": "256GB · UK Used",
         "price": 727000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "256GB"
       },
       {
         "storage": "512GB",
         "price": 890000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "512GB"
       }
     ],
     "colors": []
@@ -2463,19 +2496,22 @@ export const retailInventory = Object.freeze(repairCatalogue([
         "storage": "128GB",
         "price": 560000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "128GB"
       },
       {
         "storage": "128GB · UK Used",
         "price": 417000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB",
         "price": 610000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "256GB"
       }
     ],
     "colors": []
@@ -2494,25 +2530,29 @@ export const retailInventory = Object.freeze(repairCatalogue([
         "storage": "128GB",
         "price": 420000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "128GB"
       },
       {
         "storage": "128GB · UK Used",
         "price": 347000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB",
         "price": 480000,
         "connectivity": "Physical SIM + eSIM",
-        "condition": "Brand New"
+        "condition": "Brand New",
+        "capacity": "256GB"
       },
       {
         "storage": "256GB · UK Used",
         "price": 350000,
         "condition": "UK Used",
-        "connectivity": "Physical SIM + eSIM"
+        "connectivity": "Physical SIM + eSIM",
+        "capacity": "256GB"
       }
     ],
     "colors": []
@@ -2793,7 +2833,8 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "256GB",
         "price": 650000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "256GB"
       }
     ],
     "colors": [],
@@ -2934,7 +2975,8 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "256GB",
         "price": 440000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "256GB"
       }
     ],
     "colors": []
@@ -2952,12 +2994,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "256GB",
         "price": 380000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "256GB"
       },
       {
         "storage": "128GB",
         "price": 360000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "128GB"
       }
     ],
     "colors": [],
@@ -2978,17 +3022,20 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "128GB",
         "price": 430000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB",
         "price": 480000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "256GB"
       },
       {
         "storage": "512GB",
         "price": 515000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "512GB"
       }
     ],
     "colors": [],
@@ -3009,12 +3056,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "256GB",
         "price": 320000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "256GB"
       },
       {
         "storage": "128GB",
         "price": 285000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "128GB"
       }
     ],
     "colors": [],
@@ -3035,12 +3084,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "256GB",
         "price": 370000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "256GB"
       },
       {
         "storage": "128GB",
         "price": 300000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "128GB"
       }
     ],
     "colors": [],
@@ -3061,12 +3112,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "256GB",
         "price": 320000,
-        "condition": "Confirm condition"
+        "condition": "Confirm condition",
+        "capacity": "256GB"
       },
       {
         "storage": "128GB",
         "price": 245000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "128GB"
       }
     ],
     "colors": [],
@@ -3087,12 +3140,14 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "128GB",
         "price": 220000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB",
         "price": 240000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "256GB"
       }
     ],
     "colors": []
@@ -3433,17 +3488,20 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "128GB · UK Used",
         "price": 220000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB · UK Used",
         "price": 235000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "256GB"
       },
       {
         "storage": "Standard",
         "price": 245000,
-        "condition": "Confirm condition"
+        "condition": "Confirm condition",
+        "capacity": "Standard"
       }
     ],
     "colors": [],
@@ -3464,17 +3522,20 @@ export const retailInventory = Object.freeze(repairCatalogue([
       {
         "storage": "128GB · UK Used",
         "price": 260000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "128GB"
       },
       {
         "storage": "256GB · UK Used",
         "price": 280000,
-        "condition": "UK Used"
+        "condition": "UK Used",
+        "capacity": "256GB"
       },
       {
         "storage": "Standard",
         "price": 330000,
-        "condition": "Confirm condition"
+        "condition": "Confirm condition",
+        "capacity": "Standard"
       }
     ],
     "colors": [],
