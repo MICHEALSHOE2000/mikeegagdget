@@ -135,15 +135,15 @@
     "/phone-swap",
     "/laptops",
     "/gadget-accessories",
+    "/shop/macbooks/",
+    "/shop/laptops/",
     "/shop/tablets/",
     "/shop/wifi-only/",
-    "/shop/laptops/",
-    "/shop/ps5/",
-    "/shop/accessories/",
-    "/shop/macbooks/",
-    "/shop/ipads/",
     "/shop/watches/",
-    "/shop/airpods/",
-    "/shop/games/"
+    "/shop/accessories/",
+    "/shop/ps5/",
+    "/shop/games/",
+    "/shop/ipads/",
+    "/shop/airpods/"
   ]
 }

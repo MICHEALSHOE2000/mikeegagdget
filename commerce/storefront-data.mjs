@@ -5,7 +5,8 @@ import {categoryImages} from './product-images.mjs';
 import {offerProduct} from './offers.mjs';
 
 const products=baseProducts.map(offerProduct);
-const categoryOrder=['iphones','samsung','pixel','tablets','wifi-only','laptops','ps5','accessories','macbooks','ipads','watches','airpods','games'];
+// Discovery order for Shop by Category; iPhones lead. Remaining categories follow the requested ten.
+const categoryOrder=['iphones','samsung','pixel','macbooks','laptops','tablets','wifi-only','watches','accessories','ps5','games','ipads','airpods'];
 export const categories = [
  ['iphones','iPhones','Apple'],
  ['samsung','Samsung','Samsung'],
