@@ -24,9 +24,9 @@
 .store-home .promotion-small h3{font-size:clamp(21px,2.3vw,32px)}
 .store-home .promotion-small .promotion-copy{padding:26px;width:60%}
 .store-home .promotion-small img{width:45%;padding:10px;object-fit:contain}
-.store-home .hot-deals .store-condition strong{display:inline-block;margin-left:4px}
-.store-home .hot-deals .store-card-copy del{display:block;color:#5f665f;margin-top:4px;white-space:nowrap}
-.store-home .hot-deals .store-card-copy{min-width:0}
+
+
+
 .store-home .store-card-copy .store-price{line-height:1.22;overflow-wrap:anywhere}
 .store-home .store-phone .store-card-copy{display:flex;flex-direction:column;min-width:0;flex:1}
 .store-home .store-phone .store-price{margin-top:auto}
@@ -55,10 +55,10 @@
  .store-home .promotion-small img{top:auto;bottom:5px;right:2px;width:75%;height:38%;opacity:.9}
  .store-home .promotion-small .promotion-cta{font-size:10px;padding:8px;margin-top:12px}
  .store-home .category-controls>span{display:none}
- .store-home .hot-grid{grid-auto-columns:minmax(0,68%);gap:13px}
- .store-home .hot-deals .store-photo .device-media{height:200px}
- .store-home .hot-deals .store-card-copy h3{font-size:20px}
- .store-home .hot-deals .store-price{font-size:22px}
+
+
+
+
  .store-home .product-grid .store-photo .device-media{height:175px}
  .store-home .product-grid .store-card-copy h3{font-size:16px;line-height:1.25}
  .store-home .product-grid .store-price{font-size:18px}
@@ -67,7 +67,54 @@
 @media(max-width:370px){
  .store-home .promotion-iphone h3{font-size:23px}
  .store-home .promotion-small h3{font-size:17px}
- .store-home .hot-grid{grid-auto-columns:minmax(0,78%)}
+
  .store-home .product-grid .store-photo .device-media{height:145px}
 }
 @media(prefers-reduced-motion:reduce){.store-home .promotion-card{transition:none}}
+
+/* RESTORE THE ORIGINAL ALL DEALS EXPERIENCE.
+   Mobile shows one big product card plus a peek of the next;
+   visitors swipe the row or use the existing previous/next arrows.
+   Explicit auto-columns prevent narrow desktop windows from squeezing five cards. */
+.store-home #hotDeals{
+ display:grid;
+ grid-template-columns:none;
+ grid-auto-flow:column;
+ grid-auto-columns:calc((100% - 60px)/4);
+ gap:20px;
+ overflow-x:auto;
+ overflow-y:hidden;
+ scroll-snap-type:x mandatory;
+ scroll-behavior:smooth;
+ overscroll-behavior-inline:contain;
+ -webkit-overflow-scrolling:touch;
+ padding:2px 1px 16px;
+}
+.store-home #hotDeals>.store-phone{
+ width:100%;
+ min-width:0;
+ scroll-snap-align:start;
+}
+.store-home #hotDeals .store-card-copy{
+ display:block;
+}
+.store-home #hotDeals .store-card-copy del{
+ display:block;
+ white-space:nowrap;
+}
+.store-home #hotDeals .store-photo .device-media{height:240px}
+@media(max-width:1000px){
+ .store-home #hotDeals{grid-auto-columns:calc((100% - 32px)/3);gap:16px}
+}
+@media(max-width:760px){
+ .store-home #hotDeals{grid-auto-columns:76%;gap:14px}
+ .store-home #hotDeals .store-photo .device-media{height:245px}
+ .store-home #hotDeals .store-card-copy h3{font-size:23px;line-height:1.15;overflow-wrap:normal;word-break:normal}
+ .store-home #hotDeals .store-price{font-size:26px}
+}
+@media(max-width:360px){
+ .store-home #hotDeals{grid-auto-columns:82%}
+}
+@media(prefers-reduced-motion:reduce){
+ .store-home #hotDeals{scroll-behavior:auto}
+}
