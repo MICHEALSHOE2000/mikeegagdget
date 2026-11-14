@@ -14,8 +14,15 @@ test('admin checks a server-verified confirmed identity, never user metadata',as
   globalThis.fetch=async url=>({ok:true,json:async()=>url.includes('/rest/')?[{user_id:'fixture'}]:({id:'fixture',email:ADMIN_EMAIL,email_confirmed_at:'2026-11-11'})});assert.equal((await requireAdmin(request)).id,'fixture');
  }finally{globalThis.fetch=old;if(oldUrl===undefined)delete process.env.SUPABASE_URL;else process.env.SUPABASE_URL=oldUrl;if(oldKey===undefined)delete process.env.SUPABASE_SERVICE_ROLE_KEY;else process.env.SUPABASE_SERVICE_ROLE_KEY=oldKey;}
 });
-test('admin callback page has no tracking and financing routes stay on hold',()=>{
+test('admin callback page has no tracking and financing routes point to Credit Direct',()=>{
  const admin=readFileSync('admin/index.html','utf8');assert.doesNotMatch(admin,/tiktok|analytics|landing-page.js/);assert.match(admin,/no-referrer/);
  const config=JSON.parse(readFileSync('vercel.json','utf8'));assert.ok(config.redirects.some(r=>r.source==='/easybuy'&&r.destination==='/financing/'));
- assert.match(readFileSync('financing/index.html','utf8'),/not available online yet/);
+ assert.doesNotMatch(readFileSync('financing/index.html','utf8'),/not available online yet|coming soon|on hold/i);
+});
+
+test('customer pages carry no Credit Direct coming-soon or on-hold notices',()=>{
+ for(const f of ['index.html','financing/index.html']){const html=readFileSync(f,'utf8');assert.doesNotMatch(html,/Credit Direct[^<]{0,80}(coming soon|on hold|not active|not available)/i);assert.doesNotMatch(html,/checkout is on hold|financing will return/i);}
+});
+test('admin page explains expired or reused magic links',()=>{
+ const js=readFileSync('assets/admin.js','utf8');assert.match(js,/otp_expired/);assert.match(js,/expired or was already used/);assert.match(js,/history\.replaceState/);
 });

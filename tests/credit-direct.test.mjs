@@ -22,7 +22,7 @@ test('Credit Direct stays off unless the flag and every key are set',()=>{
  assert.equal(creditDirectConfig(keys).ready,false);
  assert.equal(creditDirectConfig({...keys,CREDIT_DIRECT_ENABLED:'true',CREDIT_DIRECT_WEBHOOK_SECRET:''}).ready,false);
  assert.equal(creditDirectConfig({...keys,CREDIT_DIRECT_ENABLED:'true'}).ready,true);
- assert.deepEqual(financingStatus(),{provider:'credit-direct',available:false,reason:'Official integration pending verification'});
+ assert.deepEqual(financingStatus(),{provider:'credit-direct',available:false,reason:'Credit Direct is not configured on this deployment'});
 });
 test('transaction total is the sum of server-priced products and the signature covers session, email and total',()=>{
  const t=tx();assert.equal(t.totalAmount,1990000);

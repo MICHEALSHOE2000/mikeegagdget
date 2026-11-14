@@ -41,7 +41,7 @@ const productMessage = (product, storage = product.defaultStorage, intent = "buy
   const productName = `${product.model} ${storage}`.trim();
   const messages = {
     buy: `Hello, I'm interested in the ${productName}. Is it currently available? Please confirm today’s price, available colours, condition, warranty terms and delivery options.`,
-    easyBuy: `Hello, I'm interested in getting the ${productName} through Easy Buy. Please send me the deposit, payment options, eligibility requirements and complete terms.`,
+    easyBuy: `Hello, I'm interested in getting the ${productName} with Pay Small Small (Credit Direct instalments). Please guide me through applying.`,
     swap: `Hello, I want to swap my current phone for a ${productName}. How can I get a valuation?`,
     price: `Hello, please confirm today’s price and availability for the ${productName}, including colour, condition, warranty terms and delivery options.`
   };
@@ -70,7 +70,7 @@ const productFaqs = (product) => {
     },
     {
       question: `Can I buy ${product.model} and pay in installments?`,
-      answer: `Ask Mikee Gadget Plug to confirm Easy Buy eligibility for the exact device. The calculator is an estimate only; approval, deposit, due dates and complete terms are confirmed before commitment.`
+      answer: `Yes. Choose Pay Small Small to apply online for Credit Direct instalments. Credit Direct confirms approval, down payment and repayments before you commit.`
     },
     {
       question: conditionQuestion,
