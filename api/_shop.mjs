@@ -11,7 +11,10 @@ export async function paystack(path,body){
  const r=await fetch('https://api.paystack.co'+path,{method:body?'POST':'GET',headers:{Authorization:'Bearer '+key,'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(20000)});
  const data=await r.json();if(!r.ok||!data.status)throw Error('The payment provider could not complete this request. Please try again.');return data.data;
 }
+import {creditDirectConfig} from '../commerce/credit-direct.mjs';
 export async function verify(reference){
+ // Credit Direct orders are confirmed only by the provider's signed merchant-payment webhook.
+ if(creditDirectConfig().ready){const order=(await db('shop_orders?reference=eq.'+encodeURIComponent(reference)+'&select=status,payment_provider'))[0];if(order?.payment_provider==='credit_direct'){if(order.status!=='awaiting_payment')return {status:order.status};const session=(await db('shop_credit_direct_sessions?order_reference=eq.'+encodeURIComponent(reference)+'&select=customer_paid_at'))[0];return {status:session?.customer_paid_at?'awaiting_merchant_payment':'financing_pending'};}}
  const tx=await paystack('/transaction/verify/'+encodeURIComponent(reference));
  if(tx.reference!==reference||tx.currency!=='NGN')throw Error('Payment details do not match.');
  if(tx.status!=='success')return {status:tx.status==='failed'?'failed':tx.status==='abandoned'?'cancelled':'pending'};

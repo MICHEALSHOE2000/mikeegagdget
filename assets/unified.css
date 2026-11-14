@@ -42,8 +42,6 @@ a[aria-disabled=true],button:disabled{opacity:.55;cursor:not-allowed}
 .wifi-notice{padding:14px;border:1px solid #b59b53;border-radius:12px;background:#faf6e9}
 .store-home .category-rail{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:180px;overflow-x:auto;gap:16px;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain}
 .category-tile{scroll-snap-align:start}
-.category-progress{display:flex;align-items:center;gap:12px;margin-top:12px;font-size:13px;color:#284637}
-.category-progress progress{accent-color:#947327;max-width:150px;height:5px}
 @media(max-width:600px){.store-home .category-rail{grid-auto-columns:58%;gap:12px}.product-hero{grid-template-columns:minmax(0,1fr)}.purchase-panel{padding:16px}.color-swatches{gap:5px}.color-option{font-size:11px!important}.store-phone h3{overflow:visible;-webkit-line-clamp:unset;max-height:none}.category-controls{display:flex!important}}
 @media(prefers-reduced-motion:reduce){.category-rail{scroll-behavior:auto}}
 .product-hero-copy .product-lead,.commerce-breadcrumbs span,.purchase-panel p{color:#34433a}

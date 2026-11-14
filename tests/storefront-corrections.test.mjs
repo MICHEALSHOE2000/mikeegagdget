@@ -16,7 +16,7 @@ test('homepage preserves the deals slot and loads only published promotions',asy
  assert.doesNotMatch(dom.window.document.getElementById('deals').textContent,/current offers/i);
  assert.equal(dom.window.document.querySelectorAll('#hotDeals > article').length,0);
  assert.ok(dom.window.document.querySelector('script[src="/assets/deals.js"]'));
- assert.match(dom.window.document.getElementById('deals').textContent,/All Deals/);
+ assert.match(dom.window.document.getElementById('deals').textContent,/Hot Deals/);
  dom.window.close();
 });
 

@@ -17,5 +17,5 @@ test('admin checks a server-verified confirmed identity, never user metadata',as
 test('admin callback page has no tracking and financing routes stay on hold',()=>{
  const admin=readFileSync('admin/index.html','utf8');assert.doesNotMatch(admin,/tiktok|analytics|landing-page.js/);assert.match(admin,/no-referrer/);
  const config=JSON.parse(readFileSync('vercel.json','utf8'));assert.ok(config.redirects.some(r=>r.source==='/easybuy'&&r.destination==='/financing/'));
- assert.match(readFileSync('financing/index.html','utf8'),/temporarily unavailable/);
+ assert.match(readFileSync('financing/index.html','utf8'),/not available online yet/);
 });

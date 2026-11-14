@@ -264,7 +264,7 @@ const renderVariantSelector = (product) => `
     </div>
     <div class="purchase-actions">
       <a class="commerce-button commerce-button-primary" data-action="buy" href="/checkout/?sku=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Now</a>
-      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Check Pay Small Small Plan</a>
+      <a class="commerce-button commerce-button-dark" data-action="easyBuy" href="/financing/?sku=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Pay Small Small</a>
     </div>
     <p class="purchase-action-help">Select your preferred variant, then continue to secure checkout.</p>
     <p class="purchase-safety"><a data-action="price" href="${whatsappHref(productMessage(product, product.defaultStorage, 'price'))}" target="_blank" rel="noopener">Have a question? Chat on WhatsApp ↗</a></p>
@@ -378,7 +378,7 @@ const renderFooter = () => `
       <a class="commerce-button commerce-button-light" href="${whatsappHref("Hello Mikee Gadget Plug, I need help choosing a phone.")}" target="_blank" rel="noopener">Ask Mikee Gadget Plug on WhatsApp</a>
     </div>
     <div><strong>Shop phones</strong><a href="/iphones">All iPhones</a><a href="/samsung-phones">Samsung phones</a><a href="/google-pixel-phones">Google Pixel</a><a href="/uk-used-iphones">UK-used iPhones</a></div>
-    <div><strong>Ways to buy</strong><a href="/easy-buy/">Easy Buy calculator</a><a href="/phones-on-installment">Phones on installment</a><a href="/phone-swap">Swap your phone</a><a href="${escapeHtml(communityHref)}" target="_blank" rel="noopener">WhatsApp community</a></div>
+    <div><strong>Ways to buy</strong><a href="/phones-on-installment">Phones on installment</a><a href="/phone-swap">Swap your phone</a><a href="${escapeHtml(communityHref)}" target="_blank" rel="noopener">WhatsApp community</a></div>
     <address><strong>Visit or call</strong><span>${escapeHtml(commerceSite.address)}</span><a href="tel:${commerceSite.telephoneHref}">${commerceSite.telephoneDisplay}</a><a href="${commerceSite.directionsUrl}" target="_blank" rel="noopener">Get directions</a></address>
     <p class="footer-legal">© 2026 Mikee Gadget Plug. Prices, stock, warranty and Easy Buy terms must be confirmed before payment.</p>
   </footer>`;
@@ -462,7 +462,7 @@ const renderProductPage = (product) => {
   ${renderFooter()}
   <div class="mobile-purchase-bar" aria-label="Quick purchase actions">
     <a data-action="buy" href="/checkout/?sku=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>₦</span>Buy outright</a>
-    <a data-action="easyBuy" href="/easybuy/?phone=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>◷</span>Pay Small Small</a>
+    <a data-action="easyBuy" href="/financing/?sku=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}"><span>◷</span>Pay Small Small</a>
   </div>
   <script type="application/json" id="product-data">${escapeJson(productData)}</script>
   <script type="module" src="/assets/commerce.js"></script>

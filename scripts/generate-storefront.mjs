@@ -3,12 +3,14 @@ import {categories,shopCategories,storeItems} from '../commerce/storefront-data.
 import {card,media,escape,priceText} from '../assets/storefront-ui.mjs';
 import {commerceSite as site} from '../commerce/catalog.mjs';
 import {featuredDeals} from '../commerce/offers.mjs';
+import {storeSettings} from '../commerce/store-settings.mjs';
+const homeFeatured=storeSettings.homeFeaturedProducts.map(slug=>storeItems.find(item=>item.slug===slug)).filter(Boolean);
 let html=await readFile('templates/home.html.template','utf8');
 html=html.replace('{{COLOUR_OPTIONS}}',[...new Set(storeItems.flatMap(item=>item.variants.flatMap(v=>v.color?.split('/').map(c=>c.trim())||[])))].sort().map(c=>`<option>${escape(c)}</option>`).join(''));
 const trust=html.match(/<div class="trust-loop">([\s\S]*?)<\/div>/)?.[1]||'';
 html=html.replace('{{TRUST_DUPLICATE}}','<div class="trust-loop" aria-hidden="true">'+trust+'</div>');
 const categoryHtml=categories.map(c=>`<a class="category-tile" href="${c.route}" data-category="${c.id}">${media(c.image,c.name)}<strong>${c.name}</strong><span aria-hidden="true">Shop ↗</span></a>`).join('');
-html=html.replace('{{SERIES_OPTIONS}}',[...new Set(storeItems.map(p=>p.series).filter(Boolean))].map(series=>`<option value="${series}">iPhone ${series}</option>`).join('')).replace('{{CATEGORIES}}',categoryHtml).replace('{{CATEGORY_OPTIONS}}',categories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')).replace('{{PRODUCTS}}',storeItems.filter(p=>p.variants.some(v=>v.price>0)).slice(0,8).map(card).join('')).replace('{{HOT_DEALS}}','<p class="empty-deals">Loading current deals…</p>');
+html=html.replace('{{SERIES_OPTIONS}}',[...new Set(storeItems.map(p=>p.series).filter(Boolean))].map(series=>`<option value="${series}">iPhone ${series}</option>`).join('')).replace('{{CATEGORIES}}',categoryHtml).replace('{{CATEGORY_OPTIONS}}',categories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')).replace('{{FEATURED_SLUGS}}',homeFeatured.map(p=>p.slug).join(',')).replace('{{PRODUCTS}}',homeFeatured.map(card).join('')).replace('{{HOT_DEALS}}','<p class="empty-deals">Loading current deals…</p>');
 await writeFile('index.html',html);
 await writeFile('assets/store-catalog.json',JSON.stringify(storeItems));
 // Dedicated enquiry pages keep category browsing on the site until customers are ready.
