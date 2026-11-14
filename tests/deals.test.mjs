@@ -15,7 +15,7 @@ test('fixed discount rounds whole naira half up without changing catalogue data'
 });
 test('publication accepts empty or nine unique variants and rejects forged input',()=>{
  assert.deepEqual(validateDeals({revision:0,skus:[]}),{revision:0,skus:[]});
- assert.equal(validateDeals({revision:1,skus:['a','b','c','d','e','f','g','h','i']}).skus.length,5);
+ assert.equal(validateDeals({revision:1,skus:['a','b','c','d','e','f','g','h','i']}).skus.length,9);
  for(const body of [{revision:0,skus:['a','a']},{revision:0,skus:['a','b','c','d','e','f','g','h','i','j']},{revision:-1,skus:[]},{revision:0,skus:[null]}])assert.throws(()=>validateDeals(body));
 });
 test('deals endpoint rejects unauthenticated reads and writes',async()=>{
