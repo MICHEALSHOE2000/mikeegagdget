@@ -72,3 +72,32 @@
 .store-was{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin:0 0 3px;font-size:13px;line-height:1.3;color:#646870}
 .store-was del{text-decoration:line-through;white-space:nowrap}
 .store-was .deal-badge{font-size:11px;font-weight:700;letter-spacing:.02em;white-space:nowrap;color:#6f5210;background:#f7efd8;border:1px solid #e2cf9c;border-radius:3px;padding:1px 6px}
+/* Customer benefits and collection banners (homepage). */
+.benefit-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.benefit-card{border:1px solid #e5e5e3;border-top:2px solid #bd913b;border-radius:8px;background:#fff;padding:18px}
+.benefit-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#f7f1e0;margin-bottom:10px}
+.benefit-icon svg{width:20px;height:20px;fill:none;stroke:#203d2b;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.benefit-card h3{margin:0 0 4px;font-size:16px;line-height:1.25;color:#203d2b}
+.benefit-card p{margin:0;font-size:13px;line-height:1.45;color:#646870}
+.promo-section{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.store-home .promo-card{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:12px;min-height:170px;padding:20px;border-radius:10px;background:#f4f3ee;border:1px solid #e5e5e3;color:#15231a;overflow:hidden}
+.promo-card.promo-wide{grid-column:1/-1;min-height:230px;padding:28px}
+.promo-copy{display:grid;gap:6px;min-width:0}
+.promo-copy .eyebrow{margin:0}
+.promo-copy strong{font-size:20px;line-height:1.15;letter-spacing:-.02em;color:#203d2b}
+.promo-wide .promo-copy strong{font-size:30px}
+.promo-copy>span:not(.eyebrow){font-size:13px;line-height:1.4;color:#4c5148}
+.promo-copy b{margin-top:6px;font-size:13px;font-weight:700;color:#826019}
+.promo-copy b i{font-style:normal}
+.promo-card img{width:100%;height:auto;max-height:190px;object-fit:contain;mix-blend-mode:multiply;justify-self:end}
+.promo-card:hover{border-color:#bd913b}
+@media(max-width:760px){
+ .benefit-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .benefit-card{padding:13px}.benefit-card h3{font-size:14px}.benefit-card p{font-size:12px}
+ .promo-section{gap:10px}
+ .store-home .promo-card{grid-template-columns:1fr;align-content:space-between;min-height:0;padding:14px}
+ .promo-card.promo-wide{grid-template-columns:minmax(0,1fr) minmax(0,.9fr);padding:18px;min-height:170px}
+ .promo-copy strong{font-size:16px}.promo-wide .promo-copy strong{font-size:21px}
+ .promo-card img{max-height:90px;justify-self:center}.promo-wide img{max-height:140px}
+}
+
