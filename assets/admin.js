@@ -3,10 +3,14 @@ import {mountHome} from './admin-home.mjs';
 import {escape,money} from './storefront-ui.mjs';
 const $=id=>document.getElementById(id);
 // Keep the short-lived access token in memory only. Never log or render it.
-let token=new URLSearchParams(location.hash.slice(1)).get('access_token')||'';
-if(location.hash)history.replaceState(null,'',location.pathname);
+const callback=new URLSearchParams(location.hash.slice(1)),callbackQuery=new URLSearchParams(location.search);
+let token=callback.get('access_token')||'';
+// Supabase reports expired or reused magic links in the hash (implicit flow) or the query string.
+const linkError=[callback.get('error_code'),callback.get('error'),callback.get('error_description'),callbackQuery.get('error_code'),callbackQuery.get('error')].filter(Boolean).join(' ');
+if(location.hash||location.search)history.replaceState(null,'',location.pathname);
 let inventory=[];
 const message=value=>$('admin-message').textContent=value;
+if(linkError)message(/otp_expired|expired|access_denied|invalid|not found/i.test(linkError)?'This sign-in link has expired or was already used. Enter your email below to get a new link, then open only the newest email.':'Sign-in could not be completed. Request a new link below.');
 async function api(path,options={}){const r=await fetch(path,{...options,headers:{'Content-Type':'application/json',Authorization:'Bearer '+token,...options.headers}});const result=await r.json();if(!r.ok)throw Error(result.error||'Request failed.');return result;}
 function renderInventory(){const query=$('admin-filter').value.toLowerCase();$('admin-inventory').innerHTML=inventory.filter(v=>v.sku.toLowerCase().includes(query)).map(v=>`<form data-sku="${escape(v.sku)}" class="cart-line"><div><strong>${escape(v.product_data?.model||v.sku)}</strong><p>${escape(v.sku)}</p></div><label>Price (₦)<input name="price" type="number" min="1" max="100000000" step="1" value="${v.price_ngn??''}"></label><label>Available<input name="enabled" type="checkbox" ${v.enabled?'checked':''}></label><details><summary>Product details</summary><label>Storage<input name="capacity" value="${escape(v.product_data?.capacity||v.product_data?.storage||'')}"></label><label>Colors (comma separated)<input name="colors" value="${escape((v.product_data?.colors||[]).join(', '))}"></label><label>Condition<select name="condition">${['UK Used','Brand New','Open Box','Pre-Owned','Confirm condition'].map(c=>`<option ${c===v.product_data?.condition?'selected':''}>${c}</option>`).join('')}</select></label><label>Image URL<input name="image" type="text" value="${escape(v.product_data?.image||'')}"></label><label>Upload product image<input name="upload" type="file" accept="image/*"></label><label>Description<textarea name="description">${escape(v.product_data?.description||'')}</textarea></label></details><button type="button" data-preview>Preview changes</button><div data-preview-output></div><button type="submit" class="btn btn-outline">Publish changes</button></form>`).join('');}
 const deals=mountDeals($('admin-deals'),api,()=>inventory);
@@ -19,7 +23,7 @@ $('admin-orders-button').addEventListener('click',async()=>{try{const orders=awa
 $('admin-signout').addEventListener('click',()=>{token='';inventory=[];deals.clear();home.clear();$('admin-inventory').replaceChildren();$('admin-orders').replaceChildren();$('admin-tools').hidden=true;$('admin-signin').hidden=false;message('Signed out of this page.');});
 if(token)await load();
 
-$('admin-settings').addEventListener('submit',async e=>{e.preventDefault();try{await api('/api/admin/settings',{method:'PATCH',body:JSON.stringify(Object.fromEntries(new FormData(e.target)))});message('Settings saved. Credit Direct remains on hold.');}catch(e){message(e.message);}});
+$('admin-settings').addEventListener('submit',async e=>{e.preventDefault();try{await api('/api/admin/settings',{method:'PATCH',body:JSON.stringify(Object.fromEntries(new FormData(e.target)))});message('Settings saved.');}catch(e){message(e.message);}});
 
 $('admin-orders').addEventListener('submit',async e=>{e.preventDefault();try{await api('/api/admin/order',{method:'PATCH',body:JSON.stringify({reference:e.target.dataset.order,...Object.fromEntries(new FormData(e.target))})});message('Order status saved.');}catch(e){message(e.message);}});
 $('admin-orders').addEventListener('click',async e=>{if(!e.target.dataset.recheck)return;try{const r=await api('/api/admin/order',{method:'PATCH',body:JSON.stringify({reference:e.target.dataset.recheck,recheck:true})});message('Payment status: '+r.status);}catch(e){message(e.message);}});
