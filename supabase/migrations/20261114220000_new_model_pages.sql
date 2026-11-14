@@ -1,0 +1,47 @@
+-- APPLIED to production 2026-11-14: 22 supplier models with no page (highest quote). Rollback: supabase/new_models_20261114-rollback.sql
+create table public.checkout_inventory_backup_new_models_20261114 as select * from public.checkout_inventory where false;
+alter table public.checkout_inventory_backup_new_models_20261114 enable row level security;
+revoke all on public.checkout_inventory_backup_new_models_20261114 from public,anon,authenticated;
+insert into public.checkout_inventory(sku,price_ngn,enabled,product_data)
+select v.sku,v.price,true,jsonb_build_object('sku',v.sku,'slug',v.slug,'model',v.model,'category',v.category,'brand',v.brand,'condition',v.condition,'capacity',v.capacity,'reviewRequired',false,'storage',v.storage,'price',v.price,'image','','colors','[]'::jsonb,'ram','','connectivity',v.connectivity,'enabled',true)
+from (values
+('pixel-6|128GB','pixel-6','Google Pixel 6','pixel','Google','Brand New','128GB','128GB','Physical SIM + eSIM',270000),
+('pixel-6|256GB','pixel-6','Google Pixel 6','pixel','Google','Brand New','256GB','256GB','Physical SIM + eSIM',300000),
+('pixel-6-pro|128GB','pixel-6-pro','Google Pixel 6 Pro','pixel','Google','Brand New','128GB','128GB','Physical SIM + eSIM',350000),
+('pixel-6-pro|256GB','pixel-6-pro','Google Pixel 6 Pro','pixel','Google','Brand New','256GB','256GB','Physical SIM + eSIM',400000),
+('pixel-6a|128GB','pixel-6a','Google Pixel 6a','pixel','Google','UK Used','128GB','128GB','Physical SIM + eSIM',237000),
+('pixel-7|128GB','pixel-7','Google Pixel 7','pixel','Google','Brand New','128GB','128GB','Physical SIM + eSIM',320000),
+('pixel-7|128GB · UK Used','pixel-7','Google Pixel 7','pixel','Google','UK Used','128GB','128GB · UK Used','Physical SIM + eSIM',287000),
+('pixel-7|256GB','pixel-7','Google Pixel 7','pixel','Google','Brand New','256GB','256GB','Physical SIM + eSIM',360000),
+('pixel-7-pro|128GB','pixel-7-pro','Google Pixel 7 Pro','pixel','Google','Brand New','128GB','128GB','Physical SIM + eSIM',440000),
+('pixel-7-pro|128GB · UK Used','pixel-7-pro','Google Pixel 7 Pro','pixel','Google','UK Used','128GB','128GB · UK Used','Physical SIM + eSIM',367000),
+('pixel-7-pro|256GB','pixel-7-pro','Google Pixel 7 Pro','pixel','Google','Brand New','256GB','256GB','Physical SIM + eSIM',530000),
+('pixel-7a|128GB','pixel-7a','Google Pixel 7a','pixel','Google','Brand New','128GB','128GB','Physical SIM + eSIM',300000),
+('pixel-8-pro|128GB','pixel-8-pro','Google Pixel 8 Pro','pixel','Google','Brand New','128GB','128GB','Physical SIM + eSIM',600000),
+('pixel-8-pro|128GB · UK Used','pixel-8-pro','Google Pixel 8 Pro','pixel','Google','UK Used','128GB','128GB · UK Used','Physical SIM + eSIM',467000),
+('pixel-8-pro|256GB','pixel-8-pro','Google Pixel 8 Pro','pixel','Google','Brand New','256GB','256GB','Physical SIM + eSIM',587000),
+('pixel-8-pro|256GB · UK Used','pixel-8-pro','Google Pixel 8 Pro','pixel','Google','UK Used','256GB','256GB · UK Used','Physical SIM + eSIM',467000),
+('pixel-8a|128GB','pixel-8a','Google Pixel 8a','pixel','Google','UK Used','128GB','128GB','Physical SIM + eSIM',310000),
+('pixel-9|128GB','pixel-9','Google Pixel 9','pixel','Google','Brand New','128GB','128GB','Physical SIM + eSIM',630000),
+('pixel-9|128GB · UK Used','pixel-9','Google Pixel 9','pixel','Google','UK Used','128GB','128GB · UK Used','Physical SIM + eSIM',567000),
+('pixel-9|256GB','pixel-9','Google Pixel 9','pixel','Google','Brand New','256GB','256GB','Physical SIM + eSIM',760000),
+('pixel-9-pro-xl|128GB','pixel-9-pro-xl','Google Pixel 9 Pro XL','pixel','Google','Brand New','128GB','128GB','Physical SIM + eSIM',820000),
+('pixel-9-pro-xl|128GB · UK Used','pixel-9-pro-xl','Google Pixel 9 Pro XL','pixel','Google','UK Used','128GB','128GB · UK Used','Physical SIM + eSIM',630000),
+('pixel-9-pro-xl|256GB','pixel-9-pro-xl','Google Pixel 9 Pro XL','pixel','Google','Brand New','256GB','256GB','Physical SIM + eSIM',870000),
+('pixel-9-pro-xl|256GB · UK Used','pixel-9-pro-xl','Google Pixel 9 Pro XL','pixel','Google','UK Used','256GB','256GB · UK Used','Physical SIM + eSIM',730000),
+('pixel-9-pro-xl|512GB','pixel-9-pro-xl','Google Pixel 9 Pro XL','pixel','Google','Brand New','512GB','512GB','Physical SIM + eSIM',950000),
+('samsung-note-10|256GB','samsung-note-10','Samsung Galaxy Note 10','samsung','Samsung','UK Used','256GB','256GB','',215000),
+('samsung-note-10-plus|256GB','samsung-note-10-plus','Samsung Galaxy Note 10 Plus','samsung','Samsung','UK Used','256GB','256GB','',270000),
+('samsung-note-10-plus|512GB','samsung-note-10-plus','Samsung Galaxy Note 10 Plus','samsung','Samsung','UK Used','512GB','512GB','',300000),
+('samsung-note-20-ultra|128GB','samsung-note-20-ultra','Samsung Galaxy Note 20 Ultra','samsung','Samsung','UK Used','128GB','128GB','',350000),
+('samsung-note-20-ultra|256GB','samsung-note-20-ultra','Samsung Galaxy Note 20 Ultra','samsung','Samsung','UK Used','256GB','256GB','',370000),
+('samsung-s10|128GB','samsung-s10','Samsung Galaxy S10','samsung','Samsung','UK Used','128GB','128GB','',195000),
+('samsung-s10-lite|128GB','samsung-s10-lite','Samsung Galaxy S10 Lite','samsung','Samsung','UK Used','128GB','128GB','',155000),
+('samsung-s10-plus|128GB','samsung-s10-plus','Samsung Galaxy S10 Plus','samsung','Samsung','UK Used','128GB','128GB','',230000),
+('samsung-s10e|128GB','samsung-s10e','Samsung Galaxy S10e','samsung','Samsung','UK Used','128GB','128GB','',165000),
+('samsung-s20-ultra|128GB','samsung-s20-ultra','Samsung Galaxy S20 Ultra','samsung','Samsung','UK Used','128GB','128GB','',280000),
+('samsung-s21-fe|128GB','samsung-s21-fe','Samsung Galaxy S21 FE','samsung','Samsung','UK Used','128GB','128GB','',210000),
+('samsung-s8|64GB','samsung-s8','Samsung Galaxy S8','samsung','Samsung','UK Used','64GB','64GB','',125000),
+('samsung-s9|64GB','samsung-s9','Samsung Galaxy S9','samsung','Samsung','UK Used','64GB','64GB','',135000),
+('samsung-s9-plus|64GB','samsung-s9-plus','Samsung Galaxy S9 Plus','samsung','Samsung','UK Used','64GB','64GB','',155000),
+('samsung-s9-plus|256GB','samsung-s9-plus','Samsung Galaxy S9 Plus','samsung','Samsung','UK Used','256GB','256GB','',175000)) as v(sku,slug,model,category,brand,condition,capacity,storage,connectivity,price);

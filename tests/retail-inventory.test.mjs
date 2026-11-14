@@ -12,10 +12,10 @@ const price=(slug,storage)=>record(slug)?.variants.find(variant=>variant.storage
 
 test('all supplied products and variants are represented once with conditions kept separate',()=>{
  const original=retailInventory.filter(p=>p.category!=='wifi-only');
- assert.equal(original.length,139); // 159 minus 20 duplicate pages merged 2026-11-14
+ assert.equal(original.length,161); // 159 - 20 merged duplicates + 22 supplier models (2026-11-14)
  assert.equal(retailInventory.filter(p=>p.category==='wifi-only').length,16);
  assert.equal(new Set(retailInventory.map(p=>p.slug)).size,retailInventory.length);
- assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),504); // +28 supplier variants, -6 duplicates merged (2026-11-14)
+ assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),544); // +28 supplier variants, -6 duplicates merged (2026-11-14)
  assert.equal(storeItems.length,retailInventory.length);
  for(const p of original.filter(p=>p.category==='iphones'&&!p.slug.startsWith('iphone-18-')))assert.equal(p.condition,'UK Used');
 
@@ -68,7 +68,7 @@ test('verified local images are the only images attached to the new catalog',()=
  assert.ok(retailInventory.filter(item=>item.image).length>0);
  assert.ok(retailInventory.every(item=>!item.image||item.image.startsWith('/images/store/')||item.image.startsWith('/images/catalog/')));
  assert.equal(retailInventory.filter(item=>item.image).length,70); // merged duplicate pages no longer counted
- assert.equal(retailInventory.filter(item=>!item.image).length,85); // 9 photo-less duplicate pages merged 2026-11-14
+ assert.equal(retailInventory.filter(item=>!item.image).length,107); // 9 photo-less duplicate pages merged 2026-11-14
 });
 
 test('generic store cards use only the available shop image sizes',()=>{
