@@ -8,8 +8,8 @@ Built against Credit Direct Checkout API Documentation v2.0 (Feb 2026). Switched
    - `CREDIT_DIRECT_PUBLIC_KEY`, `CREDIT_DIRECT_PRIVATE_KEY`, `CREDIT_DIRECT_WEBHOOK_SECRET`
    - `CREDIT_DIRECT_IS_LIVE` = `false`, `CREDIT_DIRECT_ENABLED` = `true`
 3. Database tables applied 2026-11-14 (`supabase/migrations/20261114183500_credit_direct_checkout.sql`; rollback in `supabase/credit-direct-rollback.sql`).
-4. Give Credit Direct the webhook URL `https://mikeegadget.com.ng/api/shop/webhook` and redirect URL
-   `https://mikeegadget.com.ng/checkout/complete/` during onboarding.
+4. Give Credit Direct the webhook URL `https://www.mikeegadget.com.ng/api/shop/webhook (with www: the bare domain redirects, and webhooks do not follow redirects)` and redirect URL
+   `https://www.mikeegadget.com.ng/checkout/complete/` during onboarding.
 
 ## Questions to confirm with Credit Direct
 - Amount unit: we send whole naira (₦1,660,000 → `1660000`). The document does not say naira or kobo.
