@@ -4,7 +4,10 @@ export async function db(path,{method='GET',body}={}){
  if(!r.ok)throw Error('Unable to save or retrieve this order. Please try again.');if(r.status===204)return null;return r.json();
 }
 export const reply=(res,status,data)=>res.status(status).setHeader('Cache-Control','no-store').json(data);
-export function sameOrigin(req){const origin=req.headers.origin;return !!origin&&origin===new URL(env('SHOP_ORIGIN')).origin;}
+// Requests must come from the shop's own site. Preview deployments also accept their own Vercel address,
+// so checkout and admin can be tested there; production accepts only the configured shop origin.
+export function allowedOrigins(){const list=[new URL(env('SHOP_ORIGIN')).origin];if(process.env.VERCEL_ENV==='preview')for(const host of [process.env.VERCEL_URL,process.env.VERCEL_BRANCH_URL])if(host)list.push('https://'+host);return list;}
+export function sameOrigin(req){const origin=req.headers.origin;return !!origin&&allowedOrigins().includes(origin);}
 export async function paystack(path,body){
  const key=env('PAYSTACK_SECRET_KEY');
  if(process.env.SHOP_LIVE_PAYMENTS!=='true'&&!key.startsWith('sk_test_'))throw Error('Test payment configuration is required.');

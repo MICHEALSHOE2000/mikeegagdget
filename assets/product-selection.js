@@ -1,6 +1,7 @@
 import {capacityOf,colorsOf,resolveVariant,purchasable,swatchColor} from '../commerce/variant-selection.mjs';
 import {escape,money,activateImages} from './storefront-ui.mjs';
-import {addToCart} from '../commerce/cart.mjs';
+import {addToCart,cartLine} from '../commerce/cart.mjs';
+import {showAddedToCart} from './cart-ui.mjs';
 export async function mountProductSelection(product){
  const panel=document.querySelector('[data-purchase-panel]');if(!panel)return;
  // Start from embedded metadata. Only an exact SKU may refresh its price.
@@ -38,7 +39,7 @@ export async function mountProductSelection(product){
   const image=v?.image;if(image){const img=document.querySelector('[data-main-image]');if(img){img.removeAttribute('srcset');img.src=image;img.alt=product.model;activateImages();}}
   const url=new URL(location.href);url.searchParams.set('storage',v?.storage||state.capacity);url.searchParams.set('color',state.color);url.searchParams.set('condition',state.condition);if(simChoice)url.searchParams.set('sim',state.sim);history.replaceState(null,'',url);
  }
- panel.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;for(const field of ['capacity','color','condition','sim'])if(field in b.dataset){state[field]=b.dataset[field];render();}if(b.hasAttribute('data-cart')){const v=current();if(!purchasable(v))return;try{addToCart(localStorage,{sku:product.slug+'|'+v.storage,color:state.color,quantity:1});panel.querySelector('[data-selection-status]').textContent='Added to cart.';}catch{panel.querySelector('[data-selection-status]').textContent='Unable to save cart. Check browser storage.';}}});
+ panel.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;for(const field of ['capacity','color','condition','sim'])if(field in b.dataset){state[field]=b.dataset[field];render();}if(b.hasAttribute('data-cart')){const v=current();if(!purchasable(v))return;try{const sku=product.slug+'|'+v.storage,cart=addToCart(localStorage,{sku,color:state.color,quantity:1});panel.querySelector('[data-selection-status]').textContent='Added to cart.';const img=document.querySelector('[data-main-image]');showAddedToCart({model:product.model,image:v.image||img?.currentSrc||img?.src||'',storage:[state.capacity,v.connectivity].filter(Boolean).join(' · '),color:state.color,condition:state.condition,quantity:cartLine(cart,sku,state.color)?.quantity||1,price:v.price});}catch{panel.querySelector('[data-selection-status]').textContent='Unable to save cart. Check browser storage.';}}});
  panel.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)||e.target.tagName!=='BUTTON')return;const buttons=[...e.target.parentElement.querySelectorAll('button')];let i=buttons.indexOf(e.target);i=e.key==='Home'?0:e.key==='End'?buttons.length-1:(i+(e.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length;e.preventDefault();buttons[i].focus();buttons[i].click();});
  render();
 }
