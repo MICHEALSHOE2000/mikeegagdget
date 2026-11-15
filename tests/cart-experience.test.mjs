@@ -25,7 +25,7 @@ test('mobile navigation is Home, Shop, Swap, Cart, Chat with a live count',()=>{
 test('Add to cart opens the confirmation drawer and Buy Now adds once then checks out the cart',()=>{
  const sel=readFileSync('assets/product-selection.js','utf8');assert.match(sel,/showAddedToCart\(/);
  const shop=readFileSync('assets/shopping.js','utf8');assert.match(shop,/if\(go\)\{location\.assign\('\/checkout\/\?'/);assert.match(shop,/if\(!cartLine\(cart,v\.sku,color\)\)cart=addToCart/);
- const ui=readFileSync('assets/cart-ui.mjs','utf8');for(const t of ['Added to your cart','← Continue Shopping','Proceed to Checkout →','showModal'])assert.ok(ui.includes(t),t);
+ const ui=readFileSync('assets/cart-ui.mjs','utf8');for(const t of ['Added to your cart','Your cart (','← Continue Shopping','Proceed to Checkout →','View full cart','aria-modal="true"','data-remove-line'])assert.ok(ui.includes(t),t);
 });
 test('checkout has no stale financing notice and confirmation page has support and continue actions',()=>{
  const co=readFileSync('checkout/index.html','utf8');assert.doesNotMatch(co,/currently unavailable/i);assert.match(co,/← Continue Shopping/);assert.match(co,/Edit cart/);
@@ -43,3 +43,5 @@ test('preview deployments accept their own address; production only the shop ori
   process.env.VERCEL_ENV='preview';assert.equal(sameOrigin({headers:{origin:'https://mikee-abc.vercel.app'}}),true);assert.equal(sameOrigin({headers:{origin:'https://evil.example'}}),false);
  }finally{for(const k of ['SITE_URL','SHOP_ORIGIN','VERCEL_URL','VERCEL_ENV'])if(k in keep)process.env[k]=keep[k];else delete process.env[k];}
 });
+
+test('header cart icon opens the mini cart',()=>{assert.match(readFileSync('assets/sales.js','utf8'),/m\.openMiniCart\(\)/);assert.match(readFileSync('assets/cart-ui.mjs','utf8'),/export const openMiniCart/);});

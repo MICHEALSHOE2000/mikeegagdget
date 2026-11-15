@@ -5,7 +5,7 @@ nav.innerHTML=[['Home','/'],['Shop','/#products'],['Swap','/swap/'],['Cart','/ca
 // Header cart with live count, placed beside Contact so the existing header layout is kept.
 const contact=document.querySelector('.site-header .nav-contact');
 if(contact&&!document.querySelector('.mg-header-cart')){const a=document.createElement('a');a.className='mg-header-cart';a.href='/cart/';a.setAttribute('data-cart-link','');a.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+icons.Cart+'</svg><span class="mg-cart-badge" data-cart-count hidden></span>';contact.before(a);}
-import('/assets/cart-ui.mjs').then(m=>m.initCartBadges()).catch(()=>{});
+import('/assets/cart-ui.mjs').then(m=>{m.initCartBadges();document.querySelector('.mg-header-cart')?.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey)return;e.preventDefault();m.openMiniCart();});}).catch(()=>{});
 const keys=['gclid','wbraid','gbraid','fbclid','ttclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
 function attribution(){let saved={};try{saved=JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution')||'{}');}catch{}const q=new URLSearchParams(location.search);return Object.fromEntries(keys.map(k=>[k,q.get(k)||saved[k]]).filter(([,v])=>v));}
 document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return;const url=new URL(a.href,location.href);if(url.origin===location.origin){for(const [k,v]of Object.entries(attribution()))if(!url.searchParams.has(k))url.searchParams.set(k,v);a.href=url.href;}},true);
