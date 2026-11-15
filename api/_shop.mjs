@@ -1,7 +1,7 @@
 export const env=key=>{const value=process.env[key]||(key==='SHOP_ORIGIN'?process.env.SITE_URL:undefined);if(!value)throw Error('Checkout configuration is incomplete.');return value;};
 export async function db(path,{method='GET',body}={}){
  const r=await fetch(env('SUPABASE_URL')+'/rest/v1/'+path,{method,headers:{apikey:env('SUPABASE_SERVICE_ROLE_KEY'),Authorization:'Bearer '+env('SUPABASE_SERVICE_ROLE_KEY'),'Content-Type':'application/json',Prefer:'return=representation'},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(15000)});
- if(!r.ok)throw Error('Unable to save or retrieve this order. Please try again.');const text=await r.text();return text?JSON.parse(text):null;
+ if(!r.ok)throw Error('Unable to save or retrieve this order. Please try again.');if(r.status===204)return null;return r.json();
 }
 export const reply=(res,status,data)=>res.status(status).setHeader('Cache-Control','no-store').json(data);
 export function sameOrigin(req){const origin=req.headers.origin;return !!origin&&origin===new URL(env('SHOP_ORIGIN')).origin;}
