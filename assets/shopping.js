@@ -22,7 +22,6 @@ const savings=()=>cart.reduce((sum,row)=>{const v=find(row.sku);return sum+(purc
 const itemCount=()=>cart.reduce((n,row)=>n+row.quantity,0);
 const blocked=()=>cart.some(row=>!purchasableVariant(find(row.sku)));
 function summaryRows(){const saved=savings();return `<dl class="mg-totals"><div><dt>Subtotal (${itemCount()} item${itemCount()===1?'':'s'})</dt><dd>${money(total()+saved)}</dd></div>${saved?`<div class="mg-save"><dt>Hot Deal savings</dt><dd>−${money(saved)}</dd></div>`:''}<div><dt>Delivery</dt><dd>Free</dd></div><div class="mg-grand"><dt>Total</dt><dd>${money(total())}</dd></div></dl>`;}
-let buyNow=false;
 function render(){
  if($('cart-items')){
   if(!cart.length){$('cart-items').innerHTML='<div class="mg-empty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.2l2.3 11.2h11.1L21 7.5H6.2"/><circle cx="9.5" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg><h2>Your cart is empty</h2><p>Find your next phone, laptop or accessory.</p><a class="btn btn-primary" href="/#products">Shop Products</a></div>';$('cart-summary').hidden=true;return;}
@@ -35,11 +34,12 @@ function render(){
  }
 }
 if(query.has('sku')&&$('checkout-form')){
+ // Buy Now puts the exact variant in the saved cart (without doubling it) and checks out the whole cart.
  try{const v=find(query.get('sku'));if(!v)throw Error('This variant is not in the catalogue.');const color=chosenColor(v,query.get('color'));if(v.colors.length&&!color)throw Error('Choose the colour on the product page before buying.');
- // Buy Now is a dedicated one-item checkout; the saved cart is left untouched.
- cart=[{sku:v.sku,color,quantity:1}];buyNow=true;
- const back=$('checkout-back');if(back){back.href=productHref(v,cart[0]);back.textContent='← Back to product';}
- }catch(e){cart=[];$('checkout-error').textContent=e.message;}
+ if(!purchasableVariant(v))throw Error('This option has no confirmed price yet, so it cannot be paid for. Choose another option.');
+ if(!cartLine(cart,v.sku,color))cart=addToCart(localStorage,{sku:v.sku,color,quantity:1});
+ }catch(e){$('checkout-error').textContent=e.message;}
+ history.replaceState(null,'',location.pathname);
 }
 render();
 $('cart-items')?.addEventListener('click',e=>{const b=e.target.closest('[data-remove],[data-inc],[data-dec]');if(!b)return;
@@ -48,7 +48,7 @@ $('cart-items')?.addEventListener('click',e=>{const b=e.target.closest('[data-re
  cart=saveCart(localStorage,cart);render();
  const again=b.dataset.inc!==undefined?document.querySelector(`[data-inc="${b.dataset.inc}"]`):b.dataset.dec!==undefined?document.querySelector(`[data-dec="${b.dataset.dec}"]`):null;(again&&!again.disabled?again:document.querySelector('#cart-items button,#cart-summary a'))?.focus({preventScroll:true});});
 $('cart-summary')?.addEventListener('click',e=>{if(e.target.closest('[aria-disabled="true"]'))e.preventDefault();});
-addEventListener('mikee:cart',()=>{if($('cart-items')&&!buyNow){cart=readCart(localStorage);render();}});
+addEventListener('mikee:cart',()=>{if($('cart-items')){cart=readCart(localStorage);render();}});
 
 const form=$('checkout-form');
 if(form){
@@ -68,14 +68,14 @@ if(form){
   if(!cart.length||cart.some(row=>!(find(row.sku)?.price>0)||find(row.sku)?.enabled===false||find(row.sku)?.reviewRequired)){error.textContent='An item needs an updated price before payment. Your selection remains saved.';return;}
   if(!form.reportValidity())return;
   const details=Object.fromEntries(new FormData(form));busy=true;button.disabled=true;button.textContent='Opening secure payment…';
-  try{const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({details,cart,total:total()})));const fingerprint=[...new Uint8Array(bytes)].map(x=>x.toString(16).padStart(2,'0')).join('');const key='mikee-checkout-'+fingerprint;requestId=sessionStorage.getItem(key)||requestId;sessionStorage.setItem(key,requestId);const r=await fetch('/api/shop/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...details,agreed:form.elements.agreed.checked,items:cart,requestId,expectedTotalNgn:total()})});const result=await r.json();if(!r.ok)throw Error(result.error||'Payment could not start.');try{sessionStorage.setItem('mikee-paying',JSON.stringify({buyNow,items:cart}));}catch{}if(result.provider==='credit_direct'){const {openCreditDirect}=await import('./credit-direct-checkout.js');await openCreditDirect(result,text=>{error.textContent=text;});busy=false;button.disabled=false;button.textContent=payLabel();return;}const url=new URL(result.url,location.origin);if(!(url.hostname==='checkout.paystack.com'&&url.protocol==='https:')&&url.origin!==location.origin)throw Error('Invalid payment destination.');location.assign(url.href);}catch(e){error.textContent=e instanceof SyntaxError?'Checkout is not connected in this preview yet.':e.message;busy=false;button.disabled=false;button.textContent=payLabel();}
+  try{const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({details,cart,total:total()})));const fingerprint=[...new Uint8Array(bytes)].map(x=>x.toString(16).padStart(2,'0')).join('');const key='mikee-checkout-'+fingerprint;requestId=sessionStorage.getItem(key)||requestId;sessionStorage.setItem(key,requestId);const r=await fetch('/api/shop/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...details,agreed:form.elements.agreed.checked,items:cart,requestId,expectedTotalNgn:total()})});const result=await r.json();if(!r.ok)throw Error(result.error||'Payment could not start.');try{sessionStorage.setItem('mikee-paying',JSON.stringify({items:cart}));}catch{}if(result.provider==='credit_direct'){const {openCreditDirect}=await import('./credit-direct-checkout.js');await openCreditDirect(result,text=>{error.textContent=text;});busy=false;button.disabled=false;button.textContent=payLabel();return;}const url=new URL(result.url,location.origin);if(!(url.hostname==='checkout.paystack.com'&&url.protocol==='https:')&&url.origin!==location.origin)throw Error('Invalid payment destination.');location.assign(url.href);}catch(e){error.textContent=e instanceof SyntaxError?'Checkout is not connected in this preview yet.':e.message;busy=false;button.disabled=false;button.textContent=payLabel();}
  });
 }
 if($('payment-status')){
  const reference=query.get('reference')||query.get('trxref')||'';$('order-reference').textContent=reference?'Order number: '+reference.slice(5,13).toUpperCase()+' · Reference '+reference:'';
  const titles={paid:'Thank you — your order is confirmed',failed:'Payment was not successful',cancelled:'Payment was cancelled',manual_review:'Your payment is being reviewed',pending:'Waiting for payment confirmation',financing_pending:'Pay Small Small not completed',awaiting_merchant_payment:'Payment received by Credit Direct'};
  const messages={paid:'We have received your payment. Our team will contact you to arrange delivery or pickup.',failed:'Your order has not been paid. Your cart is still saved — you can try again.',cancelled:'Your order has not been paid. Your cart is still saved — you can try again.',manual_review:'Please contact us with your order reference so we can confirm it.',pending:'If you completed payment, check again in a moment.',financing_pending:'If Credit Direct declined it or you closed the window, return to your cart and pay outright.',awaiting_merchant_payment:'Your order will be confirmed once Credit Direct settles the payment with us.'};
- const clearPaidCart=()=>{try{const paid=JSON.parse(sessionStorage.getItem('mikee-paying')||'null');if(!paid||paid.buyNow||!Array.isArray(paid.items))return;let saved=readCart(localStorage);for(const item of paid.items){const line=saved.find(r=>r.sku===item.sku&&r.color===item.color);if(line)line.quantity-=item.quantity;}saveCart(localStorage,saved.filter(r=>r.quantity>0));sessionStorage.removeItem('mikee-paying');}catch{}};
+ const clearPaidCart=()=>{try{const paid=JSON.parse(sessionStorage.getItem('mikee-paying')||'null');if(!paid||!Array.isArray(paid.items))return;let saved=readCart(localStorage);for(const item of paid.items){const line=saved.find(r=>r.sku===item.sku&&r.color===item.color);if(line)line.quantity-=item.quantity;}saveCart(localStorage,saved.filter(r=>r.quantity>0));sessionStorage.removeItem('mikee-paying');}catch{}};
  const showSummary=s=>{if(!s)return;const items=s.items.map(i=>`<article class="mg-line"><span class="mg-line-media">${i.image?`<img src="${escape(i.image)}" alt="" width="80" height="96" loading="lazy">`:'<span class="mg-line-noimg" aria-hidden="true"></span>'}</span><div class="mg-line-body"><strong>${escape(i.model)}</strong><p class="mg-line-meta">${[i.storage,i.color,i.condition].filter(Boolean).map(escape).join(' · ')}</p><p class="mg-line-qty">Qty ${i.quantity} × ${money(i.unitPriceNgn)}</p></div><p class="mg-line-total">${money(i.unitPriceNgn*i.quantity)}</p></article>`).join('');
   const where=s.fulfillment==='pickup'?'Store pickup — 1 Ola Ayeni Street, Computer Village, Ikeja, Lagos. We will call you when it is ready.':`Free delivery to ${escape(s.destination||'your address')}. Same-day in Lagos where feasible; 24–48-hour target for other states, subject to dispatch and carrier confirmation.`;
   $('order-summary').innerHTML=`<section class="mg-summary"><h2>Your order</h2>${items}<dl class="mg-totals"><div><dt>Delivery</dt><dd>${s.deliveryFeeNgn?money(s.deliveryFeeNgn):'Free'}</dd></div><div class="mg-grand"><dt>Amount paid</dt><dd>${money(s.amountNgn)}</dd></div></dl></section><section class="mg-summary"><h2>${s.fulfillment==='pickup'?'Pickup':'Delivery'}</h2><p>${where}</p><h2>Contact</h2><p>${escape(s.customer.firstName)} · ${escape(s.customer.email)} · ${escape(s.customer.phone)}</p><h2>Order status</h2><p>Paid · ${escape((s.fulfillmentStatus||'processing').replaceAll('_',' '))}</p><p class="mg-fine">Every device includes a 7-day warranty under our <a href="/purchase-policy/">purchase policy</a>.</p></section>`;};

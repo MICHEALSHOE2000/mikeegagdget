@@ -22,16 +22,24 @@ test('order summary is only returned after verified payment',()=>{
 test('mobile navigation is Home, Shop, Swap, Cart, Chat with a live count',()=>{
  const js=readFileSync('assets/sales.js','utf8');assert.match(js,/\['Home','\/'\],\['Shop','\/#products'\],\['Swap','\/swap\/'\],\['Cart','\/cart\/'\],\['Chat'/);assert.match(js,/data-cart-count/);assert.doesNotMatch(js,/\['EasyBuy'/);
 });
-test('Add to cart opens the confirmation drawer and Buy Now never writes to the saved cart',()=>{
+test('Add to cart opens the confirmation drawer and Buy Now adds once then checks out the cart',()=>{
  const sel=readFileSync('assets/product-selection.js','utf8');assert.match(sel,/showAddedToCart\(/);
- const shop=readFileSync('assets/shopping.js','utf8');assert.match(shop,/if\(go\)\{location\.assign\('\/checkout\/\?'/);assert.match(shop,/buyNow=true/);
+ const shop=readFileSync('assets/shopping.js','utf8');assert.match(shop,/if\(go\)\{location\.assign\('\/checkout\/\?'/);assert.match(shop,/if\(!cartLine\(cart,v\.sku,color\)\)cart=addToCart/);
  const ui=readFileSync('assets/cart-ui.mjs','utf8');for(const t of ['Added to your cart','← Continue Shopping','Proceed to Checkout →','showModal'])assert.ok(ui.includes(t),t);
 });
 test('checkout has no stale financing notice and confirmation page has support and continue actions',()=>{
- const co=readFileSync('checkout/index.html','utf8');assert.doesNotMatch(co,/currently unavailable/i);assert.match(co,/Back to cart/);
+ const co=readFileSync('checkout/index.html','utf8');assert.doesNotMatch(co,/currently unavailable/i);assert.match(co,/← Continue Shopping/);assert.match(co,/Edit cart/);
  const done=readFileSync('checkout/complete/index.html','utf8');assert.match(done,/Continue Shopping/);assert.match(done,/wa\.me\/2347086865133/);
  assert.match(readFileSync('cart/index.html','utf8'),/id="cart-summary"/);
 });
 test('community section stays hidden until a valid invite exists',()=>{
  assert.match(readFileSync('index.html','utf8'),/<section data-community hidden>/);assert.match(readFileSync('assets/community.js','utf8'),/section\.hidden=false/);
+});
+
+test('preview deployments accept their own address; production only the shop origin',async()=>{
+ const {sameOrigin}=await import('../api/_shop.mjs');const keep={...process.env};
+ try{process.env.SITE_URL='https://www.mikeegadget.com.ng';delete process.env.SHOP_ORIGIN;process.env.VERCEL_URL='mikee-abc.vercel.app';
+  process.env.VERCEL_ENV='production';assert.equal(sameOrigin({headers:{origin:'https://mikee-abc.vercel.app'}}),false);assert.equal(sameOrigin({headers:{origin:'https://www.mikeegadget.com.ng'}}),true);
+  process.env.VERCEL_ENV='preview';assert.equal(sameOrigin({headers:{origin:'https://mikee-abc.vercel.app'}}),true);assert.equal(sameOrigin({headers:{origin:'https://evil.example'}}),false);
+ }finally{for(const k of ['SITE_URL','SHOP_ORIGIN','VERCEL_URL','VERCEL_ENV'])if(k in keep)process.env[k]=keep[k];else delete process.env[k];}
 });

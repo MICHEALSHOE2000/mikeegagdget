@@ -68,3 +68,4 @@
  .shopping-page input,.shopping-page select,.shopping-page textarea{font-size:16px}
  .mg-confirm-actions .btn{flex:1 1 100%;justify-content:center}
 }
+.mg-back-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;margin:10px 0 0}
