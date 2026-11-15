@@ -1,4 +1,6 @@
 import {retailInventory} from './retail-inventory.mjs';
+import {cleanStock} from './stock.mjs';
+import {cleanPhotos,primaryPhoto} from './product-photos.mjs';
 export function validateProductEdit(current,input){
  if(!input||typeof input!=='object')throw Error('Product details are required.');
  const original=retailInventory.find(p=>p.slug===current.slug);
@@ -12,5 +14,8 @@ export function validateProductEdit(current,input){
  if(image.length>2000||image&&!(image.startsWith('/images/')||/^https:\/\//.test(image)))throw Error('Use a local image or HTTPS image URL.');
  const description=String(input.description||'');if(description.length>4000)throw Error('Description is too long.');
  const capacity=String(input.capacity||current.capacity||current.storage).trim();if(!capacity||capacity.length>80)throw Error('Invalid storage.');
- return {...current,capacity,colors,condition:input.condition,image,description};
+ const stock='stockStatus' in input?cleanStock(input):{};
+ const photos=cleanPhotos(input.images);
+ // With photo records, only an approved photo is ever published as the product image.
+ return {...current,capacity,colors,condition:input.condition,image:photos&&photos.length?primaryPhoto(photos):image,description,...stock,...(photos?{images:photos}:{})};
 }

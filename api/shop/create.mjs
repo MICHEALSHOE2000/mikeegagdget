@@ -1,5 +1,7 @@
 import {db,paystack,reply,sameOrigin,env} from '../_shop.mjs';
 import {validateCheckout} from '../../commerce/checkout-validation.mjs';
+import {skuFilter} from '../../commerce/home-render.mjs';
+import {stockProblem} from '../../commerce/stock.mjs';
 import {creditDirectConfig,createCreditDirectTransaction,signCreditDirectTransaction,linkToken,validLinkToken,newSessionId} from '../../commerce/credit-direct.mjs';
 const FINANCING_OFF='Pay Small Small is not available right now. You can pay outright with Paystack.';
 const REFERENCE=/^MGP2-[a-f0-9]{32}$/;
@@ -18,6 +20,8 @@ export default async function handler(req,res){
   if(financed&&!config.ready)return reply(res,503,{error:FINANCING_OFF});
   if(req.body?.action==='credit_direct_link')return linkCreditDirect(req,res,config);
   let order;try{order=validateCheckout(req.body);}catch(e){return reply(res,400,{error:e.message});}
+  // Stock is re-checked on the server from the catalogue record; the browser's view is never trusted.
+  {const rows=await db('checkout_inventory?select=sku,product_data&sku='+encodeURIComponent(skuFilter(order.items.map(i=>i.sku))));const problem=stockProblem(order.items,rows);if(problem)return reply(res,409,{error:problem});}
   const result=await db('rpc/shop_create_order_deals',{method:'POST',body:{p_request_id:order.requestId,p_items:order.items,p_customer:order.customer,p_policy:order.policyVersion}});
   if(result.status==='paid')return reply(res,200,{url:new URL('/checkout/complete/?reference='+encodeURIComponent(result.reference),env('SHOP_ORIGIN')).href});
   if(!Number.isSafeInteger(req.body.expectedTotalNgn)||req.body.expectedTotalNgn!==Number(result.amount_ngn))return reply(res,409,{error:'The current price has changed. Refresh checkout and review the updated total before paying.'});

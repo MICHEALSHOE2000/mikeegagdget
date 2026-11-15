@@ -11,3 +11,6 @@ export function validateHome(body){
  if(!body||!Number.isSafeInteger(body.revision)||body.revision<0||!Array.isArray(body.slugs)||body.slugs.length>HOME_FEATURED_LIMIT||body.slugs.some(s=>typeof s!=='string'||!/^[a-z0-9-]{1,120}$/.test(s))||new Set(body.slugs).size!==body.slugs.length)throw Error('Select up to eight unique catalogue products.');
  return {slugs:body.slugs,revision:body.revision};
 }
+
+// Public Hot Deals: verified only — discounted, priced, enabled, in stock, one per SKU, never more than four.
+export function eligibleDeals(rows){const seen=new Set();return (Array.isArray(rows)?rows:[]).filter(v=>v&&v.deal&&v.enabled!==false&&v.price>0&&v.originalPrice>v.price&&v.stockStatus!=='out_of_stock'&&v.slug&&!seen.has(v.sku)&&seen.add(v.sku)).slice(0,DEAL_LIMIT);}

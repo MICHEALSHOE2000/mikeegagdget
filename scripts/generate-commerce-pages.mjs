@@ -34,7 +34,7 @@ const whatsappHref = (message) =>
   `https://wa.me/${commerceSite.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
 const communityHref = commerceSite.communityUrl || whatsappHref(
-  "Hello Mikee Gadget Plug, I want to join your WhatsApp Gadget Community for new arrivals, price drops, swap deals, Easy Buy offers and limited-stock alerts. Please send me the group link."
+  "Hello Mikee Gadget Plug, I want to join your WhatsApp Gadget Community for new arrivals, price drops, swap deals, Pay Small Small offers and limited-stock alerts. Please send me the group link."
 );
 
 const productMessage = (product, storage = product.defaultStorage, intent = "buy") => {
@@ -154,7 +154,7 @@ const renderHeader = () => `
   <aside class="commerce-topbar">
     <span>Physical store in Computer Village, Ikeja</span>
     <span>Delivery in Lagos and across Nigeria</span>
-    <a href="/easy-buy/">Easy Buy calculator</a>
+    <a href="/financing/">Pay Small Small</a>
   </aside>
   <header class="commerce-header">
     <nav class="commerce-nav" aria-label="Main navigation">
@@ -169,7 +169,7 @@ const renderHeader = () => `
         <a href="/iphones">iPhones</a>
         <a href="/samsung-phones">Samsung</a>
         <a href="/google-pixel-phones">Google Pixel</a>
-        <a href="/easy-buy/">Easy Buy</a>
+        <a href="/financing/">Pay Small Small</a>
         <a href="/phone-swap">Swap</a>
         <a href="/deals/">Deals</a>
         <a href="/phone-shop-ikeja">Visit store</a>
@@ -220,7 +220,7 @@ const renderProductArtwork = (product) => {
       <span>${escapeHtml(product.brand)}</span>
       <div class="device-silhouette"><i></i><i></i><i></i></div>
       <strong>${escapeHtml(product.model)}</strong>
-      <small>Photo coming soon.</small>
+      
     </div>`;
 };
 
@@ -380,7 +380,7 @@ const renderFooter = () => `
     <div><strong>Shop phones</strong><a href="/iphones">All iPhones</a><a href="/samsung-phones">Samsung phones</a><a href="/google-pixel-phones">Google Pixel</a><a href="/uk-used-iphones">UK-used iPhones</a></div>
     <div><strong>Ways to buy</strong><a href="/phones-on-installment">Phones on installment</a><a href="/phone-swap">Swap your phone</a><a href="${escapeHtml(communityHref)}" target="_blank" rel="noopener">WhatsApp community</a></div>
     <address><strong>Visit or call</strong><span>${escapeHtml(commerceSite.address)}</span><a href="tel:${commerceSite.telephoneHref}">${commerceSite.telephoneDisplay}</a><a href="${commerceSite.directionsUrl}" target="_blank" rel="noopener">Get directions</a></address>
-    <p class="footer-legal">© 2026 Mikee Gadget Plug. Prices, stock, warranty and Easy Buy terms must be confirmed before payment.</p>
+    <p class="footer-legal">© 2026 Mikee Gadget Plug. Review your exact device and total at checkout. 7-day warranty on every device.</p>
   </footer>`;
 
 const renderProductPage = (product) => {
@@ -448,7 +448,7 @@ const renderProductPage = (product) => {
         <div class="hero-fact-row">
           <span><strong>Storage</strong>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</span>
           <span><strong>Delivery</strong>Lagos & nationwide</span>
-          <span><strong>Payment</strong>${product.listingPending ? "Options pending" : "Outright or Easy Buy"}</span>
+          <span><strong>Payment</strong>${product.listingPending ? "Options pending" : "Outright or Pay Small Small"}</span>
         </div>
         ${renderVariantSelector(product)}<div class="product-trust"><span>Inspect before payment</span><span>Computer Village store</span><span>Nationwide delivery</span><span>Device checked before payment</span></div>
       </div>
@@ -497,7 +497,7 @@ const renderCategoryCard = (product) => {
         <h2><a href="${product.route}">${escapeHtml(product.model)}</a></h2>
         <p>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</p>
         <strong>${Number.isFinite(minPrice) ? `From ${formatNaira(minPrice)}` : "Confirm Price"}</strong>
-        <p class="catalog-availability">Confirm stock · EasyBuy & swap enquiries</p>
+        <p class="catalog-availability">Outright · Pay Small Small · Swap</p>
         <div><a ${product.brand === 'Google' ? 'class="pixel-view-button"' : ''} href="${product.route}">${product.brand === 'Google' ? 'View Phone →' : 'View phone →'}</a></div>
       </div>
     </article>`;
@@ -563,7 +563,7 @@ const renderCategoryPage = (category) => {
         <p>${escapeHtml(category.description)}</p>
         <div class="category-actions">
           <a class="commerce-button commerce-button-primary" href="${whatsappHref(categoryMessage)}" target="_blank" rel="noopener">Ask Mikee Gadget Plug on WhatsApp</a>
-          ${category.easyBuy ? `<a class="commerce-button commerce-button-dark" href="/easy-buy/#calculator">Open Easy Buy Calculator</a>` : ""}
+          ${category.easyBuy ? `<a class="commerce-button commerce-button-dark" href="/financing/">Pay Small Small</a>` : ""}
         </div>
       </div>
       <aside>
@@ -596,11 +596,11 @@ const renderCategoryPage = (category) => {
       <a href="/iphones"><span>Apple</span><strong>Shop iPhones</strong></a>
       <a href="/samsung-phones"><span>Samsung</span><strong>Shop Galaxy phones</strong></a>
       <a href="/google-pixel-phones"><span>Google</span><strong>Shop Pixel phones</strong></a>
-      <a href="/easy-buy/"><span>Payment</span><strong>Open Easy Buy</strong></a>
+      <a href="/financing/"><span>Payment</span><strong>Pay Small Small</strong></a>
       <a href="/phone-swap"><span>Upgrade</span><strong>Swap your phone</strong></a>
     </section>
     <section class="commerce-section community-banner">
-      <div><p class="commerce-eyebrow">Not ready to buy?</p><h2>Join Our Gadget Deals Community</h2><p>Get arrival alerts, price drops, UK-used deals, swap updates, Easy Buy offers and accessory deals.</p></div>
+      <div><p class="commerce-eyebrow">Not ready to buy?</p><h2>Join Our Gadget Deals Community</h2><p>Get arrival alerts, price drops, UK-used deals, swap updates, Pay Small Small offers and accessory deals.</p></div>
       <a class="commerce-button commerce-button-light" href="${escapeHtml(communityHref)}" target="_blank" rel="noopener">${commerceSite.communityUrl ? "Join Group" : "Community opening soon"}</a>
     </section>
   </main>
@@ -652,7 +652,7 @@ const searchIndex = [
       ...product.variants.map((variant) => `${product.model} ${variant.storage}`),
       ...product.variants.map((variant) => variant.storage),
       "price in Nigeria",
-      "Easy Buy",
+      "Pay Small Small",
       "swap"
     ]
   })),

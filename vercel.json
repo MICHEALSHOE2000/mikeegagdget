@@ -220,6 +220,26 @@
       "source": "/samsung-a90-uk-used/",
       "destination": "/samsung-a90/",
       "permanent": true
+    },
+    {
+      "source": "/shop/audio",
+      "destination": "/shop/airpods/",
+      "permanent": false
+    },
+    {
+      "source": "/shop",
+      "destination": "/search/",
+      "permanent": false
+    },
+    {
+      "source": "/wishlist",
+      "destination": "/account/#saved",
+      "permanent": false
+    },
+    {
+      "source": "/shop/",
+      "destination": "/search/",
+      "permanent": false
     }
   ]
 }
