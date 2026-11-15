@@ -163,7 +163,7 @@ test('new colour groups cannot send a Burgundy quote at the Silver/Blue price',a
  document.querySelector('[data-capacity="256GB"]').click();
  document.querySelector('[data-color="Silver"]').click();
  assert.equal(document.querySelector('[data-action="buy"]').hasAttribute('href'),false);
- assert.match(document.querySelector('[data-product-price]').textContent,/pending verification/);
+ assert.match(document.querySelector('[data-product-price]').textContent,/Not available yet/);
  document.querySelector('[data-color="Glacier"]').click();
  assert.equal(document.querySelector('[data-capacity="256GB"]').getAttribute('aria-pressed'),'true');
  assert.equal(document.querySelector('[data-action="buy"]').hasAttribute('href'),false);

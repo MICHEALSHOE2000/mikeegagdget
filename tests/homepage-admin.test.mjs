@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {validateHome,validateDeals,dealPrice,DEAL_LIMIT} from '../commerce/deals.mjs';
 import {storeSettings} from '../commerce/store-settings.mjs';
 import {storeItems} from '../commerce/storefront-data.mjs';
-import {card} from '../assets/storefront-ui.mjs';
+import {card,listable} from '../assets/storefront-ui.mjs';
 import handler from '../api/admin/deals.mjs';
 
 test('Hot Deals allow four variants and 10% off is exact',()=>{
@@ -30,14 +30,16 @@ test('built homepage: section order, Hot Deals title, featured grid, one payment
  assert.deepEqual(order,[...order].sort((a,b)=>a-b));
  assert.match(html,/<h2>Hot Deals<\/h2>/);assert.doesNotMatch(html,/All Deals|id="payment-plans"/);
  const grid=html.slice(at('id="productGrid"'),at('class="store-grid-end"'));
- assert.deepEqual([...grid.matchAll(/data-model="([^"]+)"/g)].map(m=>m[1]),storeSettings.homeFeaturedProducts);
+ // Featured products without an approved price are never listed.
+ assert.deepEqual([...grid.matchAll(/data-model="([^"]+)"/g)].map(m=>m[1]),storeSettings.homeFeaturedProducts.filter(slug=>listable(storeItems.find(p=>p.slug===slug))));
+ assert.doesNotMatch(grid,/Price coming soon|Price on request/);
  assert.equal((html.match(/class="benefit-card"/g)||[]).length,6);
  assert.doesNotMatch(html,/24\/7|1-Day Cancellation/);
  for(const href of ['href="/iphones"','href="/shop/watches/"','href="/shop/airpods/"'])assert.ok(html.slice(at('id="collections"'),at('id="ways"')).includes(href));
 });
 test('a product without a verified price keeps View Details and has no Buy Now',()=>{
  const html=card({slug:'x',route:'/x/',model:'Test — WiFi Only',image:'',conditions:['UK Used','Brand New'],variants:[{storage:'256GB',price:null,condition:'UK Used'}]});
- assert.match(html,/Price coming soon/);assert.match(html,/View Details/);assert.doesNotMatch(html,/Buy Now/);
+ assert.doesNotMatch(html,/Price coming soon|Photo pending verification/);assert.equal(listable({variants:[{storage:'256GB',price:null}]}),false);assert.match(html,/View Details/);assert.doesNotMatch(html,/Buy Now/);
  assert.match(html,/<p class="store-condition">UK Used<\/p>/);
 });
 test('Pay Small Small never routes to EasyBuy and the footer has no financing item',async()=>{

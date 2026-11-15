@@ -19,8 +19,8 @@ test('confirmation summary never exposes the street address and masks contact de
 test('order summary is only returned after verified payment',()=>{
  const src=readFileSync('api/shop/verify.mjs','utf8');assert.match(src,/if\(result\.status==='paid'\)\{try\{summary=orderSummary/);
 });
-test('mobile navigation is Home, Shop, Swap, Cart, Chat with a live count',()=>{
- const js=readFileSync('assets/sales.js','utf8');assert.match(js,/\['Home','\/'\],\['Shop','\/#products'\],\['Swap','\/swap\/'\],\['Cart','\/cart\/'\],\['Chat'/);assert.match(js,/data-cart-count/);assert.doesNotMatch(js,/\['EasyBuy'/);
+test('mobile navigation is Home, Shop, Categories, Cart, WhatsApp with a live count',()=>{
+ const js=readFileSync('assets/sales.js','utf8');assert.match(js,/\['Home','\/'\],\['Shop','\/search\/'\],\['Categories','\/#categories'\],\['Cart','\/cart\/'\],\['WhatsApp'/);assert.match(js,/mg-header-account/);assert.match(js,/data-cart-count/);assert.doesNotMatch(js,/\['EasyBuy'/);
 });
 test('Add to cart opens the confirmation drawer and Buy Now adds once then checks out the cart',()=>{
  const sel=readFileSync('assets/product-selection.js','utf8');assert.match(sel,/showAddedToCart\(/);

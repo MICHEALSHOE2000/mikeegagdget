@@ -29,10 +29,10 @@ test('carousel has no Play/Pause button or progress bar',async()=>{
 const item=(variants)=>({slug:'x',route:'/x/',model:'Test Phone',image:'',conditions:['UK Used'],variants});
 test('discounted card separates original price, label and selling price',()=>{
  const html=card(item([{storage:'256GB',price:2286000,originalPrice:2540000,deal:true},{storage:'512GB',price:2900000,originalPrice:2900000,deal:false}]));
- assert.match(html,/<p class="store-was"><del>.*₦2,540,000<\/del> <span class="deal-badge">10% OFF<\/span><\/p><strong class="store-price">From ₦2,286,000<\/strong>/);
+ assert.match(html,/<p class="store-was"><del>.*₦2,540,000<\/del> <span class="deal-badge">-10%<\/span><\/p><strong class="store-price">From ₦2,286,000<\/strong>/);
 });
 test('normal card shows only its regular price',()=>{
  const html=card(item([{storage:'256GB',price:1660000,originalPrice:1660000,deal:false},{storage:'512GB',price:1900000,originalPrice:1900000,deal:false}]));
  assert.match(html,/<strong class="store-price">From ₦1,660,000<\/strong>/);
- assert.doesNotMatch(html,/<del>|10% OFF|store-was/);
+ assert.doesNotMatch(html,/<del>|-10%|store-was/);
 });

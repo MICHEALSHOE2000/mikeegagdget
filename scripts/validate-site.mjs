@@ -1,4 +1,6 @@
 import { access, readFile, readdir } from "node:fs/promises";
+import {productMeta} from './apply-experience.mjs';
+import {retailInventory} from '../commerce/retail-inventory.mjs';
 import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { landingPages, site } from "../landing-pages/config.mjs";
@@ -117,8 +119,10 @@ for (const product of products) {
 
   assert(count(html, /<h1(?:\s|>)/g) === 1, `${product.slug}: product page must contain exactly one H1.`);
   assert(html.includes(`<h1>${escapeHtml(product.model)}</h1>`), `${product.slug}: model-specific H1 is missing.`);
-  assert(html.includes(`<title>${escapeHtml(product.seoTitle)}</title>`), `${product.slug}: SEO title does not match product data.`);
-  assert(html.includes(`content="${escapeHtml(product.metaDescription)}"`), `${product.slug}: product meta description does not match.`);
+  {const live=retailInventory.find(p=>p.slug===product.slug),meta=live?productMeta(live):{title:product.seoTitle,description:product.metaDescription};
+  assert(html.includes(`<title>${escapeHtml(meta.title)}</title>`), `${product.slug}: SEO title does not match product data.`);
+  assert(html.includes(`content="${escapeHtml(meta.description)}"`), `${product.slug}: product meta description does not match.`);
+  assert(!/"@type":"Offer"[^}]*"price":(0|null)/.test(html), `${product.slug}: structured data must not contain an unpriced offer.`);}
   assert(html.includes(`rel="canonical" href="${commerceSite.baseUrl}${product.route}"`), `${product.slug}: canonical URL is incorrect.`);
   assert(html.includes(`property="og:title"`), `${product.slug}: Open Graph title is missing.`);
   assert(html.includes(`"@type":"Product"`), `${product.slug}: Product schema is missing.`);

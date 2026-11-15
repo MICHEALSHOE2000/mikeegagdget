@@ -33,8 +33,8 @@ export const categoryPages = Object.freeze([
     route: "/iphones",
     eyebrow: "Apple iPhone catalogue",
     h1: "Buy iPhones in Nigeria",
-    title: "Buy iPhones in Nigeria | UK Used, New & Easy Buy | Mikee Gadget Plug",
-    description: "Compare iPhone models, storage and listed prices. Pay outright, ask about Easy Buy, swap a phone or order through WhatsApp.",
+    title: "Buy iPhones in Nigeria | UK Used & Brand New | Mikee Gadget Plug",
+    description: "Compare iPhone models, storage and listed prices. Pay outright, Pay Small Small with Credit Direct, or swap your phone.",
     brand: "Apple"
   },
   {
@@ -51,7 +51,7 @@ export const categoryPages = Object.freeze([
     eyebrow: "Lower-price iPhone options",
     h1: "Find a More Affordable iPhone",
     title: "Affordable iPhones in Nigeria | Compare Listed Prices | Mikee Gadget Plug",
-    description: "Start with iPhone options that have lower listed prices, then confirm today’s condition, storage, price and Easy Buy terms.",
+    description: "Start with iPhone options that have lower listed prices, then confirm the condition, storage and price before you pay.",
     brand: "Apple",
     sort: "price-ascending"
   },
@@ -77,7 +77,7 @@ export const categoryPages = Object.freeze([
     eyebrow: "Samsung Galaxy catalogue",
     h1: "Buy Samsung Phones in Nigeria",
     title: "Buy Samsung Phones in Nigeria | Galaxy Price Enquiries | Mikee Gadget Plug",
-    description: "Compare Samsung Galaxy models and storage, then ask Mikee Gadget Plug for today’s condition, current price, Easy Buy eligibility and delivery.",
+    description: "Compare Samsung Galaxy models and storage, then ask Mikee Gadget Plug for today’s condition, current price and delivery.",
     brand: "Samsung"
   },
   {
