@@ -1,6 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#07130f"/>
-  <rect x="18" y="8" width="28" height="48" rx="8" fill="#ffffff"/>
-  <rect x="21" y="12" width="22" height="36" rx="5" fill="#0d7a54"/>
-  <rect x="27" y="51" width="10" height="2.5" rx="1.25" fill="#d8b45a"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="25%" r="85%">
+      <stop offset="0" stop-color="#14503a"/>
+      <stop offset=".55" stop-color="#0a2a1f"/>
+      <stop offset="1" stop-color="#040c09"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbeab0"/>
+      <stop offset=".45" stop-color="#e2be62"/>
+      <stop offset="1" stop-color="#a77c2a"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".16"/>
+      <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="100" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="100" fill="url(#sheen)"/>
+  <g fill="none" stroke="url(#gold)" stroke-width="56" stroke-linecap="round" stroke-linejoin="round">
+    <!-- G: open ring whose crossbar runs into the M's right leg -->
+    <path d="M404 146 A186 186 0 1 0 442 294 L352 294"/>
+    <!-- M -->
+    <path d="M190 334 V206 L256 284 L322 206 V334"/>
+  </g>
 </svg>
