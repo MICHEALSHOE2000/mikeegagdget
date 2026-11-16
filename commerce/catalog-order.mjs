@@ -2,6 +2,7 @@
 export function newestFirst(a, b) {
   const rank = p => {
     const name=p.model || p.label || '';
+    if(/^iPhone Duo\b/.test(name))return 190; // Apple's newest iPhone (foldable, Oct 2026) leads the iPhone list
     const generation=Number(name.match(/(?:iPhone |Galaxy S|Pixel )(\d+)/i)?.[1] || (/XS/.test(name)?10.3:/XR/.test(name)?10.2:/iPhone X/.test(name)?10:/SE/.test(name)?8.5:0));
     const tier=/Pro Max|Ultra|Pro XL/.test(name)?6:/Pro/.test(name)?5:/Plus|\+/.test(name)?4:/Air/.test(name)?2:3;
     return generation*10+tier + (/iPhone 6s/.test(name)?5:0) + (/XS Max/.test(name)?1:0);

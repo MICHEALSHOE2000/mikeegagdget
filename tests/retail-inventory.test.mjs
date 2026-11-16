@@ -12,12 +12,12 @@ const price=(slug,storage)=>record(slug)?.variants.find(variant=>variant.storage
 
 test('all supplied products and variants are represented once with conditions kept separate',()=>{
  const original=retailInventory.filter(p=>p.category!=='wifi-only');
- assert.equal(original.length,181); // 161 + 20 new products from the approved price list (2026-11-16)
+ assert.equal(original.length,182); // 161 + 20 new products + iPhone Duo from the approved price list (2026-11-16)
  assert.equal(retailInventory.filter(p=>p.category==='wifi-only').length,16);
  assert.equal(new Set(retailInventory.map(p=>p.slug)).size,retailInventory.length);
- assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),578); // 544 + 34 variants from the approved price list (2026-11-16)
+ assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),581); // 544 + 34 variants from the approved price list + 3 iPhone Duo (2026-11-16)
  assert.equal(storeItems.length,retailInventory.length);
- for(const p of original.filter(p=>p.category==='iphones'&&!p.slug.startsWith('iphone-18-')))assert.equal(p.condition,'UK Used');
+ for(const p of original.filter(p=>p.category==='iphones'&&!p.slug.startsWith('iphone-18-')&&p.slug!=='iphone-duo'))assert.equal(p.condition,'UK Used');
 
 });
 
@@ -67,8 +67,8 @@ test('cards and category pages show current non-phone products and Confirm Price
 test('verified local images are the only images attached to the new catalog',()=>{
  assert.ok(retailInventory.filter(item=>item.image).length>0);
  assert.ok(retailInventory.every(item=>!item.image||item.image.startsWith('/images/store/')||item.image.startsWith('/images/catalog/')));
- assert.equal(retailInventory.filter(item=>item.image).length,70); // merged duplicate pages no longer counted
- assert.equal(retailInventory.filter(item=>!item.image).length,127); // 107 + 20 new products awaiting approved photos (2026-11-16)
+ assert.equal(retailInventory.filter(item=>item.image).length,80); // + 10 owner photos (2026-11-16)
+ assert.equal(retailInventory.filter(item=>!item.image).length,118); // 127 − 10 owner photos + iPhone Duo awaiting a photo
 });
 
 test('generic store cards use only the available shop image sizes',()=>{

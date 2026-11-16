@@ -31,13 +31,20 @@ export const APPROVED_NEW_VARIANTS=[
 ];
 
 // New product pages. Where the price list gives no condition, the product is added with its price but kept
-// hidden (enabled:false, condition "Confirm condition") until the owner confirms the condition in Admin.
-const hidden={enabled:false};
+// hidden until the owner confirms the condition. Confirmed by the owner on 16 Nov 2026: all of them are UK Used.
+// A variant without a price stays unavailable.
+const CONFIRMED='UK Used';
+const sellable=price=>({enabled:price!=null});
 // Watches: size and GPS / GPS + Cellular are separate choices, so each variant records its connectivity.
-const watch=(slug,model,variants)=>({brand:'Apple',model,category:'watches',condition:'Confirm condition',slug,isPhone:false,image:'',colors:[],description:'Comes with a charger.',variants:variants.map(([storage,price])=>({storage,capacity:storage.split(' · ')[0],connectivity:/Cellular/.test(storage)?'GPS + Cellular (LTE)':'GPS',price,condition:'Confirm condition',...hidden}))});
+const watch=(slug,model,variants)=>({brand:'Apple',model,category:'watches',condition:CONFIRMED,slug,isPhone:false,image:'',colors:[],description:'Comes with a charger.',variants:variants.map(([storage,price])=>({storage,capacity:storage.split(' · ')[0],connectivity:/Cellular/.test(storage)?'GPS + Cellular (LTE)':'GPS',price,condition:CONFIRMED,...sellable(price)}))});
 const ipad=(n,prices)=>({brand:'Apple',model:`iPad ${n}th Gen`,category:'ipads',condition:'UK Used',slug:`ipad-${n}th-gen`,isPhone:false,image:'',colors:[],description:'UK Used.',variants:[['32GB · Wi‑Fi',prices[0],'Wi-Fi'],['32GB · Wi‑Fi + Cellular (LTE)',prices[1],'Wi-Fi + Cellular']].map(([storage,price,connectivity])=>({storage,capacity:'32GB',condition:'UK Used',connectivity,price}))});
-const item=(brand,model,slug,category,price,extra={})=>({brand,model,category,condition:'Confirm condition',slug,isPhone:false,image:'',colors:extra.colors||[],description:extra.description||'',variants:[{storage:extra.storage||'Standard',capacity:extra.storage||'Standard',condition:'Confirm condition',color:extra.color||null,price,...hidden}]});
+const item=(brand,model,slug,category,price,extra={})=>({brand,model,category,condition:CONFIRMED,slug,isPhone:false,image:'',colors:extra.colors||[],description:extra.description||'',variants:[{storage:extra.storage||'Standard',capacity:extra.storage||'Standard',condition:CONFIRMED,color:extra.color||null,price,...sellable(price)}]});
+
+// iPhone Duo (Apple's first foldable, released 23 Oct 2026): the price list says Brand New, eSIM, Non-Active.
+// Colours "White / Black" are Apple's Star White and Night Sky. eSIM only — no physical SIM slot.
+const duo=(storage,color,price)=>({storage:`${storage} · ${color}`,capacity:storage,condition:'Brand New',color,connectivity:'eSIM only',activation:'Non-Active',price,enabled:true});
 export const APPROVED_NEW_PRODUCTS=[
+ {brand:'Apple',model:'iPhone Duo',category:'iphones',condition:'Brand New',slug:'iphone-duo',legacySlug:'iphone-duo',isPhone:true,image:'',colors:['Star White','Night Sky'],description:'Apple’s first foldable iPhone. eSIM only (no physical SIM slot). Brand New, not activated.',variants:[duo('256GB','Star White',3300000),duo('256GB','Night Sky',3300000),duo('512GB','Star White',3700000)]},
  ipad(6,[150000,170000]),ipad(7,[180000,190000]),ipad(8,[200000,210000]),
  watch('apple-watch-se','Apple Watch SE',[['40mm · GPS',160000],['40mm · GPS + Cellular (LTE)',165000],['44mm · GPS + Cellular (LTE)',180000]]),
  watch('apple-watch-series-6','Apple Watch Series 6',[['44mm · GPS',null],['44mm · GPS + Cellular (LTE)',210000]]),
@@ -58,15 +65,17 @@ export const APPROVED_NEW_PRODUCTS=[
  item('Harman Kardon','Harman Kardon Onyx Studio 9','harman-kardon-onyx-studio-9','speakers',300000),
 ];
 
+
+// Photos supplied by the owner on 16 Nov 2026 (images/store/<slug>-1-{160,360,720}.webp).
+// IMEI stickers on the Pixel 6a photo were blurred before publishing.
+export const OWNER_PHOTOS=['pixel-11-pro-xl','ipad-air-8th-gen-11-inch-m4','apple-watch-ultra-4','pixel-10-pro-fold','pixel-10-pro-xl','pixel-10-pro','pixel-10','pixel-9-pro-fold','pixel-6a','pixel-6'];
+export const ownerPhoto=slug=>`/images/store/${slug}-1-720.webp`;
+
 // Prices that could not be applied, with the reason. Nothing here was guessed.
 export const UNRESOLVED=[
- {item:'iPhone Duo — 256GB eSIM White/Black ₦3,300,000; 512GB eSIM White ₦3,700,000',reason:'No product called “iPhone Duo” exists in the catalogue and its exact identity could not be verified. Not created; confirm what device this is.'},
  {item:'iPad 11th Gen 256GB Wi-Fi + Cellular (Silver)',reason:'Price “pending confirmation” in the list. The existing price (₦1,090,000) was left unchanged.'},
- {item:'Apple Watch Series 6 44mm GPS',reason:'Price pending. Added without a price, so it cannot be bought.'},
- {item:'Apple Watches, Green Lion keyboard cases, JBL and Harman Kardon (20 variants)',reason:'The list gives no condition (Brand New / UK Used). Added with their prices but hidden until you confirm the condition.'},
- {item:'JBL “O.B Flip 6”',reason:'Listed as JBL Flip 6; please confirm what “O.B” means (for example open box), as it may change the condition.'},
- {item:'iPhone 17 Pro 512GB Mixed Colours (₦1,950,000) vs 512GB Orange (₦1,700,000)',reason:'Applied as given; please double-check, as the mixed-colour price is higher than the orange price.'},
- {item:'Older iPhone 17 Air (512GB, 1TB “Non-Active”) and iPhone 17 Pro / Pro Max UK Used variants',reason:'Not in this price list, so not changed. The 17 Air 512GB/1TB SKUs say “Non-Active” but are listed as UK Used — please confirm.'},
+ {item:'Apple Watch Series 6 44mm GPS',reason:'Price pending. Listed without a price, so it cannot be bought.'},
+ {item:'iPhone Duo photo',reason:'No photo yet. Upload one in Admin → Smart Image Upload.'},
 ];
 
 const sameSku=(p,v,sku)=>`${p.slug}|${v.storage}`===sku;
@@ -81,6 +90,8 @@ export function applyApprovedPrices(items){
   if(!p.variants.some(v=>v.storage===n.variant.storage))p.variants.push({...n.variant,enabled:true});
  }
  for(const p of out){const extra=p.variants.flatMap(v=>(v.color||'').split('/').map(c=>c.trim()).filter(Boolean));if(extra.length)p.colors=[...new Set([...(p.colors||[]),...extra])];}
- for(const np of APPROVED_NEW_PRODUCTS)if(!out.some(p=>p.slug===np.slug))out.push(structuredClone(np));
+ // A new iPhone is listed first among iPhones (newest model); everything else is appended.
+ for(const np of APPROVED_NEW_PRODUCTS)if(!out.some(p=>p.slug===np.slug)){const at=np.category==='iphones'?out.findIndex(p=>p.category==='iphones'):-1;if(at>=0)out.splice(at,0,structuredClone(np));else out.push(structuredClone(np));}
+ for(const slug of OWNER_PHOTOS){const p=out.find(x=>x.slug===slug);if(!p)throw Error('No product for photo: '+slug);p.image=ownerPhoto(slug);}
  return out;
 }
