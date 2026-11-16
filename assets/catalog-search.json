@@ -1573,6 +1573,258 @@
   },
   {
     "type": "product",
+    "label": "Google Pixel 11 Pro XL",
+    "route": "/pixel-11-pro-xl",
+    "brand": "Google",
+    "storage": [
+      "256GB",
+      "512GB"
+    ],
+    "price": 1410000,
+    "image": "/images/store/pixel-11-pro-xl-1-720.webp",
+    "keywords": [
+      "Google Pixel 11 Pro XL",
+      "Google",
+      "Pixel",
+      "Google Pixel 11 Pro XL 256GB",
+      "Google Pixel 11 Pro XL 512GB",
+      "256GB",
+      "512GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 10 Pro XL",
+    "route": "/pixel-10-pro-xl",
+    "brand": "Google",
+    "storage": [
+      "256GB",
+      "256GB · eSIM only",
+      "256GB · eSIM only · UK Used",
+      "256GB · UK Used",
+      "512GB",
+      "512GB · eSIM only",
+      "512GB · eSIM only · UK Used",
+      "1TB"
+    ],
+    "price": 850000,
+    "image": "/images/store/pixel-10-pro-xl-1-720.webp",
+    "keywords": [
+      "Google Pixel 10 Pro XL",
+      "Google",
+      "Pixel",
+      "Google Pixel 10 Pro XL 256GB",
+      "Google Pixel 10 Pro XL 256GB · eSIM only",
+      "Google Pixel 10 Pro XL 256GB · eSIM only · UK Used",
+      "Google Pixel 10 Pro XL 256GB · UK Used",
+      "Google Pixel 10 Pro XL 512GB",
+      "Google Pixel 10 Pro XL 512GB · eSIM only",
+      "Google Pixel 10 Pro XL 512GB · eSIM only · UK Used",
+      "Google Pixel 10 Pro XL 1TB",
+      "256GB",
+      "256GB · eSIM only",
+      "256GB · eSIM only · UK Used",
+      "256GB · UK Used",
+      "512GB",
+      "512GB · eSIM only",
+      "512GB · eSIM only · UK Used",
+      "1TB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 10 Pro Fold",
+    "route": "/pixel-10-pro-fold",
+    "brand": "Google",
+    "storage": [
+      "256GB",
+      "512GB"
+    ],
+    "price": 1670000,
+    "image": "/images/store/pixel-10-pro-fold-1-720.webp",
+    "keywords": [
+      "Google Pixel 10 Pro Fold",
+      "Google",
+      "Pixel",
+      "Google Pixel 10 Pro Fold 256GB",
+      "Google Pixel 10 Pro Fold 512GB",
+      "256GB",
+      "512GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 10 Pro",
+    "route": "/pixel-10-pro",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "128GB · eSIM only",
+      "128GB · UK Used",
+      "256GB",
+      "256GB · UK Used",
+      "512GB",
+      "1TB · eSIM only"
+    ],
+    "price": 767000,
+    "image": "/images/store/pixel-10-pro-1-720.webp",
+    "keywords": [
+      "Google Pixel 10 Pro",
+      "Google",
+      "Pixel",
+      "Google Pixel 10 Pro 128GB",
+      "Google Pixel 10 Pro 128GB · eSIM only",
+      "Google Pixel 10 Pro 128GB · UK Used",
+      "Google Pixel 10 Pro 256GB",
+      "Google Pixel 10 Pro 256GB · UK Used",
+      "Google Pixel 10 Pro 512GB",
+      "Google Pixel 10 Pro 1TB · eSIM only",
+      "128GB",
+      "128GB · eSIM only",
+      "128GB · UK Used",
+      "256GB",
+      "256GB · UK Used",
+      "512GB",
+      "1TB · eSIM only",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 10",
+    "route": "/pixel-10",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "128GB · UK Used",
+      "256GB"
+    ],
+    "price": 647000,
+    "image": "/images/store/pixel-10-1-720.webp",
+    "keywords": [
+      "Google Pixel 10",
+      "Google",
+      "Pixel",
+      "Google Pixel 10 128GB",
+      "Google Pixel 10 128GB · UK Used",
+      "Google Pixel 10 256GB",
+      "128GB",
+      "128GB · UK Used",
+      "256GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 9 Pro Fold",
+    "route": "/pixel-9-pro-fold",
+    "brand": "Google",
+    "storage": [
+      "256GB",
+      "512GB · 12GB RAM"
+    ],
+    "price": 900000,
+    "image": "/images/store/pixel-9-pro-fold-1-720.webp",
+    "keywords": [
+      "Google Pixel 9 Pro Fold",
+      "Google",
+      "Pixel",
+      "Google Pixel 9 Pro Fold 256GB",
+      "Google Pixel 9 Pro Fold 512GB · 12GB RAM",
+      "256GB",
+      "512GB · 12GB RAM",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 6",
+    "route": "/pixel-6",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 270000,
+    "image": "/images/store/pixel-6-1-720.webp",
+    "keywords": [
+      "Google Pixel 6",
+      "Google",
+      "Pixel",
+      "Google Pixel 6 128GB",
+      "Google Pixel 6 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 6a",
+    "route": "/pixel-6a",
+    "brand": "Google",
+    "storage": [
+      "128GB"
+    ],
+    "price": 237000,
+    "image": "/images/store/pixel-6a-1-720.webp",
+    "keywords": [
+      "Google Pixel 6a",
+      "Google",
+      "Pixel",
+      "Google Pixel 6a 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "iPhone Duo",
+    "route": "/iphone-duo",
+    "brand": "Apple",
+    "storage": [
+      "256GB · Star White",
+      "256GB · Night Sky",
+      "512GB · Star White"
+    ],
+    "price": 3300000,
+    "image": null,
+    "keywords": [
+      "iPhone Duo",
+      "Apple",
+      "iPhone",
+      "iPhone Duo 256GB · Star White",
+      "iPhone Duo 256GB · Night Sky",
+      "iPhone Duo 512GB · Star White",
+      "256GB · Star White",
+      "256GB · Night Sky",
+      "512GB · Star White",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
     "label": "iPhone 18 Pro Max — WiFi Only",
     "route": "/iphone-18-pro-max-wifi-only",
     "brand": "Apple",
@@ -3076,30 +3328,6 @@
   },
   {
     "type": "product",
-    "label": "Google Pixel 11 Pro XL",
-    "route": "/pixel-11-pro-xl",
-    "brand": "Google",
-    "storage": [
-      "256GB",
-      "512GB"
-    ],
-    "price": 1410000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 11 Pro XL",
-      "Google",
-      "Pixel",
-      "Google Pixel 11 Pro XL 256GB",
-      "Google Pixel 11 Pro XL 512GB",
-      "256GB",
-      "512GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
     "label": "Google Pixel 11 Pro",
     "route": "/pixel-11-pro",
     "brand": "Google",
@@ -3140,138 +3368,6 @@
       "Google",
       "Pixel",
       "Google Pixel 11 256GB",
-      "256GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 10 Pro XL",
-    "route": "/pixel-10-pro-xl",
-    "brand": "Google",
-    "storage": [
-      "256GB",
-      "256GB · eSIM only",
-      "256GB · eSIM only · UK Used",
-      "256GB · UK Used",
-      "512GB",
-      "512GB · eSIM only",
-      "512GB · eSIM only · UK Used",
-      "1TB"
-    ],
-    "price": 850000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 10 Pro XL",
-      "Google",
-      "Pixel",
-      "Google Pixel 10 Pro XL 256GB",
-      "Google Pixel 10 Pro XL 256GB · eSIM only",
-      "Google Pixel 10 Pro XL 256GB · eSIM only · UK Used",
-      "Google Pixel 10 Pro XL 256GB · UK Used",
-      "Google Pixel 10 Pro XL 512GB",
-      "Google Pixel 10 Pro XL 512GB · eSIM only",
-      "Google Pixel 10 Pro XL 512GB · eSIM only · UK Used",
-      "Google Pixel 10 Pro XL 1TB",
-      "256GB",
-      "256GB · eSIM only",
-      "256GB · eSIM only · UK Used",
-      "256GB · UK Used",
-      "512GB",
-      "512GB · eSIM only",
-      "512GB · eSIM only · UK Used",
-      "1TB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 10 Pro Fold",
-    "route": "/pixel-10-pro-fold",
-    "brand": "Google",
-    "storage": [
-      "256GB",
-      "512GB"
-    ],
-    "price": 1670000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 10 Pro Fold",
-      "Google",
-      "Pixel",
-      "Google Pixel 10 Pro Fold 256GB",
-      "Google Pixel 10 Pro Fold 512GB",
-      "256GB",
-      "512GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 10 Pro",
-    "route": "/pixel-10-pro",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "128GB · eSIM only",
-      "128GB · UK Used",
-      "256GB",
-      "256GB · UK Used",
-      "512GB",
-      "1TB · eSIM only"
-    ],
-    "price": 767000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 10 Pro",
-      "Google",
-      "Pixel",
-      "Google Pixel 10 Pro 128GB",
-      "Google Pixel 10 Pro 128GB · eSIM only",
-      "Google Pixel 10 Pro 128GB · UK Used",
-      "Google Pixel 10 Pro 256GB",
-      "Google Pixel 10 Pro 256GB · UK Used",
-      "Google Pixel 10 Pro 512GB",
-      "Google Pixel 10 Pro 1TB · eSIM only",
-      "128GB",
-      "128GB · eSIM only",
-      "128GB · UK Used",
-      "256GB",
-      "256GB · UK Used",
-      "512GB",
-      "1TB · eSIM only",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 10",
-    "route": "/pixel-10",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "128GB · UK Used",
-      "256GB"
-    ],
-    "price": 647000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 10",
-      "Google",
-      "Pixel",
-      "Google Pixel 10 128GB",
-      "Google Pixel 10 128GB · UK Used",
-      "Google Pixel 10 256GB",
-      "128GB",
-      "128GB · UK Used",
       "256GB",
       "price in Nigeria",
       "Pay Small Small",
@@ -3333,30 +3429,6 @@
       "256GB",
       "256GB · UK Used",
       "512GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 9 Pro Fold",
-    "route": "/pixel-9-pro-fold",
-    "brand": "Google",
-    "storage": [
-      "256GB",
-      "512GB · 12GB RAM"
-    ],
-    "price": 900000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 9 Pro Fold",
-      "Google",
-      "Pixel",
-      "Google Pixel 9 Pro Fold 256GB",
-      "Google Pixel 9 Pro Fold 512GB · 12GB RAM",
-      "256GB",
-      "512GB · 12GB RAM",
       "price in Nigeria",
       "Pay Small Small",
       "swap"
@@ -3624,51 +3696,6 @@
       "Google Pixel 6 Pro 256GB",
       "128GB",
       "256GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 6",
-    "route": "/pixel-6",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "256GB"
-    ],
-    "price": 270000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 6",
-      "Google",
-      "Pixel",
-      "Google Pixel 6 128GB",
-      "Google Pixel 6 256GB",
-      "128GB",
-      "256GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 6a",
-    "route": "/pixel-6a",
-    "brand": "Google",
-    "storage": [
-      "128GB"
-    ],
-    "price": 237000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 6a",
-      "Google",
-      "Pixel",
-      "Google Pixel 6a 128GB",
-      "128GB",
       "price in Nigeria",
       "Pay Small Small",
       "swap"

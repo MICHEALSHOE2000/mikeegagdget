@@ -11,7 +11,7 @@ import {stage,approve} from '../api/admin/image.mjs';
 import handler from '../api/admin/image.mjs';
 const read=f=>readFileSync(f,'utf8');
 const P=slug=>retailInventory.find(p=>p.slug===slug),V=(sku)=>{const [slug,label]=sku.split('|');return P(slug)?.variants.find(v=>v.storage===label);};
-const shopData=JSON.parse(read('assets/shop-data.json')),SQL=read('supabase/migrations/20261116120000_approved_prices.sql');
+const shopData=JSON.parse(read('assets/shop-data.json')),SQL=read('supabase/migrations/20261116120000_approved_prices.sql'),FOLLOWUP=read('supabase/migrations/20261116150000_uk_used_duo_photos.sql');
 
 // ---- prices ----
 test('every approved price is on its exact existing variant, and the site data and migration agree',()=>{
@@ -22,16 +22,20 @@ test('every approved price is on its exact existing variant, and the site data a
  assert.equal(V('iphone-18-pro-max|256GB · Burgundy').price,2250000);assert.equal(V('apple-pencil-pro|Standard').price,150000);
 });
 test('nothing was invented: pending prices stay pending, unlisted prices are untouched, no duplicate listings',()=>{
- assert.equal(P('iphone-duo'),undefined,'iPhone Duo is not created without a verified identity');
+ const duo=P('iphone-duo');assert.ok(duo,'iPhone Duo exists once its identity was confirmed (Apple, released 23 Oct 2026)');
+ assert.deepEqual(duo.variants.map(v=>[v.storage,v.price,v.condition,v.connectivity]),[['256GB · Star White',3300000,'Brand New','eSIM only'],['256GB · Night Sky',3300000,'Brand New','eSIM only'],['512GB · Star White',3700000,'Brand New','eSIM only']]);
  assert.equal(V('ipad-11th-gen|256GB · Cellular + Wi‑Fi').price,1090000);
  assert.equal(V('apple-watch-series-6|44mm · GPS').price,null);
  assert.equal(V('iphone-17-pro|256GB · Orange/Blue').price,1660000);assert.equal(V('iphone-17-pro|256GB · Orange/Blue').condition,'UK Used');
  assert.equal(V('iphone-18-pro|256GB · Glacier').price,1920000);
  const skus=retailInventory.flatMap(p=>p.variants.map(v=>p.slug+'|'+v.storage));assert.equal(new Set(skus).size,skus.length);
- assert.ok(UNRESOLVED.some(u=>/iPhone Duo/.test(u.item)));
+ assert.ok(UNRESOLVED.some(u=>/Series 6/.test(u.item)));
 });
-test('unknown conditions are never turned into Brand New or UK Used; those products stay hidden until confirmed',()=>{
- for(const p of APPROVED_NEW_PRODUCTS.filter(p=>p.condition==='Confirm condition')){const item=P(p.slug);assert.ok(item.variants.every(v=>v.condition==='Confirm condition'&&v.enabled===false),p.slug);assert.equal(listable(item),false,p.slug);}
+test('conditions come only from the owner: watches, keyboard cases and speakers are UK Used as confirmed; unpriced stays off',()=>{
+ assert.ok(!APPROVED_NEW_PRODUCTS.some(p=>p.condition==='Confirm condition'));
+ for(const slug of ['apple-watch-se','apple-watch-series-7','green-lion-keyboard-case-ipad-pro-13','jbl-flip-6','harman-kardon-onyx-studio-9']){const item=P(slug);assert.ok(item.variants.every(v=>v.condition==='UK Used'&&v.enabled!==false),slug);assert.equal(listable(item),true,slug);}
+ assert.equal(V('apple-watch-series-6|44mm · GPS').enabled,false);
+ assert.match(FOLLOWUP,/product_data->>'condition'='Confirm condition'/);assert.match(FOLLOWUP,/n<>21/);
  assert.ok(P('ipad-7th-gen').variants.every(v=>v.condition==='UK Used'&&v.enabled!==false));
  assert.match(SQL,/'jbl-flip-7\|Standard',160000,false,/);assert.match(SQL,/'ipad-8th-gen\|32GB · Wi‑Fi',200000,true,/);
 });
@@ -150,4 +154,10 @@ test('product pages share with X cards that mirror their Open Graph tags, once',
  const html=read('iphone-17-pro/index.html');assert.equal((html.match(/name="twitter:card"/g)||[]).length,1);assert.equal((html.match(/name="twitter:image:alt"/g)||[]).length,1);
  const og=html.match(/property="og:title" content="([^"]+)"/)[1];assert.ok(html.includes(`name="twitter:title" content="${og}"`));
  assert.match(read('assets/experience.mjs'),/x\.com\/intent\/post/);
+});
+test('owner photos: every product photo exists in all three sizes and the IMEI sticker photo is the blurred copy',()=>{
+ for(const p of retailInventory.filter(p=>/-1-720\.webp$/.test(p.image)&&/^\/images\/store\/(pixel|ipad-air-8th|apple-watch-ultra-4)/.test(p.image)))for(const w of [160,360,720])assert.ok(existsSync(p.image.slice(1).replace('-720.',`-${w}.`)),p.image+' '+w);
+ assert.equal(P('pixel-10').image,'/images/store/pixel-10-1-720.webp');
+ assert.match(FOLLOWUP,/coalesce\(product_data->>'image',''\)=''/,'never overwrites an existing photo');
+ assert.match(FOLLOWUP,/\^iphone-\(1\[78\]\|duo\)/,'iPhone Duo may be Brand New in Admin');
 });
