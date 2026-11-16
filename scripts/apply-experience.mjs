@@ -51,6 +51,10 @@ export function applyExperience(html,file){
   if(path&&title&&/<meta property="og:title" content="UK Used iPhones in Ikeja \| Mikee Gadget Plug">/.test(out))out=out.replace(/<meta property="og:title"[^>]*>/,`<meta property="og:title" content="${title}">`);
   if(path&&canonical&&/<meta property="og:url" content="https:\/\/www\.mikeegadget\.com\.ng\/">/.test(out))out=out.replace(/<meta property="og:url"[^>]*>/,`<meta property="og:url" content="${canonical}">`);
  }
+ // X (Twitter) cards mirror the page's own Open Graph tags, so a shared link shows the same title, text and image.
+ {const og=k=>out.match(new RegExp(`<meta property="og:${k}" content="([^"]*)"`))?.[1];out=out.replace(/\s*<meta name="twitter:[a-z:]+"[^>]*>/g,'');
+  const title=og('title'),desc=og('description')||out.match(/<meta name="description" content="([^"]*)"/)?.[1],img=og('image');
+  if(title)out=out.replace('</head>',`<meta name="twitter:card" content="${img?'summary_large_image':'summary'}"><meta name="twitter:title" content="${title}">${desc?`<meta name="twitter:description" content="${desc}">`:''}${img?`<meta name="twitter:image" content="${img}"><meta name="twitter:image:alt" content="${title}">`:''}\n</head>`);}
  return out;
 }
 async function* pages(dir){for(const e of await readdir(dir,{withFileTypes:true})){if(e.isDirectory()){if(!SKIP.has(e.name))yield* pages(join(dir,e.name));}else if(e.name==='index.html')yield join(dir,e.name);}}

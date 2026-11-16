@@ -176,6 +176,8 @@ export const productImages = {
 // Category photography lives here alongside individual model photography.
 // Replace paths with merchant photos; card proportions stay unchanged.
 export const categoryImages = {
+ audio: '/images/store/airpods.webp',
+ speakers: '', // no approved speaker photo yet: the tile shows the neutral speaker icon
  tablets: '/images/catalog/samsung-tab-s9-category.jpg',
  'wifi-only': '/images/store/13-1-360.webp',
  iphones: '/images/store/17promax-1-360.webp',

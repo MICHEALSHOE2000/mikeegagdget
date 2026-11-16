@@ -21,7 +21,9 @@ test('homepage preserves the deals slot and loads only published promotions',asy
 });
 
 test('iPhone 11–15 pages label UK Used without a selector; later models expose only recorded choices',async()=>{
- for(const slug of ['iphone-8','iphone-xr','iphone-11','iphone-12','iphone-13','iphone-15','iphone-17-air']){
+ // iPhone 17 Air left this list on 16 Nov 2026: its 256GB Non-Active unit is approved as Brand New.
+ assert.deepEqual(products.find(p=>p.slug==='iphone-17-air').conditions,['Brand New','UK Used']);
+ for(const slug of ['iphone-8','iphone-xr','iphone-11','iphone-12','iphone-13','iphone-15']){
   const product=products.find(phone=>phone.slug===slug);
   assert.deepEqual(product.conditions,['UK Used']);
   assert.equal(selectedCondition(product,'Brand New'),'UK Used');

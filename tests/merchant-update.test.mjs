@@ -1,4 +1,6 @@
 import test from 'node:test';
+import {APPROVED_UPDATES} from '../commerce/approved-prices-2026-11-16.mjs';
+const APPROVED=Object.fromEntries(APPROVED_UPDATES.map(u=>[u.sku,u.price]));
 import assert from 'node:assert/strict';
 import {readFile,stat} from 'node:fs/promises';
 import {products} from '../commerce/catalog.mjs';
@@ -28,7 +30,8 @@ test('Group 1 final prices reach product pages, cards and calculator choices unc
   assert.deepEqual(product.conditions,['Brand New','UK Used']);
   assert.ok(product.images[0]);assert.equal(product.listingPending,false);assert.equal(product.easyBuyEligible,true);
   const html=await readFile(`${slug}/index.html`,'utf8');
-  for(const [storage,price] of Object.entries(variants)){
+  for(let [storage,price] of Object.entries(variants)){
+   price=APPROVED[`${slug}|${storage}`]??price; // a later approved price list supersedes the Group 1 figure
    assert.equal(product.variants.find(v=>v.storage===storage).price,price);
    assert.equal(item.variants.find(v=>v.storage===storage).price,price);
    const phone=choices.find(p=>p.id===`${slug}|${storage}`);

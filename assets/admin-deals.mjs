@@ -1,5 +1,5 @@
 import {escape,money} from './storefront-ui.mjs';
-import {dealPrice,DEAL_LIMIT} from '../commerce/deals.mjs';
+import {dealPrice,DEAL_LIMIT,isLatestSeries} from '../commerce/deals.mjs';
 import {dealsHealth} from './admin-extras.mjs';
 export function mountDeals(root,api,getInventory){
  let skus=[],revision=0,busy=false;
@@ -10,7 +10,7 @@ export function mountDeals(root,api,getInventory){
   const inventory=getInventory(),q=$('[data-search]').value.trim().toLowerCase();
   $('[data-count]').textContent=skus.length+' / '+DEAL_LIMIT+' selected';
   {const note=dealsHealth(skus,inventory),el=$('[data-health]');if(el){el.textContent=note;el.hidden=!note;}}
-  $('[data-results]').innerHTML=inventory.filter(r=>r.enabled&&r.price_ngn>0&&!r.product_data?.reviewRequired&&r.product_data?.image&&r.product_data?.stockStatus!=='out_of_stock'&&!skus.includes(r.sku)&&(describe(r)+' '+r.sku).toLowerCase().includes(q)).slice(0,15).map(r=>`<div class="cart-line"><div><strong>${escape(describe(r))}</strong><p>${money(Number(r.price_ngn))} → ${money(dealPrice(Number(r.price_ngn)))}</p></div><button type="button" data-add="${escape(r.sku)}" ${busy||skus.length>=DEAL_LIMIT?'disabled':''}>Add deal</button></div>`).join('')||'<p>No matching available variants with a price and image.</p>';
+  $('[data-results]').innerHTML=inventory.filter(r=>r.enabled&&r.price_ngn>0&&!isLatestSeries(r.sku)&&!r.product_data?.reviewRequired&&r.product_data?.image&&r.product_data?.stockStatus!=='out_of_stock'&&!skus.includes(r.sku)&&(describe(r)+' '+r.sku).toLowerCase().includes(q)).slice(0,15).map(r=>`<div class="cart-line"><div><strong>${escape(describe(r))}</strong><p>${money(Number(r.price_ngn))} → ${money(dealPrice(Number(r.price_ngn)))}</p></div><button type="button" data-add="${escape(r.sku)}" ${busy||skus.length>=DEAL_LIMIT?'disabled':''}>Add deal</button></div>`).join('')||'<p>No matching available variants with a price and image.</p>';
   $('[data-selected]').innerHTML=skus.map((sku,i)=>{const r=inventory.find(v=>v.sku===sku);return `<div class="cart-line"><div><strong>${i+1}. ${escape(r?describe(r):sku)}</strong><p>${r?.price_ngn>0?`<del>${money(Number(r.price_ngn))}</del> → ${money(dealPrice(Number(r.price_ngn)))} · -10%`:'Price unavailable'}</p>${r?.product_data?.image?`<img src="${escape(r.product_data.image)}" alt="${escape(r.product_data.model)}" width="90" height="100" style="object-fit:contain">`:''}</div><button type="button" data-up="${i}" aria-label="Move deal ${i+1} up" ${i===0||busy?'disabled':''}>↑</button><button type="button" data-down="${i}" aria-label="Move deal ${i+1} down" ${i===skus.length-1||busy?'disabled':''}>↓</button><button type="button" data-remove="${i}" ${busy?'disabled':''}>Remove</button></div>`;}).join('')||'<p>No deals selected. Publishing this will clear Hot Deals.</p>';
   $('[data-publish]').disabled=busy;
  }
