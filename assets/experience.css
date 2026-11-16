@@ -74,3 +74,9 @@ article.store-phone{position:relative}
 .store-policy-links{margin-top:8px;font-size:.9rem}
 .mg-header-account{margin-right:2px}
 @media(max-width:420px){.mg-header-account,.mg-header-cart{min-width:38px}}
+/* Product photo note, share row, All Deals */
+.mg-photo-note{margin:6px 0 0;font-size:12.5px;color:#5c4512;background:#fbf3dd;border-radius:8px;padding:6px 10px}
+.mg-photo-note[hidden]{display:none}
+.mg-share{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:14px 0;font-size:.9rem}
+.mg-share a,.mg-share button{display:inline-flex;align-items:center;gap:5px;min-height:40px;padding:0 12px;border:1px solid #dfe3dd;border-radius:999px;background:#fff;color:#143b2a;font:600 .85rem Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.all-deals{margin-top:40px}.all-deals h2{margin-bottom:4px}

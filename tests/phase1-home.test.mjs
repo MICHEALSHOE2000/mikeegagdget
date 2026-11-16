@@ -16,7 +16,7 @@ test('category carousel moves every 4 seconds from page load and keeps going',()
 });
 test('category discovery order starts with iPhones and keeps every category',()=>{
  assert.deepEqual(categories.map(c=>c.id).slice(0,9),['iphones','samsung','pixel','macbooks','laptops','tablets','wifi-only','watches','accessories']);
- assert.equal(categories.length,13);
+ assert.equal(categories.length,15); // + Headphones and Headsets, Speakers (16 Nov 2026)
  for(const c of categories)assert.ok(!c.image.includes('mikee-shop'),c.id+' must not use the shop photograph');
 });
 test('carousel has no Play/Pause button or progress bar',async()=>{

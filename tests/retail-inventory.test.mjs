@@ -12,17 +12,17 @@ const price=(slug,storage)=>record(slug)?.variants.find(variant=>variant.storage
 
 test('all supplied products and variants are represented once with conditions kept separate',()=>{
  const original=retailInventory.filter(p=>p.category!=='wifi-only');
- assert.equal(original.length,161); // 159 - 20 merged duplicates + 22 supplier models (2026-11-14)
+ assert.equal(original.length,181); // 161 + 20 new products from the approved price list (2026-11-16)
  assert.equal(retailInventory.filter(p=>p.category==='wifi-only').length,16);
  assert.equal(new Set(retailInventory.map(p=>p.slug)).size,retailInventory.length);
- assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),544); // +28 supplier variants, -6 duplicates merged (2026-11-14)
+ assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),578); // 544 + 34 variants from the approved price list (2026-11-16)
  assert.equal(storeItems.length,retailInventory.length);
  for(const p of original.filter(p=>p.category==='iphones'&&!p.slug.startsWith('iphone-18-')))assert.equal(p.condition,'UK Used');
 
 });
 
 test('example prices follow their specified group and ambiguous prices remain Confirm Price',()=>{
- assert.equal(price('iphone-18-pro','256GB · Burgundy'),1_970_000);
+ assert.equal(price('iphone-18-pro','256GB · Burgundy'),2_000_000); // approved price list 16 Nov 2026
  assert.equal(price('iphone-13','128GB'),370_000);
  assert.equal(price('iphone-15','128GB'),625_000); // merged, lower price kept
  assert.equal(price('samsung-a05','Standard · UK Used'),150_000);
@@ -35,8 +35,8 @@ test('example prices follow their specified group and ambiguous prices remain Co
  assert.equal(price('pixel-10-pro','128GB · eSIM only'),910_000);
  assert.equal(price('samsung-s25-ultra','256GB'),1230000);
  assert.equal(price('iphone-15-pro','256GB'),875000);
- assert.equal(retailInventory.flatMap(item=>item.variants).filter(variant=>variant.price===null).length,234);
- assert.equal(retailInventory.filter(item=>item.variants.some(variant=>variant.price===null)).length,30);
+ assert.equal(retailInventory.flatMap(item=>item.variants).filter(variant=>variant.price===null).length,231); // 234 − 4 now priced (iPhone 18 Pro WiFi Only ×3, 18 Pro Max 256GB Black) + 1 new unpriced (Watch Series 6 GPS), 2026-11-16
+ assert.equal(retailInventory.filter(item=>item.variants.some(variant=>variant.price===null)).length,31); // + Apple Watch Series 6 (44mm GPS price pending), 2026-11-16
 });
 
 test('duplicate model pages are merged into one page at the lower price (owner decision 2026-11-14)',()=>{
@@ -68,7 +68,7 @@ test('verified local images are the only images attached to the new catalog',()=
  assert.ok(retailInventory.filter(item=>item.image).length>0);
  assert.ok(retailInventory.every(item=>!item.image||item.image.startsWith('/images/store/')||item.image.startsWith('/images/catalog/')));
  assert.equal(retailInventory.filter(item=>item.image).length,70); // merged duplicate pages no longer counted
- assert.equal(retailInventory.filter(item=>!item.image).length,107); // 9 photo-less duplicate pages merged 2026-11-14
+ assert.equal(retailInventory.filter(item=>!item.image).length,127); // 107 + 20 new products awaiting approved photos (2026-11-16)
 });
 
 test('generic store cards use only the available shop image sizes',()=>{

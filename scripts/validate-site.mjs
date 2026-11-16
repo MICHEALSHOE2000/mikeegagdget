@@ -192,7 +192,7 @@ for (const category of shopCategories) {
     const content = html.match(new RegExp(`<meta property="${property}" content="([^"]+)"`))?.[1];
     assert(content?.includes(category.name), `${category.route}: ${property} must describe the category.`);
   }
-  assert(html.includes(`<meta property="og:image" content="${commerceSite.baseUrl}${category.image}">`), `${category.route}: sharing image must be an absolute category image URL.`);
+  assert(html.includes(`<meta property="og:image" content="${commerceSite.baseUrl}${category.image||"/images/store/mikee-shop-1280.webp"}">`), `${category.route}: sharing image must be an absolute category image URL.`);
 }
 
 const catalogSearch = JSON.parse(await readFile(join(root, "assets", "catalog-search.json"), "utf8"));

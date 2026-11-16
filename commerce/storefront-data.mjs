@@ -6,7 +6,7 @@ import {offerProduct} from './offers.mjs';
 
 const products=baseProducts.map(offerProduct);
 // Discovery order for Shop by Category; iPhones lead. Remaining categories follow the requested ten.
-const categoryOrder=['iphones','samsung','pixel','macbooks','laptops','tablets','wifi-only','watches','accessories','ps5','games','ipads','airpods'];
+const categoryOrder=['iphones','samsung','pixel','macbooks','laptops','tablets','wifi-only','watches','accessories','ps5','games','ipads','airpods','audio','speakers'];
 export const categories = [
  ['iphones','iPhones','Apple'],
  ['samsung','Samsung','Samsung'],
@@ -20,8 +20,10 @@ export const categories = [
  ['ps5','PlayStation 5','Sony'],
  ['games','Games','Sony'],
  ['laptops','Laptops','Various'],
- ['accessories','Accessories','Various']
-].map(([id,name,brand])=>({id,name,brand,image:categoryImages[id]||'/images/store/mikee-shop-720.webp',route:({iphones:'/iphones',samsung:'/samsung-phones',pixel:'/google-pixel-phones'})[id] || `/shop/${id}/`}));
+ ['accessories','Accessories','Various'],
+ ['audio','Headphones and Headsets','Various'],
+ ['speakers','Speakers','JBL · Harman Kardon']
+].map(([id,name,brand])=>({id,name,brand,image:categoryImages[id]??'/images/store/mikee-shop-720.webp',route:({iphones:'/iphones',samsung:'/samsung-phones',pixel:'/google-pixel-phones'})[id] || `/shop/${id}/`}));
 categories.sort((a,b)=>categoryOrder.indexOf(a.id)-categoryOrder.indexOf(b.id));
 export const shopCategories = categories.filter(c=>!['iphones','samsung','pixel'].includes(c.id)).map(category => ({
  ...category,

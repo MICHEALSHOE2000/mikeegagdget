@@ -1,6 +1,7 @@
 // Customer-facing inventory. All prices are final Naira prices; supplier prices and markups are not stored here.
 import {repairCatalogue} from "./catalogue-repair.mjs";
-export const retailInventory = Object.freeze(repairCatalogue([
+import {applyApprovedPrices} from "./approved-prices-2026-11-16.mjs";
+export const retailInventory = Object.freeze(applyApprovedPrices(repairCatalogue([
   {
     "brand": "Apple",
     "model": "iPhone 18 Pro",
@@ -3835,7 +3836,7 @@ export const retailInventory = Object.freeze(repairCatalogue([
     ],
     "colors": []
   }
-]));
+])));
 
 export const replacedPhoneModels = Object.freeze([...new Set(retailInventory.filter(item => item.isPhone).map(item => `${item.brand}|${item.model}`))]);
 

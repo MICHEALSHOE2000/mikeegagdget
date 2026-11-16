@@ -88,4 +88,10 @@ export function initExperience(){
   if(sheet&&!sheet.hidden&&e.target.closest('.mg-quick-overlay [data-close]'))closeQuick();});
  addEventListener('storage',e=>{if(e.key===WISHLIST_KEY)syncHearts();});
  reviews().catch(()=>{});account().catch(()=>{});
+ // Share row on product pages: WhatsApp, X and copy link, using the page's canonical address.
+ if(document.body.dataset.productSlug&&!document.querySelector('.mg-share')){const url=document.querySelector('link[rel=canonical]')?.href||location.href.split('?')[0],name=document.body.dataset.productName||document.title;
+  const bar=document.createElement('p');bar.className='mg-share';const text=`${name} at Mikee Gadget Plug`;
+  bar.innerHTML=`<span>Share:</span> <a href="https://wa.me/?text=${encodeURIComponent(text+' '+url)}" target="_blank" rel="noopener">WhatsApp</a> <a href="https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}" target="_blank" rel="noopener" aria-label="Share on X"><svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.8L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L1.9 3h6.4l4.4 5.9L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg> X</a> <button type="button" data-copy-link>Copy link</button>`;
+  (document.querySelector('[data-purchase-panel]')||document.querySelector('main'))?.after(bar);
+  bar.querySelector('[data-copy-link]').addEventListener('click',async e=>{try{await navigator.clipboard.writeText(url);e.target.textContent='Link copied';}catch{e.target.textContent=url;}});}
 }

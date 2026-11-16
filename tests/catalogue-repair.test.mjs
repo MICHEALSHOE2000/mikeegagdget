@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
+import {APPROVED_UPDATES,APPROVED_NEW_VARIANTS} from '../commerce/approved-prices-2026-11-16.mjs';
 import {retailInventory} from '../commerce/retail-inventory.mjs';
 import {resolveVariant,purchasable} from '../commerce/variant-selection.mjs';
 import {categories} from '../commerce/storefront-data.mjs';
@@ -7,7 +8,7 @@ import {parseCsv,csvCell} from '../commerce/csv.mjs';
 const p=retailInventory.find(p=>p.slug==='iphone-18-pro-max');
 test('color and condition selection never borrows another price',()=>{
  const base={capacity:'512GB',condition:'Brand New',color:'Burgundy'};
- assert.equal(resolveVariant(p.variants,base).price,2690000);
+ assert.equal(resolveVariant(p.variants,base).price,2700000); // approved price list 16 Nov 2026
  assert.equal(resolveVariant(p.variants,{...base,color:'Glacier'}).price,2590000);
  assert.equal(purchasable(resolveVariant(p.variants,{...base,condition:'UK Used'})),false);
  assert.equal(purchasable(resolveVariant(p.variants,{...base,capacity:'256GB',color:'Silver'})),false);
@@ -16,7 +17,9 @@ test('color and condition selection never borrows another price',()=>{
 test('WiFi SKUs are unique, price-pending and ordered after tablets',()=>{
  const wifi=retailInventory.filter(p=>p.category==='wifi-only');assert.equal(wifi.length,16);
  const normal=new Set(retailInventory.filter(p=>p.category==='iphones').flatMap(p=>p.variants.map(v=>p.slug+'|'+v.storage)));
- for(const p of wifi)for(const v of p.variants){assert.equal(v.price,null);assert.equal(purchasable(v),false);assert.equal(normal.has(p.slug+'|'+v.storage),false);}
+ // WiFi-only prices exist only where the owner approved them (16 Nov 2026); every other WiFi SKU stays unpriced.
+ const approved=new Set([...APPROVED_UPDATES.map(u=>u.sku),...APPROVED_NEW_VARIANTS.map(n=>n.slug+'|'+n.variant.storage)]);
+ for(const p of wifi)for(const v of p.variants){if(approved.has(p.slug+'|'+v.storage)){assert.equal(v.connectivity,'Wi-Fi Only');continue;}assert.equal(v.price,null);assert.equal(purchasable(v),false);assert.equal(normal.has(p.slug+'|'+v.storage),false);}
  assert.equal(categories[categories.findIndex(c=>c.id==='tablets')+1].id,'wifi-only');
 });
 test('admin rejects invalid model colors and incorrect old-iPhone conditions',()=>{
