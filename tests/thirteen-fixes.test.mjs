@@ -90,8 +90,8 @@ test('trust strip uses the approved messages and the four policy pages exist and
  const home=read('index.html'),product=read('iphone-15/index.html');
  for(const t of ['7-day warranty','Free nationwide delivery','Same-day Lagos delivery where possible','Secure Paystack payment','Pay Small Small with Credit Direct','Computer Village, Ikeja']){assert.ok(home.includes(t),t);assert.ok(product.includes(t),t);}
  assert.match(home,/Test before you pay — in store or on pickup/);assert.equal((product.match(/class="mg-trust"/g)||[]).length,1);
- for(const p of ['warranty-policy','returns-refunds','delivery-policy','terms']){assert.ok(existsSync(p+'/index.html'),p);assert.ok(home.includes(`href="/${p}/"`),p);assert.match(read(p+'/index.html'),/Nothing on this page limits any right you have/);}
- assert.match(read('returns-refunds/index.html'),/do not promise unconditional returns/);
+ for(const p of ['warranty-policy','returns-refunds','delivery-policy','terms','privacy-policy']){assert.ok(existsSync(p+'/index.html'),p);assert.ok(home.includes(`href="/${p}/"`),p);assert.match(read(p+'/index.html'),/Nothing on this page limits any right you have/);}
+ assert.match(read('returns-refunds/index.html'),/do not accept returns for change of mind/);
 });
 // Fix 8
 test('stock: only confirmed states, never an invented number, and checkout re-checks on the server',()=>{
