@@ -1,7 +1,7 @@
 // Policy pages. Refund, Terms and Privacy follow standard e-commerce practice (owner instruction, 17 Nov 2026,
 // for the Paystack account review). Edit this file to change a policy.
-const nav='<ul class="policy-nav"><li><a href="/warranty-policy/">Warranty</a></li><li><a href="/returns-refunds/">Refunds &amp; returns</a></li><li><a href="/delivery-policy/">Delivery</a></li><li><a href="/terms/">Terms</a></li><li><a href="/privacy-policy/">Privacy</a></li></ul>';
-const contact='<p>Questions? <a href="https://wa.me/2347086865133">Chat on WhatsApp</a> or call <a href="tel:+2347086865133">0708 686 5133</a>. Store: 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos.</p>';
+const nav='<ul class="policy-nav"><li><a href="/warranty-policy/">Warranty</a></li><li><a href="/returns-refunds/">Refund &amp; returns</a></li><li><a href="/delivery-policy/">Delivery</a></li><li><a href="/terms/">Terms</a></li><li><a href="/privacy-policy/">Privacy</a></li></ul>';
+const contact='<h2>Contact us</h2><ul class="policy-contact"><li><strong>Email:</strong> <a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a></li><li><strong>WhatsApp / phone:</strong> <a href="https://wa.me/2347086865133">0708 686 5133</a></li><li><strong>Website:</strong> <a href="https://www.mikeegadget.com.ng">www.mikeegadget.com.ng</a></li><li><strong>Store:</strong> 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos</li></ul>';
 const rights='<p>Nothing on this page limits any right you have under Nigerian consumer protection law.</p>';
 const wrap=(h1,body)=>`<div class="policy-page"><h1>${h1}</h1>${nav}${body}${rights}${contact}</div>`;
 export const policyPages=[
@@ -11,28 +11,30 @@ export const policyPages=[
 <h2>Test before you pay</h2><p>When you buy in store or collect an order at our Computer Village store, you can inspect and test the device before you pay. For delivered orders, payment is made online first; check the device as soon as it arrives.</p>
 <h2>What the warranty covers</h2><p>Faults that were present when you received the device. We repair or replace the device and, if neither is possible, refund you in full, as set out in our <a href="/returns-refunds/">Refund and Returns Policy</a>.</p>
 <h2>What it does not cover</h2><p>Damage after delivery from drops, liquid, misuse or repairs by anyone other than Mikee Gadget Plug, and loss of data. Please back up your device.</p>`)},
- {path:'returns-refunds',title:'Refund and Returns Policy',description:'When you can get a refund or replacement from Mikee Gadget Plug, how to ask for one, and how long refunds take.',html:wrap('Refund and Returns Policy',`
+ {path:'returns-refunds',title:'Refund and Returns Policy',description:'Mikee Gadget Plug refund and returns policy: 7-day window for factory defects, what is not refundable, inspection, return procedure, shipping costs and refund timeline.',html:wrap('Refund and Returns Policy',`
 <p class="policy-updated">Last updated: 17 November 2026</p>
-<p>This policy explains when you can return a product or get a refund, and how to ask for one. It applies to orders placed on this website and to purchases at our store in Computer Village, Ikeja.</p>
-<h2>1. When you can get a refund, repair or replacement</h2>
-<p>Contact us within <strong>7 days</strong> of receiving or collecting your product if:</p>
-<ul><li>the product is faulty;</li><li>you received the wrong product, storage size, colour or condition; or</li><li>the product is materially different from its description on our website.</li></ul>
-<p>After we check the product, we will repair it or replace it with the same item. If we cannot do either, we will give you a full refund.</p>
-<h2>2. Change of mind</h2>
-<p>We do not accept returns for change of mind once a product has been delivered to you or collected. Please check the model, storage, colour, condition (Brand New or UK Used), network notes (for example eSIM only or Wi‑Fi Only) and the total before you pay. If you are unsure, ask us first on WhatsApp.</p>
-<h2>3. Cancelling an order</h2>
-<ul><li><strong>Before dispatch or collection:</strong> you can cancel and receive a full refund.</li><li><strong>If we cannot supply your order</strong> (for example, the item is no longer in stock), we will offer you an alternative or a full refund. The choice is yours.</li><li><strong>Pricing errors:</strong> if a product was clearly listed at the wrong price, we will contact you before dispatch. You can pay the correct price or cancel for a full refund.</li></ul>
-<h2>4. Condition of returned products</h2>
-<p>To qualify, a returned product must:</p>
-<ul><li>come back with its box, charger and any accessories supplied with it;</li><li>be free of physical damage, liquid damage or tampering that happened after delivery;</li><li>not have been opened or repaired by anyone other than Mikee Gadget Plug; and</li><li>be signed out of all accounts (Apple ID / iCloud, Google, Samsung), with screen locks removed.</li></ul>
-<p>The 7-day warranty does not cover damage caused by accidents, misuse, liquid or unauthorised repairs.</p>
-<h2>5. How to request a refund or return</h2>
-<ol><li>Contact us on <a href="https://wa.me/2347086865133">WhatsApp</a> or call <a href="tel:+2347086865133">0708 686 5133</a> within 7 days. Give your <strong>order reference</strong>, describe the problem and, if you can, send photos or a short video.</li><li>We reply within 2 business days and tell you how to return the product. You can bring it to our store or we will arrange collection. If the product is faulty or we sent the wrong item, we pay the return delivery cost.</li><li>We inspect the product, usually within 2 business days of receiving it, and tell you the outcome.</li></ol>
-<h2>6. How refunds are paid</h2>
-<ul><li><strong>Paid by card or bank transfer (Paystack):</strong> we refund the same payment method through Paystack. We start the refund within 3 business days of approving it. It usually reaches your account within 5–10 business days, depending on your bank.</li><li><strong>Paid in store:</strong> refunded by bank transfer to an account in the buyer’s name.</li><li><strong>Pay Small Small (Credit Direct):</strong> we tell Credit Direct about the return, and the loan is cancelled or settled under Credit Direct’s terms. Any down payment you made is refunded to you.</li></ul>
-<p>The refund is the amount you paid for the product, including any delivery charge. If a payment failed but you were still charged, or you were charged twice, contact us with the payment reference and we will refund the extra amount in full.</p>
-<h2>7. Failed or cancelled payments</h2>
-<p>An order is placed only after the payment provider confirms your payment. If a payment fails or is cancelled, no order is created. Any amount that was held is released by your bank.</p>`)},
+<p class="policy-lead">Customer satisfaction is our priority.</p>
+<h2>Overview</h2>
+<p>At Mikee Gadget Plug, customer satisfaction is our priority. Because we sell electronic devices, we give refunds only for items with a verified factory defect, or with a fault that was present when you received the item. We do not give refunds for problems caused by misuse or damage after delivery. This policy covers orders placed on www.mikeegadget.com.ng and purchases at our store in Computer Village, Ikeja.</p>
+<h2>Eligibility for refunds</h2>
+<p>A refund or replacement request is valid if:</p>
+<ol><li>the product has a manufacturer or factory defect, or (for UK Used devices) a fault that was present when you received it, or you received the wrong item;</li><li>you make the request within <strong>7 days</strong> of delivery or collection; and</li><li>you return the product in its original packaging with all accessories and your proof of purchase (order reference or receipt), signed out of all accounts (Apple ID / iCloud, Google, Samsung).</li></ol>
+<h2>Non-refundable cases</h2>
+<p>We will not give a refund if:</p>
+<ul><li>the item was damaged through negligence, misuse, a drop, a power surge or water damage;</li><li>the product seal or packaging has been tampered with;</li><li>the problem comes from improper installation, software modification or repair by anyone other than Mikee Gadget Plug;</li><li>the item was bought in a Hot Deal, clearance or promo sale, unless it is defective; or</li><li>you changed your mind after delivery or collection. Please check the model, storage, colour, condition and network notes (for example eSIM only or Wi‑Fi Only) before you pay.</li></ul>
+<h2>Verification process</h2>
+<p>Our technical team inspects every returned product. If we confirm a factory defect, or a fault that was present at delivery, you can choose:</p>
+<ul><li>a <strong>full refund</strong>, processed within 5–10 business days; or</li><li>a <strong>replacement</strong> of the same model, subject to availability.</li></ul>
+<p>If the product passes inspection and works as it should, we return it to you and no refund is given.</p>
+<h2>Return procedure</h2>
+<ol><li>Within 7 days of receiving your item, contact <a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a> or WhatsApp <a href="https://wa.me/2347086865133">0708 686 5133</a>.</li><li>Give your order number, photos or videos of the defect, and a short description of the problem.</li><li>Once your request is approved, we send instructions to drop the product at our Computer Village store or hand it to our logistics partner.</li></ol>
+<h2>Shipping costs</h2>
+<ul><li>If the return is due to a factory defect, a fault present at delivery, or our mistake, Mikee Gadget Plug pays the return shipping cost.</li><li>If a product is returned without a valid reason, you pay the shipping cost.</li></ul>
+<h2>Refund timeline</h2>
+<p>Approved refunds go to your original payment method within <strong>5–10 business days</strong> after inspection and confirmation:</p>
+<ul><li><strong>Card or bank transfer (Paystack):</strong> refunded to the same card or account through Paystack.</li><li><strong>Paid in store:</strong> refunded by bank transfer to an account in the buyer’s name.</li><li><strong>Pay Small Small (Credit Direct):</strong> we notify Credit Direct, and the loan is cancelled or settled under Credit Direct’s terms. Any down payment you made is refunded to you.</li></ul>
+<h2>Cancellations and payment problems</h2>
+<ul><li>You can cancel an order before it is dispatched or collected and receive a full refund.</li><li>If we cannot supply an item you have paid for, you can choose an alternative or a full refund.</li><li>An order is placed only after your payment is confirmed. If you were charged for a failed payment, or charged twice, contact us with the payment reference and we will refund the extra amount in full.</li></ul>`)},
  {path:'delivery-policy',title:'Delivery Policy',description:'Free nationwide delivery from Mikee Gadget Plug. Same-day delivery in Lagos where possible, 24–48-hour target for other states, or store pickup in Ikeja.',html:wrap('Delivery Policy',`
 <h2>Free nationwide delivery</h2><p>Delivery is free across Nigeria on orders placed on this website.</p>
 <h2>Delivery times</h2><ul><li><strong>Lagos:</strong> same-day delivery where possible.</li><li><strong>Other states:</strong> we aim for 24–48 hours, subject to dispatch and carrier confirmation.</li></ul><p>These are targets, not guarantees. We contact you after payment to confirm your delivery.</p>
@@ -43,7 +45,7 @@ export const policyPages=[
 <p class="policy-updated">Last updated: 17 November 2026</p>
 <p>These terms apply when you buy from Mikee Gadget Plug on this website or at our store. By placing an order you agree to them, together with our <a href="/returns-refunds/">Refund and Returns Policy</a>, <a href="/warranty-policy/">Warranty Policy</a>, <a href="/delivery-policy/">Delivery Policy</a> and <a href="/privacy-policy/">Privacy Policy</a>.</p>
 <h2>1. Who we are</h2>
-<p>Mikee Gadget Plug sells phones, tablets, laptops, smartwatches, audio, gaming products and accessories. Our store is at 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos. You can contact us on WhatsApp or by phone at 0708 686 5133.</p>
+<p>Mikee Gadget Plug sells phones, tablets, laptops, smartwatches, audio, gaming products and accessories. Our store is at 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos. You can contact us at support@mikeegadget.com.ng, on WhatsApp or by phone at 0708 686 5133. Website: www.mikeegadget.com.ng.</p>
 <h2>2. Who can buy</h2>
 <p>You must be at least 18 years old, or have the permission of a parent or guardian, and you must give accurate contact and delivery details.</p>
 <h2>3. Products and their condition</h2>
@@ -73,7 +75,7 @@ export const policyPages=[
 <p class="policy-updated">Last updated: 17 November 2026</p>
 <p>This policy explains what personal information Mikee Gadget Plug collects, why, who we share it with, how we protect it, and the rights you have under the Nigeria Data Protection Act 2023 (NDPA).</p>
 <h2>1. Who is responsible for your information</h2>
-<p>Mikee Gadget Plug, 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos, is responsible for the personal information described here. Contact us about privacy on <a href="https://wa.me/2347086865133">WhatsApp</a> or at 0708 686 5133.</p>
+<p>Mikee Gadget Plug, 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos, is responsible for the personal information described here. Contact us about privacy at <a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a>, on <a href="https://wa.me/2347086865133">WhatsApp</a> or at 0708 686 5133.</p>
 <h2>2. What we collect</h2>
 <ul><li><strong>Order details you give us:</strong> first and last name, phone number, email address, delivery address, city and state, order notes, and what you buy.</li><li><strong>Payment information:</strong> Paystack processes your payment. We receive the payment reference, amount and status, but <strong>not</strong> your full card or bank details.</li><li><strong>Pay Small Small:</strong> if you choose Credit Direct, Credit Direct collects the information it needs to assess your application, under its own privacy policy. We receive the application and payment status for your order.</li><li><strong>Messages:</strong> what you send us on WhatsApp, by phone or by email, for example about an order or a swap.</li><li><strong>Information kept on your device:</strong> your cart, saved items, filters and which advert brought you to our site are stored in your browser, not on our servers. You can clear them in your browser settings.</li><li><strong>Advertising measurement:</strong> we use the TikTok Pixel. It uses cookies and similar technology to record pages you visit and actions you take (for example, adding to cart), so we can measure our TikTok adverts.</li></ul>
 <h2>3. How we use it, and our legal basis</h2>
