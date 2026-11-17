@@ -2,7 +2,10 @@ import test from 'node:test';import assert from 'node:assert/strict';import {rea
 const read=f=>readFileSync(f,'utf8');
 test('Paystack review: refund, privacy and terms pages exist, are linked in every footer and at checkout',()=>{
  const refund=read('returns-refunds/index.html'),privacy=read('privacy-policy/index.html'),terms=read('terms/index.html');
- for(const t of [/within <strong>7 days<\/strong>/,/How to request a refund or return/,/5–10 business days/,/Credit Direct/,/change of mind/])assert.match(refund,t);
+ for(const t of [/Customer satisfaction is our priority/,/Eligibility for refunds/,/<strong>7 days<\/strong>/,/Non-refundable cases/,/Verification process/,/Return procedure/,/Shipping costs/,/Refund timeline/,/5–10 business days/,/Credit Direct/,/support@mikeegadget\.com\.ng/,/www\.mikeegadget\.com\.ng/])assert.match(refund,t);
+ assert.doesNotMatch(refund,/neostore|Neo Store/i);
+ for(const p of ['privacy-policy','terms','index.html'.replace('index.html','warranty-policy')])assert.match(read(p+'/index.html'),/mailto:support@mikeegadget\.com\.ng/);
+ assert.match(read('index.html'),/mailto:support@mikeegadget\.com\.ng/);
  for(const t of [/What we collect/,/not<\/strong> your full card/,/Nigeria Data Protection Act 2023/,/TikTok Pixel/,/Your rights/,/How long we keep it/,/Nigeria Data Protection Commission/])assert.match(privacy,t);
  for(const t of [/Who we are/,/Brand New/,/UK Used/,/governed by the laws of the Federal Republic of Nigeria/,/privacy-policy/])assert.match(terms,t);
  assert.match(read('checkout/index.html'),/href="\/terms\/"[^>]*>Terms &amp; Conditions<\/a>, <a href="\/returns-refunds\/"[^>]*>Refund Policy<\/a> and <a href="\/privacy-policy\/"/);
