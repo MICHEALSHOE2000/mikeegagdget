@@ -1,9 +1,9 @@
-// Policy pages. Refund, Terms and Privacy follow standard e-commerce practice (owner instruction, 17 Nov 2026,
-// for the Paystack account review). Edit this file to change a policy.
+// Policy pages. Terms and Privacy are the owner's own text (17 Nov 2026); Refund follows the format the owner
+// supplied. Edit this file to change a policy.
 const nav='<ul class="policy-nav"><li><a href="/warranty-policy/">Warranty</a></li><li><a href="/returns-refunds/">Refund &amp; returns</a></li><li><a href="/delivery-policy/">Delivery</a></li><li><a href="/terms/">Terms</a></li><li><a href="/privacy-policy/">Privacy</a></li></ul>';
 const contact='<h2>Contact us</h2><ul class="policy-contact"><li><strong>Email:</strong> <a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a></li><li><strong>WhatsApp / phone:</strong> <a href="https://wa.me/2347086865133">0708 686 5133</a></li><li><strong>Website:</strong> <a href="https://www.mikeegadget.com.ng">www.mikeegadget.com.ng</a></li><li><strong>Store:</strong> 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos</li></ul>';
 const rights='<p>Nothing on this page limits any right you have under Nigerian consumer protection law.</p>';
-const wrap=(h1,body)=>`<div class="policy-page"><h1>${h1}</h1>${nav}${body}${rights}${contact}</div>`;
+const wrap=(h1,body,{ownContact=false}={})=>`<div class="policy-page"><h1>${h1}</h1>${nav}${body}${rights}${ownContact?'':contact}</div>`;
 export const policyPages=[
  {path:'warranty-policy',title:'Warranty Policy',description:'Mikee Gadget Plug warranty: every device includes a 7-day warranty. How to report a fault and what happens next.',html:wrap('Warranty Policy',`
 <h2>7-day warranty</h2><p>Every product sold by Mikee Gadget Plug includes a 7-day warranty, counted from the day you receive or collect it.</p>
@@ -41,61 +41,66 @@ export const policyPages=[
 <h2>Store pickup</h2><p>You can collect your order at 1 Ola Ayeni Street, Computer Village, Ikeja, Lagos. We call you when it is ready, and you can test the device at pickup.</p>
 <!-- DRAFT: owner to confirm the carriers used, the same-day order cut-off time and what happens after a failed delivery attempt. -->
 <h2>Receiving your order</h2><p>Please make sure someone can receive the order at the address you give. Check the device when it arrives and contact us straight away if anything is wrong.</p>`)},
- {path:'terms',title:'Terms and Conditions',description:'Terms for buying from Mikee Gadget Plug: products and conditions, prices, payment by Paystack or Credit Direct, delivery, warranty, refunds and your rights.',html:wrap('Terms and Conditions',`
-<p class="policy-updated">Last updated: 17 November 2026</p>
-<p>These terms apply when you buy from Mikee Gadget Plug on this website or at our store. By placing an order you agree to them, together with our <a href="/returns-refunds/">Refund and Returns Policy</a>, <a href="/warranty-policy/">Warranty Policy</a>, <a href="/delivery-policy/">Delivery Policy</a> and <a href="/privacy-policy/">Privacy Policy</a>.</p>
-<h2>1. Who we are</h2>
-<p>Mikee Gadget Plug sells phones, tablets, laptops, smartwatches, audio, gaming products and accessories. Our store is at 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos. You can contact us at support@mikeegadget.com.ng, on WhatsApp or by phone at 0708 686 5133. Website: www.mikeegadget.com.ng.</p>
-<h2>2. Who can buy</h2>
-<p>You must be at least 18 years old, or have the permission of a parent or guardian, and you must give accurate contact and delivery details.</p>
-<h2>3. Products and their condition</h2>
-<ul><li><strong>Brand New:</strong> new, unused devices. “Non-Active” means the device has not been activated.</li><li><strong>UK Used:</strong> pre-owned devices in good working order. They may show light signs of use.</li><li>Network notes shown on a product, such as <strong>eSIM only</strong> or <strong>Wi‑Fi Only (eSIM locked)</strong>, are part of the description. Wi‑Fi Only devices may not support mobile calls or mobile data.</li><li>Photos may be representative. The colour, storage and condition you select are what you receive. Ask us if you need a photo of the actual unit.</li></ul>
-<h2>4. Prices</h2>
-<p>Prices are in Nigerian naira (₦) and include any delivery charge stated at checkout. Hot Deals show the original price crossed out next to the discounted price, for a limited time. Prices can change at any time, but a change does not affect an order you have already paid for, except in the case of a clear pricing error (see the Refund and Returns Policy).</p>
-<h2>5. Orders and payment</h2>
-<ul><li><strong>Pay in full:</strong> by card or bank transfer, processed securely by Paystack. We never see or store your full card details.</li><li><strong>Pay Small Small:</strong> instalments through Credit Direct. Credit Direct decides on approval, the down payment and the repayment schedule, and its own terms apply to the credit.</li></ul>
-<p>Your order is confirmed only after the payment is verified. We may decline or cancel an order if we suspect fraud, if the item is unavailable, or if the price was clearly wrong. In any of these cases you receive a full refund.</p>
-<h2>6. Delivery and collection</h2>
-<p>Delivery times and options are explained in our <a href="/delivery-policy/">Delivery Policy</a>. Responsibility for the product passes to you when it is delivered to the address you gave or collected from our store. Please check the product as soon as you receive it.</p>
-<h2>7. Warranty, returns and refunds</h2>
-<p>Every product includes a 7-day warranty. Faulty, wrong or materially different products are handled as described in our <a href="/warranty-policy/">Warranty Policy</a> and <a href="/returns-refunds/">Refund and Returns Policy</a>.</p>
-<h2>8. Phone swap</h2>
-<p>A swap value shown online is an estimate. The final value is confirmed after we inspect your device in person. The device you trade in must be yours, fully paid for, and signed out of all accounts.</p>
-<h2>9. Our responsibility</h2>
-<p>We are responsible for supplying products as described and for any loss that is a foreseeable result of our breaking these terms. We are not responsible for indirect losses, for loss of data (please back up your device), or for delays caused by events outside our reasonable control. Nothing in these terms limits liability that cannot be limited by law, including your rights under the Federal Competition and Consumer Protection Act 2018.</p>
-<h2>10. Your information</h2>
-<p>We handle your personal information as described in our <a href="/privacy-policy/">Privacy Policy</a>.</p>
-<h2>11. Website content</h2>
-<p>The text, logo and design of this website belong to Mikee Gadget Plug. Product names and trademarks belong to their owners.</p>
-<h2>12. Complaints and governing law</h2>
-<p>If you have a complaint, please contact us first. We aim to resolve it within 5 business days. These terms are governed by the laws of the Federal Republic of Nigeria. Any dispute that we cannot resolve together will be handled by the courts of Lagos State.</p>
-<h2>13. Changes to these terms</h2>
-<p>We may update these terms. The version published on the day you place your order applies to that order.</p>`)},
- {path:'privacy-policy',title:'Privacy Policy',description:'How Mikee Gadget Plug collects, uses, stores and protects your personal information, and your rights under the Nigeria Data Protection Act 2023.',html:wrap('Privacy Policy',`
-<p class="policy-updated">Last updated: 17 November 2026</p>
-<p>This policy explains what personal information Mikee Gadget Plug collects, why, who we share it with, how we protect it, and the rights you have under the Nigeria Data Protection Act 2023 (NDPA).</p>
-<h2>1. Who is responsible for your information</h2>
-<p>Mikee Gadget Plug, 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos, is responsible for the personal information described here. Contact us about privacy at <a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a>, on <a href="https://wa.me/2347086865133">WhatsApp</a> or at 0708 686 5133.</p>
-<h2>2. What we collect</h2>
-<ul><li><strong>Order details you give us:</strong> first and last name, phone number, email address, delivery address, city and state, order notes, and what you buy.</li><li><strong>Payment information:</strong> Paystack processes your payment. We receive the payment reference, amount and status, but <strong>not</strong> your full card or bank details.</li><li><strong>Pay Small Small:</strong> if you choose Credit Direct, Credit Direct collects the information it needs to assess your application, under its own privacy policy. We receive the application and payment status for your order.</li><li><strong>Messages:</strong> what you send us on WhatsApp, by phone or by email, for example about an order or a swap.</li><li><strong>Information kept on your device:</strong> your cart, saved items, filters and which advert brought you to our site are stored in your browser, not on our servers. You can clear them in your browser settings.</li><li><strong>Advertising measurement:</strong> we use the TikTok Pixel. It uses cookies and similar technology to record pages you visit and actions you take (for example, adding to cart), so we can measure our TikTok adverts.</li></ul>
-<h2>3. How we use it, and our legal basis</h2>
-<ul><li>To process, deliver and support your order, and to provide the warranty: <em>performance of a contract</em>.</li><li>To keep accounting and tax records and to meet legal obligations: <em>legal obligation</em>.</li><li>To prevent fraud and keep our website secure: <em>legitimate interests</em>.</li><li>To measure our adverts and improve our website: <em>legitimate interests</em> or, where required, your <em>consent</em>.</li></ul>
-<p>We do not sell your personal information.</p>
-<h2>4. Who we share it with</h2>
-<ul><li><strong>Paystack:</strong> to take your payment.</li><li><strong>Credit Direct:</strong> only if you choose Pay Small Small.</li><li><strong>Delivery partners:</strong> your name, phone number and address, so they can deliver your order.</li><li><strong>Service providers that run our website:</strong> secure hosting and database providers that store information for us under contract.</li><li><strong>TikTok:</strong> advertising measurement data, as described above.</li><li><strong>Authorities:</strong> when the law requires it.</li></ul>
-<h2>5. Where it is stored and how we protect it</h2>
-<p>Your information is stored with cloud providers whose servers may be outside Nigeria, for example in the European Union. Where information is transferred, we rely on providers that protect it to standards the NDPA recognises.</p>
-<p>All connections to our website are encrypted (HTTPS). Access to order information is limited to authorised staff who sign in securely. Payment card data is handled only by Paystack.</p>
-<h2>6. How long we keep it</h2>
-<p>We keep order records for as long as we need them to deliver, support and warrant your order. After that, we keep them for as long as accounting and tax laws require, generally up to 6 years. Then we delete or anonymise them. Information in your browser stays until you clear it.</p>
-<h2>7. Your rights</h2>
-<p>Under the NDPA you can:</p>
-<ul><li>ask for a copy of your personal information;</li><li>ask us to correct it;</li><li>ask us to delete it;</li><li>object to or restrict how we use it;</li><li>withdraw consent at any time; and</li><li>ask for your information in a portable format.</li></ul>
-<p>Contact us to use any of these rights. We reply within 30 days. You can also complain to the <a href="https://ndpc.gov.ng">Nigeria Data Protection Commission</a>.</p>
-<h2>8. Cookies and advertising choices</h2>
-<p>You can block or delete cookies in your browser settings. You can also limit personalised adverts in your TikTok settings. Our website still works without advertising cookies.</p>
-<h2>9. Children</h2>
-<p>Our website is not intended for children under 18, and we do not knowingly collect their information.</p>
-<h2>10. Changes to this policy</h2>
-<p>If we update this policy, we will change the date at the top of this page.</p>`)}
+ {path:'terms',title:'Terms and Conditions',description:'Terms and Conditions of MIKEEGADGETS & COMMUNICATIONS LIMITED (Mikee Gadget) for using www.mikeegadget.com.ng and buying from our online store.',html:wrap('Terms and Conditions',`
+<p class="policy-updated">Last updated: November 2026</p>
+<h2>Introduction</h2>
+<p>Welcome to MIKEEGADGETS &amp; COMMUNICATIONS LIMITED ("Mikee Gadget", "we", "our", "us"). These Terms and Conditions govern your use of our website <a href="https://www.mikeegadget.com.ng">www.mikeegadget.com.ng</a> and the purchase of products from our online store. By accessing or using our website, you agree to comply with and be bound by these Terms. If you do not agree, please do not use the site.</p>
+<h2>Company Information</h2>
+<p>MIKEEGADGETS &amp; COMMUNICATIONS LIMITED</p>
+<ul><li>Business Name: MIKEEGADGETS &amp; COMMUNICATIONS LIMITED</li><li>Registration Location: Ola Ayeni, Lagos, Nigeria</li><li>Website: <a href="https://www.mikeegadget.com.ng">www.mikeegadget.com.ng</a></li><li>Email: <a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a></li></ul>
+<h2>Eligibility</h2>
+<p>By using our website, you confirm that you are at least 18 years old or have obtained parental consent to use this platform and make purchases.</p>
+<h2>Use of the Website</h2>
+<p>You agree to use this website only for lawful purposes and in accordance with these Terms. You may not use the site to:</p>
+<ul><li>Engage in fraudulent or deceptive activities.</li><li>Copy, distribute, or exploit any content without our consent.</li><li>Interfere with the security or operation of the website.</li></ul>
+<h2>Product Information and Availability</h2>
+<p>We make every effort to display accurate product information, images, descriptions, and prices. However, errors may occur. If an error is discovered after you have placed an order, we will notify you and give you the option to confirm or cancel the order.</p>
+<h2>Warranty Limitations for Pre-Owned Equipment</h2>
+<p>Please be advised that warranty coverage varies significantly based on the condition of the product purchased. While brand-new devices typically include a comprehensive manufacturer's limited warranty, these original manufacturer warranties do not extend to used, refurbished, or open-box electronics unless explicitly stated otherwise in the product description. All pre-owned devices are sold "as-is" regarding original manufacturer support. However, we may provide a separate, limited functional warranty for a specified period from the date of purchase; please refer to your specific item's listing for coverage details and duration.</p>
+<h2>Pricing and Payment</h2>
+<p>All prices listed on our website are in Nigerian Naira. Payment can be made securely using approved online payment gateways integrated on our platform. We reserve the right to modify prices or discontinue products at any time without prior notice.</p>
+<h2>Shipping and Delivery</h2>
+<ul><li>We deliver nationwide across Nigeria and neighboring African countries.</li><li>Delivery timelines vary based on your location and product availability.</li><li>We are not liable for delays caused by courier services, public holidays, or unforeseen circumstances.</li></ul>
+<h2>Return and Refund Policy</h2>
+<p>Mikee Gadget accepts returns only for products with verified factory defects. Items damaged due to customer mishandling, incorrect installation, or electrical issues at the buyer's premises are not eligible for refund or replacement. See our <a href="/returns-refunds/">Refund Policy</a> for detailed information.</p>
+<h2>Limitation of Liability</h2>
+<p>Mikee Gadget will not be held liable for indirect, incidental, or consequential damages resulting from:</p>
+<ul><li>Product misuse or installation errors,</li><li>Unauthorized modification of purchased items,</li><li>Third-party service disruptions.</li></ul>
+<h2>Intellectual Property</h2>
+<p>All trademarks, logos, images, and content on this site are the property of Mikee Gadget. They may not be copied, distributed, or used for commercial purposes without prior written consent.</p>
+<h2>Governing Law</h2>
+<p>These Terms are governed by and construed under the laws of the Federal Republic of Nigeria.</p>
+<h2>Contact Us</h2>
+<ul><li><a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a></li><li><a href="https://www.mikeegadget.com.ng">www.mikeegadget.com.ng</a></li></ul>`,{ownContact:true})},
+ {path:'privacy-policy',title:'Privacy Policy',description:'How Mikee Gadget collects, uses and protects your personal information when you visit or buy from www.mikeegadget.com.ng.',html:wrap('Privacy Policy',`
+<p class="policy-updated">Last Updated: November 2026</p>
+<h2>Introduction</h2>
+<p>Your privacy is important to us. This Privacy Policy explains how Mikee Gadget ("we", "our", "us") collects, uses, and protects your personal information when you visit or make a purchase through <a href="https://www.mikeegadget.com.ng">www.mikeegadget.com.ng</a>.</p>
+<h2>Information We Collect</h2>
+<p>We collect personal and transactional information that helps us process your orders and improve your experience, including:</p>
+<ul><li>Full name</li><li>Email address</li><li>Phone number</li><li>Billing and delivery address</li><li>Day and Month of birth (optional) for birthday celebration</li><li>Payment information (handled securely through third-party gateways)</li><li>Browsing activity on our website</li></ul>
+<h2>How We Use Your Information</h2>
+<p>Your data is used to:</p>
+<ul><li>Process and fulfill orders.</li><li>Communicate order updates or delivery details.</li><li>Respond to customer inquiries and complaints.</li><li>Improve our services and product offerings.</li><li>Comply with Nigerian e-commerce and consumer protection regulations.</li></ul>
+<h2>Data Protection</h2>
+<p>We take appropriate security measures to protect your data against unauthorized access, alteration, or disclosure. All payment details are processed securely through trusted third-party payment processor, Paystack — we do not store your card details.</p>
+<h2>Cookies</h2>
+<p>Our website uses cookies to enhance user experience, analyze traffic, and remember your preferences. This includes the TikTok Pixel, which helps us measure our TikTok adverts. You can disable cookies through your browser, but some parts of the site may not function properly.</p>
+<h2>Data Sharing and Disclosure</h2>
+<p>We do not sell, rent, or trade your personal data. We may share limited information with:</p>
+<ul><li>Logistics partners for delivery purposes.</li><li>Payment processors for secure transactions.</li><li>Credit Direct, only if you choose Pay Small Small.</li><li>Legal authorities when required by Nigerian law.</li></ul>
+<h2>Retention Period</h2>
+<p>We retain your information for as long as necessary to fulfill orders, comply with legal obligations, and improve user experience.</p>
+<h2>Your Rights</h2>
+<p>You have the right to:</p>
+<ul><li>Access and request correction of your personal data.</li><li>Withdraw consent for marketing communication.</li><li>Request deletion of your personal information (subject to applicable law).</li></ul>
+<p>To use any of these rights, email <a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a>.</p>
+<h2>Third-Party Links</h2>
+<p>Our website may contain links to other websites. We are not responsible for the privacy practices of these third-party sites.</p>
+<h2>Changes to This Policy</h2>
+<p>Mikee Gadget reserves the right to update this Privacy Policy periodically. Updates will be posted on this page with a revised "Last Updated" date.</p>
+<h2>Last Updated</h2>
+<p>November 2026</p>
+<h2>Contact Us</h2>
+<ul><li><a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a></li><li><a href="https://www.mikeegadget.com.ng">www.mikeegadget.com.ng</a></li></ul>`,{ownContact:true})}
 ];
