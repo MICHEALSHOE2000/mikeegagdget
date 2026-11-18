@@ -33,7 +33,7 @@ test('checkout has no stale financing notice and confirmation page has support a
  assert.match(readFileSync('cart/index.html','utf8'),/id="cart-summary"/);
 });
 test('community section stays hidden until a valid invite exists',()=>{
- assert.match(readFileSync('index.html','utf8'),/<section data-community hidden>/);assert.match(readFileSync('assets/community.js','utf8'),/section\.hidden=false/);
+ assert.match(readFileSync('index.html','utf8'),/<section [^>]*data-community hidden>/);assert.match(readFileSync('assets/community.js','utf8'),/section\.hidden=false/);
 });
 
 test('preview deployments accept their own address; production only the shop origin',async()=>{

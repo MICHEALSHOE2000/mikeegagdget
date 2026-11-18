@@ -84,7 +84,7 @@ export const policyPages=[
 <ul><li>Process and fulfill orders.</li><li>Communicate order updates or delivery details.</li><li>Respond to customer inquiries and complaints.</li><li>Improve our services and product offerings.</li><li>Comply with Nigerian e-commerce and consumer protection regulations.</li></ul>
 <h2>Data Protection</h2>
 <p>We take appropriate security measures to protect your data against unauthorized access, alteration, or disclosure. All payment details are processed securely through trusted third-party payment processor, Paystack — we do not store your card details.</p>
-<h2>Cookies</h2>
+<h2 id="cookies">Cookies</h2>
 <p>Our website uses cookies to enhance user experience, analyze traffic, and remember your preferences. This includes the TikTok Pixel, which helps us measure our TikTok adverts. You can disable cookies through your browser, but some parts of the site may not function properly.</p>
 <h2>Data Sharing and Disclosure</h2>
 <p>We do not sell, rent, or trade your personal data. We may share limited information with:</p>

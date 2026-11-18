@@ -12,7 +12,7 @@ test('the supplied shop image replaces the illustration with responsive lightwei
  const html=await readFile('index.html','utf8');
  assert.ok(!html.includes('{{'),'No unresolved homepage template tokens');
  assert.match(html,/mikee-shop-720\.webp 720w, \/images\/store\/mikee-shop-1280\.webp 1280w/);
- assert.match(html,/loading="lazy" decoding="async" alt="Mikee Gadget Plug shop image supplied by the store"/);
+ assert.match(html,/loading="lazy" decoding="async" alt="Inside the Mikee Gadget Plug store"/);
  assert.doesNotMatch(html,/shop-illustration|Illustrative gadget shop/);
  for(const width of [720,1280])assert.ok((await stat(`images/store/mikee-shop-${width}.webp`)).size<1_000_000);
  assert.match(html,/1 Ola Ayeni Street/);
