@@ -9,6 +9,7 @@ const SKIP=new Set(['node_modules','.git','.vercel','supabase','tests','docs','t
 const NOINDEX=new Set(['cart','checkout','checkout/complete','account','buy','admin','admin/deals']);
 const TRUST='<ul class="mg-trust" aria-label="Why shop with Mikee Gadget Plug"><li>7-day warranty</li><li>Test before you pay — in store or on pickup</li><li>Free nationwide delivery</li><li>Same-day Lagos delivery where possible</li><li>Secure Paystack payment</li><li>Pay Small Small with Credit Direct</li><li><a href="/#visit">Visit our store — Computer Village, Ikeja</a></li></ul>';
 const CSS='<link rel="stylesheet" href="/assets/experience.css">';
+import {SITE_FOOTER,FOOTER_CSS} from '../commerce/site-footer.mjs';
 const bySlug=new Map(retailInventory.map(p=>[p.slug,p]));
 const CONDITION={'Brand New':'https://schema.org/NewCondition','UK Used':'https://schema.org/UsedCondition','Pre-Owned':'https://schema.org/UsedCondition'};
 const priced=p=>p.variants.filter(v=>v.price>0&&v.enabled!==false&&!v.reviewRequired);
@@ -31,6 +32,8 @@ export function applyExperience(html,file){
  if(!/<head[\s>]/i.test(html))return html;
  let out=html;
  if(!out.includes('/assets/experience.css'))out=out.replace('</head>',CSS+'\n</head>');
+ // Every page gets the same professional footer.
+ if(/<footer[\s>]/.test(out)){out=out.replace(/<footer[\s\S]*?<\/footer>/,()=>SITE_FOOTER).replace(/<footer(?! class="mg-footer")[\s\S]*?<\/footer>/g,'');if(!out.includes('/assets/footer.css'))out=out.replace('</head>',FOOTER_CSS+'\n</head>');}
  const path=file.replace(/\\/g,'/').replace(/^\.\//,'').replace(/\/?index\.html$/,'');
  if(NOINDEX.has(path)&&!/<meta name="robots"/.test(out))out=out.replace('</head>','<meta name="robots" content="noindex,follow">\n</head>');
  const product=bySlug.get(path);

@@ -24,3 +24,10 @@ test('iPhone: search results open on tap (touchend), ignoring scroll gestures',(
  const js=read('assets/storefront.js');
  assert.match(js,/results\.addEventListener\('touchend'/);assert.match(js,/Math\.hypot\([^)]*\)>10\)tap=null/);assert.match(js,/location\.assign\(a\.href\)/);
 });
+test('one professional footer on every page; home has no duplicate Credit Direct band; store section says Visit us',()=>{
+ const home=read('index.html');
+ assert.doesNotMatch(home,/id="credit-limit"/);assert.match(home,/<h2>Visit us at 1 Ola Ayeni, Computer Village\.<\/h2>/);assert.doesNotMatch(home,/Your plug has an address/);
+ for(const f of ['index.html','iphone-17-pro/index.html','terms/index.html','blog/best-uk-used-iphone-shop/index.html','deals/index.html']){const h=read(f);
+  assert.equal((h.match(/<footer/g)||[]).length,1,f);assert.match(h,/<footer class="mg-footer" id="contact">/,f);assert.match(h,/\/assets\/footer\.css/,f);
+  for(const t of ['My Account','Customer Service','Support','MIKEEGADGETS &amp; COMMUNICATIONS LIMITED','support@mikeegadget.com.ng','href="/privacy-policy/"','href="/terms/"','href="/returns-refunds/"'])assert.ok(h.includes(t),f+' '+t);}
+});
