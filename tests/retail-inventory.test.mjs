@@ -67,8 +67,8 @@ test('cards and category pages show current non-phone products and Confirm Price
 test('verified local images are the only images attached to the new catalog',()=>{
  assert.ok(retailInventory.filter(item=>item.image).length>0);
  assert.ok(retailInventory.every(item=>!item.image||item.image.startsWith('/images/store/')||item.image.startsWith('/images/catalog/')));
- assert.equal(retailInventory.filter(item=>item.image).length,80); // + 10 owner photos (2026-11-16)
- assert.equal(retailInventory.filter(item=>!item.image).length,118); // 127 − 10 owner photos + iPhone Duo awaiting a photo
+ assert.equal(retailInventory.filter(item=>item.image).length,81); // + 10 owner photos + iPhone Duo (2026-11-16/18)
+ assert.equal(retailInventory.filter(item=>!item.image).length,117); // 127 − 10 owner photos (iPhone Duo added with its photo)
 });
 
 test('generic store cards use only the available shop image sizes',()=>{

@@ -1,5 +1,4 @@
 "Product ID","Product name","Problem","Existing value","Proposed correction","Confidence","Manual action required"
-"iphone-duo","iPhone Duo","No product photo","","Upload an approved photo in Admin → Product details → Photos","High","Manual: add photo"
 "iphone-duo","iPhone Duo","Brand New on a model sold as UK Used","256GB · Star White","UK Used","Medium","Manual: confirm condition"
 "iphone-duo","iPhone Duo","Brand New on a model sold as UK Used","256GB · Night Sky","UK Used","Medium","Manual: confirm condition"
 "iphone-duo","iPhone Duo","Brand New on a model sold as UK Used","512GB · Star White","UK Used","Medium","Manual: confirm condition"

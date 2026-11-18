@@ -68,14 +68,13 @@ export const APPROVED_NEW_PRODUCTS=[
 
 // Photos supplied by the owner on 16 Nov 2026 (images/store/<slug>-1-{160,360,720}.webp).
 // IMEI stickers on the Pixel 6a photo were blurred before publishing.
-export const OWNER_PHOTOS=['pixel-11-pro-xl','ipad-air-8th-gen-11-inch-m4','apple-watch-ultra-4','pixel-10-pro-fold','pixel-10-pro-xl','pixel-10-pro','pixel-10','pixel-9-pro-fold','pixel-6a','pixel-6'];
+export const OWNER_PHOTOS=['pixel-11-pro-xl','ipad-air-8th-gen-11-inch-m4','apple-watch-ultra-4','pixel-10-pro-fold','pixel-10-pro-xl','pixel-10-pro','pixel-10','pixel-9-pro-fold','pixel-6a','pixel-6','iphone-duo'];
 export const ownerPhoto=slug=>`/images/store/${slug}-1-720.webp`;
 
 // Prices that could not be applied, with the reason. Nothing here was guessed.
 export const UNRESOLVED=[
  {item:'iPad 11th Gen 256GB Wi-Fi + Cellular (Silver)',reason:'Price “pending confirmation” in the list. The existing price (₦1,090,000) was left unchanged.'},
  {item:'Apple Watch Series 6 44mm GPS',reason:'Price pending. Listed without a price, so it cannot be bought.'},
- {item:'iPhone Duo photo',reason:'No photo yet. Upload one in Admin → Smart Image Upload.'},
 ];
 
 const sameSku=(p,v,sku)=>`${p.slug}|${v.storage}`===sku;

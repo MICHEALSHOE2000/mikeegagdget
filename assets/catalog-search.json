@@ -1,6 +1,33 @@
 [
   {
     "type": "product",
+    "label": "iPhone Duo",
+    "route": "/iphone-duo",
+    "brand": "Apple",
+    "storage": [
+      "256GB · Star White",
+      "256GB · Night Sky",
+      "512GB · Star White"
+    ],
+    "price": 3300000,
+    "image": "/images/store/iphone-duo-1-720.webp",
+    "keywords": [
+      "iPhone Duo",
+      "Apple",
+      "iPhone",
+      "iPhone Duo 256GB · Star White",
+      "iPhone Duo 256GB · Night Sky",
+      "iPhone Duo 512GB · Star White",
+      "256GB · Star White",
+      "256GB · Night Sky",
+      "512GB · Star White",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
     "label": "iPhone 18 Pro Max",
     "route": "/iphone-18-pro-max",
     "brand": "Apple",
@@ -1791,33 +1818,6 @@
       "Pixel",
       "Google Pixel 6a 128GB",
       "128GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "iPhone Duo",
-    "route": "/iphone-duo",
-    "brand": "Apple",
-    "storage": [
-      "256GB · Star White",
-      "256GB · Night Sky",
-      "512GB · Star White"
-    ],
-    "price": 3300000,
-    "image": null,
-    "keywords": [
-      "iPhone Duo",
-      "Apple",
-      "iPhone",
-      "iPhone Duo 256GB · Star White",
-      "iPhone Duo 256GB · Night Sky",
-      "iPhone Duo 512GB · Star White",
-      "256GB · Star White",
-      "256GB · Night Sky",
-      "512GB · Star White",
       "price in Nigeria",
       "Pay Small Small",
       "swap"
