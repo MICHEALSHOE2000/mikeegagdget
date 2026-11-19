@@ -1,6 +1,8 @@
 import {readCart,saveCart,addToCart,cartLine} from '../commerce/cart.mjs';
 import {showAddedToCart} from './cart-ui.mjs';
-import {citiesByState} from '../commerce/nigeria.mjs';
+import {lgasFor} from '../commerce/nigeria-states-lgas.mjs';
+import {EMAIL,PHONE} from '../commerce/checkout-validation.mjs';
+import {BANK_ACCOUNTS,PAYMENT_WHATSAPP} from '../commerce/bank-details.mjs';
 import {escape,money,activateImages,optionLabel,stockLabel} from './storefront-ui.mjs';
 const $=id=>document.getElementById(id),query=new URLSearchParams(location.search);
 const data=await fetch('/api/shop/catalog').then(r=>{if(!r.ok)throw Error('Offline catalogue');return r.json().then(rows=>{if(!Array.isArray(rows)||!rows.length)throw Error('Catalogue setup pending');return rows;});}).catch(()=>fetch('/assets/shop-data.json').then(r=>{if(!r.ok)throw Error('Catalogue unavailable');return r.json();})).catch(()=>[]);
@@ -52,38 +54,84 @@ addEventListener('mikee:cart',()=>{if($('cart-items')){cart=readCart(localStorag
 
 const form=$('checkout-form');
 if(form){
- const delivery=()=>{const pickup=form.elements.fulfillment.value==='pickup';$('delivery-fields').hidden=pickup;for(const key of ['city','address'])form.elements[key].required=!pickup;};
+ const el=form.elements,DOMAINS=['gmail.com','yahoo.com','outlook.com','icloud.com','hotmail.com'];
+ // Email: suggest "@gmail.com" before an "@" is typed, then common domains; any other address can still be typed.
+ const suggestBox=$('email-suggest');let suggestions=[];
+ const suggest=v=>{v=v.trim();if(!v||/\s/.test(v))return [];const at=v.indexOf('@');if(at<0)return v.length>=3?[v+'@gmail.com']:[];const local=v.slice(0,at),dom=v.slice(at+1).toLowerCase();if(!local||dom.includes('@'))return [];return DOMAINS.filter(d=>d.startsWith(dom)&&d!==dom).map(d=>local+'@'+d);};
+ const showSuggest=()=>{suggestions=suggest(el.email.value);suggestBox.hidden=!suggestions.length;suggestBox.innerHTML=suggestions.map((s,i)=>{const at=s.indexOf('@');return `<button type="button" class="mg-suggest-chip${i?'':' is-first'}" data-value="${escape(s)}">${escape(s.slice(0,at+1))}<strong>${escape(s.slice(at+1))}</strong></button>`;}).join('')+(suggestions.length?'<span class="mg-suggest-hint">Tap to use · Tab or → to accept</span>':'');};
+ const accept=value=>{el.email.value=value;suggestBox.hidden=true;suggestions=[];el.email.dispatchEvent(new Event('input',{bubbles:true}));check('email');};
+ el.email.addEventListener('input',showSuggest);
+ el.email.addEventListener('keydown',e=>{if(!suggestions.length||e.shiftKey||e.altKey||e.ctrlKey||e.metaKey)return;const pos=el.email.selectionStart,atEnd=pos==null||pos===el.email.value.length;/* email inputs may report no caret position */if(e.key==='Tab'||(e.key==='ArrowRight'&&atEnd)){e.preventDefault();accept(suggestions[0]);}else if(e.key==='Escape'){suggestBox.hidden=true;suggestions=[];}});
+ suggestBox.addEventListener('mousedown',e=>{if(e.target.closest('[data-value]'))e.preventDefault();});
+ suggestBox.addEventListener('click',e=>{const b=e.target.closest('[data-value]');if(b){accept(b.dataset.value);el.email.focus();}});
+ el.email.addEventListener('blur',()=>setTimeout(()=>{if(document.activeElement?.closest?.('#email-suggest'))return;suggestBox.hidden=true;},150));
+ // Phone: digits only, at most 11.
+ el.phone.addEventListener('input',()=>{const digits=el.phone.value.replace(/\D/g,'').slice(0,11);if(digits!==el.phone.value)el.phone.value=digits;});
+ // State → LGA: the LGA list follows the chosen state and is cleared when the state changes.
+ const fillLgas=(keep='')=>{const list=lgasFor(el.state.value);el.lga.replaceChildren(new Option(list.length?'Select LGA / city':'Select state first',''),...list.map(n=>new Option(n,n)));el.lga.disabled=!list.length;el.lga.value=list.includes(keep)?keep:'';};
+ el.state.addEventListener('change',()=>{fillLgas();setError('lga','');});
+ const pickup=()=>el.fulfillment.value==='pickup';
+ const delivery=()=>{$('street-field').hidden=pickup();el.address.required=!pickup();$('location-legend').textContent=pickup()?'Your location':'Delivery address';if(pickup())setError('address','');};
+ // Friendly inline errors, shown on leaving a field and on Place Order.
+ const rules={firstName:v=>v.trim()?'':'Enter your first name.',lastName:v=>v.trim()?'':'Enter your last name.',
+  email:v=>!v.trim()?'Enter your email address.':EMAIL.test(v.trim().toLowerCase())?'':'Check your email — it should look like name@gmail.com.',
+  phone:v=>!v?'Enter your phone number.':v.length!==11?'Phone number must be 11 digits, for example 08012345678.':PHONE.test(v)?'':'Phone number must start with 07, 08 or 09.',
+  state:v=>v?'':'Select your state.',lga:v=>v?'':'Select your LGA / city.',address:v=>pickup()||v.trim()?'':'Enter your street address for delivery.',
+  agreed:()=>el.agreed.checked?'':'Please tick to agree to the terms before placing your order.'};
+ const setError=(name,msg)=>{const out=$(name+'-error');if(out)out.textContent=msg;const input=el[name];if(input&&input.setAttribute)input.toggleAttribute('aria-invalid',!!msg);};
+ const check=name=>{const msg=rules[name](el[name].value||'');setError(name,msg);return !msg;};
+ for(const name of Object.keys(rules))el[name].addEventListener(name==='agreed'||name==='state'||name==='lga'?'change':'blur',()=>check(name));
+ for(const name of ['email','phone','firstName','lastName','address'])el[name].addEventListener('input',()=>{if($(name+'-error')?.textContent)check(name);});
  // Keep typed details for this visit so "Back to cart" never loses them. Consent is never pre-ticked.
  const DETAILS='mikee-checkout-details';
- try{const saved=JSON.parse(sessionStorage.getItem(DETAILS)||'{}');for(const [k,v]of Object.entries(saved)){const el=form.elements[k];if(el&&el.type!=='checkbox'&&typeof v==='string')el.value=v;}}catch{}
+ try{const saved=JSON.parse(sessionStorage.getItem(DETAILS)||'{}');for(const [k,v]of Object.entries(saved)){const f=el[k];if(f&&f.type!=='checkbox'&&f.type!=='radio'&&k!=='lga'&&typeof v==='string')f.value=v;}fillLgas(saved.lga);}catch{fillLgas();}
  form.addEventListener('input',()=>{try{const data=Object.fromEntries(new FormData(form));delete data.agreed;delete data.paymentMethod;sessionStorage.setItem(DETAILS,JSON.stringify(data));}catch{}});
- form.elements.fulfillment.addEventListener('change',delivery);delivery();
- form.elements.state.addEventListener('change',()=>{form.elements.city.value='';$('cities').replaceChildren(...(citiesByState[form.elements.state.value]||[]).map(city=>new Option(city)));});
+ el.fulfillment.addEventListener('change',delivery);delivery();
+ // Payment method: bank transfer is selected by default; Pay Small Small only when Credit Direct is switched on.
+ const notes={bank_transfer:'Your account details are shown as soon as the order is placed.',paystack:'You will be taken to Paystack to pay securely.',credit_direct:'The Credit Direct application opens after you place the order.'};
+ const method=()=>el.paymentMethod.value,syncNote=()=>{$('payment-note').textContent=notes[method()]||'';};
+ const cdOption=form.querySelector('[data-credit-direct-option]');
+ const wanted=query.get('payment');if(wanted==='paystack')form.querySelector('[name=paymentMethod][value=paystack]').checked=true;
+ fetch('/api/shop/settings').then(r=>r.ok?r.json():null).catch(()=>null).then(settings=>{if(settings?.financing?.available){if(wanted==='credit_direct')cdOption.checked=true;}else{cdOption.disabled=true;cdOption.closest('.mg-pay-card').classList.add('is-unavailable');cdOption.closest('.mg-pay-card').querySelector('.mg-pay-desc').textContent='Currently unavailable. Choose bank transfer or Paystack.';if(cdOption.checked)form.querySelector('[name=paymentMethod][value=bank_transfer]').checked=true;}syncNote();});
+ $('payment-options').addEventListener('change',syncNote);syncNote();
  let requestId=crypto.randomUUID(),busy=false;
- const payLabel=()=>form.elements.paymentMethod?.value==='credit_direct'?'Continue with Pay Small Small':'Pay Securely with Paystack';
- // The instalment option appears only when the server reports Credit Direct as enabled and configured.
- fetch('/api/shop/settings').then(r=>r.ok?r.json():null).then(settings=>{if(!settings?.financing?.available||form.elements.paymentMethod)return;const box=document.createElement('fieldset');box.className='payment-methods';box.innerHTML='<legend>How would you like to pay?</legend><label><input type="radio" name="paymentMethod" value="paystack" checked> Buy outright — pay in full with Paystack</label><label><input type="radio" name="paymentMethod" value="credit_direct"> Pay Small Small — instalments with Credit Direct, subject to their approval</label>';const submit=form.querySelector('[type=submit]');submit.before(box);if(query.get('payment')==='credit_direct')box.querySelector('[value=credit_direct]').checked=true;submit.textContent=payLabel();box.addEventListener('change',()=>{submit.textContent=payLabel();});}).catch(()=>{});
  form.addEventListener('input',()=>{if(!busy)requestId=crypto.randomUUID();});
  form.addEventListener('submit',async e=>{e.preventDefault();if(busy)return;const button=form.querySelector('[type=submit]'),error=$('checkout-error');error.textContent='';
   if(!cart.length||cart.some(row=>!(find(row.sku)?.price>0)||find(row.sku)?.enabled===false||find(row.sku)?.reviewRequired)){error.textContent='An item needs an updated price before payment. Your selection remains saved.';return;}
-  if(!form.reportValidity())return;
-  const details=Object.fromEntries(new FormData(form));busy=true;button.disabled=true;button.textContent='Opening secure payment…';
-  try{const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({details,cart,total:total()})));const fingerprint=[...new Uint8Array(bytes)].map(x=>x.toString(16).padStart(2,'0')).join('');const key='mikee-checkout-'+fingerprint;requestId=sessionStorage.getItem(key)||requestId;sessionStorage.setItem(key,requestId);const r=await fetch('/api/shop/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...details,agreed:form.elements.agreed.checked,items:cart,requestId,expectedTotalNgn:total()})});const result=await r.json();if(!r.ok)throw Error(result.error||'Payment could not start.');try{sessionStorage.setItem('mikee-paying',JSON.stringify({items:cart}));}catch{}if(result.provider==='credit_direct'){const {openCreditDirect}=await import('./credit-direct-checkout.js');await openCreditDirect(result,text=>{error.textContent=text;});busy=false;button.disabled=false;button.textContent=payLabel();return;}const url=new URL(result.url,location.origin);if(!(url.hostname==='checkout.paystack.com'&&url.protocol==='https:')&&url.origin!==location.origin)throw Error('Invalid payment destination.');location.assign(url.href);}catch(e){error.textContent=e instanceof SyntaxError?'Checkout is not connected in this preview yet.':e.message;busy=false;button.disabled=false;button.textContent=payLabel();}
+  const bad=Object.keys(rules).filter(name=>!check(name));
+  if(bad.length){error.textContent='Please check the highlighted details.';const first=el[bad[0]];first.focus();first.scrollIntoView?.({block:'center',behavior:'smooth'});return;}
+  const details=Object.fromEntries(new FormData(form));details.email=details.email.trim().toLowerCase();busy=true;button.disabled=true;button.textContent='Placing order…';
+  const done=()=>{busy=false;button.disabled=false;button.textContent='Place Order';};
+  try{const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({details,cart,total:total()})));const fingerprint=[...new Uint8Array(bytes)].map(x=>x.toString(16).padStart(2,'0')).join('');const key='mikee-checkout-'+fingerprint;requestId=sessionStorage.getItem(key)||requestId;sessionStorage.setItem(key,requestId);
+   const r=await fetch('/api/shop/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...details,agreed:el.agreed.checked,items:cart,requestId,expectedTotalNgn:total()})});const result=await r.json();if(!r.ok)throw Error(result.error||'Your order could not be placed.');
+   try{sessionStorage.setItem('mikee-paying',JSON.stringify({items:cart}));}catch{}
+   if(result.provider==='credit_direct'){const {openCreditDirect}=await import('./credit-direct-checkout.js');await openCreditDirect(result,text=>{error.textContent=text;});done();return;}
+   const url=new URL(result.url,location.origin);if(!(url.hostname==='checkout.paystack.com'&&url.protocol==='https:')&&url.origin!==location.origin)throw Error('Invalid payment destination.');location.assign(url.href);
+  }catch(e){error.textContent=e instanceof SyntaxError?'Checkout is not connected in this preview yet.':e.message;done();}
  });
 }
 if($('payment-status')){
  const reference=query.get('reference')||query.get('trxref')||'';$('order-reference').textContent=reference?'Order number: '+reference.slice(5,13).toUpperCase()+' · Reference '+reference:'';
- const titles={paid:'Thank you — your order is confirmed',failed:'Payment was not successful',cancelled:'Payment was cancelled',manual_review:'Your payment is being reviewed',pending:'Waiting for payment confirmation',financing_pending:'Pay Small Small not completed',awaiting_merchant_payment:'Payment received by Credit Direct'};
- const messages={paid:'We have received your payment. Our team will contact you to arrange delivery or pickup.',failed:'Your order has not been paid. Your cart is still saved — you can try again.',cancelled:'Your order has not been paid. Your cart is still saved — you can try again.',manual_review:'Please contact us with your order reference so we can confirm it.',pending:'If you completed payment, check again in a moment.',financing_pending:'If Credit Direct declined it or you closed the window, return to your cart and pay outright.',awaiting_merchant_payment:'Your order will be confirmed once Credit Direct settles the payment with us.'};
+ const titles={pending_payment:'Order placed — please complete your bank transfer',paid:'Thank you — your order is confirmed',failed:'Payment was not successful',cancelled:'Payment was cancelled',manual_review:'Your payment is being reviewed',pending:'Waiting for payment confirmation',financing_pending:'Pay Small Small not completed',awaiting_merchant_payment:'Payment received by Credit Direct'};
+ const messages={pending_payment:'Your order is saved. We ship it as soon as your transfer reflects in our account.',paid:'We have received your payment. Our team will contact you to arrange delivery or pickup.',failed:'Your order has not been paid. Your cart is still saved — you can try again.',cancelled:'Your order has not been paid. Your cart is still saved — you can try again.',manual_review:'Please contact us with your order reference so we can confirm it.',pending:'If you completed payment, check again in a moment.',financing_pending:'If Credit Direct declined it or you closed the window, return to your cart and pay outright.',awaiting_merchant_payment:'Your order will be confirmed once Credit Direct settles the payment with us.'};
  const clearPaidCart=()=>{try{const paid=JSON.parse(sessionStorage.getItem('mikee-paying')||'null');if(!paid||!Array.isArray(paid.items))return;let saved=readCart(localStorage);for(const item of paid.items){const line=saved.find(r=>r.sku===item.sku&&r.color===item.color);if(line)line.quantity-=item.quantity;}saveCart(localStorage,saved.filter(r=>r.quantity>0));sessionStorage.removeItem('mikee-paying');}catch{}};
  const showSummary=s=>{if(!s)return;const items=s.items.map(i=>`<article class="mg-line"><span class="mg-line-media">${i.image?`<img src="${escape(i.image)}" alt="" width="80" height="96" loading="lazy">`:'<span class="mg-line-noimg" aria-hidden="true"></span>'}</span><div class="mg-line-body"><strong>${escape(i.model)}</strong><p class="mg-line-meta">${[i.storage,i.color,i.condition].filter(Boolean).map(escape).join(' · ')}</p><p class="mg-line-qty">Qty ${i.quantity} × ${money(i.unitPriceNgn)}</p></div><p class="mg-line-total">${money(i.unitPriceNgn*i.quantity)}</p></article>`).join('');
   const where=s.fulfillment==='pickup'?'Store pickup — 1 Ola Ayeni Street, Computer Village, Ikeja, Lagos. We will call you when it is ready.':`Free delivery to ${escape(s.destination||'your address')}. Same-day in Lagos where feasible; 24–48-hour target for other states, subject to dispatch and carrier confirmation.`;
   $('order-summary').innerHTML=`<section class="mg-summary"><h2>Your order</h2>${items}<dl class="mg-totals"><div><dt>Delivery</dt><dd>${s.deliveryFeeNgn?money(s.deliveryFeeNgn):'Free'}</dd></div><div class="mg-grand"><dt>Amount paid</dt><dd>${money(s.amountNgn)}</dd></div></dl></section><section class="mg-summary"><h2>${s.fulfillment==='pickup'?'Pickup':'Delivery'}</h2><p>${where}</p><h2>Contact</h2><p>${escape(s.customer.firstName)} · ${escape(s.customer.email)} · ${escape(s.customer.phone)}</p><h2>Order status</h2><p>Paid · ${escape((s.fulfillmentStatus||'processing').replaceAll('_',' '))}</p><p class="mg-fine">Every device includes a 7-day warranty under our <a href="/purchase-policy/">purchase policy</a>.</p></section>`;};
+ // Bank transfer: order number, amount, our accounts with Copy buttons, and a WhatsApp confirmation message.
+ const orderNo=reference.slice(5,13).toUpperCase();
+ const showBank=amount=>{const box=$('bank-transfer');if(!box.hidden)return;const text=`Hello Mikee Gadget Plug, I have sent ${money(amount)} by bank transfer for order ${orderNo} (reference ${reference}). Please confirm my payment.`;
+  box.innerHTML=`<h2>Pay by bank transfer</h2><ol class="mg-bank-steps"><li>Copy one of the account numbers below.</li><li>Transfer the exact amount from your bank app.</li><li>Tap <strong>I've sent the money</strong>.</li></ol><dl class="mg-bank-totals"><div><dt>Order number</dt><dd>${escape(orderNo)}</dd></div><div><dt>Amount to pay</dt><dd>${money(amount)}</dd></div></dl>`
+   +BANK_ACCOUNTS.map(a=>`<div class="mg-bank-account"><p class="mg-bank-name">${escape(a.bank)}</p><p class="mg-bank-holder">${escape(a.accountName)}</p><p class="mg-bank-number"><span>${escape(a.accountNumber)}</span><button type="button" class="mg-copy" data-copy="${escape(a.accountNumber)}" aria-label="Copy ${escape(a.bank)} account number">Copy</button></p></div>`).join('')
+   +`<p class="mg-fine">Please use <strong>${escape(orderNo)}</strong> as the transfer description. Your order will not be shipped until the funds reflect in our account.</p><a class="btn btn-primary mg-sent-money" href="https://wa.me/${PAYMENT_WHATSAPP}?text=${encodeURIComponent(text)}" rel="noopener">I've sent the money</a><p class="mg-fine mg-sent-note">After you transfer, tap the button. It opens WhatsApp with your order details so we can confirm your payment.</p>`;
+  box.hidden=false;
+  box.addEventListener('click',async e=>{const b=e.target.closest('[data-copy]');if(!b)return;let ok=false;try{await navigator.clipboard.writeText(b.dataset.copy);ok=true;}catch{const t=document.createElement('textarea');t.value=b.dataset.copy;t.setAttribute('readonly','');t.style.position='fixed';t.style.opacity='0';document.body.append(t);t.select();try{ok=document.execCommand('copy');}catch{}t.remove();}b.textContent=ok?'Copied ✓':'Copy failed';setTimeout(()=>{b.textContent='Copy';},2000);});};
  const check=async()=>{const button=$('check-payment');button.disabled=true;$('confirm-icon').className='mg-confirm-icon';
   try{const r=await fetch('/api/shop/verify?reference='+encodeURIComponent(reference));const result=await r.json();if(!r.ok)throw Error(result.error);
    $('confirm-title').textContent=titles[result.status]||'Waiting for payment confirmation';$('payment-status').textContent=messages[result.status]||messages.pending;
    $('confirm-icon').classList.add(result.status==='paid'?'is-paid':['failed','cancelled'].includes(result.status)?'is-failed':'is-waiting');
-   button.hidden=result.status==='paid';if(result.status==='paid'){clearPaidCart();showSummary(result.summary);}
+   button.hidden=result.status==='paid';if(result.status==='paid'){$('bank-transfer').hidden=true;clearPaidCart();showSummary(result.summary);}
+   if(result.status==='pending_payment'&&result.paymentMethod==='bank_transfer'){clearPaidCart();showBank(result.amountNgn);button.textContent='Check payment status';}
   }catch{$('confirm-title').textContent='We could not check your payment yet';$('payment-status').textContent='Please check again, or contact us with your order reference.';$('confirm-icon').classList.add('is-waiting');}finally{button.disabled=false;}};
  $('check-payment').addEventListener('click',check);await check();
 }

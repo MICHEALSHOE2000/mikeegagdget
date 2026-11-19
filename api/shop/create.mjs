@@ -23,8 +23,16 @@ export default async function handler(req,res){
   // Stock is re-checked on the server from the catalogue record; the browser's view is never trusted.
   {const rows=await db('checkout_inventory?select=sku,product_data&sku='+encodeURIComponent(skuFilter(order.items.map(i=>i.sku))));const problem=stockProblem(order.items,rows);if(problem)return reply(res,409,{error:problem});}
   const result=await db('rpc/shop_create_order_deals',{method:'POST',body:{p_request_id:order.requestId,p_items:order.items,p_customer:order.customer,p_policy:order.policyVersion}});
-  if(result.status==='paid')return reply(res,200,{url:new URL('/checkout/complete/?reference='+encodeURIComponent(result.reference),env('SHOP_ORIGIN')).href});
+  const complete='/checkout/complete/?reference='+encodeURIComponent(result.reference);
+  if(result.status==='paid')return reply(res,200,{url:new URL(complete,env('SHOP_ORIGIN')).href});
+  // A repeated "Place Order" for a bank-transfer order goes back to its account details.
+  if(result.status==='pending_payment')return order.paymentMethod==='bank_transfer'?reply(res,200,{provider:'bank_transfer',reference:result.reference,url:complete}):reply(res,409,{error:'This order was placed for bank transfer. Refresh checkout to choose another payment method.'});
   if(!Number.isSafeInteger(req.body.expectedTotalNgn)||req.body.expectedTotalNgn!==Number(result.amount_ngn))return reply(res,409,{error:'The current price has changed. Refresh checkout and review the updated total before paying.'});
+  if(order.paymentMethod==='bank_transfer'){
+   // Saved as pending_payment; nothing ships until the transfer is confirmed in Admin.
+   try{await db('rpc/shop_bank_transfer_begin',{method:'POST',body:{p_reference:result.reference}});}catch{return reply(res,409,{error:'This order cannot be switched to bank transfer. Refresh checkout and try again.'});}
+   return reply(res,200,{provider:'bank_transfer',reference:result.reference,url:complete});
+  }
   if(financed){
    // Prices, products and total come from the order the database just priced, never from the browser.
    let session;try{session=await db('rpc/shop_credit_direct_begin',{method:'POST',body:{p_reference:result.reference,p_session_id:newSessionId()}});}catch{return reply(res,409,{error:'This order cannot use Pay Small Small. Refresh checkout and try again, or pay outright.'});}

@@ -16,8 +16,12 @@ export async function paystack(path,body){
 }
 import {creditDirectConfig} from '../commerce/credit-direct.mjs';
 export async function verify(reference){
+ // If the order cannot be read, fall back to asking Paystack (the previous behaviour) rather than failing outright.
+ let order=null;try{order=(await db('shop_orders?reference=eq.'+encodeURIComponent(reference)+'&select=status,payment_provider,amount_ngn'))?.[0]||null;}catch{order=null;}
+ // Bank transfers are confirmed by the administrator once the money reflects; there is nothing to ask a provider.
+ if(order?.payment_provider==='bank_transfer')return {status:order.status==='paid'?'paid':'pending_payment',paymentMethod:'bank_transfer',...(order.status==='paid'?{}:{amountNgn:Number(order.amount_ngn)})};
  // Credit Direct orders are confirmed only by the provider's signed merchant-payment webhook.
- if(creditDirectConfig().ready){const order=(await db('shop_orders?reference=eq.'+encodeURIComponent(reference)+'&select=status,payment_provider'))[0];if(order?.payment_provider==='credit_direct'){if(order.status!=='awaiting_payment')return {status:order.status};const session=(await db('shop_credit_direct_sessions?order_reference=eq.'+encodeURIComponent(reference)+'&customer_paid_at=not.is.null&select=customer_paid_at&limit=1'))[0];return {status:session?.customer_paid_at?'awaiting_merchant_payment':'financing_pending'};}}
+ if(creditDirectConfig().ready){if(order?.payment_provider==='credit_direct'){if(order.status!=='awaiting_payment')return {status:order.status};const session=(await db('shop_credit_direct_sessions?order_reference=eq.'+encodeURIComponent(reference)+'&customer_paid_at=not.is.null&select=customer_paid_at&limit=1'))[0];return {status:session?.customer_paid_at?'awaiting_merchant_payment':'financing_pending'};}}
  const tx=await paystack('/transaction/verify/'+encodeURIComponent(reference));
  if(tx.reference!==reference||tx.currency!=='NGN')throw Error('Payment details do not match.');
  if(tx.status!=='success')return {status:tx.status==='failed'?'failed':tx.status==='abandoned'?'cancelled':'pending'};
