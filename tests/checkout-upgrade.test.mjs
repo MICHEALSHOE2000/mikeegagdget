@@ -42,7 +42,7 @@ test('checkout markup: email keyboard, phone rules, State → LGA dropdowns, thr
 });
 test('bank details live in one config file and the confirmation page has copy + WhatsApp confirmation',()=>{
  assert.deepEqual(BANK_ACCOUNTS.map(a=>[a.bank,a.accountNumber]),[['STERLING BANK','0090646352'],['PROVIDUS','6501617899']]);assert.ok(BANK_ACCOUNTS.every(a=>a.accountName==='MICHEAL BABATUNDE ADERINTO'));assert.equal(PAYMENT_WHATSAPP,'2347086865133');
- const js=read('assets/shopping.js');assert.match(js,/data-copy=/);assert.match(js,/Confirm payment on WhatsApp/);assert.match(js,/wa\.me\/\$\{PAYMENT_WHATSAPP\}\?text=/);
+ const js=read('assets/shopping.js');assert.match(js,/data-copy=/);assert.match(js,/I've sent the money/);assert.doesNotMatch(js,/Confirm payment on WhatsApp/);assert.match(js,/wa\.me\/\$\{PAYMENT_WHATSAPP\}\?text=/);
  assert.match(read('checkout/complete/index.html'),/id="bank-transfer"/);
 });
 const env={SUPABASE_URL:'https://fixture.invalid',SUPABASE_SERVICE_ROLE_KEY:'fixture',PAYSTACK_SECRET_KEY:'sk_test_fixture',SHOP_ORIGIN:'https://shop.example'};

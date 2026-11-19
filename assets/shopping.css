@@ -107,7 +107,9 @@
 .mg-bank-holder{font-size:14px;color:#4f5653;margin-top:2px!important}
 .mg-bank-number{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px!important}
 .mg-bank-number span{font-size:22px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums;color:#17251f}
-.mg-copy{min-height:40px;padding:8px 16px;border-radius:8px;border:1px solid #0b845b;background:#fff;color:#0b845b;font:inherit;font-weight:700;cursor:pointer}
-.mg-whatsapp-confirm{display:flex;align-items:center;justify-content:center;min-height:52px;margin-top:14px;border-radius:10px;background:#25d366;color:#08311a!important;font-weight:800;text-decoration:none}
-.mg-whatsapp-confirm:hover{background:#1fbd5a}
+.mg-copy{white-space:nowrap;flex:none;min-height:40px;padding:8px 16px;border-radius:8px;border:1px solid #0b845b;background:#fff;color:#0b845b;font:inherit;font-weight:700;cursor:pointer}
+.mg-sent-money{display:flex!important;align-items:center;justify-content:center;width:100%;min-height:54px;margin-top:16px;border-radius:10px;font-size:17px;font-weight:800;text-decoration:none}
+.mg-sent-note{text-align:center;margin-top:8px}
+.mg-bank-steps{margin:0 0 16px;padding-left:20px;color:#2f3532;font-size:14.5px;line-height:1.7}
 @media(max-width:420px){.mg-bank{padding:16px}.mg-bank-totals dd{font-size:18px}.mg-bank-number span{font-size:20px}}
+.mg-copy:focus,.mg-copy:active{background:#f1f8f4;color:#0b845b;outline:2px solid #0b845b55}
