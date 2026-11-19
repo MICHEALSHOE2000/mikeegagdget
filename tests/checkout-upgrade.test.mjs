@@ -62,5 +62,5 @@ test('migration is additive: widens checks, adds functions, drops/renames no col
  const sql=read('supabase/migrations/20261119100000_bank_transfer_checkout.sql').replace(/--.*$/gm,'');
  assert.doesNotMatch(sql,/drop column|rename|drop table/i);assert.match(sql,/'bank_transfer'/);assert.match(sql,/'pending_payment'/);
  assert.match(sql,/function public\.shop_bank_transfer_begin/);assert.match(sql,/function public\.shop_bank_transfer_mark_paid/);
- assert.match(read('api/admin/order.mjs'),/shop_bank_transfer_mark_paid/);assert.match(read('assets/admin.js'),/Mark bank transfer received/);
+ assert.match(read('api/admin/order.mjs'),/shop_bank_transfer_mark_paid/);assert.match(read('assets/admin.js'),/Money received in bank/);
 });
