@@ -17,14 +17,17 @@ test('search ranks exact models, handles typos and keeps model numbers distinct'
  assert.equal(searchCatalogue(models,'iphnoe 15 pro max')[0].model,'iPhone 15 Pro Max');
  assert.equal(searchScore({model:'iPhone 16'},'iphone 15'),-1);
 });
-const checkout=()=>({requestId:'12345678-1234-1234-1234-123456789abc',firstName:'Test',lastName:'Buyer',email:'BUYER@example.com',phone:'08012345678',agreed:true,fulfillment:'delivery',state:'Lagos',city:'Ikeja',address:'Test address',items:[{sku:'a',quantity:1}]});
+const checkout=()=>({requestId:'12345678-1234-1234-1234-123456789abc',firstName:'Test',lastName:'Buyer',email:'BUYER@example.com',phone:'08012345678',agreed:true,fulfillment:'delivery',state:'Lagos',lga:'Ikeja',address:'Test address',items:[{sku:'a',quantity:1}]});
 test('checkout requires delivery address and consent, ignores client prices',()=>{
  const body=checkout();body.amount=1;body.items[0].price=1;
  const result=validateCheckout(body);assert.equal(result.customer.email,'buyer@example.com');assert.equal(result.items[0].price,undefined);assert.equal(result.amount,undefined);
  assert.throws(()=>validateCheckout({...body,agreed:false}),/agree/);
- assert.throws(()=>validateCheckout({...body,state:'Elsewhere'}),/address/);
+ assert.throws(()=>validateCheckout({...body,state:'Elsewhere'}),/state/);
+ assert.throws(()=>validateCheckout({...body,lga:'Ikorodu Town'}),/LGA/);
+ assert.throws(()=>validateCheckout({...body,address:''}),/street address/);
  assert.throws(()=>validateCheckout({...body,requestId:'------------------------------------'}),/Refresh/);
- assert.equal(validateCheckout({...body,fulfillment:'pickup',state:'',city:'',address:''}).customer.fulfillment,'pickup');
+ assert.equal(validateCheckout({...body,fulfillment:'pickup',address:''}).customer.fulfillment,'pickup');
+ assert.throws(()=>validateCheckout({...body,fulfillment:'pickup',state:'',lga:''}),/state/);
 });
 test('server verifies reference and currency before attempting to mark paid',async()=>{
  const saved=globalThis.fetch;const old=process.env.PAYSTACK_SECRET_KEY;process.env.PAYSTACK_SECRET_KEY='sk_test_fixture';
