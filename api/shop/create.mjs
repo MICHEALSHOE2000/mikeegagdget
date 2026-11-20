@@ -2,6 +2,7 @@ import {db,paystack,reply,sameOrigin,env} from '../_shop.mjs';
 import {validateCheckout} from '../../commerce/checkout-validation.mjs';
 import {skuFilter} from '../../commerce/home-render.mjs';
 import {stockProblem} from '../../commerce/stock.mjs';
+import {notifyOrder} from '../../commerce/notifications.mjs';
 import {creditDirectConfig,createCreditDirectTransaction,signCreditDirectTransaction,linkToken,validLinkToken,newSessionId} from '../../commerce/credit-direct.mjs';
 const FINANCING_OFF='Pay Small Small is not available right now. You can pay outright with Paystack.';
 const REFERENCE=/^MGP2-[a-f0-9]{32}$/;
@@ -22,9 +23,17 @@ export default async function handler(req,res){
   let order;try{order=validateCheckout(req.body);}catch(e){return reply(res,400,{error:e.message});}
   // Stock is re-checked on the server from the catalogue record; the browser's view is never trusted.
   {const rows=await db('checkout_inventory?select=sku,product_data&sku='+encodeURIComponent(skuFilter(order.items.map(i=>i.sku))));const problem=stockProblem(order.items,rows);if(problem)return reply(res,409,{error:problem});}
-  const result=await db('rpc/shop_create_order_deals',{method:'POST',body:{p_request_id:order.requestId,p_items:order.items,p_customer:order.customer,p_policy:order.policyVersion}});
+  // Prices, Hot Deal discounts and the delivery fee are all worked out by the database from its own tables.
+  let result;try{result=await db('rpc/shop_create_order_v3',{method:'POST',body:{p_request_id:order.requestId,p_items:order.items,p_customer:order.customer,p_policy:order.policyVersion}});}
+  catch(e){return reply(res,409,{error:order.deliveryMethod==='store_pickup'?'Your order could not be saved. Refresh checkout and try again.':'Delivery to the selected area is not available right now. Choose another option or store pickup.'});}
   const complete='/checkout/complete/?reference='+encodeURIComponent(result.reference);
   if(result.status==='paid')return reply(res,200,{url:new URL(complete,env('SHOP_ORIGIN')).href});
+  // Reserve Now, Pay at Pickup: nothing is charged. The emails go once, even if the button is pressed again.
+  if(result.status==='unpaid'&&result.reservation_ref){
+   if(order.paymentMethod!=='pay_at_pickup')return reply(res,409,{error:'This order was saved as a store reservation. Refresh checkout to pay online instead.'});
+   const emails=await notifyOrder(db,result.reference,['reservation_received','admin_new_reservation']);
+   return reply(res,200,{provider:'reservation',reference:result.reference,reservationRef:result.reservation_ref,url:complete,emailed:emails.reservation_received==='accepted'});
+  }
   // A repeated "Place Order" for a bank-transfer order goes back to its account details.
   if(result.status==='pending_payment')return order.paymentMethod==='bank_transfer'?reply(res,200,{provider:'bank_transfer',reference:result.reference,url:complete}):reply(res,409,{error:'This order was placed for bank transfer. Refresh checkout to choose another payment method.'});
   if(!Number.isSafeInteger(req.body.expectedTotalNgn)||req.body.expectedTotalNgn!==Number(result.amount_ngn))return reply(res,409,{error:'The current price has changed. Refresh checkout and review the updated total before paying.'});

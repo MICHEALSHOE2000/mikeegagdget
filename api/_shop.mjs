@@ -1,6 +1,6 @@
 export const env=key=>{const value=process.env[key]||(key==='SHOP_ORIGIN'?process.env.SITE_URL:undefined);if(!value)throw Error('Checkout configuration is incomplete.');return value;};
-export async function db(path,{method='GET',body}={}){
- const r=await fetch(env('SUPABASE_URL')+'/rest/v1/'+path,{method,headers:{apikey:env('SUPABASE_SERVICE_ROLE_KEY'),Authorization:'Bearer '+env('SUPABASE_SERVICE_ROLE_KEY'),'Content-Type':'application/json',Prefer:'return=representation'},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(15000)});
+export async function db(path,{method='GET',body,prefer}={}){
+ const r=await fetch(env('SUPABASE_URL')+'/rest/v1/'+path,{method,headers:{apikey:env('SUPABASE_SERVICE_ROLE_KEY'),Authorization:'Bearer '+env('SUPABASE_SERVICE_ROLE_KEY'),'Content-Type':'application/json',Prefer:'return=representation'+(prefer?','+prefer:'')},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(15000)});
  if(!r.ok)throw Error('Unable to save or retrieve this order. Please try again.');if(r.status===204)return null;return r.json();
 }
 export const reply=(res,status,data)=>res.status(status).setHeader('Cache-Control','no-store').json(data);
@@ -15,9 +15,18 @@ export async function paystack(path,body){
  const data=await r.json();if(!r.ok||!data.status)throw Error('The payment provider could not complete this request. Please try again.');return data.data;
 }
 import {creditDirectConfig} from '../commerce/credit-direct.mjs';
+// Payment check used by the confirmation page, the Paystack webhook and Admin. When an order is paid,
+// the customer and the store are emailed once.
 export async function verify(reference){
+ const result=await verifyPayment(reference);
+ if(result.status==='paid'){try{const {notifyOrder}=await import('../commerce/notifications.mjs');await notifyOrder(db,reference,['payment_received','admin_paid_order']);}catch{}}
+ return result;
+}
+async function verifyPayment(reference){
  // If the order cannot be read, fall back to asking Paystack (the previous behaviour) rather than failing outright.
- let order=null;try{order=(await db('shop_orders?reference=eq.'+encodeURIComponent(reference)+'&select=status,payment_provider,amount_ngn'))?.[0]||null;}catch{order=null;}
+ let order=null;try{order=(await db('shop_orders?reference=eq.'+encodeURIComponent(reference)+'&select=status,payment_provider,amount_ngn,reservation_ref,reservation_status,pickup_date,hold_until'))?.[0]||null;}catch{order=null;}
+ // Store reservations: nothing to verify online; the customer pays at the store and staff record it.
+ if(order?.payment_provider==='pay_at_store')return {status:order.status==='paid'?'paid':'reserved',paymentMethod:'pay_at_store',reservationRef:order.reservation_ref,reservationStatus:order.reservation_status,amountDueNgn:Number(order.amount_ngn),pickupDate:order.pickup_date,holdUntil:order.hold_until};
  // Bank transfers are confirmed by the administrator once the money reflects; there is nothing to ask a provider.
  if(order?.payment_provider==='bank_transfer')return {status:order.status==='paid'?'paid':'pending_payment',paymentMethod:'bank_transfer',...(order.status==='paid'?{}:{amountNgn:Number(order.amount_ngn)})};
  // Credit Direct orders are confirmed only by the provider's signed merchant-payment webhook.

@@ -82,7 +82,7 @@ const productFaqs = (product) => {
     },
     {
       question: "Do you deliver outside Lagos?",
-      answer: `Delivery is free nationwide: same-day in Lagos and 24–48 hours to other states.`
+      answer: `We deliver across Lagos and send orders to a transport park in every other state. The fee for your area is shown at checkout, and pickup at our Computer Village store is free.`
     },
     {
       question: `Does ${product.model} come with a warranty?`,
@@ -251,7 +251,7 @@ const renderVariantSelector = (product) => `
     <div class="buying-facts">
       <span><b>Battery health</b>${product.listingPending ? "Details coming soon" : product.brand === "Apple" ? "UK-used units: above 83%; confirm exact reading" : "Reading available for the exact used unit"}</span>
       <span><b>Warranty</b>7-day warranty on all products</span>
-      <span><b>Delivery</b>Free nationwide delivery</span>
+      <span><b>Delivery</b>Lagos delivery · park pickup nationwide · free store pickup</span>
     </div>
     <div class="price-display">
       <span data-variant-label>${escapeHtml(product.model)} ${escapeHtml(product.defaultStorage)}</span>
@@ -260,7 +260,7 @@ const renderVariantSelector = (product) => `
           ? formatNaira(product.variants.find((variant) => variant.storage === product.defaultStorage).price)
           : "Confirm Price"
       )}</strong>
-      <small data-price-note>Available · Free nationwide delivery</small>
+      <small data-price-note>Available · Free pickup in Computer Village</small>
     </div>
     <div class="purchase-actions">
       <a class="commerce-button commerce-button-primary" data-action="buy" href="/checkout/?sku=${encodeURIComponent(`${product.slug}|${product.defaultStorage}`)}">Buy Now</a>
@@ -349,9 +349,9 @@ const renderDelivery = () => `
       <a class="text-link" href="${commerceSite.directionsUrl}" target="_blank" rel="noopener">Get directions to the store →</a>
     </div>
     <div class="delivery-grid">
-      <article><span>01</span><h3>Lagos delivery</h3><p>Free delivery in Lagos. Same-day delivery where operationally feasible.</p></article>
+      <article><span>01</span><h3>Lagos delivery</h3><p>Home delivery across Lagos. The fee for your LGA is shown at checkout.</p></article>
       <article><span>02</span><h3>Store pickup</h3><p>Visit ${escapeHtml(commerceSite.address)} and ask to inspect the exact unit before payment.</p></article>
-      <article><span>03</span><h3>Nationwide delivery</h3><p>Free nationwide delivery. Target: 24–48 hours, subject to dispatch and carrier confirmation.</p></article>
+      <article><span>03</span><h3>Other states</h3><p>Sent to a transport park in your state. The fee is shown at checkout, and we contact you with collection details.</p></article>
     </div>
   </section>`;
 

@@ -9,7 +9,7 @@ const i={
 };
 const col=(title,links)=>`<nav class="mg-footer-col" aria-label="${title}"><h2>${title}</h2><ul>${links.map(([t,h])=>`<li><a href="${h}">${t}</a></li>`).join('')}</ul></nav>`;
 export const SITE_FOOTER=`<footer class="mg-footer" id="contact">
-<div class="mg-footer-promise"><div class="mg-footer-inner"><span>${i.shield}7-day warranty</span><span>Free nationwide delivery</span><span>Secure Paystack checkout</span><span>Test before you pay in store</span></div></div>
+<div class="mg-footer-promise"><div class="mg-footer-inner"><span>${i.shield}7-day warranty</span><span>Free store pickup</span><span>Secure Paystack checkout</span><span>Test before you pay in store</span></div></div>
 <div class="mg-footer-inner mg-footer-main">
 <div class="mg-footer-brand"><a class="mg-footer-logo" href="/" aria-label="Mikee Gadget Plug home"><span class="mg-footer-mark" aria-hidden="true">M</span><span>MIKEE<small>GADGET PLUG</small></span></a>
 <p class="mg-footer-tag">Genuine UK Used &amp; Brand New phones, tablets, watches and audio. Buy. Swap. Upgrade.</p>

@@ -1,3 +1,4 @@
+import {notifyOrder} from '../../commerce/notifications.mjs';
 import {validateProductEdit} from '../../commerce/admin-catalogue.mjs';
 import {db,reply,sameOrigin} from '../_shop.mjs';
 import {requireAdmin} from './_auth.mjs';
@@ -8,8 +9,16 @@ export default async function handler(req,res){
   if(req.method==='GET'){
    const kind=req.query?.kind;
    if(kind==='inventory')return reply(res,200,await db('checkout_inventory?select=sku,price_ngn,enabled,product_data,updated_at&order=sku&limit=1000'));
-   if(kind==='orders')return reply(res,200,await db('shop_orders?select=reference,amount_ngn,status,payment_provider,fulfillment_status,supplier_status,created_at,customer,shop_order_items(sku,quantity,unit_price_ngn,selected_color)&order=created_at.desc&limit=100'));
-   return reply(res,400,{error:'Choose inventory or orders.'});
+   if(kind==='orders')return reply(res,200,await db('shop_orders?select=reference,amount_ngn,delivery_fee_ngn,delivery_method,status,payment_provider,fulfillment_status,supplier_status,created_at,customer,shop_order_items(sku,quantity,unit_price_ngn,selected_color)&payment_provider=neq.pay_at_store&order=created_at.desc&limit=100'));
+   if(kind==='reservations'){
+    // Expire overdue reservations first (also runs every 15 minutes in the database), then email those customers once.
+    try{await db('rpc/shop_expire_reservations',{method:'POST',body:{}});}catch{}
+    const rows=await db('shop_orders?select=reference,reservation_ref,reservation_status,status,amount_ngn,pickup_date,hold_until,created_at,reservation_confirmed_at,reservation_ready_at,reservation_closed_at,customer,shop_order_items(sku,quantity,unit_price_ngn,selected_color,product_snapshot)&reservation_status=not.is.null&order=created_at.desc&limit=200');
+    const recent=Date.now()-7*864e5;
+    for(const r of rows.filter(r=>r.reservation_status==='expired'&&new Date(r.reservation_closed_at||0).getTime()>recent))await notifyOrder(db,r.reference,['reservation_expired']);
+    return reply(res,200,rows);
+   }
+   return reply(res,400,{error:'Choose inventory, orders or reservations.'});
   }
   if(!sameOrigin(req))return reply(res,403,{error:'Use the administrator page.'});
   const {sku,price,enabled,updatedAt,productData}=req.body||{};

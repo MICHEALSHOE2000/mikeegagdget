@@ -88,7 +88,7 @@ test('homepage has quick chips and no visible advanced panel; the Shop page has 
 // Fix 7
 test('trust strip uses the approved messages and the four policy pages exist and are linked',()=>{
  const home=read('index.html'),product=read('iphone-15/index.html');
- for(const t of ['7-day warranty','Free nationwide delivery','Same-day Lagos delivery where possible','Secure Paystack payment','Pay Small Small with Credit Direct','Computer Village, Ikeja']){assert.ok(home.includes(t),t);assert.ok(product.includes(t),t);}
+ for(const t of ['7-day warranty','Free pickup in Computer Village','Delivery across Lagos and to every state','Secure Paystack payment','Pay Small Small with Credit Direct','Computer Village, Ikeja']){assert.ok(home.includes(t),t);assert.ok(product.includes(t),t);}
  assert.match(home,/Test before you pay — in store or on pickup/);assert.equal((product.match(/class="mg-trust"/g)||[]).length,1);
  for(const p of ['warranty-policy','returns-refunds','delivery-policy','terms','privacy-policy']){assert.ok(existsSync(p+'/index.html'),p);assert.ok(home.includes(`href="/${p}/"`),p);assert.match(read(p+'/index.html'),/Nothing on this page limits any right you have/);}
  assert.match(read('returns-refunds/index.html'),/changed your mind after delivery or collection/);
@@ -100,7 +100,7 @@ test('stock: only confirmed states, never an invented number, and checkout re-ch
  assert.deepEqual(cleanStock({stockStatus:'in_stock',stockQty:0}),{stockStatus:'out_of_stock',stockQty:null});assert.deepEqual(cleanStock({stockStatus:'made-up',stockQty:9}),{stockStatus:'',stockQty:null});assert.deepEqual(cleanStock({stockStatus:'confirm',stockQty:4}),{stockStatus:'confirm',stockQty:null});
  const rows=[{sku:'a',product_data:{model:'A',stockStatus:'out_of_stock'}},{sku:'b',product_data:{model:'B',stockStatus:'in_stock',stockQty:1}},{sku:'c',product_data:{model:'C'}}];
  assert.match(stockProblem([{sku:'a',quantity:1}],rows),/out of stock/);assert.match(stockProblem([{sku:'b',quantity:1},{sku:'b',quantity:1}],rows),/Only 1/);assert.equal(stockProblem([{sku:'b',quantity:1},{sku:'c',quantity:5}],rows),'');
- const create=read('api/shop/create.mjs');assert.ok(create.indexOf('stockProblem(')<create.indexOf("rpc/shop_create_order_deals',{method"),'stock is checked before the order is created');
+ const create=read('api/shop/create.mjs');assert.ok(create.indexOf('stockProblem(')<create.indexOf("rpc/shop_create_order_v3',{method"),'stock is checked before the order is created');
 });
 // Fix 9
 test('catalogue audit report exists with the required columns',()=>{
