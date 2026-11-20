@@ -27,7 +27,8 @@ test('checkout requires delivery address and consent, ignores client prices',()=
  assert.throws(()=>validateCheckout({...body,address:''}),/street address/);
  assert.throws(()=>validateCheckout({...body,requestId:'------------------------------------'}),/Refresh/);
  assert.equal(validateCheckout({...body,fulfillment:'pickup',address:''}).customer.fulfillment,'pickup');
- assert.throws(()=>validateCheckout({...body,fulfillment:'pickup',state:'',lga:''}),/state/);
+ // Store pickup needs no address, state or LGA (the brief: no delivery address for store pickup).
+ assert.equal(validateCheckout({...body,fulfillment:'pickup',state:'',lga:''}).customer.deliveryMethod,'store_pickup');
 });
 test('server verifies reference and currency before attempting to mark paid',async()=>{
  const saved=globalThis.fetch;const old=process.env.PAYSTACK_SECRET_KEY;process.env.PAYSTACK_SECRET_KEY='sk_test_fixture';

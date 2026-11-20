@@ -53,6 +53,9 @@
 .mg-confirm-icon.is-failed{background:#f6dcd8}
 .mg-confirm-icon.is-failed::after{content:"!";position:absolute;inset:0;display:grid;place-items:center;color:#9a231a;font:900 1.5rem Inter,sans-serif}
 .mg-confirm-icon.is-waiting{background:#f5e7c2}
+.mg-confirm-icon.is-waiting::after{content:"…";position:absolute;inset:0;display:grid;place-items:center;color:#8a5a00;font:900 1.4rem Inter,sans-serif;line-height:1}
+.mg-confirm-icon.is-reserved{background:#e6f2ec}
+.mg-confirm-icon.is-reserved::after{content:"";position:absolute;left:17px;top:11px;width:11px;height:20px;border:solid #0f7a4f;border-width:0 4px 4px 0;transform:rotate(45deg)}
 .mg-ref{color:#4d5650;font-size:.85rem;overflow-wrap:anywhere}
 .mg-confirm .mg-summary{margin:16px 0}
 .mg-confirm .mg-summary h2{margin-top:14px!important}.mg-confirm .mg-summary h2:first-child{margin-top:0!important}
@@ -97,10 +100,10 @@
 .mg-bank{margin:22px 0;padding:20px;border:1px solid #cfe5da;border-radius:14px;background:#f7fbf9}
 .mg-bank[hidden]{display:none}
 .mg-bank h2{margin:0 0 14px}
-.mg-bank-totals{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 16px}
+.mg-bank-totals{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin:0 0 16px}
 .mg-bank-totals div{background:#fff;border:1px solid #e1e7e3;border-radius:10px;padding:12px}
 .mg-bank-totals dt{font-size:12.5px;color:#4f5653;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
-.mg-bank-totals dd{margin:4px 0 0;font-size:20px;font-weight:800;color:#17251f}
+.mg-bank-totals dd{margin:4px 0 0;overflow-wrap:anywhere;font-size:clamp(16px,4.6vw,20px);font-weight:800;color:#17251f}
 .mg-bank-account{background:#fff;border:1px solid #e1e7e3;border-radius:10px;padding:14px;margin:0 0 10px}
 .mg-bank-account p{margin:0}
 .mg-bank-name{font-weight:800;color:#17251f;letter-spacing:.02em}
@@ -113,3 +116,15 @@
 .mg-bank-steps{margin:0 0 16px;padding-left:20px;color:#2f3532;font-size:14.5px;line-height:1.7}
 @media(max-width:420px){.mg-bank{padding:16px}.mg-bank-totals dd{font-size:18px}.mg-bank-number span{font-size:20px}}
 .mg-copy:focus,.mg-copy:active{background:#f1f8f4;color:#0b845b;outline:2px solid #0b845b55}
+/* Delivery options, transport park pickup and store reservations (Nov 2026). */
+.shopping-page fieldset[hidden],.shopping-page [hidden]{display:none!important}
+.mg-receive{margin-top:18px}
+.mg-delivery-quote{margin:12px 0 0;padding:12px 14px;border-radius:10px;background:#f1f8f4;border:1px solid #cfe5da;font-weight:700;color:#17251f}
+.mg-delivery-quote:empty{display:none}
+.mg-delivery-quote.is-warn{background:#fff8ea;border-color:#f1d49b;color:#6b4705;font-weight:600}
+.mg-park-note{margin:10px 0 4px;padding:12px 14px;border-radius:10px;background:#f7f8f6;border:1px solid #e3e7e4;font-size:14px;line-height:1.5;color:#2f3532}
+.mg-due-note{margin:6px 0 0;font-size:13px}
+#reserve-fields{margin-top:8px}
+
+@media (max-width:400px){.mg-bank{padding:14px}.mg-bank-totals{gap:8px}.mg-bank-totals div{padding:10px}.mg-bank-totals dt{font-size:11px}}
+.mg-res-totals div:first-child{grid-column:1/-1}

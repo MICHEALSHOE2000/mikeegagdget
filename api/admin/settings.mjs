@@ -5,14 +5,24 @@ const SETUP='Reviews are not set up yet: the reviews database migration has not 
 // Store settings, plus (kind=reviews) administrator-entered customer testimonials.
 export default async function handler(req,res){
  let user;try{user=await requireAdmin(req);}catch(e){return reply(res,401,{error:e.message});}
- const reviews=req.query?.kind==='reviews';
+ const reviews=req.query?.kind==='reviews',delivery=req.query?.kind==='delivery';
  try{
+  if(req.method==='GET'&&delivery)return reply(res,200,await db('shop_delivery_rates?select=id,scope,area,label,fee_ngn,enabled,updated_at&order=scope.asc,area.asc'));
   if(req.method==='GET'){
    if(reviews){try{return reply(res,200,await db('shop_reviews?select=*&order=created_at.desc&limit=200'));}catch{return reply(res,503,{error:SETUP});}}
    return reply(res,200,(await db('shop_settings?id=eq.store'))[0]||{});
   }
   if(!['PATCH','POST'].includes(req.method))return reply(res,405,{error:'Method not allowed'});
   if(!sameOrigin(req))return reply(res,403,{error:'Use the administrator page.'});
+  if(delivery){
+   // One delivery price at a time. Prices are whole naira; an empty price switches delivery to that area off.
+   const id=String(req.body?.id||'');if(!/^(lagos_lga|state):[\w '()./-]{2,60}$/.test(id))throw Error('Unknown delivery area.');
+   const raw=req.body?.fee;const fee=raw===''||raw===null||raw===undefined?null:Number(raw);
+   if(fee!==null&&(!Number.isSafeInteger(fee)||fee<0||fee>1000000))throw Error('Enter a delivery price between ₦0 and ₦1,000,000, or leave it empty.');
+   const enabled=fee!==null&&req.body?.enabled!==false;
+   const row=(await db('shop_delivery_rates?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:{fee_ngn:fee,enabled,updated_at:new Date().toISOString(),updated_by:user.id}}))[0];
+   if(!row)throw Error('Unknown delivery area.');return reply(res,200,row);
+  }
   if(reviews){
    const row=validateReview(req.body);
    try{
@@ -27,6 +37,7 @@ export default async function handler(req,res){
   const notes=String(req.body?.financingNotes||'').slice(0,2000);
   const google=validGoogleReviewsUrl(req.body?.googleReviewsUrl);
   const base={community_url:url,financing_notes:notes,updated_at:new Date().toISOString()};
+  if(req.body?.holdHours!==undefined&&req.body.holdHours!==''){const h=Number(req.body.holdHours);if(!Number.isInteger(h)||h<1||h>168)throw Error('Reservation holding time must be between 1 and 168 hours.');base.reservation_hold_hours=h;}
   // The Google link column arrives with the reviews migration; other settings still save before it is applied.
   try{await db('shop_settings?id=eq.store',{method:'PATCH',body:{...base,google_reviews_url:google}});return reply(res,200,{saved:true});}
   catch{await db('shop_settings?id=eq.store',{method:'PATCH',body:base});return reply(res,200,{saved:true,note:google?'Saved, except the Google reviews link: '+SETUP:''});}

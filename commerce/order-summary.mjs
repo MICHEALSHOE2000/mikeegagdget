@@ -12,6 +12,7 @@ export function orderSummary(order){
   createdAt:order.created_at||null,
   fulfillmentStatus:text(order.fulfillment_status,40),
   fulfillment:pickup?'pickup':'delivery',
+  deliveryMethod:text(order.delivery_method,30),
   destination:pickup?'':[text(c.city,80),text(c.state,60)].filter(Boolean).join(', '),
   customer:{firstName:text(c.firstName,60),email:maskEmail(c.email),phone:maskPhone(c.phone)},
   items:(order.shop_order_items||[]).map(i=>{const p=i.product_snapshot||{};return {

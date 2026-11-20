@@ -115,3 +115,12 @@
 .mg-admin .btn-primary:hover{background:#08704d}
 .mg-admin .btn-primary:disabled{opacity:.6;cursor:wait}
 .mg-admin .btn-outline{background:#fff;border:1px solid var(--g);color:var(--g);border-radius:12px;font-weight:700;min-height:46px;cursor:pointer}
+.adm-res-items li.adm-res-item{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center}
+.adm-res-item img,.adm-res-item .adm-noimg{width:52px;height:52px;border-radius:10px;object-fit:cover;background:#eef1ef}
+.adm-res-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.adm-res-actions .btn{min-height:46px;padding:0 18px}
+.adm-rates{display:grid;gap:8px}
+.mg-admin .adm-rate{display:grid;grid-template-columns:1fr 170px auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.adm-rate-name small{display:block;color:var(--muted);font-size:12.5px}
+.mg-admin .adm-rate .adm-naira input{font-size:16px;min-height:44px}
+@media(max-width:640px){.mg-admin .adm-rate{grid-template-columns:1fr 130px;}.mg-admin .adm-rate .btn{grid-column:1/-1}.adm-res-actions .btn,.adm-res-actions .adm-ghost{flex:1 1 100%}}
