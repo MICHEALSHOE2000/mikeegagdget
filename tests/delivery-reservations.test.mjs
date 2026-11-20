@@ -84,7 +84,7 @@ test('verify: a reservation reports "reserved" with the amount due at pickup and
 test('checkout page: delivery or free store pickup, LGA prices, park details, Pay Online or Reserve Now, ₦0 online explained',()=>{
  const h=read('checkout/index.html'),js=read('assets/shopping.js');
  assert.match(h,/name="receive" value="delivery" checked/);assert.match(h,/Pickup at Mikee Gadget Store — FREE/);
- assert.match(h,/Pay Online &amp; Pickup in Store/);assert.match(h,/Reserve Now — Pay at Pickup/);assert.match(h,/Prefer to see your gadget before paying\? Reserve it online and pay when you visit our store\./);
+ assert.match(h,/Pay Online &amp; Pickup in Store/);assert.match(h,/Reserve Now — Pay at Pickup/);assert.match(h,/Reserve it online and pay when you visit our store\./);assert.doesNotMatch(h,/Prefer to see|added automatically|will tell you when|account details are shown/);
  assert.match(h,/name="town"/);assert.match(h,/name="park"/);assert.match(h,/designated transport park/);assert.match(h,/name="pickupDate" type="date"/);
  assert.doesNotMatch(h,/<select name="fulfillment">/);
  assert.match(js,/Amount payable online/);assert.match(js,/Amount due at pickup/);assert.match(js,/Reservation Request Received!/);assert.match(js,/location\.assign\(wa\)/);
