@@ -24,7 +24,7 @@ const AVAILABILITY={in_stock:'In stock',out_of_stock:'Out of stock',preorder:'Pr
 export const naira=n=>'₦'+String(Math.round(Number(n))).replace(/\B(?=(\d{3})+(?!\d))/g,',');
 const clean=s=>String(s??'').replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g,' ').replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim();
 export const cleanText=s=>clean(s).slice(0,MAX_TEXT);
-const norm=s=>String(s||'').toLowerCase().replace(/wi-?fi/g,'wifi').replace(/[^a-z0-9₦ ]+/g,' ').replace(/\s+/g,' ').trim();
+const norm=s=>String(s||'').toLowerCase().replace(/(\d)(pro|max|plus|mini|ultra|air|fe)\b/g,'$1 $2').replace(/(pro)(max)\b/g,'$1 $2').replace(/wi-?fi/g,'wifi').replace(/[^a-z0-9₦ ]+/g,' ').replace(/\s+/g,' ').trim();
 const escRe=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 
 // ---------------------------------------------------------------- Catalogue tools

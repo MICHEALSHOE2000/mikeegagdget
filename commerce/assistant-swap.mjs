@@ -3,7 +3,7 @@
 // iPhones only: there are no Samsung or Pixel swap reference prices yet, so those go to the team.
 import {choices,estimateSwap} from './upgrade-core.mjs';
 
-const norm=s=>String(s||'').toLowerCase().replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
+const norm=s=>String(s||'').toLowerCase().replace(/(\d)(pro|max|plus|mini|ultra|air)\b/g,'$1 $2').replace(/(pro)(max)\b/g,'$1 $2').replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
 const escRe=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 // One entry per iPhone model with its storages. A storage with no reference price stays listed (so "13 Pro Max" is
 // recognised) but gets no estimate. Where a storage has several reference lines (colours, Brand New), the lowest

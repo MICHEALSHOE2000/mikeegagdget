@@ -99,7 +99,7 @@ export async function openaiRespond({state:inState,text,history},ctx,{client:inj
   {role:'user',content:text}];
  const api=injected||await client();
  for(let round=0;round<3;round++){
-  const res=await api.chat.completions.create({model,messages,tools:TOOLS,tool_choice:'auto',max_completion_tokens:maxTokens});
+  const res=await api.chat.completions.create({model,messages,tools:TOOLS,tool_choice:'auto',max_completion_tokens:maxTokens,reasoning_effort:process.env.OPENAI_REASONING_EFFORT||'none'});
   aiCalls++;await onUsage(res?.usage?.prompt_tokens||0,res?.usage?.completion_tokens||0);
   const msg=res?.choices?.[0]?.message;if(!msg)return {reply:null,aiCalls};
   if(msg.tool_calls?.length){

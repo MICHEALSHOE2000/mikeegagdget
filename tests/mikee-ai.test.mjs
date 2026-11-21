@@ -212,7 +212,7 @@ test('18. prompt injection: refused in simulation; in OpenAI mode ungrounded pri
  const r=await openaiRespond({state:{},text:'how much is iphone 13',history:[]},ctx,{client:liar});assert.equal(r.reply,null,'invented price → reply discarded');
  const honest=fakeOpenAI([{content:'',tool_calls:[{id:'t1',type:'function',function:{name:'search_catalogue',arguments:JSON.stringify({query:'iPhone 13'})}}]},{content:'The iPhone 13 starts at ₦370,000 (UK Used, 128GB).'}]);
  const h=await openaiRespond({state:{},text:'how much is iphone 13',history:[]},ctx,{client:honest});assert.match(h.reply.text,/₦370,000/);assert.equal(h.reply.cards[0].priceText,'₦370,000');
- assert.equal(honest.calls[0].messages[0].role,'system');assert.equal(honest.calls[0].messages.at(-1).role,'user');assert.ok(honest.calls[0].max_completion_tokens<=800);
+ assert.equal(honest.calls[0].reasoning_effort,'none','gpt-6-luna needs reasoning off to use tools on chat completions');assert.equal(honest.calls[0].messages[0].role,'system');assert.equal(honest.calls[0].messages.at(-1).role,'user');assert.ok(honest.calls[0].max_completion_tokens<=800);
  assert.ok(pricesGrounded('₦370,000',[370000]));assert.ok(!pricesGrounded('₦1',[370000]));
  const st={};runTool('update_preferences',{budget_ngn:5,storage:'drop table',product_slug:'../../admin'},ctx,st);assert.deepEqual(st,{},'tool input is validated');
  assert.equal(runTool('delete_everything',{},ctx,{}).result.error,'unknown tool');
@@ -301,7 +301,7 @@ test('swap: estimate and top-up from the swap price list (same rules as the swap
  assert.match(steps[0].reply.text,/Which iPhone do you have/);assert.match(steps[1].reply.text,/What storage/);assert.match(steps[2].reply.text,/changed or damaged/);
  assert.match(steps[3].reply.text,/worth about ₦[\d,]+ in a swap/);assert.match(steps[3].reply.text,/Which phone would you like/);assert.match(steps[4].reply.text,/iPhone 13 128GB .*add about ₦/);
  const face=chat(['swap 14 pro max 256gb to 16 pro max','screen cracked and face id not working']).r;assert.match(face.reply.text,/technician needs to check/);assert.equal(amounts(face.reply.text).length,0);assert.equal(face.reply.handoff,false,'not treated as a complaint');
- assert.match(chat(['can i swap my samsung s21 for iphone 13']).r.reply.text,/team values Samsung/);assert.match(chat(['swap my tecno camon to iphone 12']).r.reply.text,/only price iPhone swaps/);
+ assert.match(chat(['can i swap 15pro max to 16 pro max']).r.reply.text,/iPhone 15 Pro Max/);assert.match(chat(['can i swap my samsung s21 for iphone 13']).r.reply.text,/team values Samsung/);assert.match(chat(['swap my tecno camon to iphone 12']).r.reply.text,/only price iPhone swaps/);
  const book=chat(['I get iPhone 12 Pro 128GB, battery changed, I wan swap to 15 Pro Max','Book the swap']).r;assert.equal(book.reply.handoff,true);assert.match(leadSummary(book.state,catalogue),/Swap: iPhone 12 Pro 128GB — estimated ₦/);
 });
 test('models are recognised without the brand: "15 pro max" is an iPhone; unknown variants are not guessed',()=>{
