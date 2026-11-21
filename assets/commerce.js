@@ -173,19 +173,7 @@ if (categoryFilter && categoryCards.length) {
   });
 }
 
-document.querySelectorAll("[data-gallery-image]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const gallery = button.closest("[data-product-gallery]");
-    const mainImage = gallery?.querySelector("[data-main-image]");
-    if (!gallery || !mainImage) return;
-    mainImage.closest('.device-media')?.classList.add('is-loading');
-    mainImage.removeAttribute('srcset');
-    mainImage.src = button.dataset.galleryImage;
-    gallery.querySelectorAll("[data-gallery-image]").forEach((item) => {
-      item.classList.toggle("is-active", item === button);
-    });
-  });
-});
+{const galleryRoot=document.querySelector('[data-product-gallery]');if(galleryRoot){const {mountGallery}=await import('./product-gallery.js');mountGallery(galleryRoot);}}
 
 const productDataElement = document.querySelector("#product-data");
 

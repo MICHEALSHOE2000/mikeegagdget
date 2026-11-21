@@ -128,3 +128,7 @@
 
 @media (max-width:400px){.mg-bank{padding:14px}.mg-bank-totals{gap:8px}.mg-bank-totals div{padding:10px}.mg-bank-totals dt{font-size:11px}}
 .mg-res-totals div:first-child{grid-column:1/-1}
+/* Reserve space for content drawn by JavaScript so the footer does not jump (layout shift). */
+#cart-items{min-height:260px}#cart-summary{min-height:180px}
+#checkout-items{min-height:96px}#checkout-total{min-height:120px}
+.shopping-page{min-height:60vh}

@@ -1,7 +1,7 @@
 export const env=key=>{const value=process.env[key]||(key==='SHOP_ORIGIN'?process.env.SITE_URL:undefined);if(!value)throw Error('Checkout configuration is incomplete.');return value;};
 export async function db(path,{method='GET',body,prefer}={}){
  const r=await fetch(env('SUPABASE_URL')+'/rest/v1/'+path,{method,headers:{apikey:env('SUPABASE_SERVICE_ROLE_KEY'),Authorization:'Bearer '+env('SUPABASE_SERVICE_ROLE_KEY'),'Content-Type':'application/json',Prefer:'return=representation'+(prefer?','+prefer:'')},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(15000)});
- if(!r.ok)throw Error('Unable to save or retrieve this order. Please try again.');if(r.status===204)return null;return r.json();
+ if(!r.ok){const e=Error('Unable to save or retrieve this order. Please try again.');try{e.dbMessage=String((await r.json())?.message||'').slice(0,300);}catch{}throw e;}if(r.status===204)return null;return r.json();
 }
 export const reply=(res,status,data)=>res.status(status).setHeader('Cache-Control','no-store').json(data);
 // Requests must come from the shop's own site. Preview deployments also accept their own Vercel address,

@@ -1,6 +1,8 @@
 // Sitewide shopping extras: wishlist hearts, Quick View, customer reviews and the account page.
 // Everything here decorates the existing cards and pages; it does not change their structure.
 import {readWishlist,toggleWishlist,WISHLIST_KEY} from '../commerce/wishlist.mjs';
+import {readList,pushRecent,toggleCompare,RECENT_KEY,COMPARE_KEY,COMPARE_MAX,compareRows} from '../commerce/shopper-lists.mjs';
+import {addToCart} from '../commerce/cart.mjs';
 import {mergeLiveCatalogue} from '../commerce/catalogue-live.mjs';
 import {escape,money,media,card,priceText,listable,stockLabel,activateImages,conditionText,optionLabel} from './storefront-ui.mjs';
 const HEART='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.500 4.600 13.300a4.700 4.700 0 0 1 6.600-6.700l.8.800.8-.800a4.700 4.700 0 0 1 6.600 6.700Z"/></svg>';
@@ -61,20 +63,33 @@ async function reviews(){
  else if(items.length||google){const s=document.createElement('section');s.className='mg-product-reviews';s.setAttribute('aria-labelledby','reviews-title');s.innerHTML=html;(document.querySelector('main')||document.body).append(s);}
 }
 
+// Saved item → cart. Only when the product has one buyable option (one storage, one colour); otherwise the
+// customer chooses on the product page, so nothing is guessed for them.
+function cartAction(p){const buyable=p.variants.filter(v=>v.price>0&&!v.reviewRequired&&v.enabled!==false&&v.stockStatus!=='out_of_stock'),colours=[...new Set(buyable.flatMap(v=>String(v.color||'').split('/').filter(Boolean)))];
+ return buyable.length===1&&colours.length<=1?`<p class="mg-saved-action"><button type="button" class="btn btn-primary" data-saved-cart="${escape(buyable[0].sku||p.slug+'|'+buyable[0].storage)}" data-color="${escape(colours[0]||'')}">Add to cart</button></p>`:`<p class="mg-saved-action"><a class="btn btn-outline" href="${escape(p.route)}">Choose options to add to cart</a></p>`;}
+
 // ---- Account page: saved items and order tracking ----
 async function account(){
  const saved=document.getElementById('saved-items');
  if(saved){const draw=async()=>{const slugs=readWishlist(localStorage);if(!slugs.length){saved.innerHTML='<p class="mg-empty-note">No saved items yet. Tap the heart on any product to save it here.</p><a class="btn btn-primary" href="/search/">Shop products</a>';return;}
    let items=[];try{items=await loadCatalogue();}catch{}
    const found=slugs.map(s=>items.find(p=>p.slug===s)).filter(Boolean).filter(listable);
-   saved.innerHTML=found.length?`<div class="product-grid">${found.map(card).join('')}</div>`:'<p class="mg-empty-note">Your saved items are no longer available. <a href="/search/">Browse current devices</a>.</p>';activateImages(saved);decorate(saved);};
-  await draw();addEventListener('mikee:wishlist',draw);}
+   saved.innerHTML=found.length?`<div class="product-grid">${found.map(p=>card(p)+cartAction(p)).join('')}</div>`:'<p class="mg-empty-note">Your saved items are no longer available. <a href="/search/">Browse current devices</a>.</p>';activateImages(saved);decorate(saved);};
+  await draw();addEventListener('mikee:wishlist',draw);
+  saved.addEventListener('click',e=>{const b=e.target.closest('[data-saved-cart]');if(!b)return;try{addToCart(localStorage,{sku:b.dataset.savedCart,color:b.dataset.color||'',quantity:1});b.textContent='Added to cart ✓';b.disabled=true;}catch{b.textContent='Could not add — open the product';}});}
+ const recent=document.getElementById('recent-items');
+ if(recent){const slugs=readList(localStorage,RECENT_KEY);if(slugs.length){let items=[];try{items=await loadCatalogue();}catch{}const found=slugs.map(s=>items.find(p=>p.slug===s)).filter(Boolean).filter(listable).slice(0,8);if(found.length){recent.innerHTML=`<div class="product-grid">${found.map(card).join('')}</div>`;activateImages(recent);decorate(recent);}}}
+ const compare=document.getElementById('compare-items');
+ if(compare){const draw=async()=>{const slugs=readList(localStorage,COMPARE_KEY);if(!slugs.length)return;let items=[];try{items=await loadCatalogue();}catch{}const found=slugs.map(s=>items.find(p=>p.slug===s)).filter(Boolean);if(!found.length)return;
+   const rows=compareRows(found,{money,optionLabel});
+   compare.innerHTML=`<div class="mg-compare-wrap"><table class="mg-compare"><thead><tr><th scope="col"><span class="sr-only">Detail</span></th>${found.map(p=>`<th scope="col"><a href="${escape(p.route)}">${escape(p.model)}</a><br><button type="button" class="mg-compare-remove" data-compare-remove="${escape(p.slug)}">Remove</button></th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><th scope="row">${escape(r.label)}</th>${r.values.map(v=>`<td>${escape(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="mg-fine">Only details recorded for each product are shown. Prices are per storage option; colours and condition are confirmed for the exact unit.</p>`;};
+  await draw();compare.addEventListener('click',e=>{const b=e.target.closest('[data-compare-remove]');if(!b)return;toggleCompare(localStorage,b.dataset.compareRemove);if(!readList(localStorage,COMPARE_KEY).length)compare.innerHTML='<p class="mg-empty-note">Nothing to compare yet.</p>';else draw();});}
  const form=document.getElementById('track-order');
  if(form)form.addEventListener('submit',async e=>{e.preventDefault();const out=document.getElementById('track-result'),ref=form.elements.reference.value.trim();
   if(!/^MGP2-[a-f0-9]{32}$/.test(ref)){out.textContent='Enter the full order reference from your confirmation page. It starts with MGP2-.';return;}
   out.textContent='Checking…';
   try{const r=await fetch('/api/shop/verify?reference='+encodeURIComponent(ref)),d=await r.json();if(!r.ok)throw Error();
-   const words={paid:'Paid',pending:'Awaiting payment',failed:'Payment not successful',cancelled:'Cancelled',manual_review:'Being reviewed by the store',financing_pending:'Pay Small Small not completed',awaiting_merchant_payment:'Awaiting settlement from Credit Direct'};
+   const words={paid:'Paid',pending:'Awaiting payment',failed:'Payment not successful',cancelled:'Cancelled',manual_review:'Being reviewed by the store',financing_pending:'Pay Small Small not completed',awaiting_merchant_payment:'Awaiting settlement from Credit Direct',reserved:'Reservation received — pay at the store when you collect'};
    out.innerHTML=`<strong>${escape(words[d.status]||'Awaiting payment')}</strong>${d.summary?` · ${escape((d.summary.fulfillmentStatus||'processing').replaceAll('_',' '))} · ${money(d.summary.amountNgn)}<br><a href="/checkout/complete/?reference=${encodeURIComponent(ref)}">View order details</a>`:''}`;
   }catch{out.textContent='We could not find that order. Check the reference, or contact us on WhatsApp.';}});
 }
@@ -93,5 +108,9 @@ export function initExperience(){
   const bar=document.createElement('p');bar.className='mg-share';const text=`${name} at Mikee Gadget Plug`;
   bar.innerHTML=`<span>Share:</span> <a href="https://wa.me/?text=${encodeURIComponent(text+' '+url)}" target="_blank" rel="noopener">WhatsApp</a> <a href="https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}" target="_blank" rel="noopener" aria-label="Share on X"><svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.8L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L1.9 3h6.4l4.4 5.9L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg> X</a> <button type="button" data-copy-link>Copy link</button>`;
   (document.querySelector('[data-purchase-panel]')||document.querySelector('main'))?.after(bar);
+  {const slug=document.body.dataset.productSlug;try{pushRecent(localStorage,slug);}catch{}
+   const cmp=document.createElement('button');cmp.type='button';cmp.className='mg-compare-toggle';const sync=()=>{const on=readList(localStorage,COMPARE_KEY).includes(slug);cmp.setAttribute('aria-pressed',String(on));cmp.textContent=on?'In compare ✓':'Compare';};sync();
+   const go=document.createElement('a');go.href='/account/#compare';go.className='mg-compare-link';const count=()=>{const n=readList(localStorage,COMPARE_KEY).length;go.hidden=!n;go.textContent=`View compare (${n})`;};count();
+   cmp.addEventListener('click',()=>{const r=toggleCompare(localStorage,slug);if(r.full)cmp.textContent=`Compare holds ${COMPARE_MAX} — remove one first`;else sync();count();});bar.append(' ',cmp,' ',go);}
   bar.querySelector('[data-copy-link]').addEventListener('click',async e=>{try{await navigator.clipboard.writeText(url);e.target.textContent='Link copied';}catch{e.target.textContent=url;}});}
 }

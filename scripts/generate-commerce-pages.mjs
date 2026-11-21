@@ -1,3 +1,4 @@
+import {UK_USED_STANDARD,LAGOS_FEE_RANGE,PARK_FEE_RANGE} from '../commerce/buying-info.mjs';
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -249,9 +250,9 @@ const renderVariantSelector = (product) => `
       ${product.conditions.length > 1 ? `<label><span>Condition</span><select data-condition-select>${product.conditions.map((condition) => `<option>${escapeHtml(condition)}</option>`).join("")}</select></label>` : `<div class="condition-badge" aria-label="Condition">${escapeHtml(product.conditions[0] || 'Confirm available condition')}</div>`}
     </div>
     <div class="buying-facts">
-      <span><b>Battery health</b>${product.listingPending ? "Details coming soon" : product.brand === "Apple" ? "UK-used units: above 83%; confirm exact reading" : "Reading available for the exact used unit"}</span>
+      <span><b>Battery health</b>${product.listingPending ? "Details coming soon" : product.brand === "Apple" ? "UK Used: original battery at 85% or above" : "Reading available for the exact used unit"}</span>
       <span><b>Warranty</b>7-day warranty on all products</span>
-      <span><b>Delivery</b>Lagos delivery · park pickup nationwide · free store pickup</span>
+      <span><b>Delivery</b>Lagos delivery · transport park pickup in other states · free store pickup</span>
     </div>
     <div class="price-display">
       <span data-variant-label>${escapeHtml(product.model)} ${escapeHtml(product.defaultStorage)}</span>
@@ -302,7 +303,7 @@ const renderDetails = (product) => `
     </div>
     <aside class="condition-panel">
       <p class="commerce-eyebrow">Condition guide</p>
-      ${product.conditions.includes('UK Used') ? '<article><span>01</span><div><h3>UK Used</h3><p>Request photos, battery information and the condition of the exact device before payment.</p></div></article>' : ''}
+      ${product.conditions.includes('UK Used') ? `<article><span>01</span><div><h3>UK Used</h3><p>Every UK Used device meets our standard:</p><ul class="mg-standard-list">${UK_USED_STANDARD.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul><p>Ask for photos of the exact unit, or inspect it in store before you pay.</p></div></article>` : ''}
       ${product.conditions.includes('Brand New') ? '<article><span>02</span><div><h3>Brand New</h3><p>Brand-new device. Includes our 7-day warranty.</p></div></article>' : ''}
       ${!product.conditions.includes('UK Used') && !product.conditions.includes('Brand New') ? '<article><span>01</span><div><h3>Condition to confirm</h3><p>Ask Mikee for the exact unit details before payment.</p></div></article>' : ''}
     </aside>
@@ -344,14 +345,14 @@ const renderDelivery = () => `
   <section class="commerce-section delivery-section" id="delivery">
     <div>
       <p class="commerce-eyebrow">Pickup and delivery</p>
-      <h2>Buy from Ikeja. Receive across Nigeria.</h2>
+      <h2>Buy from Ikeja. Delivery or free pickup.</h2>
       <p>${escapeHtml(commerceSite.delivery)}</p>
       <a class="text-link" href="${commerceSite.directionsUrl}" target="_blank" rel="noopener">Get directions to the store →</a>
     </div>
     <div class="delivery-grid">
-      <article><span>01</span><h3>Lagos delivery</h3><p>Home delivery across Lagos. The fee for your LGA is shown at checkout.</p></article>
-      <article><span>02</span><h3>Store pickup</h3><p>Visit ${escapeHtml(commerceSite.address)} and ask to inspect the exact unit before payment.</p></article>
-      <article><span>03</span><h3>Other states</h3><p>Sent to a transport park in your state. The fee is shown at checkout, and we contact you with collection details.</p></article>
+      <article><span>01</span><h3>Lagos delivery</h3><p>Home delivery across Lagos: ${LAGOS_FEE_RANGE} depending on your LGA. The exact fee is shown at checkout.</p></article>
+      <article><span>02</span><h3>Free store pickup</h3><p>Visit ${escapeHtml(commerceSite.address)}. Reserve online, inspect the exact unit, then pay.</p></article>
+      <article><span>03</span><h3>Other states</h3><p>Sent to a transport park in your state: ${PARK_FEE_RANGE} depending on the state. Paid before dispatch; we contact you with collection details.</p></article>
     </div>
   </section>`;
 
@@ -447,10 +448,10 @@ const renderProductPage = (product) => {
         <p class="product-lead">${product.listingPending ? "Price, specifications and availability have not been supplied yet. Contact the store for updates." : `${escapeHtml(product.conditions.join(' / ') || 'Condition to confirm')}. Available.`}</p>
         <div class="hero-fact-row">
           <span><strong>Storage</strong>${escapeHtml(product.variants.map((variant) => variant.storage).join(" · "))}</span>
-          <span><strong>Delivery</strong>Lagos & nationwide</span>
+          <span><strong>Delivery</strong>Lagos delivery · park pickup</span>
           <span><strong>Payment</strong>${product.listingPending ? "Options pending" : "Outright or Pay Small Small"}</span>
         </div>
-        ${renderVariantSelector(product)}<div class="product-trust"><span>Inspect before payment</span><span>Computer Village store</span><span>Nationwide delivery</span><span>Device checked before payment</span></div>
+        ${renderVariantSelector(product)}<div class="product-trust"><span>Inspect before payment</span><span>Computer Village store</span><span>Delivery to every state</span><span>Device checked before payment</span></div>
       </div>
     </section>
 
