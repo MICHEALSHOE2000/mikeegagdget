@@ -369,7 +369,7 @@ export function simulate(state,message,ctx){
  }
  if(has('compare')&&pricedNamed.length===1&&unpricedNamed.length){const u=unpricedNamed[0],pp=pricedNamed[0];cards=[card(pp,pp.variants[0])];out.push(`I can only compare what has a confirmed price. The ${pp.model} is from ${naira(pp.variants[0].price)}. The ${u.model} is on our website but has no confirmed price right now — our team can check it for you.`);suggestions=['Talk to a person'];return reply();}
  if(has('compare')&&pricedNamed.length===1&&!unpricedNamed.length)out.push(`I could only find the ${pricedNamed[0].model} in our catalogue — the other model isn’t listed right now, so I can’t compare prices.`);
- if(has('compare')&&pricedNamed.length>=2){
+ if((has('compare')||/\b(or|and|abi)\b|,/.test(t)||pricedNamed.length>=2)&&pricedNamed.length>=2){
   const [a,b]=pricedNamed;const row=p=>{const vs=p.variants;return `• ${p.model}: from ${naira(vs[0].price)} · storage ${[...new Set(vs.map(v=>v.capacity))].join(', ')} · ${p.conditions.join(' / ')||'condition on enquiry'}${vs.some(v=>v.connectivity)?` · ${[...new Set(vs.map(v=>v.connectivity).filter(Boolean))].join(', ')}`:''}`;};
   out.push(`Here’s how they compare in our catalogue:\n${row(a)}\n${row(b)}`);
   cards=[card(a,a.variants[0]),card(b,b.variants[0])];

@@ -314,7 +314,7 @@ test('customers finish in the chat: Buy now goes to checkout; handoff stays in t
  const c=chat(['How much is iPhone 13?']).r.reply.cards;assert.equal(c[0].checkout,'/checkout/?sku=iphone-13%7C128GB');assert.equal(c[2].checkout,undefined,'out of stock → no Buy now');
  const h=chat(['talk to a person']).r.reply.text;assert.match(h,/reply right here in this chat/);assert.doesNotMatch(h,/WhatsApp/);
  const w=read('assets/assistant.js');assert.doesNotMatch(w,/Continue on WhatsApp/);assert.match(w,/mg-ai-buy/);
- assert.match(read('assets/assistant-launcher.js'),/Chat with Mikee AI/);
+ assert.match(read('assets/assistant-launcher.js'),/Chat with Mikee AI/);assert.match(read('assets/assistant-launcher.js'),/<span>Chat<\/span>/);assert.equal(chat(['15 pro max or Samsung s24 ultra']).r.reply.cards.map(c=>c.name).join(),'iPhone 15 Pro Max,Samsung Galaxy S24 Ultra','two phones named = comparison');
 });
 test('OpenAI provider: default model is the low-cost gpt-6-luna; swap tool uses the same price list and grounds the amounts',async()=>{
  const {runTool,TOOLS,openaiRespond}=await import('../api/_ai-openai.mjs');assert.match(read('api/_ai-openai.mjs'),/OPENAI_MODEL\|\|'gpt-6-luna'/);

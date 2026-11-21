@@ -74,8 +74,13 @@ export async function respond(row,text,ctx,deps={}){
   const {openaiRespond}=await import('./_ai-openai.mjs');
   const r=await openaiRespond({state,text,history:(row.transcript||[]).slice(-LIMITS.contextMessages)},ctx,{client:deps.openai,maxTokens:LIMITS.maxOutputTokens,onUsage:recordUsage});
   if(r?.reply)return {...r,provider:'openai'};
+  console.warn('[mikee-ai] OpenAI reply not used (empty, or a price that is not in the catalogue); simulator answered.');
   return {...sim(),aiCalls:r?.aiCalls||0,provider:'simulation-fallback'};
- }catch{return {...sim(),provider:'simulation-fallback'};}
+ }catch(e){
+  // Safe log for diagnosis: status and error code only, never the key or customer details.
+  console.error('[mikee-ai] OpenAI request failed:',e?.status||'',e?.code||e?.type||e?.name||'',String(e?.message||e).replace(/sk-[\w-]+/g,'sk-***').slice(0,240));
+  return {...sim(),provider:'simulation-fallback'};
+ }
 }
 
 // ---- Lead record ----
