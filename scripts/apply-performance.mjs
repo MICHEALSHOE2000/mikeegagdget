@@ -9,3 +9,10 @@ let changed=0;
 const walk=dir=>{for(const name of readdirSync(dir)){if(SKIP.has(name)||name.startsWith('.'))continue;const p=join(dir,name);if(statSync(p).isDirectory())walk(p);else if(name.endsWith('.html')||name.endsWith('.template')){const html=readFileSync(p,'utf8');if(!GOOGLE.test(html))continue;writeFileSync(p,html.replace(GOOGLE,'\n  '+FACE));changed++;}}};
 walk('.');
 console.log(`Self-hosted font on ${changed} pages`);
+
+// Branded "page not found" page (Vercel serves /404.html for unknown addresses). Built from a finished page so it
+// has the same header, footer and styles. Not indexed.
+{const base=readFileSync('account/index.html','utf8');
+ const body='<h1>We couldn’t find that page</h1><p>The link may be old or mistyped. Try searching, or browse our most popular devices.</p><form action="/search/" class="mg-track" role="search"><label>Search devices<input name="q" placeholder="iPhone 15 Pro Max, Samsung S24…"></label><button class="btn btn-primary" type="submit">Search</button></form><p><a class="btn btn-outline" href="/iphones">iPhones</a> <a class="btn btn-outline" href="/samsung-phones">Samsung</a> <a class="btn btn-outline" href="/google-pixel-phones">Google Pixel</a> <a class="btn btn-outline" href="/deals/">Hot Deals</a></p><p>Need help? <a href="https://wa.me/2347086865133">Chat on WhatsApp</a> or visit us at 1 Ola Ayeni Street, Computer Village, Ikeja.</p>';
+ const html=base.replace(/<title>[\s\S]*?<\/title>/,'<title>Page not found | Mikee Gadget Plug</title>').replace(/\s*<link rel="canonical"[^>]*>/,'').replace(/<meta name="robots"[^>]*>/,'').replace('</head>','<meta name="robots" content="noindex">\n</head>').replace(/<main id="main"[^>]*>[\s\S]*?<\/main>/,`<main id="main" class="store-section shopping-page">${body}</main>`).replace(/<link rel="preload" as="image" href="\/assets\/hero\/[^>]*>/,'');
+ writeFileSync('404.html',html);}
