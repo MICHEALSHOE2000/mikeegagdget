@@ -6,7 +6,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const safeHref=u=>typeof u==='string'&&((/^\/[\w\-./?=&%]*$/.test(u)&&!u.startsWith('//'))||u.startsWith(WA))?u:'';
 const safeImg=u=>typeof u==='string'&&/^\/images\/[\w./-]+\.(webp|jpe?g|png|avif)$/i.test(u)?u:'';
 // Plain text with paragraphs, bullet lines and links to our own pages (e.g. /returns-refunds/).
-const rich=t=>esc(t).split(/\n{2,}/).map(p=>`<p>${p.replace(/\n/g,'<br>').replace(/(^|[\s(])(\/[a-z0-9-]+\/(?:[a-z0-9-]+\/)?)(?=[\s).,]|$)/g,'$1<a href="$2">$2</a>')}</p>`).join('');
+const rich=t=>esc(t).split(/\n{2,}/).map(p=>`<p>${p.replace(/\*\*([^*\n]{1,120})\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>').replace(/(^|[\s(])(\/[a-z0-9-]+\/(?:[a-z0-9-]+\/)?)(?=[\s).,]|$)/g,'$1<a href="$2">$2</a>')}</p>`).join('');
 let ui=null,session=null,lastWhatsapp=WA,pollTimer=null,returnFocus=null,busy=false;
 const load=()=>{try{return JSON.parse(sessionStorage.getItem(KEY))||{};}catch{return {};}};
 const save=()=>{try{sessionStorage.setItem(KEY,JSON.stringify({...session,messages:session.messages.slice(-40)}));}catch{}};

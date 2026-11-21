@@ -211,7 +211,7 @@ test('18. prompt injection: refused in simulation; in OpenAI mode ungrounded pri
  const liar=fakeOpenAI([{content:'Sure! The iPhone 13 is only ₦99,000 today.'}]);
  const r=await openaiRespond({state:{},text:'how much is iphone 13',history:[]},ctx,{client:liar});assert.equal(r.reply,null,'invented price → reply discarded');
  const honest=fakeOpenAI([{content:'',tool_calls:[{id:'t1',type:'function',function:{name:'search_catalogue',arguments:JSON.stringify({query:'iPhone 13'})}}]},{content:'The iPhone 13 starts at ₦370,000 (UK Used, 128GB).'}]);
- const h=await openaiRespond({state:{},text:'how much is iphone 13',history:[]},ctx,{client:honest});assert.match(h.reply.text,/₦370,000/);assert.equal(h.reply.cards[0].priceText,'₦370,000');
+ const h=await openaiRespond({state:{},text:'how much is iphone 13',history:[]},ctx,{client:honest});assert.match(h.reply.text,/₦370,000/);assert.equal(h.reply.cards[0].priceText,'₦370,000');assert.equal(h.reply.cards.length,1,'one card per recommended model');
  assert.equal(honest.calls[0].reasoning_effort,'none','gpt-6-luna needs reasoning off to use tools on chat completions');assert.equal(honest.calls[0].messages[0].role,'system');assert.equal(honest.calls[0].messages.at(-1).role,'user');assert.ok(honest.calls[0].max_completion_tokens<=800);
  assert.ok(pricesGrounded('₦370,000',[370000]));assert.ok(!pricesGrounded('₦1',[370000]));
  const st={};runTool('update_preferences',{budget_ngn:5,storage:'drop table',product_slug:'../../admin'},ctx,st);assert.deepEqual(st,{},'tool input is validated');
@@ -324,4 +324,10 @@ test('OpenAI provider: default model is the low-cost gpt-6-luna; swap tool uses 
  assert.equal(runTool('estimate_swap',{current_model:'Galaxy S21',current_storage:'128GB'},ctx,st).result.found,false);
  const fake={chat:{completions:{create:async req=>({usage:{},choices:[{message:req.messages.at(-1).role==='tool'?{content:'Your iPhone 12 Pro is worth about ₦195,250, so you’d add about ₦650,750 for the 15 Pro Max.'}:{content:'',tool_calls:[{id:'s',type:'function',function:{name:'estimate_swap',arguments:JSON.stringify({current_model:'iPhone 12 Pro',current_storage:'128GB',battery_changed:true,target_model:'iPhone 15 Pro Max'})}}]}}]})}}};
  const o=await openaiRespond({state:{},text:'swap my 12 pro 128gb battery changed to 15 pro max',history:[]},ctx,{client:fake});assert.match(o.reply.text,/₦650,750/);assert.equal(o.reply.cards[0].name,'iPhone 15 Pro Max');
+});
+test('OpenAI replies: no markdown symbols, and cards only for the phones the reply recommends',async()=>{
+ const {openaiRespond}=await import('../api/_ai-openai.mjs');
+ const fake={chat:{completions:{create:async req=>({usage:{},choices:[{message:req.messages.at(-1).role==='tool'?{content:'Within your budget, the **iPhone 13** at ₦370,000 is a strong pick for video.'}:{content:'',tool_calls:[{id:'a',type:'function',function:{name:'search_catalogue',arguments:JSON.stringify({budget_max:400000,limit:6})}}]}}]})}}};
+ const o=await openaiRespond({state:{},text:'content creator, 600k',history:[]},ctx,{client:fake});
+ assert.doesNotMatch(o.reply.text,/\*\*/);assert.deepEqual([...new Set(o.reply.cards.map(c=>c.name))],['iPhone 13']);
 });
