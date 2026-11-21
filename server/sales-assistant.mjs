@@ -1,3 +1,4 @@
+import {conversation} from './shop-conversation.mjs';
 import {createHmac} from 'node:crypto';
 import {db,env,reply,sameOrigin} from '../api/_shop.mjs';
 import {product,matches,short,qualification,classify} from '../commerce/sales-assistant.mjs';
@@ -18,13 +19,20 @@ export default async function handler(req,res){
  try{
   if(!sameOrigin(req))return reply(res,403,{error:'Open the store to continue.'});
   const b=req.body;
-  if(!req.headers['content-type']?.startsWith('application/json')||!b||JSON.stringify(b).length>2500||!short(b.query,180)||!b.query.trim()||!['search','save'].includes(b.action))return reply(res,400,{error:'Enter a short device question.'});
+  const chat=['chat','handoff'].includes(b?.action);
+  if(chat && (!req.headers['content-type']?.startsWith('application/json')||JSON.stringify(b).length>14000))return reply(res,400,{error:'Message too long.'});
+  if(!chat && (!req.headers['content-type']?.startsWith('application/json')||!b||JSON.stringify(b).length>2500||!short(b.query,180)||!b.query.trim()||!['search','save'].includes(b.action)))return reply(res,400,{error:'Enter a short device question.'});
   let enquiry;
   if(b.action==='save'){try{enquiry=qualification(b);}catch{return reply(res,400,{error:'Check your enquiry details and consent.'});}}
   const hour=Math.floor(Date.now()/3600000);
   const ip=req.headers['x-vercel-forwarded-for']||req.socket?.remoteAddress||'unknown';
   const key=createHmac('sha256',env('SUPABASE_SERVICE_ROLE_KEY')).update(hour+'|'+ip).digest('hex');
   if(!await take(key,45,new Date((hour+2)*3600000).toISOString()))return reply(res,429,{error:'Too many requests. You can still contact the shop on WhatsApp.'});
+  if(chat){
+   let rows=[],available=false;
+   if(b.action==='chat')try{rows=(await db('rpc/shop_deal_catalogue',{method:'POST',body:{}})).map(product).filter(Boolean);available=true;}catch{}
+   const [status,result]=await conversation(b,{items:rows,available,db,take});return reply(res,status,result);
+  }
   const items=(await db('rpc/shop_deal_catalogue',{method:'POST',body:{}})).map(product).filter(Boolean);
   if(!enquiry){
    let results=matches(items,b.query);
