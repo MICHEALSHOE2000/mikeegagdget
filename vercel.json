@@ -236,5 +236,11 @@
       "destination": "/search/",
       "permanent": false
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/google-merchant-feed.xml",
+      "destination": "/api/shop/catalog?format=google"
+    }
   ]
 }

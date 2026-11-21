@@ -128,3 +128,4 @@
 
 @media (max-width:400px){.mg-bank{padding:14px}.mg-bank-totals{gap:8px}.mg-bank-totals div{padding:10px}.mg-bank-totals dt{font-size:11px}}
 .mg-res-totals div:first-child{grid-column:1/-1}
+.mg-line-stock{margin:2px 0 0;font-size:13px;font-weight:600;color:#0f7a4f}
