@@ -36,6 +36,8 @@ export function applyExperience(html,file){
  if(/<footer[\s>]/.test(out)){out=out.replace(/<footer[\s\S]*?<\/footer>/,()=>SITE_FOOTER).replace(/<footer(?! class="mg-footer")[\s\S]*?<\/footer>/g,'');if(!out.includes('/assets/footer.css'))out=out.replace('</head>',FOOTER_CSS+'\n</head>');}
  const path=file.replace(/\\/g,'/').replace(/^\.\//,'').replace(/\/?index\.html$/,'');
  if(NOINDEX.has(path)&&!/<meta name="robots"/.test(out))out=out.replace('</head>','<meta name="robots" content="noindex,follow">\n</head>');
+ // Mikee AI launcher (the chat loads only when opened). Not on checkout, cart or admin pages.
+ if(!/^(checkout|cart|admin)(\/|$)/.test(path)&&!out.includes('/assets/assistant-launcher.js')&&out.includes('</body>'))out=out.replace('</body>','<script src="/assets/assistant-launcher.js" defer></script></body>');
  const product=bySlug.get(path);
  if(product){
   const url=`${SITE}/${product.slug}${product.isPhone?'':'/'}`,{title,description}=productMeta(product);

@@ -241,6 +241,14 @@
     {
       "source": "/google-merchant-feed.xml",
       "destination": "/api/shop/catalog?format=google"
+    },
+    {
+      "source": "/api/assistant",
+      "destination": "/api/shop/settings?op=assistant"
+    },
+    {
+      "source": "/api/whatsapp",
+      "destination": "/api/shop/settings?op=whatsapp"
     }
   ]
 }
