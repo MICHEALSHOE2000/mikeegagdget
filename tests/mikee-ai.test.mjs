@@ -289,3 +289,39 @@ test('website: launcher on shop pages only, lazy chat, accessible widget, no sec
  assert.equal(KNOWLEDGE.filter(k=>k.status==='verified'&&!k.content).length,0);assert.ok(KNOWLEDGE.some(k=>k.key==='hours'&&k.status==='needs_confirmation'&&!k.content),'opening hours are not invented');
  assert.deepEqual(detectIntents('na wetin be the last price abeg').includes('negotiation'),true);
 });
+
+// ---- Swap valuation, model names without the brand, finishing in the chat ----
+test('swap: estimate and top-up from the swap price list (same rules as the swap page), one question at a time',async()=>{
+ const {estimateSwap,choices}=await import('../commerce/upgrade-core.mjs');
+ const {r}=chat(['I get iPhone 12 Pro 128GB, battery changed, I wan swap to 15 Pro Max']);
+ const ref=choices.find(c=>c.id==='iphone-12-pro|128GB');const want=estimateSwap({current:ref,target:{price:846000},batteryChanged:true});
+ assert.match(r.reply.text,new RegExp('worth about ₦'+want.value.toLocaleString('en-US')));assert.match(r.reply.text,new RegExp('add about ₦'+want.topUp.toLocaleString('en-US')));
+ assert.match(r.reply.text,/estimate/);assert.match(r.reply.text,/inspect/);assert.equal(r.reply.cards[0].name,'iPhone 15 Pro Max');assert.deepEqual(r.state.swap.quote.topUp,want.topUp);
+ const steps=chat(['i wan swap my phone','iphone xr','64gb','everything original','13']).all;
+ assert.match(steps[0].reply.text,/Which iPhone do you have/);assert.match(steps[1].reply.text,/What storage/);assert.match(steps[2].reply.text,/changed or damaged/);
+ assert.match(steps[3].reply.text,/worth about ₦[\d,]+ in a swap/);assert.match(steps[3].reply.text,/Which phone would you like/);assert.match(steps[4].reply.text,/iPhone 13 128GB .*add about ₦/);
+ const face=chat(['swap 14 pro max 256gb to 16 pro max','screen cracked and face id not working']).r;assert.match(face.reply.text,/technician needs to check/);assert.equal(amounts(face.reply.text).length,0);assert.equal(face.reply.handoff,false,'not treated as a complaint');
+ assert.match(chat(['can i swap my samsung s21 for iphone 13']).r.reply.text,/team values Samsung/);assert.match(chat(['swap my tecno camon to iphone 12']).r.reply.text,/only price iPhone swaps/);
+ const book=chat(['I get iPhone 12 Pro 128GB, battery changed, I wan swap to 15 Pro Max','Book the swap']).r;assert.equal(book.reply.handoff,true);assert.match(leadSummary(book.state,catalogue),/Swap: iPhone 12 Pro 128GB — estimated ₦/);
+});
+test('models are recognised without the brand: "15 pro max" is an iPhone; unknown variants are not guessed',()=>{
+ assert.equal(chat(['15 pro max price']).s.product,'iphone-15-pro-max');
+ assert.equal(chat(['how much is s24 ultra']).s.product,'samsung-s24-ultra');
+ assert.equal(chat(['How much is iPhone 12?','what about 13']).s.product,'iphone-13');
+ const pro=chat(['How much is iPhone 13?','what of 13 pro']).r;assert.match(pro.reply.text,/couldn’t find “13 pro”/);assert.equal(pro.reply.cards.length,0,'iPhone 13 is not shown as if it were the 13 Pro');
+});
+test('customers finish in the chat: Buy now goes to checkout; handoff stays in the chat, not WhatsApp',()=>{
+ const c=chat(['How much is iPhone 13?']).r.reply.cards;assert.equal(c[0].checkout,'/checkout/?sku=iphone-13%7C128GB');assert.equal(c[2].checkout,undefined,'out of stock → no Buy now');
+ const h=chat(['talk to a person']).r.reply.text;assert.match(h,/reply right here in this chat/);assert.doesNotMatch(h,/WhatsApp/);
+ const w=read('assets/assistant.js');assert.doesNotMatch(w,/Continue on WhatsApp/);assert.match(w,/mg-ai-buy/);
+ assert.match(read('assets/assistant-launcher.js'),/Chat with Mikee AI/);
+});
+test('OpenAI provider: default model is the low-cost gpt-6-luna; swap tool uses the same price list and grounds the amounts',async()=>{
+ const {runTool,TOOLS,openaiRespond}=await import('../api/_ai-openai.mjs');assert.match(read('api/_ai-openai.mjs'),/OPENAI_MODEL\|\|'gpt-6-luna'/);
+ assert.ok(TOOLS.some(t=>t.function.name==='estimate_swap'));
+ const st={};const r=runTool('estimate_swap',{current_model:'iPhone 12 Pro',current_storage:'128GB',battery_changed:true,target_model:'iPhone 15 Pro Max'},ctx,st);
+ assert.equal(r.result.estimated_swap_value,'₦195,250');assert.equal(r.result.estimated_top_up,'₦650,750');assert.ok(r.amounts.includes(195250));
+ assert.equal(runTool('estimate_swap',{current_model:'Galaxy S21',current_storage:'128GB'},ctx,st).result.found,false);
+ const fake={chat:{completions:{create:async req=>({usage:{},choices:[{message:req.messages.at(-1).role==='tool'?{content:'Your iPhone 12 Pro is worth about ₦195,250, so you’d add about ₦650,750 for the 15 Pro Max.'}:{content:'',tool_calls:[{id:'s',type:'function',function:{name:'estimate_swap',arguments:JSON.stringify({current_model:'iPhone 12 Pro',current_storage:'128GB',battery_changed:true,target_model:'iPhone 15 Pro Max'})}}]}}]})}}};
+ const o=await openaiRespond({state:{},text:'swap my 12 pro 128gb battery changed to 15 pro max',history:[]},ctx,{client:fake});assert.match(o.reply.text,/₦650,750/);assert.equal(o.reply.cards[0].name,'iPhone 15 Pro Max');
+});

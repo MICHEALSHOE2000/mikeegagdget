@@ -71,8 +71,8 @@ api/admin/manage.mjs — inbox + knowledge base (admin only)
 |---|---|---|
 | `MIKEE_AI_MODE` | `simulation` | `openai` turns on the OpenAI provider. Any other value means simulation. |
 | `OPENAI_API_KEY` | — | Needed for OpenAI mode. Without it, the simulator answers. |
-| `OPENAI_MODEL` | `gpt-4.1-nano` | Any chat model that supports tool calling. |
-| `OPENAI_MAX_OUTPUT_TOKENS` | `350` | Output cap per call (hard ceiling 800). |
+| `OPENAI_MODEL` | `gpt-6-luna` | The cheapest current GPT-6 model ($0.10 / $0.50 per million tokens). `gpt-6-sol` is smarter but about 20× the price. |
+| `OPENAI_MAX_OUTPUT_TOKENS` | `600` | Output cap per call (hard ceiling 1000). |
 | `MIKEE_AI_MONTHLY_BUDGET_NGN` | `8000` | Calls stop for the month at this estimated spend. The simulator then answers. |
 | `MIKEE_AI_DAILY_CALLS` | `400` | Daily cap on model calls. |
 | `OPENAI_INPUT_USD_PER_M` / `OPENAI_OUTPUT_USD_PER_M` / `USD_NGN_RATE` | `0.5` / `2` / `1700` | Cost estimate. Set deliberately high so the cap trips early. Set the real rates when you activate. |
@@ -91,13 +91,30 @@ The existing `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` and `SHOP_ORIGIN` are r
 - 500 characters per message.
 - Model calls only: 20 per chat, the last 12 messages as context, at most 3 tool rounds, and a 12-second timeout.
 
+## 4b. Swap valuation in the chat
+
+Mikee AI values iPhones for swaps using the **same price list and rules as the swap page** (`commerce/upgrade-core.mjs → estimateSwap`):
+- the reference price for the model and storage;
+- −10% if the screen was changed or cracked;
+- −5% if the battery was changed;
+- −5% if the back glass was changed or cracked;
+- Face ID problems are referred to a technician.
+
+It asks one thing at a time (phone, storage, condition, the phone they want), then gives the estimated value and the top-up. It always says the final value is confirmed by inspection. Samsung, Pixel and other brands are quoted by the team. To change swap values, edit the swap price list (`commerce/trade-in-reference.mjs` / the catalogue). The chat and the swap page always agree.
+
+Customers can name phones without the brand ("15 pro max", "s24 ultra", "fold 6", "what about 13?").
+
+The chat now finishes sales itself:
+- product cards have **Buy now** (straight to checkout) and **Details**;
+- requests for a person are answered by your team **inside the chat**, so there is no WhatsApp button;
+- WhatsApp only appears as a fallback if the chat itself can't load.
+
 ## 5. Knowledge base — what needs your confirmation
 
 Open **Admin → Mikee AI → Knowledge base**. Only entries marked **Verified** are stated as facts. These defaults could not be confirmed from the site, so Mikee AI tells customers the team will confirm them:
 
 - Opening hours
 - Credit Direct approval criteria
-- Swap valuation amounts
 - Device checks (iCloud, activation, originality)
 - Discount thresholds
 

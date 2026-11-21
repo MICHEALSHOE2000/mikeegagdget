@@ -10,6 +10,7 @@
 // the database.
 import {pricedVariant} from './deals.mjs';
 import {searchScore} from './search.mjs';
+import {findSwapPhones,parseSwapChecks,checksAnswered,swapQuote,SWAP_MODELS} from './assistant-swap.mjs';
 
 export const WHATSAPP_NUMBER='2347086865133';
 export const STORE_ADDRESS='1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos';
@@ -49,20 +50,23 @@ function validImage(u){return typeof u==='string'&&/^\/images\/[\w./-]+\.(webp|j
 // Product pages that exist on the site but have no priced, enabled variant right now.
 export function unpricedProducts(catalogue,pages={}){const priced=new Set(catalogue.map(p=>p.slug));return Object.entries(pages).filter(([s,p])=>!priced.has(s)&&p?.model).map(([slug,p])=>({slug,model:clean(p.model),brand:clean(p.brand),category:p.category||'',route:p.route||'/'+slug,key:modelKey(p.model)}));}
 const BRAND_WORDS=/\b(apple|samsung|galaxy|google)\b/g;
-function modelKey(model){const full=norm(model).replace(/ wifi only$/,'');return {full,short:full.replace(BRAND_WORDS,' ').replace(/\s+/g,' ').trim(),wifi:/wifi only/i.test(norm(model))};}
+function modelKey(model){const full=norm(model).replace(/ wifi only$/,''),short=full.replace(BRAND_WORDS,' ').replace(/\s+/g,' ').trim();
+ // Customers rarely say the brand: "15 pro max" is an iPhone, "fold 6" a Galaxy Z Fold. A bare number alone ("13") is too vague.
+ const bare=short.replace(/^(iphone|z) /,'');
+ return {full,short,bare:bare!==short&&/\d/.test(bare)&&/[a-z]/.test(bare)?bare:'',wifi:/wifi only/i.test(norm(model))};}
 const conditionName=c=>c==='Confirm condition'?'condition confirmed on enquiry':c;
 const availability=v=>{const a=AVAILABILITY[v.stockStatus];return a?(v.availabilityDate&&/preorder|backorder/.test(v.stockStatus)?`${a} (expected ${v.availabilityDate})`:a):'Availability confirmed on enquiry';};
 export const priceText=v=>v.deal&&v.originalPrice>v.price?`${naira(v.price)} (Hot Deal, was ${naira(v.originalPrice)})`:naira(v.price);
 const variantMatches=(v,f)=>(!f.condition||f.condition==='any'||v.condition===f.condition)&&(!f.storage||norm(v.capacity).replace(/ /g,'')===f.storage)&&(!f.budgetMax||v.price<=f.budgetMax)&&(!f.budgetMin||v.price>=f.budgetMin)&&(!f.sim||simMatches(v,f.sim))&&(!f.activation||norm(v.activation).includes(norm(f.activation)));
 function simMatches(v,sim){const c=norm(v.connectivity);if(sim==='wifi')return c.includes('wifi only')||c==='wifi';if(sim==='esim')return c.includes('esim');if(sim==='physical')return c.includes('physical')||c.includes('dual sim');return true;}
 // A product card: everything shown comes from one catalogue variant.
-export function card(p,v){return {slug:p.slug,sku:v.sku,name:p.model,image:p.image||v.image||null,condition:conditionName(v.condition),storage:v.capacity||'',sim:v.connectivity||'',price:v.price,priceText:naira(v.price),wasPrice:v.deal&&v.originalPrice>v.price?naira(v.originalPrice):null,deal:!!v.deal,availability:availability(v),url:p.route+'?sku='+encodeURIComponent(v.sku)};}
+export function card(p,v){return {slug:p.slug,sku:v.sku,name:p.model,image:p.image||v.image||null,condition:conditionName(v.condition),storage:v.capacity||'',sim:v.connectivity||'',price:v.price,priceText:naira(v.price),wasPrice:v.deal&&v.originalPrice>v.price?naira(v.originalPrice):null,deal:!!v.deal,availability:availability(v),url:p.route+'?sku='+encodeURIComponent(v.sku),...(v.stockStatus!=='out_of_stock'&&!v.colors.length?{checkout:'/checkout/?sku='+encodeURIComponent(v.sku)}:{})};}
 
 /** Find the products named in a message, longest model name first ("iphone 13 pro max" beats "iphone 13"). */
 export function namedProducts(catalogue,text,{unpriced=[]}={}){
  const t=' '+norm(text).replace(/\b(\d+) ?(gb|tb)\b/g,'')+' ',wifi=/wifi only|no sim|without sim/.test(t),found=[];
  for(const p of [...catalogue,...unpriced]){
-  for(const k of [p.key.full,p.key.short]){if(k.length<3||!/\d|[a-z]{4,}/.test(k))continue;const m=t.match(new RegExp(' '+escRe(k)+'(?= )'));if(m){found.push({p,len:k.length,at:m.index,priced:!!p.variants,wifi:p.key.wifi});break;}}
+  for(const k of [p.key.full,p.key.short,p.key.bare].filter(Boolean)){if(k.length<3||!/\d|[a-z]{4,}/.test(k))continue;const m=t.match(new RegExp(' '+escRe(k)+'(?= )(?! (pro|max|plus|mini|ultra|air|fe|lite|edge|fold|flip) )'));if(m){found.push({p,len:k.length,at:m.index,priced:!!p.variants,wifi:p.key.wifi});break;}}
  }
  // drop names contained in a longer match at the same place ("iPhone 13" inside "iPhone 13 Pro Max")
  const keep=found.filter(a=>!found.some(b=>b!==a&&b.len>a.len&&b.at<=a.at&&b.at+b.len>=a.at+a.len&&b.wifi===a.wifi));
@@ -167,8 +171,8 @@ export const KNOWLEDGE=[
  {key:'bank_transfer',title:'Bank transfer',status:'verified',source:'Checkout',content:'Choose bank transfer at checkout. Your order is confirmed once our team sees the money in our account. Only pay into the account shown at checkout.'},
  {key:'credit_direct',title:'Pay Small Small (Credit Direct)',status:'verified',source:'Checkout and financing page',content:'Pay Small Small is through Credit Direct. You choose it at checkout and apply with Credit Direct. Credit Direct decides approval, the down payment and the monthly repayments, so I can’t promise approval or quote repayments in chat.'},
  {key:'credit_direct_criteria',title:'Credit Direct approval criteria',status:'needs_confirmation',source:'',content:''},
- {key:'swap',title:'Swap and upgrade',status:'verified',source:'Swap page',content:'You can swap your current phone towards an upgrade. Send your phone’s details on our swap page (/swap/) to request a valuation; the team confirms the quote before you accept anything. I can’t value a phone in chat.'},
- {key:'swap_values',title:'Swap valuation amounts',status:'needs_confirmation',source:'',content:''},
+ {key:'swap',title:'Swap and upgrade',status:'verified',source:'Swap page',content:'You can swap your current iPhone towards an upgrade. Mikee AI gives an estimate from our swap price list (the same one used on /swap/); the final value is confirmed when we inspect the phone in store. Samsung and Google Pixel swaps are quoted by the team.'},
+ {key:'swap_values',title:'Swap valuation rules',status:'verified',source:'Swap page (commerce/pricing.mjs)',content:'iPhone swap values come from the swap price list. Deductions: screen changed or cracked 10%, battery changed 5%, back glass changed or cracked 5%. Face ID problems need a technician to assess. Final value is subject to physical inspection.'},
  {key:'support',title:'Customer support',status:'verified',source:'Policy pages',content:'WhatsApp or call 0708 686 5133, or email support@mikeegadget.com.ng.'},
  {key:'inspection',title:'Inspection and authenticity',status:'verified',source:'Warranty policy',content:'If you buy in store or collect your order, you can inspect and test the device before paying. Delivered orders are paid online first, so check the device as soon as it arrives and contact us straight away if anything is wrong. The 7-day warranty applies either way.'},
  {key:'authenticity_checks',title:'Device checks (iCloud, activation, originality)',status:'needs_confirmation',source:'',content:''},
@@ -184,15 +188,16 @@ export function knowledgeFact(kb,key){const k=kb.get(key);if(!k)return null;if(k
 export function leadStatus(s){
  if(s.wantsHuman)return 'needs_human';
  if(s.product&&(s.timeline==='today'||s.timeline==='week'||s.checkout)&&(s.payment||s.checkout))return 'ready_to_buy';
- if(s.product&&(s.budget||s.storage||s.condition||s.payment||s.location||s.timeline))return 'interested';
+ if((s.product||s.swap?.quote)&&(s.budget||s.storage||s.condition||s.payment||s.location||s.timeline||s.swap?.quote))return 'interested';
  if(s.product||s.budget||s.category||(s.turns||0)>1)return 'exploring';
  return 'new';
 }
-export function scoreLead(s){let n=0;if(s.product)n+=25;if(s.sku||s.storage)n+=10;if(s.budget)n+=10;if(s.condition)n+=5;if(s.payment)n+=10;if(s.location)n+=5;n+=({today:25,week:18,month:8,later:0})[s.timeline]||0;if(s.checkout)n+=10;if(s.phone||s.email)n+=8;if(s.wantsHuman)n+=4;return Math.min(100,n);}
+export function scoreLead(s){let n=0;if(s.product)n+=25;if(s.sku||s.storage)n+=10;if(s.budget)n+=10;if(s.condition)n+=5;if(s.payment)n+=10;if(s.location)n+=5;n+=({today:25,week:18,month:8,later:0})[s.timeline]||0;if(s.checkout)n+=10;if(s.swap?.quote)n+=10;if(s.phone||s.email)n+=8;if(s.wantsHuman)n+=4;return Math.min(100,n);}
 export function leadSummary(s,catalogue=[]){
  const p=catalogue.find(x=>x.slug===s.product);
  const lines=['Hello Mikee Gadget Plug, I’d like help with this enquiry:'];
  if(p)lines.push(`• Device: ${p.model}${s.storage?` ${s.storage.toUpperCase()}`:''}${s.condition?` (${s.condition})`:''}`);
+ if(s.swap?.quote)lines.push(`• Swap: ${s.swap.quote.model} ${s.swap.quote.storage} — estimated ${naira(s.swap.quote.value)}${s.swap.quote.topUp!=null?`, top-up about ${naira(s.swap.quote.topUp)}`:''}`);
  if(s.budget)lines.push(`• Budget: up to ${naira(s.budget)}`);
  if(s.payment)lines.push(`• Payment: ${PAYMENT[s.payment]}`);
  if(s.location)lines.push(`• Location: ${s.location}`);
@@ -228,6 +233,57 @@ function nextQuestion(s,catalogue){
  if(!s.timeline)return ['timeline','When are you hoping to buy?'];
  return null;
 }
+// ---- Swap conversation: current iPhone → storage → condition → target → estimate and top-up ----
+const CHECK_QUESTION='Has anything been changed or damaged on it — screen changed or cracked, battery changed, back glass changed or cracked, or Face ID not working? Or is everything original?';
+const CHECK_CHIPS=['Everything original','Battery changed','Screen changed','Screen cracked','Back glass cracked','Face ID not working'];
+const TARGET_CUE=/\b(to|for|into|want|wan|need|buy|upgrade to|get me|collect)\s*(the |a |an |una )?$/;
+const CURRENT_CUE=/\b(have|get|got|my|using|use|current|currently|dey use|i get|na|own)\s*(an |a |the |my )?$/;
+function swapTurn(s,text,t,ctx,intents){
+ const {catalogue}=ctx,sw={checks:{},...(s.swap||{})};sw.checks={...(sw.checks||{})};
+ const phones=findSwapPhones(text),named=ctx.named||namedProducts(catalogue,text),out=[];let cards=[],suggestions=[],asked=null;
+ const posOf=p=>{for(const k of [p.key.full,p.key.short,p.key.bare].filter(Boolean)){const i=t.indexOf(k);if(i>=0)return i;}return -1;};
+ const nonApple=named.find(p=>p.variants&&['samsung','pixel'].includes(p.category)&&posOf(p)>=0&&CURRENT_CUE.test(' '+t.slice(Math.max(0,posOf(p)-30),posOf(p)).replace(/\b(samsung|galaxy|google|pixel)\b/g,'').replace(/\s+/g,' ').trimEnd()+' '));
+ const brandM=!nonApple&&!sw.current&&t.match(/\b(have|get|got|my|using|use|swap|trade|exchange)\b[^.]{0,12}?\b(samsung|galaxy|pixel|google|tecno|infinix|itel|redmi|xiaomi|oppo|vivo|nokia|huawei|motorola|oneplus)\b/);
+ const brandBeforeTo=brandM&&(()=>{const to=t.search(/\b(to|for|into)\b/);return to<0||brandM.index<to;})();
+ if(brandBeforeTo){s.swap=sw;const b=brandM[2]==='galaxy'?'Samsung':brandM[2]==='google'?'Google Pixel':brandM[2].replace(/^./,c=>c.toUpperCase());out.push(`I can only price iPhone swaps in chat — our team values ${b} phones themselves. Tap “Talk to a person” and they’ll give you a quote right here.`);return {out,cards,suggestions:['Talk to a person'],asked};}
+ if(nonApple&&!sw.current){s.swap=sw;out.push(`I can’t price a ${nonApple.model} swap in chat yet — our team values Samsung and Google Pixel swaps themselves. Tap “Talk to a person” and they’ll give you a quote here.`);return {out,cards,suggestions:['Talk to a person'],asked};}
+ // Which phone is theirs and which do they want?
+ let current=null,target=null;
+ for(const ph of phones){const before=' '+t.slice(Math.max(0,ph.at-26),ph.at);
+  if(TARGET_CUE.test(before)&&(sw.current||phones.length>1))target=target||ph;else if(CURRENT_CUE.test(before)||(!sw.current&&!current))current=current||ph;else target=target||ph;}
+ if(current&&(!sw.current||current.slug!==sw.current.slug)){sw.current={slug:current.slug,model:current.model,storage:current.storage||null,priced:current.priced};sw.quote=null;}
+ else if(current&&current.storage&&sw.current)sw.current.storage=current.storage;
+ const st=parseStorage(text);if(sw.current&&!sw.current.storage&&st&&!target)sw.current.storage=st;
+ // A second phone named after "to/for/into" is the one they want; a name inside their own phone's words is not.
+ const cut=current?(()=>{const m=t.slice(current.at).match(/\b(to|for|into)\b/);return m?current.at+m.index:Infinity;})():-1;
+ const tProduct=target?catalogue.find(p=>p.slug===target.slug):named.find(p=>p.variants&&p.slug!==sw.current?.slug&&(!current||posOf(p)>cut));
+ if(tProduct){sw.target=tProduct.slug;s.product=tProduct.slug;s.category=tProduct.category;sw.quote=null;}
+ else if(target&&!catalogue.some(p=>p.slug===target.slug))out.push(`We don’t have the ${target.model} with a confirmed price right now, so I can’t work out the top-up for it. I can still value your phone.`);
+ Object.assign(sw.checks,parseSwapChecks(text));
+ if(/^(everything original|all original)$/i.test(text.trim()))sw.checks.done=true;
+ s.swap=sw;
+
+ if(!sw.current){out.push('Happy to help with a swap! Which iPhone do you have now, and what storage? For example “iPhone 12 Pro 128GB”.');return {out,cards,suggestions,asked:'swap_current'};}
+ const m=SWAP_MODELS.find(x=>x.slug===sw.current.slug),storages=[...m.storages.entries()].filter(([,c])=>c.swapReferencePrice>0).map(([k])=>k);
+ if(!m.priced||(sw.current.storage&&!storages.includes(sw.current.storage)&&m.storages.has(sw.current.storage))){out.push(`I don’t have a swap price for the ${m.model}${sw.current.storage?` ${sw.current.storage.toUpperCase()}`:''} in our list, so the team will value it for you. Tap “Talk to a person” and they’ll reply here.`);suggestions=['Talk to a person'];return {out,cards,suggestions,asked};}
+ if(!sw.current.storage||!m.storages.has(sw.current.storage)){if(storages.length===1)sw.current.storage=storages[0];else{out.push(`What storage is your ${m.model}? ${storages.map(x=>x.toUpperCase()).join(', ')}?`);return {out,cards,suggestions:storages.map(x=>x.toUpperCase()),asked:'swap_storage'};}}
+ if(!checksAnswered(sw.checks)){out.push(`Got it — ${m.model} ${sw.current.storage.toUpperCase()}. ${CHECK_QUESTION}`);return {out,cards,suggestions:CHECK_CHIPS,asked:'swap_checks'};}
+ const tp=catalogue.find(p=>p.slug===sw.target);
+ const tv=tp?(tp.variants.filter(v=>(!s.storage||norm(v.capacity).replace(/ /g,'')===s.storage)&&(!s.condition||v.condition===s.condition)&&v.stockStatus!=='out_of_stock')[0]||tp.variants[0]):null;
+ const q=swapQuote({slug:sw.current.slug,storage:sw.current.storage,checks:sw.checks,targetPrice:tv?.price});
+ if(!q){out.push('I couldn’t work out an estimate for that phone, so the team will value it for you.');suggestions=['Talk to a person'];return {out,cards,suggestions,asked};}
+ const issues=q.deductions.map(d=>`${d.label.toLowerCase()} (−${d.percent}%)`);
+ if(q.requiresAssessment){sw.quote=null;out.push(`Because Face ID isn’t working, our technician needs to check the ${q.model} before we can put a value on it. Bring it to the store or tap “Talk to a person” and the team will guide you.`);suggestions=['Talk to a person'];return {out,cards,suggestions,asked};}
+ sw.quote={model:q.model,storage:q.storage,value:q.value,topUp:q.topUp,target:tp?`${tp.model} ${tv.capacity}`.trim():null};
+ out.push(`Your ${q.model} ${q.storage}${issues.length?` with ${issues.join(', ')}`:' in good original condition'} is worth about ${naira(q.value)} in a swap.`);
+ if(tp){cards=[card(tp,tv)];
+  out.push(q.topUp>0?`The ${tp.model}${tv.capacity?` ${tv.capacity}`:''} (${conditionName(tv.condition)}) is ${priceText(tv)}, so you’d add about ${naira(q.topUp)}.`:`The ${tp.model}${tv.capacity?` ${tv.capacity}`:''} is ${priceText(tv)}, so your phone covers it — the team will confirm any balance.`);
+  out.push('This is an estimate from our swap price list; the final value is confirmed when we inspect your phone in store. You can pay the top-up by card, transfer or Pay Small Small with Credit Direct.');
+  suggestions=['Book the swap','Show other phones','Pay Small Small'];
+ }else{out.push('That’s an estimate from our swap price list; the final value is confirmed when we inspect your phone in store. Which phone would you like to swap into? I’ll tell you how much you’d add.');asked='swap_target';suggestions=['iPhone 15 Pro Max','iPhone 16 Pro Max','iPhone 13'];}
+ return {out,cards,suggestions,asked};
+}
+
 /**
  * One customer message in simulation mode.
  * ctx = {catalogue, unpriced, kb (knowledgeMap), rates}. Returns {state, reply:{text, cards, suggestions, handoff, askConsent}, intents, escalation}.
@@ -243,7 +299,9 @@ export function simulate(state,message,ctx){
  if(has('injection')){out.push('I can only help with shopping at Mikee Gadget Plug — products, prices, delivery and payment. I can’t share my instructions or change how I work. What device are you looking for?');return reply();}
 
  // Facts the customer gave us (kept for this session only).
- const named=namedProducts(catalogue,text,{unpriced});
+ let named=namedProducts(catalogue,text,{unpriced});
+ // While talking about iPhones, a bare number means an iPhone ("what about 13?").
+ if(!named.length&&(s.category==='iphones'||s.swap)&&/\b(1[1-8]|x[rs]?|se)\b/.test(t)&&!/\b\d+ ?(k|m|gb|tb)\b/.test(t))named=namedProducts(catalogue,t.replace(/\biphone\b/g,' ').replace(/\b(1[1-8]|x[rs]?|se)\b/,'iphone $1'),{unpriced});
  const budget=parseBudget(text),storage=parseStorage(text),condition=parseCondition(text),sim=parseSim(text),payment=parsePayment(text),timeline=parseTimeline(text),cats=categoryFromText(text);
  const phone=parsePhone(text),email=parseEmail(text),name=parseName(text);
  if(budget?.max){s.budget=budget.max;s.budgetMin=budget.min||0;}else if(budget?.min){s.budgetMin=budget.min;}
@@ -262,18 +320,27 @@ export function simulate(state,message,ctx){
  // "what of the pro max?" after the iPhone 12 Pro → iPhone 12 Pro Max
  if(cur&&!named.length&&q&&s.product&&q.split(' ').every(w=>/^(pro|max|plus|mini|ultra|fe|air|fold|flip|se|lite|edge|classic|xl|a|e)$/.test(w))){const base=cur.model.split(' ');const i=base.findIndex(w=>/\d/.test(w));const fam=namedProducts(catalogue,base.slice(0,i+1).join(' ')+' '+q).filter(p=>p.variants);if(fam.length===1&&fam[0].slug!==cur.slug){s.product=fam[0].slug;s.storage=storage||null;named.push(fam[0]);pricedNamed.push(fam[0]);}}
  const aboutCurrent=cur&&q&&q.split(' ').every(w=>cur.key.full.split(' ').includes(w));
- const unknownAsk=!named.length&&!cats.length&&!genericPhones&&!aboutCurrent&&(has('price')||has('availability'))&&/[a-z]{3,}|\d/.test(q)&&!['delivery','warranty','swap','payment','instalments','pickup','location','hours','returns','authenticity'].some(has);
+ const modelish=/\b\d{1,2}\s?(pro|max|plus|ultra|mini|fe|lite|edge)\b|\b[a-z]\d{1,3}\s?(ultra|plus|fe|5g)?\b/.test(t)&&t.split(' ').length<=6;
+ const unknownAsk=!named.length&&!cats.length&&!genericPhones&&!aboutCurrent&&(has('price')||has('availability')||(modelish&&!budget&&!storage&&!s.swap))&&/[a-z]{3,}|\d/.test(q)&&!['delivery','warranty','swap','payment','instalments','pickup','location','hours','returns','authenticity'].some(has);
  if(phone||email){if(s.consent){if(phone)s.phone=phone;if(email)s.email=email;}else{askConsent=true;s.pendingContact=true;}}
  const product=catalogue.find(x=>x.slug===s.product);
  const filters={condition:s.condition,storage:s.storage,sim:s.sim};
  if(has('humor')&&!has('complaint')&&!has('dispute'))out.push(vary(s,['😄 I hear you!','Haha, you sef! 😄','😂 Fair enough.']));
 
  // 1. Serious matters go to the team, in a plain professional tone.
- if(has('dispute')){handoff=true;s.wantsHuman=true;escalation='payment_dispute';out.push('I’m sorry about this — payment problems need a real person. I’ve flagged this chat for our team. Please send your order or payment reference on WhatsApp so they can check it. Duplicate or failed charges are refunded in full once confirmed (see /returns-refunds/).');return reply();}
- if(has('complaint')){handoff=true;s.wantsHuman=true;escalation='complaint';out.push('I’m sorry you’ve had this experience. I’ve flagged this chat for our team so a person can help directly. If it’s about a device you bought, please have your order reference ready.'+(knowledgeFact(kb,'warranty')?.verified?' Faults present at delivery are covered by our 7-day warranty.':''));return reply();}
- if(has('human')&&!has('identity')&&!has('delivery')){handoff=true;s.wantsHuman=true;escalation='requested';out.push('No problem — I’ve let our team know you’d like a person. Tap “Continue on WhatsApp” to reach them now (your enquiry is already in the message), or stay here and they’ll reply in this chat.');if(askConsent){out.push(CONSENT_ASK);s.pendingContact=false;}return reply();}
+ if(has('dispute')){handoff=true;s.wantsHuman=true;escalation='payment_dispute';out.push('I’m sorry about this — payment problems need a real person. I’ve flagged this chat for our team. Please type your order or payment reference here so they can check it. Duplicate or failed charges are refunded in full once confirmed (see /returns-refunds/).');return reply();}
+ const midSwap=s.swap&&!s.swap.quote&&['swap_current','swap_storage','swap_checks','swap_target'].includes(s.lastAsked);
+ if(has('complaint')&&!midSwap){handoff=true;s.wantsHuman=true;escalation='complaint';out.push('I’m sorry you’ve had this experience. I’ve flagged this chat for our team so a person can help directly. If it’s about a device you bought, please have your order reference ready.'+(knowledgeFact(kb,'warranty')?.verified?' Faults present at delivery are covered by our 7-day warranty.':''));return reply();}
+ if(has('human')&&!has('identity')&&!has('delivery')){handoff=true;s.wantsHuman=true;escalation='requested';out.push('No problem — I’ve let our team know you’d like a person. They’ll reply right here in this chat — keep this window open, or leave your phone number if you’d like a call back.');if(askConsent){out.push(CONSENT_ASK);s.pendingContact=false;}return reply();}
  if(has('identity')){out.push('I’m Mikee AI, a virtual shopping assistant — not a human. I answer from Mikee Gadget Plug’s live catalogue and store policies, and I can connect you to a person on our team at any time.');}
 
+ // 2a. Swaps (estimate from the swap price list).
+ if(/^book the swap$/i.test(text.trim())&&s.swap?.quote){handoff=true;s.wantsHuman=true;escalation='requested';out.push('Great — I’ve passed your swap details to our team. They’ll reply here to confirm the estimate and arrange the inspection at our Computer Village store. Leave your phone number if you’d like them to call you.');return reply();}
+ const swapActive=s.swap&&!s.swap.quote&&['swap_current','swap_storage','swap_checks','swap_target'].includes(s.lastAsked);
+ const swapFollow=s.swap?.current&&s.swap.quote&&pricedNamed.length&&(s.lastAsked==='swap_target'||/\b(top ?up|add|balance|instead|what about|what of|how about)\b/.test(t)||t.split(' ').length<=4);
+ if(has('swap')||swapActive||swapFollow||(s.swap?.current&&findSwapPhones(text).length&&/\b(swap|upgrade|to|for|into)\b/.test(t))){
+  const r=swapTurn(s,text,t,{catalogue,named},intents);out.push(...r.out);cards=r.cards;suggestions=r.suggestions;asked=r.asked;s.lastAsked=asked||null;return reply();
+ }
  // 2. Price objections: acknowledge, show facts, look for something cheaper, offer the team. Never a discount.
  if(has('negotiation')){
   const tmpl=(kb.get('objections')?.content||'').split('|').map(x=>x.trim()).filter(Boolean);
@@ -356,7 +423,7 @@ export function simulate(state,message,ctx){
   if(q)suggestions=['Talk to a person'];
  }
 
- if((phone||email)&&s.consent&&!out.length)out.push(`Thank you${s.name?`, ${s.name}`:''}! Our team may contact you on ${[s.phone,s.email].filter(Boolean).join(' or ')} about this enquiry only. You can also tap “Continue on WhatsApp” to reach them now.`);
+ if((phone||email)&&s.consent&&!out.length)out.push(`Thank you${s.name?`, ${s.name}`:''}! Our team may contact you on ${[s.phone,s.email].filter(Boolean).join(' or ')} about this enquiry only. They’ll reply here too.`);
  // 6. Small talk and everything else.
  if(!out.length||(out.length===1&&has('humor'))){
   if(has('greeting'))out.push(s.pidgin?'How far! I’m Mikee AI, the virtual assistant for Mikee Gadget Plug. Wetin you dey find today — phone, tablet, watch?':`${vary(s,['Hi','Hello','Hi there'])}! I’m Mikee AI, the virtual shopping assistant for Mikee Gadget Plug in Computer Village. What are you looking for today?`);
@@ -367,7 +434,7 @@ export function simulate(state,message,ctx){
    const got=[timeline&&`buying ${TIMELINE[timeline].toLowerCase()}`,payment&&s.payment&&PAYMENT[s.payment],budget?.max&&`budget up to ${naira(budget.max)}`,storage&&storage.toUpperCase(),condition&&condition].filter(Boolean);
    out.push(name?'':`${s.pidgin?'Noted o':'Noted'}${got.length?` — ${got.join(', ')}`:''}.`);
    const nq=nextQuestion(s,catalogue);if(nq){out.push(nq[1]);asked=nq[0];}
-   else if(s.product){const p=catalogue.find(x=>x.slug===s.product);out.push(`That’s everything I need. You can buy the ${p.model} on its product page, or tap “Continue on WhatsApp” and our team will confirm the exact unit for you.`);suggestions=['Continue on WhatsApp'];}
+   else if(s.product){const p=catalogue.find(x=>x.slug===s.product);out.push(`That’s everything I need. Tap “Buy now” on the phone above to check out, or ask me to get the team to confirm the exact unit for you.`);cards=p.variants.filter(v=>variantMatches(v,{condition:s.condition,storage:s.storage})).slice(0,2).map(v=>card(p,v));suggestions=['Talk to a person'];}
   }
   else{out.push('I’m not sure I can help with that — I’m a shopping assistant for Mikee Gadget Plug, so I can answer questions about our products, prices, delivery, payment, warranty and swaps. For anything else, our team can help.');suggestions=['Talk to a person','Phones under ₦400k'];}
  }

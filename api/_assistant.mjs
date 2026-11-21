@@ -17,7 +17,7 @@ const num=(k,d)=>{const v=Number(process.env[k]);return Number.isFinite(v)&&v>0?
 export const LIMITS={
  messagesPerConversation:60,ipMessagesPer10Min:30,ipNewChatsPerHour:8,storeMessagesPerHour:3000,transcript:80,
  aiCallsPerConversation:20,contextMessages:12,
- get maxOutputTokens(){return Math.min(num('OPENAI_MAX_OUTPUT_TOKENS',350),800);},
+ get maxOutputTokens(){return Math.min(num('OPENAI_MAX_OUTPUT_TOKENS',600),1000);},
  get aiCallsPerDay(){return num('MIKEE_AI_DAILY_CALLS',400);},
  get monthlyBudgetNgn(){return num('MIKEE_AI_MONTHLY_BUDGET_NGN',8000);},
 };

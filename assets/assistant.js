@@ -23,15 +23,15 @@ function build(){
  <form class="mg-ai-form" novalidate>
   <label class="mg-ai-consent" hidden><input type="checkbox" name="consent"> <span>You can contact me about this enquiry. <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy</a></span></label>
   <input class="mg-ai-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <div class="mg-ai-row"><label class="sr-only" for="mg-ai-text">Message Mikee AI</label><textarea id="mg-ai-text" name="text" rows="1" maxlength="500" placeholder="Ask about a phone, price or delivery…" autocomplete="off" enterkeyhint="send"></textarea>
+  <div class="mg-ai-row"><label class="sr-only" for="mg-ai-text">Message Mikee AI</label><textarea id="mg-ai-text" name="text" rows="1" maxlength="500" placeholder="Ask about a phone, price or swap…" autocomplete="off" enterkeyhint="send"></textarea>
   <button class="mg-ai-send" type="submit" aria-label="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 20 4l-6 16-3-7Z"/></svg></button></div>
   <p class="mg-ai-err" role="alert" hidden></p>
  </form>
- <footer class="mg-ai-foot"><a class="mg-ai-wa" href="${WA}" target="_blank" rel="noopener">Continue on WhatsApp</a><p>Mikee AI is a virtual assistant and can make mistakes; prices come from our live catalogue. Chats are kept for 30 days (180 days if you share contact details), then removed. <a href="/privacy-policy/">Privacy</a></p></footer>
+ <footer class="mg-ai-foot"><p>Mikee AI is a virtual assistant and can make mistakes; prices come from our live catalogue. Chats are kept for 30 days (180 days if you share contact details), then removed. <a href="/privacy-policy/">Privacy</a></p></footer>
 </section>`;
  document.body.append(root);
  const q=s=>root.querySelector(s);
- ui={root,box:q('.mg-ai-box'),log:q('.mg-ai-log'),sugg:q('.mg-ai-sugg'),form:q('form'),text:q('textarea'),consentRow:q('.mg-ai-consent'),consent:q('[name=consent]'),hp:q('[name=website]'),err:q('.mg-ai-err'),wa:q('.mg-ai-wa'),demo:q('.mg-ai-demo')};
+ ui={root,box:q('.mg-ai-box'),log:q('.mg-ai-log'),sugg:q('.mg-ai-sugg'),form:q('form'),text:q('textarea'),consentRow:q('.mg-ai-consent'),consent:q('[name=consent]'),hp:q('[name=website]'),err:q('.mg-ai-err'),demo:q('.mg-ai-demo')};
  q('[data-close]').addEventListener('click',()=>hide(false));
  q('[data-min]').addEventListener('click',()=>hide(true));
  q('[data-new]').addEventListener('click',reset);
@@ -39,7 +39,6 @@ function build(){
  ui.form.addEventListener('submit',e=>{e.preventDefault();send(ui.text.value);});
  ui.text.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();send(ui.text.value);}});
  ui.text.addEventListener('input',grow);
- ui.wa.addEventListener('click',()=>{if(session.conversationId)post({action:'handoff'}).catch(()=>{});});
  root.addEventListener('keydown',e=>{
   if(e.key==='Escape'){e.preventDefault();hide(true);return;}
   if(e.key!=='Tab')return;const f=[...ui.box.querySelectorAll('a[href],button:not([disabled]),textarea,input:not([type=hidden]):not(.mg-ai-hp),[tabindex="0"]')].filter(x=>x.offsetParent!==null);
@@ -52,16 +51,16 @@ function grow(){ui.text.style.height='auto';ui.text.style.height=Math.min(ui.tex
 function scroll(){ui.log.scrollTop=ui.log.scrollHeight;}
 function cardHtml(c){
  const href=safeHref(c.url),img=safeImg(c.image);
- return `<li class="mg-ai-card">${img?`<img src="${esc(img)}" alt="" width="64" height="64" loading="lazy" decoding="async">`:'<span class="mg-ai-noimg" aria-hidden="true"></span>'}<div><strong>${esc(c.name)}</strong><span>${esc([c.storage,c.condition].filter(Boolean).join(' · '))}</span><span class="mg-ai-price">${esc(c.priceText)}${c.wasPrice?` <s>${esc(c.wasPrice)}</s>`:''}</span><span class="mg-ai-avail">${esc(c.availability||'')}</span>${href?`<a href="${esc(href)}">View product<span class="sr-only">: ${esc(c.name)} ${esc(c.storage||'')}</span></a>`:''}</div></li>`;
+ return `<li class="mg-ai-card">${img?`<img src="${esc(img)}" alt="" width="64" height="64" loading="lazy" decoding="async">`:'<span class="mg-ai-noimg" aria-hidden="true"></span>'}<div><strong>${esc(c.name)}</strong><span>${esc([c.storage,c.condition].filter(Boolean).join(' · '))}</span><span class="mg-ai-price">${esc(c.priceText)}${c.wasPrice?` <s>${esc(c.wasPrice)}</s>`:''}</span><span class="mg-ai-avail">${esc(c.availability||'')}</span><span class="mg-ai-actions">${safeHref(c.checkout)?`<a class="mg-ai-buy" href="${esc(safeHref(c.checkout))}">Buy now<span class="sr-only">: ${esc(c.name)} ${esc(c.storage||'')}</span></a>`:''}${href?`<a href="${esc(href)}">${c.checkout?'Details':'View product'}<span class="sr-only">: ${esc(c.name)} ${esc(c.storage||'')}</span></a>`:''}</span></div></li>`;
 }
 function render(m,{animate=true}={}){
  const el=document.createElement('div');
  el.className='mg-ai-msg'+(m.from==='customer'?' is-me':m.from==='staff'?' is-staff':'')+(animate?' is-new':'');
  const who=m.from==='customer'?'You':m.from==='staff'?'Mikee Gadget Plug team':'Mikee AI';
- el.innerHTML=`${m.from==='staff'?'':`<span class="sr-only">${who}: </span>`}${m.from==='staff'?'<span class="mg-ai-who">Mikee Gadget Plug team</span>':''}${rich(m.text)}${m.cards?.length?`<ul class="mg-ai-cards">${m.cards.map(cardHtml).join('')}</ul><a class="mg-ai-more" href="/search/">Continue shopping</a>`:''}${m.handoff?`<a class="mg-ai-btn is-wa" href="${esc(safeHref(m.whatsapp)||WA)}" target="_blank" rel="noopener">Continue on WhatsApp</a>`:''}`;
+ el.innerHTML=`${m.from==='staff'?'':`<span class="sr-only">${who}: </span>`}${m.from==='staff'?'<span class="mg-ai-who">Mikee Gadget Plug team</span>':''}${rich(m.text)}${m.cards?.length?`<ul class="mg-ai-cards">${m.cards.map(cardHtml).join('')}</ul><a class="mg-ai-more" href="/search/">Continue shopping</a>`:''}${m.handoff?'<p class="mg-ai-note">A member of our team will reply in this chat.</p>':''}`;
  ui.log.append(el);scroll();
 }
-function suggestions(list){ui.sugg.innerHTML='';for(const s of (list||[]).slice(0,4)){const b=document.createElement('button');b.type='button';b.className='mg-ai-chip';b.textContent=s;b.addEventListener('click',()=>{if(/^continue on whatsapp$/i.test(s)){window.open(lastWhatsapp,'_blank','noopener');return;}send(s);});ui.sugg.append(b);}}
+function suggestions(list){ui.sugg.innerHTML='';for(const s of (list||[]).slice(0,4)){const b=document.createElement('button');b.type='button';b.className='mg-ai-chip';b.textContent=s;b.addEventListener('click',()=>{send(s);});ui.sugg.append(b);}}
 function typing(on){let t=ui.log.querySelector('.mg-ai-typing');if(on&&!t){t=document.createElement('div');t.className='mg-ai-msg mg-ai-typing';t.setAttribute('role','status');t.innerHTML='<span class="sr-only">Mikee AI is typing</span><i></i><i></i><i></i>';ui.log.append(t);scroll();}if(!on&&t)t.remove();}
 function error(msg,wa){ui.err.hidden=!msg;ui.err.innerHTML=msg?`${esc(msg)} <a href="${esc(safeHref(wa)||WA)}" target="_blank" rel="noopener">Open WhatsApp</a>`:'';}
 async function post(body){
@@ -70,7 +69,7 @@ async function post(body){
 }
 function setMode(mode){ui.demo.hidden=mode!=='simulation';}
 function applyReply(rep,{from='assistant'}={}){
- if(rep.whatsapp&&safeHref(rep.whatsapp)){lastWhatsapp=rep.whatsapp;ui.wa.href=rep.whatsapp;}
+ if(rep.whatsapp&&safeHref(rep.whatsapp))lastWhatsapp=rep.whatsapp;
  if(rep.text||rep.cards?.length){const m={from,text:rep.text||'',cards:rep.cards||[],handoff:!!rep.handoff,whatsapp:rep.whatsapp};session.messages.push(m);render(m);}
  suggestions(rep.suggestions);
  ui.consentRow.hidden=!rep.askConsent&&!ui.consent.checked;
@@ -98,9 +97,9 @@ function stopPolling(){clearInterval(pollTimer);pollTimer=null;}
 async function greet(){
  typing(true);
  try{const d=await post({action:'start',productSlug:document.body.dataset.productSlug||''});typing(false);setMode(d.mode);session.mode=d.mode;applyReply(d.reply||{});save();}
- catch(e){typing(false);render({from:'assistant',text:'Hi! I’m Mikee AI. I can’t load right now — please chat with our team on WhatsApp.',handoff:true});error(e.message,e.data?.whatsapp);}
+ catch(e){typing(false);render({from:'assistant',text:'Hi! I’m Mikee AI. I can’t load right now — please try again in a moment, or chat with our team on WhatsApp.'});error(e.message,e.data?.whatsapp);}
 }
-function reset(){stopPolling();session={messages:[]};try{sessionStorage.removeItem(KEY);}catch{}ui.log.innerHTML='';ui.consent.checked=false;ui.consentRow.hidden=true;error('');lastWhatsapp=WA;ui.wa.href=WA;greet();ui.text.focus();}
+function reset(){stopPolling();session={messages:[]};try{sessionStorage.removeItem(KEY);}catch{}ui.log.innerHTML='';ui.consent.checked=false;ui.consentRow.hidden=true;error('');lastWhatsapp=WA;greet();ui.text.focus();}
 function hide(minimise){
  ui.root.hidden=true;document.documentElement.classList.remove('mg-ai-open');
  if(!minimise)stopPolling();
