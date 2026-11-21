@@ -20,7 +20,7 @@ export function productMeta(p){
  const cond=conds.length?conds.join(' & ')+' ':'';
  const title=`${p.model} ${from?'Price in Nigeria':'in Nigeria'} — ${cond.trim()||'Mikee Gadget Plug'}${cond.trim()?' | Mikee Gadget Plug':''}`;
  const storages=[...new Set(list.map(v=>v.capacity||v.storage.split(' · ')[0]))].slice(0,4).join(', ');
- const description=from?`${cond}${p.model}${storages?` (${storages})`:''} ${list.length>1?'from':'for'} ${money(from)} at Mikee Gadget Plug, Computer Village, Ikeja. 7-day warranty, Lagos delivery or free store pickup, pay with Paystack or Pay Small Small.`:`${p.model} at Mikee Gadget Plug, Computer Village, Ikeja. Ask the store for current availability. 7-day warranty and nationwide delivery.`;
+ const description=from?`${cond}${p.model}${storages?` (${storages})`:''} ${list.length>1?'from':'for'} ${money(from)} at Mikee Gadget Plug, Computer Village, Ikeja. 7-day warranty, Lagos delivery or free store pickup, pay with Paystack or Pay Small Small.`:`${p.model} at Mikee Gadget Plug, Computer Village, Ikeja. Ask the store for current availability. 7-day warranty, Lagos delivery or free store pickup.`;
  return {title,description};
 }
 // Offers only for variants with an approved price; availability is stated only when the store has confirmed it.

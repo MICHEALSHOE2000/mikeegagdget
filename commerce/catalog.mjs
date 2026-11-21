@@ -13,7 +13,7 @@ export const commerceSite = Object.freeze({
   communityUrl: "",
   delivery: "Home delivery across Lagos, transport park pickup in every other state, or free pickup at 1 Ola Ayeni Street, Computer Village, Ikeja. The delivery fee for your area is shown at checkout.",
   warranty: "All products come with a 7-day warranty.",
-  usedIphoneBattery: "UK-used iPhones are supplied with battery health above 83%. Ask for the exact reading for the unit offered and confirm it during inspection.",
+  usedIphoneBattery: "UK Used iPhones have their original, non-boosted battery at 85% health or above. Ask for the exact reading for the unit offered and confirm it during inspection.",
   easyBuyUrl: "/easy-buy/"
 });
 
@@ -41,8 +41,8 @@ export const categoryPages = Object.freeze([
     route: "/uk-used-iphones",
     eyebrow: "Inspected-device enquiries",
     h1: "Shop UK-Used iPhones in Nigeria",
-    title: "UK-Used iPhones in Nigeria | Battery Health Above 83% | Mikee Gadget Plug",
-    description: "Compare UK-used iPhones from Mikee Gadget Plug. Ask for the exact unit, listed price, battery health above 83%, condition and delivery options.",
+    title: "UK-Used iPhones in Nigeria | Battery Health 85%+ | Mikee Gadget Plug",
+    description: "Compare UK-used iPhones from Mikee Gadget Plug. Ask for the exact unit, listed price, battery health 85% or above, condition and delivery options.",
     brand: "Apple",
     condition: "UK Used"
   },

@@ -87,7 +87,7 @@ test('colour comes from the file name or the photo; storage only from the file n
 test('the selected colour never shows another colour’s photo as if it were that colour',()=>{
  const v={image:'/images/generic.webp',images:[{url:'/images/burgundy.webp',approved:true,color:'Burgundy'},{url:'/images/black-pending.webp',approved:false,color:'Black'}]};
  assert.equal(photoFor(v,'Burgundy'),'/images/burgundy.webp');assert.equal(photoFor(v,'Black'),'/images/generic.webp');
- assert.match(read('assets/product-selection.js'),/Representative photo — the \$\{state\.color\} colour may look different\./);
+ assert.match(read('assets/product-selection.js'),/Representative photo · \$\{state\.color\} may look different/);
 });
 
 // ---- staging API (network is simulated) ----

@@ -60,7 +60,7 @@ export const policyPages=[
 <h2>Pricing and Payment</h2>
 <p>All prices listed on our website are in Nigerian Naira. Payment can be made securely using approved online payment gateways integrated on our platform. We reserve the right to modify prices or discontinue products at any time without prior notice.</p>
 <h2>Shipping and Delivery</h2>
-<ul><li>We deliver nationwide across Nigeria and neighboring African countries.</li><li>Delivery timelines vary based on your location and product availability.</li><li>We are not liable for delays caused by courier services, public holidays, or unforeseen circumstances.</li></ul>
+<ul><li>We deliver within Lagos and send orders to a transport park in every other Nigerian state. Delivery fees are shown at checkout and in our <a href="/delivery-policy/">Shipping &amp; Delivery policy</a>. Store pickup is free.</li><li>Delivery timelines vary based on your location and product availability.</li><li>We are not liable for delays caused by courier services, public holidays, or unforeseen circumstances.</li></ul>
 <h2>Return and Refund Policy</h2>
 <p>Mikee Gadget accepts returns only for products with verified factory defects. Items damaged due to customer mishandling, incorrect installation, or electrical issues at the buyer's premises are not eligible for refund or replacement. See our <a href="/returns-refunds/">Refund Policy</a> for detailed information.</p>
 <h2>Limitation of Liability</h2>

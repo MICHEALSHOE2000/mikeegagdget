@@ -80,3 +80,16 @@ article.store-phone{position:relative}
 .mg-share{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:14px 0;font-size:.9rem}
 .mg-share a,.mg-share button{display:inline-flex;align-items:center;gap:5px;min-height:40px;padding:0 12px;border:1px solid #dfe3dd;border-radius:999px;background:#fff;color:#143b2a;font:600 .85rem Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer}
 .all-deals{margin-top:40px}.all-deals h2{margin-bottom:4px}
+.mg-saved-action{margin:-4px 0 14px}.mg-saved-action .btn{width:100%;min-height:44px}
+.mg-compare-toggle,.mg-compare-link{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid #cfd6cc;border-radius:999px;background:#fff;color:#16241b;font:600 14px Inter,sans-serif;text-decoration:none;cursor:pointer}
+.mg-compare-toggle[aria-pressed="true"]{background:#e6f2ec;border-color:#0f7a4f}
+.mg-compare-link[hidden]{display:none}
+.mg-compare-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0}
+.mg-compare{border-collapse:collapse;min-width:100%;font-size:14px}
+.mg-compare th,.mg-compare td{padding:10px;border-bottom:1px solid #e3e6e0;text-align:left;vertical-align:top;min-width:120px}
+.mg-compare thead th{font-size:15px}.mg-compare tbody th{color:#4b524c;font-weight:600;min-width:96px}
+.mg-compare-remove{margin-top:6px;padding:4px 10px;border:1px solid #cfd6cc;border-radius:999px;background:#fff;font:500 12px Inter,sans-serif;cursor:pointer}
+/* Header fits small phones (320–374px) and tablets: the Contact shortcut steps aside where there is no room
+   (contact details stay in the footer and the WhatsApp button in the bottom bar). */
+@media (max-width:374px){.nav-contact{display:none!important}.site-header .nav,.commerce-nav{gap:8px}}
+@media (min-width:761px) and (max-width:900px){.nav-contact{display:none!important}}

@@ -1,4 +1,6 @@
 import {db,paystack,reply,sameOrigin,env} from '../_shop.mjs';
+// Database messages written for customers (reservation limits) that may be shown as they are.
+const SAFE_DB_MESSAGES=['You already have 3 open reservations','We are receiving a lot of reservations'];
 import {validateCheckout} from '../../commerce/checkout-validation.mjs';
 import {skuFilter} from '../../commerce/home-render.mjs';
 import {stockProblem} from '../../commerce/stock.mjs';
@@ -25,7 +27,7 @@ export default async function handler(req,res){
   {const rows=await db('checkout_inventory?select=sku,product_data&sku='+encodeURIComponent(skuFilter(order.items.map(i=>i.sku))));const problem=stockProblem(order.items,rows);if(problem)return reply(res,409,{error:problem});}
   // Prices, Hot Deal discounts and the delivery fee are all worked out by the database from its own tables.
   let result;try{result=await db('rpc/shop_create_order_v3',{method:'POST',body:{p_request_id:order.requestId,p_items:order.items,p_customer:order.customer,p_policy:order.policyVersion}});}
-  catch(e){return reply(res,409,{error:order.deliveryMethod==='store_pickup'?'Your order could not be saved. Refresh checkout and try again.':'Delivery to the selected area is not available right now. Choose another option or store pickup.'});}
+  catch(e){if(SAFE_DB_MESSAGES.some(m=>e.dbMessage?.startsWith(m)))return reply(res,429,{error:e.dbMessage});return reply(res,409,{error:order.deliveryMethod==='store_pickup'?'Your order could not be saved. Refresh checkout and try again.':'Delivery to the selected area is not available right now. Choose another option or store pickup.'});}
   const complete='/checkout/complete/?reference='+encodeURIComponent(result.reference);
   if(result.status==='paid')return reply(res,200,{url:new URL(complete,env('SHOP_ORIGIN')).href});
   // Reserve Now, Pay at Pickup: nothing is charged. The emails go once, even if the button is pressed again.
