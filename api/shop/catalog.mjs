@@ -21,6 +21,7 @@ async function merchantFeed(res){
 function unavailable(res,message){return res.status(503).setHeader('Content-Type','text/plain; charset=utf-8').setHeader('Cache-Control','no-store').setHeader('Retry-After','3600').send(message);}
 
 export default async function handler(req,res){
+ if(req.method==='POST' && req.query?.assistant==='1'){const {default:assistant}=await import('../../server/sales-assistant.mjs');return assistant(req,res);}
  if(req.method!=='GET'&&req.method!=='HEAD')return reply(res,405,{error:'Method not allowed'});
  if(req.query?.format==='google')return merchantFeed(res);
  try{const rows=await db('rpc/shop_deal_catalogue',{method:'POST',body:{}});

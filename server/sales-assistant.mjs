@@ -1,6 +1,6 @@
 import {createHmac} from 'node:crypto';
-import {db,env,reply,sameOrigin} from '../_shop.mjs';
-import {product,matches,short,qualification,classify} from '../../commerce/sales-assistant.mjs';
+import {db,env,reply,sameOrigin} from '../api/_shop.mjs';
+import {product,matches,short,qualification,classify} from '../commerce/sales-assistant.mjs';
 const take=(bucket,max,expires=null)=>db('rpc/shop_sales_take',{method:'POST',body:{p_bucket:bucket,p_max:max,p_expires:expires}});
 async function terms(query){
  if(process.env.SALES_AI_APPROVED!=='true'||!process.env.OPENAI_API_KEY)return query;

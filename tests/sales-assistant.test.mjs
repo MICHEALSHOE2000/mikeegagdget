@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import handler from '../api/shop/assistant.mjs';
+import handler from '../server/sales-assistant.mjs';
 import manage from '../api/admin/manage.mjs';
 import {matches,product,classify} from '../commerce/sales-assistant.mjs';
 const row={sku:'sku-a',enabled:true,price_ngn:400000,deal_position:1,product_data:{model:'iPhone 13',slug:'iphone-13',capacity:'128GB',condition:'UK Used'}};

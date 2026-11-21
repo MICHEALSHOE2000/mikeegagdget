@@ -44,7 +44,7 @@ launch.onclick=()=>dialog.showModal();
 el('header button').onclick=()=>dialog.close();
 handoff();
 async function post(body){
- const r=await fetch('/api/shop/assistant',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(25000)});
+ const r=await fetch('/api/shop/catalog?assistant=1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(25000)});
  const data=await r.json();if(!r.ok)throw Error(data.error);return data;
 }
 search.onsubmit=async e=>{
