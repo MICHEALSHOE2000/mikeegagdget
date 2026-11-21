@@ -67,17 +67,19 @@ test('6. Nigerian Pidgin is understood',()=>{
  assert.match(all[3].reply.text,/Ikeja is ₦10,000/);assert.equal(s.pidgin,true);
 });
 // 7
-test('7. humour and price objections get a natural answer, a budget question and cheaper real options',()=>{
- const {all}=chat(['How much is iPhone 13?','What about 256GB?','Too expensive abeg 😂','my budget na 300k']);
- const o=all[2].reply.text;assert.match(o,/😄|😂/);assert.match(o,/budget/);assert.match(o,/can’t change prices or give discounts/);
- const alt=all[3];assert.ok(alt.reply.cards.some(c=>c.price<=300000));onlyKnownPrices(alt,[300000]);
- assert.doesNotMatch(o+alt.reply.text,/\d+% off|special price for you|only \d+ left|hurry/i,'no invented discounts or fake urgency');
+test('7. humour and price objections: natural acknowledgement, handed to the owner, never a discount',()=>{
+ const {all}=chat(['How much is iPhone 13?','What about 256GB?','Too expensive abeg 😂']);
+ const o=all[2].reply.text;assert.match(o,/😄|😂/);assert.match(o,/passed this to the owner/);assert.match(o,/iPhone 13/);
+ assert.doesNotMatch(o,/\d+% off|special price for you|only \d+ left|hurry/i,'no invented discounts or fake urgency');
 });
 // 8
-test('8. negotiation escalates to a person for price review; no discount is ever promised',()=>{
- const {r}=chat(['iphone 15 pro max last price?']);assert.match(r.reply.text,/already on Hot Deal/);assert.ok(r.reply.suggestions.includes('Ask the team about price'));
- const esc=chat(['iphone 15 pro max last price?','Ask the team about price']).r;assert.equal(esc.reply.handoff,true);assert.equal(esc.state.wantsHuman,true);
- assert.doesNotMatch(r.reply.text+esc.reply.text,/I can (give|offer) you|discount of|reduced to/i);
+test('8. any price negotiation goes to the owner; Pay Small Small options are offered; no discount is ever promised',()=>{
+ for(const m of ['iphone 15 pro max last price?','abeg reduce am','can you give me discount','your price is too high']){
+  const r=chat([m]).r;assert.equal(r.reply.handoff,true,m);assert.equal(r.escalation,'price_review',m);assert.equal(r.state.wantsHuman,true);
+  assert.match(r.reply.text,/creditdirect\.ng\/know-your-limit/);assert.match(r.reply.text,/50% down payment/);
+  assert.doesNotMatch(r.reply.text,/I can (give|offer) you|discount of|reduced to/i);
+ }
+ assert.match(read('api/_ai-openai.mjs'),/request_human with reason price_review/);
 });
 // 9
 test('9. Credit Direct: explains the process, never promises approval or repayments',()=>{
@@ -175,7 +177,7 @@ test('16. admin inbox: unauthorised requests are refused; converted needs a veri
  const {default:manage,updateConversation,updateKnowledge}=await import('../api/admin/manage.mjs');
  const {store,fetcher}=fakeDb({orders:[{reference:'MG-PAID-1',status:'paid'},{reference:'MG-OPEN-2',status:'awaiting_payment'}]});
  for(const auth of [undefined,'Bearer bad','Bearer other']){const {out,res}=fakeRes();await withEnv({},fetcher,()=>manage({method:'GET',headers:{authorization:auth,origin:'https://shop.example'},query:{kind:'conversations'}},res));assert.equal(out.status,401,String(auth));}
- const ok=fakeRes();await withEnv({},fetcher,()=>manage({method:'GET',headers:{authorization:'Bearer good'},query:{kind:'knowledge'}},ok.res));assert.equal(ok.out.status,200);assert.ok(ok.out.body.some(k=>k.key==='hours'&&k.status==='needs_confirmation'));
+ const ok=fakeRes();await withEnv({},fetcher,()=>manage({method:'GET',headers:{authorization:'Bearer good'},query:{kind:'knowledge'}},ok.res));assert.equal(ok.out.status,200);assert.ok(ok.out.body.some(k=>k.key==='discount_rules'&&k.status==='needs_confirmation'));assert.ok(ok.out.body.some(k=>k.key==='hours'&&/10am/.test(k.content)));
  const forged=fakeRes();await withEnv({},fetcher,()=>manage({method:'PATCH',headers:{authorization:'Bearer good',origin:'https://evil.example'},body:{conversationId:crypto.randomUUID(),status:'closed'}},forged.res));assert.equal(forged.out.status,403);
  const a=await call(fetcher,{text:'iphone 13 price'});const id=a.body.conversationId;
  await withEnv({},fetcher,async()=>{
@@ -186,13 +188,13 @@ test('16. admin inbox: unauthorised requests are refused; converted needs a veri
   assert.equal(store.conv.get(id).ai_paused,true);assert.equal(store.conv.get(id).transcript.at(-1).from,'staff');
   assert.equal((await updateConversation({conversationId:'not-an-id',status:'closed'}))[0],400);
   assert.equal((await updateKnowledge({knowledgeKey:'hours',title:'Opening hours',content:'',status:'verified'},{id:'u1'}))[0],400,'verified needs content');
-  assert.equal((await updateKnowledge({knowledgeKey:'hours',title:'Opening hours',content:'Mon–Sat 9am–7pm',status:'verified'},{id:'u1'}))[0],200);
+  assert.equal((await updateKnowledge({knowledgeKey:'hours',title:'Opening hours',content:'Mon–Sat 10am–7pm',status:'verified'},{id:'u1'}))[0],200);
   assert.equal((await updateKnowledge({knowledgeKey:'made_up',title:'x',content:'y',status:'verified'},{id:'u1'}))[0],400);
  });
  // The customer sees the staff reply; while paused Mikee AI stays quiet.
  const poll=await call(fetcher,{action:'poll',conversationId:id,token:a.body.token,since:0});assert.equal(poll.body.paused,true);assert.match(poll.body.messages[0].text,/Mike from the store/);
  const paused=await call(fetcher,{conversationId:id,token:a.body.token,text:'ok thanks, how much is iphone 15 pro max'});assert.equal(paused.body.reply.paused,true);assert.doesNotMatch(paused.body.reply.text,/₦/);
- const hours=await call(fetcher,{text:'what time do you open?'},{ip:'9.9.9.9'});assert.match(hours.body.reply.text,/Mon–Sat 9am–7pm/,'admin edits reach the assistant');
+ const hours=await call(fetcher,{text:'what time do you open?'},{ip:'9.9.9.9'});assert.match(hours.body.reply.text,/Mon–Sat 10am–7pm/,'admin edits reach the assistant');
 });
 // 17
 test('17. rate limiting, origin check, honeypot and outages fail safely with a WhatsApp fallback',async()=>{
@@ -286,7 +288,7 @@ test('website: launcher on shop pages only, lazy chat, accessible widget, no sec
  assert.doesNotMatch(sql,/drop table|drop column|alter table [^;]* rename|truncate|delete from (?!shop_assistant)/i);
  for(const t of ['shop_assistant_conversations','shop_assistant_knowledge','shop_assistant_rate','shop_assistant_usage','shop_assistant_wa_events'])assert.match(sql,new RegExp(`revoke all on public\\.${t} from anon, authenticated`));
  assert.match(sql,/interval '30 days'/);assert.match(sql,/interval '180 days'/);
- assert.equal(KNOWLEDGE.filter(k=>k.status==='verified'&&!k.content).length,0);assert.ok(KNOWLEDGE.some(k=>k.key==='hours'&&k.status==='needs_confirmation'&&!k.content),'opening hours are not invented');
+ assert.equal(KNOWLEDGE.filter(k=>k.status==='verified'&&!k.content).length,0);assert.ok(KNOWLEDGE.some(k=>k.key==='discount_rules'&&k.status==='needs_confirmation'&&!k.content),'unconfirmed rules are not invented');assert.match(KNOWLEDGE.find(k=>k.key==='hours').content,/10am/);
  assert.deepEqual(detectIntents('na wetin be the last price abeg').includes('negotiation'),true);
 });
 

@@ -21,7 +21,7 @@ Rules you must always follow:
 3. Customers often skip the brand: "15 pro max" means iPhone 15 Pro Max, "s24 ultra" means Samsung Galaxy S24 Ultra, "fold 6" means Galaxy Z Fold 6. Search with the full name.
 4. Swaps: use estimate_swap for the customer's iPhone (model, storage and any changed/damaged parts) and the phone they want. Ask for missing details one at a time. Present the result as an estimate; the final value is confirmed by inspection in store. Samsung and Pixel swaps are quoted by the team (request_human).
 5. Store policies come ONLY from get_policy. If it says the information is not confirmed, say the team will confirm. Never invent store hours, discounts, financing approval, delivery times or guarantees.
-6. You cannot change prices or give discounts. For price objections: acknowledge, mention real facts (Hot Deal, warranty, swap, Pay Small Small), ask the budget if unknown, search for a cheaper alternative, and offer to ask the team for special pricing (request_human with reason price_review).
+6. You never bargain or give discounts. As soon as the customer negotiates ("last price", "too expensive", "reduce am", asks for a discount or better price), call request_human with reason price_review and tell them the owner handles prices and will reply right here. You may also mention Pay Small Small (get_policy credit_direct).
 7. Help the customer finish here: product cards below your reply have Buy now and Details buttons, and checkout handles delivery, pickup and payment (card, transfer, Pay Small Small). Don't send people to WhatsApp; if a person is needed, use request_human — the team replies in this chat.
 8. Ask at most one question per reply. Don't interrogate, pressure, or invent urgency or scarcity.
 9. You are an AI assistant. Never claim to be human.
@@ -83,7 +83,7 @@ export function runTool(name,args,{catalogue,kb,rates},state){
 const amountsIn=t=>[...String(t).matchAll(/₦\s?(\d{1,3}(?:,\d{3})+|\d+)(\s?(k|m)\b)?/gi)].map(m=>{let n=Number(m[1].replace(/,/g,''));if(/k/i.test(m[3]||''))n*=1e3;if(/m/i.test(m[3]||''))n*=1e6;return n;});
 /** True when every naira amount in the text is one the tools (or the customer) supplied. */
 export function pricesGrounded(text,allowed){const ok=new Set([...allowed].map(x=>typeof x==='string'?Number(x.replace(/[^\d]/g,'')):x).filter(Number.isFinite));return amountsIn(text).every(n=>ok.has(n));}
-const safeText=t=>String(t||'').replace(/https?:\/\/(?!wa\.me\/2347086865133)[^\s)]+/g,'').replace(/[<>]/g,'').trim().slice(0,1500);
+const safeText=t=>String(t||'').replace(/https?:\/\/(?!wa\.me\/2347086865133|www\.creditdirect\.ng\/know-your-limit)[^\s)]+/g,'').replace(/[<>]/g,'').trim().slice(0,1500);
 
 async function client(){const {default:OpenAI}=await import('openai');return new OpenAI({apiKey:process.env.OPENAI_API_KEY,timeout:12000,maxRetries:0});}
 

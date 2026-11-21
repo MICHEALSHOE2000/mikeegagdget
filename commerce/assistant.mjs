@@ -136,13 +136,13 @@ const INTENTS={
  delivery:/\bdeliver\w*\b|\bshipping\b|\bship\b|\bdispatch\w*\b|\bsend (it )?to\b|\bwaybill\b|\bpark\b|\blogistics\b|\bdelivery fee\b|\bhow (long|many days)\b/,
  warranty:/\bwarrant\w*\b|\bguarantee\w*\b/,
  returns:/\breturn\w*\b|\brefund\w*\b|\bexchange it\b|\bchange it if\b/,
- instalments:/\bsmall small\b|\binstal\w*\b|\bcredit direct\b|\bmonthly\b|\bpay (bit|part|half)\b|\bspread (the )?(payment|cost)\b|\bloan\b|\bfinanc\w*\b/,
+ instalments:/\beasy ?buy\b|\bdown ?payment\b|\bsmall small\b|\binstal\w*\b|\bcredit direct\b|\bmonthly\b|\bpay (bit|part|half)\b|\bspread (the )?(payment|cost)\b|\bloan\b|\bfinanc\w*\b/,
  payment:/\b(how|ways?|methods?|can i) (do i |to )?pay\b|\bpayment (method|option)s?\b|\bpaystack\b|\btransfer\b|\bcard\b|\bpay on delivery\b|\bcash\b|\baccount (number|details)\b/,
  pickup:/\bpick ?up\b|\bcollect\b|\bcome (to|and) (the )?(shop|store)\b|\breserve\b|\bvisit (the )?(store|shop)\b/,
  location:/\bwhere (is|are) (your|the) (shop|store|office)\b|\baddress\b|\blocation\b|\bwhere una dey\b|\bwhere (are|is) you\b|\bwhere (you|una) (dey|stay|located)\b/,
- hours:/\b(open|opening|closing|close) (time|hours?|today|on sunday|on saturday)\b|\bwhat time (do|does|una) (you )?(open|close)\b|\bworking hours\b|\bopen on (sunday|saturday|weekends?)\b|\bare you open\b/,
+ hours:/\bwhen (do|does|una|you) (you |una )?(open|close|start)\b|\bwhat time\b|\bopen by\b|\b(open|opening|closing|close) (time|hours?|today|on sunday|on saturday)\b|\bwhat time (do|does|una) (you )?(open|close)\b|\bworking hours\b|\bopen on (sunday|saturday|weekends?)\b|\bare you open\b/,
  swap:/\bswap\w*\b|\btrade ?in\b|\bupgrade\b|\bexchange my\b|\bsell my (phone|old)\b/,
- authenticity:/\boriginal\b|\bgenuine\b|\bauthentic\b|\bfake\b|\brefurb\w*\b|\bicloud\b|\bclone\b|\breal (one|phone)\b|\bbattery health\b|\binspect\w*\b|\btest (it|the phone)\b|\bcheck (it|the phone) before\b/,
+ authenticity:/\bface ?id\b|\bbattery\b|\boriginal\b|\bgenuine\b|\bauthentic\b|\bfake\b|\brefurb\w*\b|\bicloud\b|\bclone\b|\breal (one|phone)\b|\bbattery health\b|\binspect\w*\b|\btest (it|the phone)\b|\bcheck (it|the phone) before\b/,
  price:/\bhow much\b|\bprice\w*\b|\bcost\b|\bhw much\b|\bwetin be (the )?price\b|\bhow e be\b|\brate\b/,
  availability:/\b(in stock|available|availability|do you have|una get|you get|you have|do you sell|una sell|is there)\b/,
  budget:/\bbudget\b|\b(i get|i have|i fit pay|i can afford|my money (na|is))\b|\bunder\b|\bbelow\b|\bless than\b|\bnot more than\b|\bwithin\b|\bmaximum\b/,
@@ -159,24 +159,25 @@ export function detectIntents(text){const raw=String(text||''),t=norm(raw),out=[
 export const KNOWLEDGE=[
  {key:'company',title:'About Mikee Gadget Plug',status:'verified',source:'Terms page',content:'Mikee Gadget Plug (MIKEEGADGETS & COMMUNICATIONS LIMITED) is a gadget store in Computer Village, Ikeja, Lagos. We sell phones, tablets, smartwatches, earbuds and headphones, speakers, accessories and gaming.'},
  {key:'location',title:'Store location',status:'verified',source:'Policy pages',content:`Our store is at ${STORE_ADDRESS}.`},
- {key:'hours',title:'Opening hours',status:'needs_confirmation',source:'',content:''},
+ {key:'hours',title:'Opening hours',status:'verified',source:'Owner, 21 Nov 2026',content:'Our Computer Village store opens at 10am.'},
  {key:'categories',title:'Product categories',status:'verified',source:'Catalogue',content:'iPhones, Samsung Galaxy phones, Google Pixel phones, iPads and tablets, Apple Watch and other smartwatches, AirPods and earbuds, headphones, speakers, accessories and PlayStation 5.'},
  {key:'delivery',title:'Delivery',status:'verified',source:'Delivery policy',content:'Lagos home delivery: the fee depends on your Local Government Area. Other states: we send the order to a transport park in your state, for a fee. Pickup at our store is free. You see the exact fee at checkout before you pay. Delivery time depends on your location and the carrier, so we don’t promise a time in chat; the team confirms it after payment.'},
  {key:'pickup',title:'Store pickup',status:'verified',source:'Delivery policy',content:'Pickup at our Computer Village store is free. You can also reserve for pickup and pay at the store: we confirm the item is available first, then hold it until the pickup deadline we give you (24 hours by default). You can inspect and test the device before you pay.'},
  {key:'warranty',title:'Warranty',status:'verified',source:'Warranty policy',content:'Every device comes with a 7-day warranty from the day you receive or collect it. It covers faults that were present when you got the device; we repair or replace it, or refund you in full if neither is possible. It does not cover drops, liquid damage, misuse or repairs by anyone else.'},
  {key:'returns',title:'Returns and refunds',status:'verified',source:'Refund policy',content:'Refunds or replacements are for a verified factory defect, a fault present at delivery, or the wrong item, reported within 7 days with the original packaging and accessories. Change of mind after delivery is not refundable. Approved refunds take 5–10 business days. Details: /returns-refunds/'},
- {key:'conditions',title:'UK Used vs Brand New',status:'verified',source:'Terms and warranty pages',content:'Brand New devices are new and unused. UK Used devices are pre-owned. Both come with our 7-day warranty, but the original manufacturer’s warranty usually does not extend to used devices. The cosmetic grade and battery health of a specific UK Used unit are confirmed by our team before you buy, and you can inspect it in store.'},
+ {key:'conditions',title:'UK Used vs Brand New',status:'verified',source:'Terms and warranty pages',content:'Brand New devices are new and unused. UK Used devices are pre-owned, with battery health above 85% and working Face ID on iPhones. Both come with our 7-day warranty, but the original manufacturer’s warranty usually does not extend to used devices. You can inspect any phone in store before paying.'},
  {key:'payment',title:'Payment methods',status:'verified',source:'Checkout',content:'At checkout you can pay by card (Paystack), by bank transfer (your order is confirmed once we see the money), with Pay Small Small through Credit Direct, or reserve and pay at the store when you pick up. There is no pay-on-delivery option in the checkout.'},
  {key:'paystack',title:'Paystack',status:'verified',source:'Checkout',content:'Card payments are processed securely by Paystack at checkout. We never ask for your card details in chat.'},
  {key:'bank_transfer',title:'Bank transfer',status:'verified',source:'Checkout',content:'Choose bank transfer at checkout. Your order is confirmed once our team sees the money in our account. Only pay into the account shown at checkout.'},
- {key:'credit_direct',title:'Pay Small Small (Credit Direct)',status:'verified',source:'Checkout and financing page',content:'Pay Small Small is through Credit Direct. You choose it at checkout and apply with Credit Direct. Credit Direct decides approval, the down payment and the monthly repayments, so I can’t promise approval or quote repayments in chat.'},
+ {key:'credit_direct',title:'Pay Small Small (Easy Buy)',status:'verified',source:'Owner, 21 Nov 2026; checkout',content:'Two ways to pay small small: 1) Online with Credit Direct — check how much you qualify for at https://www.creditdirect.ng/know-your-limit, then choose Pay Small Small at checkout. Credit Direct decides approval and repayments. 2) In our shop — for iPhones, pay a 50% down payment when you visit, and our team explains the balance.'},
  {key:'credit_direct_criteria',title:'Credit Direct approval criteria',status:'needs_confirmation',source:'',content:''},
  {key:'swap',title:'Swap and upgrade',status:'verified',source:'Swap page',content:'You can swap your current iPhone towards an upgrade. Mikee AI gives an estimate from our swap price list (the same one used on /swap/); the final value is confirmed when we inspect the phone in store. Samsung and Google Pixel swaps are quoted by the team.'},
  {key:'swap_values',title:'Swap valuation rules',status:'verified',source:'Swap page (commerce/pricing.mjs)',content:'iPhone swap values come from the swap price list. Deductions: screen changed or cracked 10%, battery changed 5%, back glass changed or cracked 5%. Face ID problems need a technician to assess. Final value is subject to physical inspection.'},
+ {key:'device_quality',title:'Battery health and Face ID',status:'verified',source:'Owner, 21 Nov 2026',content:'All our phones have battery health above 85%, and every iPhone we sell has working Face ID.'},
  {key:'support',title:'Customer support',status:'verified',source:'Policy pages',content:'WhatsApp or call 0708 686 5133, or email support@mikeegadget.com.ng.'},
  {key:'inspection',title:'Inspection and authenticity',status:'verified',source:'Warranty policy',content:'If you buy in store or collect your order, you can inspect and test the device before paying. Delivered orders are paid online first, so check the device as soon as it arrives and contact us straight away if anything is wrong. The 7-day warranty applies either way.'},
  {key:'authenticity_checks',title:'Device checks (iCloud, activation, originality)',status:'needs_confirmation',source:'',content:''},
- {key:'negotiation',title:'Prices and discounts',status:'verified',source:'Owner’s rules',content:'Website prices are the store’s approved prices, and Hot Deals already show their discount. Mikee AI cannot change a price or offer a discount; any special pricing request goes to the team, who decide.'},
+ {key:'negotiation',title:'Prices and discounts',status:'verified',source:'Owner, 21 Nov 2026',content:'Website prices are the store’s approved prices, and Hot Deals already show their discount. Mikee AI never bargains: when a customer negotiates or asks for a better price, the chat is passed to the owner, who replies personally.'},
  {key:'discount_rules',title:'Discount thresholds',status:'needs_confirmation',source:'',content:''},
  {key:'objections',title:'Price objection replies',status:'template',source:'Owner to review',content:'I understand — it’s a big purchase.|I hear you, prices for good phones are no joke.|Fair point. Let’s find something that fits your pocket.'},
 ];
@@ -241,7 +242,7 @@ const CURRENT_CUE=/\b(have|get|got|my|using|use|current|currently|dey use|i get|
 function swapTurn(s,text,t,ctx,intents){
  const {catalogue}=ctx,sw={checks:{},...(s.swap||{})};sw.checks={...(sw.checks||{})};
  const phones=findSwapPhones(text),named=ctx.named||namedProducts(catalogue,text),out=[];let cards=[],suggestions=[],asked=null;
- const posOf=p=>{for(const k of [p.key.full,p.key.short,p.key.bare].filter(Boolean)){const i=t.indexOf(k);if(i>=0)return i;}return -1;};
+ const posOf=p=>{for(const k of [p.key.full,p.key.short,p.key.bare,p.key.full.replace(/^iphone /,'')].filter(Boolean)){const m=t.match(new RegExp('(^| )'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?= |$)(?! ?(gb|tb|k|m)\\b)'));if(m)return m.index+m[1].length;}return -1;};
  const nonApple=named.find(p=>p.variants&&['samsung','pixel'].includes(p.category)&&posOf(p)>=0&&CURRENT_CUE.test(' '+t.slice(Math.max(0,posOf(p)-30),posOf(p)).replace(/\b(samsung|galaxy|google|pixel)\b/g,'').replace(/\s+/g,' ').trimEnd()+' '));
  const brandM=!nonApple&&!sw.current&&t.match(/\b(have|get|got|my|using|use|swap|trade|exchange)\b[^.]{0,12}?\b(samsung|galaxy|pixel|google|tecno|infinix|itel|redmi|xiaomi|oppo|vivo|nokia|huawei|motorola|oneplus)\b/);
  const brandBeforeTo=brandM&&(()=>{const to=t.search(/\b(to|for|into)\b/);return to<0||brandM.index<to;})();
@@ -301,7 +302,8 @@ export function simulate(state,message,ctx){
  // Facts the customer gave us (kept for this session only).
  let named=namedProducts(catalogue,text,{unpriced});
  // While talking about iPhones, a bare number means an iPhone ("what about 13?").
- if(!named.length&&(s.category==='iphones'||s.swap)&&/\b(1[1-8]|x[rs]?|se)\b/.test(t)&&!/\b\d+ ?(k|m|gb|tb)\b/.test(t))named=namedProducts(catalogue,t.replace(/\biphone\b/g,' ').replace(/\b(1[1-8]|x[rs]?|se)\b/,'iphone $1'),{unpriced});
+ const BARE=/\b(1[1-8]|x[rs]?|se)\b(?! ?(gb|tb|k|m)\b)/;
+ if((s.category==='iphones'||s.swap||/\b(swap|upgrade|trade)\b/.test(t))&&BARE.test(t)){const more=namedProducts(catalogue,t.replace(/\biphone\b/g,' ').replace(new RegExp(BARE.source,'g'),'iphone $1'),{unpriced});for(const p of more)if(!named.includes(p))named.push(p);}
  const budget=parseBudget(text),storage=parseStorage(text),condition=parseCondition(text),sim=parseSim(text),payment=parsePayment(text),timeline=parseTimeline(text),cats=categoryFromText(text);
  const phone=parsePhone(text),email=parseEmail(text),name=parseName(text);
  if(budget?.max){s.budget=budget.max;s.budgetMin=budget.min||0;}else if(budget?.min){s.budgetMin=budget.min;}
@@ -341,21 +343,12 @@ export function simulate(state,message,ctx){
  if(has('swap')||swapActive||swapFollow||(s.swap?.current&&findSwapPhones(text).length&&/\b(swap|upgrade|to|for|into)\b/.test(t))){
   const r=swapTurn(s,text,t,{catalogue,named},intents);out.push(...r.out);cards=r.cards;suggestions=r.suggestions;asked=r.asked;s.lastAsked=asked||null;return reply();
  }
- // 2. Price objections: acknowledge, show facts, look for something cheaper, offer the team. Never a discount.
+ // 2. Price talk goes to the owner (his rule). Acknowledge, hand over, mention real options. Never a discount.
  if(has('negotiation')){
-  const tmpl=(kb.get('objections')?.content||'').split('|').map(x=>x.trim()).filter(Boolean);
-  if(!has('humor'))out.push(s.pidgin?vary(s,['I understand, no wahala.','I hear you o.','E get why — good phones no cheap.']):(tmpl.length?vary(s,tmpl):'I understand.'));
-  const ref=product?product.variants.filter(v=>variantMatches(v,filters))[0]||product.variants[0]:null;
-  if(ref?.deal)out.push(`The ${product.model} is already on Hot Deal at ${naira(ref.price)} (was ${naira(ref.originalPrice)}).`);
-  if(!s.budget){out.push(`What budget are you working with? I’ll look for the best option within it${product?` — another storage, condition or a similar model to the ${product.model}`:''}.`);asked='budget';}
-  else{
-   const cheaper=searchCatalogue(catalogue,{category:product?.category||s.category,budgetMax:s.budget,condition:s.condition&&s.condition!=='any'?s.condition:undefined,limit:4}).filter(c=>!ref||c.price<ref.price);
-   if(cheaper.length){cards=cheaper;out.push(`Within ${naira(s.budget)}, these are good options:\n${listOf(cheaper)}`);}
-   else out.push(`I couldn’t find a ${product?.category==='iphones'?'similar iPhone':'similar device'} within ${naira(s.budget)} in our catalogue right now.`);
-  }
-  out.push('Pay Small Small with Credit Direct can also spread the cost (Credit Direct decides approval). I can’t change prices or give discounts, but if you’d like the team to review the price for you, tap “Ask the team about price”.');
-  suggestions=['Ask the team about price','Show cheaper options','Pay Small Small'];
-  escalation='price_review_offered';
+  handoff=true;s.wantsHuman=true;escalation='price_review';
+  if(!has('humor'))out.push(s.pidgin?vary(s,['I hear you o.','No wahala, I understand.']):vary(s,['I understand.','Fair enough — it’s a big purchase.']));
+  out.push(`I’ve passed this to the owner, who handles prices personally — he’ll reply right here in this chat.${product?` (You were looking at the ${product.model}.)`:''}`);
+  out.push('Meanwhile, you can pay small small: check your Credit Direct limit at https://www.creditdirect.ng/know-your-limit, or for iPhones pay a 50% down payment in our shop.');
   return reply();
  }
 
@@ -389,7 +382,7 @@ export function simulate(state,message,ctx){
  if(has('location')&&!has('pickup'))topics.push(kbAnswer(kb,'location')+(knowledgeFact(kb,'inspection')?.verified?' You can inspect the device in store before paying.':''));
  if(has('hours'))topics.push(kbAnswer(kb,'hours'));
  if(has('swap'))topics.push(kbAnswer(kb,'swap'));
- if(has('authenticity'))topics.push(kbAnswer(kb,'inspection'),/\bicloud|activation|original|genuine|fake|clone\b/.test(t)?kbAnswer(kb,'authenticity_checks'):'');
+ if(has('authenticity'))topics.push(/\bbattery|face ?id\b/.test(t)?kbAnswer(kb,'device_quality'):'',kbAnswer(kb,'inspection'),/\bicloud|activation|original|genuine|fake|clone\b/.test(t)?kbAnswer(kb,'authenticity_checks'):'');
  if(!has('delivery')&&parseLocation(text,rates)&&(s.product||s.payment))topics.push(deliveryAnswer(s,kb,rates,text));
  const policy=topics.filter(Boolean).slice(0,2);out.push(...policy);
 

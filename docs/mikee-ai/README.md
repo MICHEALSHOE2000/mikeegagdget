@@ -109,7 +109,16 @@ The chat now finishes sales itself:
 - requests for a person are answered by your team **inside the chat**, so there is no WhatsApp button;
 - WhatsApp only appears as a fallback if the chat itself can't load.
 
-## 5. Knowledge base — what needs your confirmation
+## 5. Knowledge base — owner's rules (21 Nov 2026)
+
+The owner confirmed these rules, and they are now built in:
+- the store opens at 10am;
+- all phones have battery health above 85%, and every iPhone has working Face ID;
+- use the swap valuation;
+- **any price negotiation is handed to the owner** (the chat is flagged "Needs attention");
+- Easy Buy: check your Credit Direct limit at https://www.creditdirect.ng/know-your-limit, or pay a 50% down payment for iPhones in the shop.
+
+### Still needing confirmation
 
 Open **Admin → Mikee AI → Knowledge base**. Only entries marked **Verified** are stated as facts. These defaults could not be confirmed from the site, so Mikee AI tells customers the team will confirm them:
 
