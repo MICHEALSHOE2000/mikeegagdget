@@ -10,6 +10,7 @@ export default async function handler(req,res){
  try{
   if(req.method==='GET'){
    const kind=req.query?.kind;
+   if(kind==='sales-leads')return reply(res,200,await db('shop_sales_leads?select=id,created_at,enquiry,tier,score,status&order=created_at.desc&limit=100'));
    if(kind==='inventory')return reply(res,200,await db('checkout_inventory?select=sku,price_ngn,enabled,product_data,updated_at&order=sku&limit=1000'));
    if(kind==='orders')return reply(res,200,await db('shop_orders?select=reference,amount_ngn,delivery_fee_ngn,delivery_method,status,payment_provider,fulfillment_status,supplier_status,created_at,customer,shop_order_items(sku,quantity,unit_price_ngn,selected_color)&payment_provider=neq.pay_at_store&order=created_at.desc&limit=100'));
    if(kind==='reservations'){
@@ -31,6 +32,12 @@ export default async function handler(req,res){
    return reply(res,400,{error:'Choose inventory, orders, reservations or merchant.'});
   }
   if(!sameOrigin(req))return reply(res,403,{error:'Use the administrator page.'});
+  if(req.query?.kind==='sales-leads'){
+   const {id,status}=req.body||{};
+   if(typeof id!=='string'||!/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id)||!['new','contacted','won','closed'].includes(status))return reply(res,400,{error:'Invalid lead update.'});
+   const rows=await db('shop_sales_leads?id=eq.'+id+'&select=id',{method:'PATCH',body:{status}});
+   return reply(res,rows.length?200:404,rows.length?{saved:true}:{error:'Enquiry expired.'});
+  }
   const {sku,price,enabled,updatedAt,productData}=req.body||{};
   if(typeof sku!=='string'||!sku||sku.length>250||(price!==null&&(!Number.isSafeInteger(price)||price<=0||price>100000000))||typeof enabled!=='boolean'||(enabled&&price===null)||typeof updatedAt!=='string')return reply(res,400,{error:'Enter a valid price and availability.'});
   if(enabled){const check=await db('checkout_inventory?sku=eq.'+encodeURIComponent(sku)+'&select=product_data');if(check[0]?.product_data?.reviewRequired)return reply(res,400,{error:'This legacy variant needs catalogue verification before it can be enabled.'});}

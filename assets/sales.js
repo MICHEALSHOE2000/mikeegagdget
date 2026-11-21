@@ -11,3 +11,8 @@ import('/assets/cart-ui.mjs').then(m=>{m.initCartBadges();document.querySelector
 const keys=['gclid','wbraid','gbraid','fbclid','ttclid','utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
 function attribution(){let saved={};try{saved=JSON.parse(sessionStorage.getItem('mikee-gadget-plug_ad_attribution')||'{}');}catch{}const q=new URLSearchParams(location.search);return Object.fromEntries(keys.map(k=>[k,q.get(k)||saved[k]]).filter(([,v])=>v));}
 document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return;const url=new URL(a.href,location.href);if(url.origin===location.origin){for(const [k,v]of Object.entries(attribution()))if(!url.searchParams.has(k))url.searchParams.set(k,v);a.href=url.href;}},true);
+
+if (!/^\/(?:checkout|cart|admin|account)(?:\/|$)/.test(location.pathname)) {
+  const assistant=document.createElement('script');
+  assistant.type='module';assistant.src='/assets/sales-widget.mjs';document.head.append(assistant);
+}

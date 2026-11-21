@@ -200,3 +200,31 @@ bulk.querySelector('[data-publish-bulk]').addEventListener('click',async e=>{con
   bulk.querySelector('[data-bulk-status]').textContent=done+' prices published. Every change is recorded in the audit log.';}
  catch(err){bulk.querySelector('[data-bulk-status]').textContent=done+' saved; stopped at the next row: '+err.message+' Export a fresh CSV before retrying.';}
  finally{if(done)download('mikee-prices-undo-'+new Date().toISOString().slice(0,16).replace(/[:T]/g,'-')+'.csv',undo);review={changes:[],problems:[]};bulk.querySelector('[data-bulk-review]').innerHTML='';e.target.hidden=true;e.target.disabled=false;await load();}});
+
+// Load personal details only when the signed-in owner requests them.
+const leadPanel=document.createElement('details');
+const leadHeading=document.createElement('summary');
+leadHeading.textContent='Sales assistant enquiries';
+const leadList=document.createElement('div');
+leadPanel.append(leadHeading,leadList);$('admin-tools').prepend(leadPanel);
+leadPanel.ontoggle=async()=>{
+ leadList.replaceChildren();
+ if(!leadPanel.open||!token)return;
+ const session=token;
+ try{
+  const rows=await api('/api/admin/manage?kind=sales-leads');
+  if(token!==session||!leadPanel.open)return;
+  if(!rows.length)leadList.textContent='No saved enquiries.';
+  for(const row of rows){
+   const article=document.createElement('article'),title=document.createElement('strong'),info=document.createElement('p'),select=document.createElement('select');
+   const q=row.enquiry;
+   title.textContent=q.name+' · '+row.tier+' · '+row.score+'/100';
+   info.textContent=[new Date(row.created_at).toLocaleString(),q.query,q.item?.label,q.colour,q.item?.stock,q.item && money(q.item.price),q.condition,q.mode,q.timeline,'Budget '+money(q.budget),q.contact,...(q.messages||[]).map(m=>m.role+': '+m.content)].filter(Boolean).join(' | ');
+   select.setAttribute('aria-label','Enquiry status for '+q.name);
+   for(const value of ['new','contacted','won','closed'])select.add(new Option(value,value,false,value===row.status));
+   select.onchange=async()=>{select.disabled=true;try{await api('/api/admin/manage?kind=sales-leads',{method:'PATCH',body:JSON.stringify({id:row.id,status:select.value})});row.status=select.value;}catch(e){select.value=row.status;message(e.message,'error');}finally{select.disabled=false;}};
+   article.append(title,info,select);leadList.append(article);
+  }
+ }catch(e){message(e.message,'error');}
+};
+$('admin-signout').addEventListener('click',()=>{leadPanel.open=false;leadList.replaceChildren();});
