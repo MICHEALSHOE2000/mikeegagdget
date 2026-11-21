@@ -4,6 +4,9 @@ import {publicReview} from '../../commerce/reviews.mjs';
 import {skuFilter} from '../../commerce/home-render.mjs';
 import {seedRows} from '../../commerce/delivery-rates.mjs';
 export default async function handler(req,res){
+ // The sales assistant shares this function (/api/assistant rewrites here).
+ if(req.query?.op==='assistant'){const {assistantHandler}=await import('../_assistant.mjs');return assistantHandler(req,res);}
+ if(req.query?.op==='whatsapp'){const {whatsappHandler}=await import('../_ai-whatsapp.mjs');return whatsappHandler(req,res);}
  if(req.method!=='GET')return reply(res,405,{error:'Method not allowed'});
  let communityUrl='',featuredProducts=[],reviews={googleUrl:'',items:[]},holdHours=24,deliveryRates=null;
  try{const row=(await db('shop_settings?id=eq.store&select=*'))[0]||{};communityUrl=row.community_url||'';reviews.googleUrl=row.google_reviews_url||'';holdHours=Number(row.reservation_hold_hours)||24;}catch{}

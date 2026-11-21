@@ -2,6 +2,7 @@ import {mountDeals} from './admin-deals.mjs';
 import {mountHome} from './admin-home.mjs';
 import {stockFields,photoFields,readExtras,addPhoto,bindPhotoControls,mountExtras} from './admin-extras.mjs';
 import {mountSmartImages} from './admin-images.mjs';
+import {mountAssistant} from './admin-ai.mjs';
 import {escape,money} from './storefront-ui.mjs';
 const $=id=>document.getElementById(id);
 // Keep the short-lived access token in memory only. Never log or render it.
@@ -19,7 +20,7 @@ async function api(path,options={}){const r=await fetch(path,{...options,headers
 const signedIn=on=>{$('admin-signin-wrap').hidden=on;$('admin-tools').hidden=!on;};
 
 // ---------- Sections (tabs) ----------
-const TABS=['home','orders','reservations','products','deals','photos','reviews','merchant','delivery','settings'];
+const TABS=['home','orders','reservations','ai','products','deals','photos','reviews','merchant','delivery','settings'];
 function openTab(name,{scroll=true}={}){if(!TABS.includes(name))name='home';for(const b of document.querySelectorAll('[data-tab]'))b.classList.toggle('is-active',b.dataset.tab===name);for(const p of document.querySelectorAll('[data-panel]'))p.hidden=p.dataset.panel!==name;try{sessionStorage.setItem('mikee-admin-tab',name);}catch{}if(scroll)scrollTo({top:0,behavior:'smooth'});}
 document.querySelector('.adm-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)openTab(b.dataset.tab);});
 
@@ -116,6 +117,9 @@ $('admin-reservations').addEventListener('click',async e=>{const b=e.target.clos
 let rates=[];
 const rateRow=r=>`<form class="adm-rate" data-rate="${escape(r.id)}"><span class="adm-rate-name"><strong>${escape(r.scope==='state'?r.area:r.area)}</strong>${r.scope==='state'?`<small>Park: ${escape(r.label)}</small>`:''}</span><span class="adm-naira"><span aria-hidden="true">₦</span><input name="fee" type="number" inputmode="numeric" min="0" max="1000000" step="1" value="${r.fee_ngn??''}" placeholder="Not offered" aria-label="Delivery price for ${escape(r.area)}"></span><button type="submit" class="btn btn-outline">Save</button></form>`;
 function renderRates(){$('admin-rates-lagos').innerHTML=rates.filter(r=>r.scope==='lagos_lga').map(rateRow).join('');$('admin-rates-states').innerHTML=rates.filter(r=>r.scope==='state').map(rateRow).join('');}
+// ---- Mikee AI inbox and knowledge base ----
+const ai=mountAssistant({api,message,escape,money});
+
 // ---- Google Shopping (Merchant Center) ----
 let merchant=null;
 function renderMerchant(){if(!merchant)return;const s=merchant.stats,card=(n,l,warn)=>`<div class="adm-card ${warn&&n?'is-wait':'is-ok'}" style="cursor:default"><span class="adm-card-n">${n}</span><span class="adm-card-t">${l}</span></div>`;
@@ -168,7 +172,7 @@ const smartImages=mountSmartImages($('admin-photos-host'),api,()=>inventory,valu
 const extras=mountExtras($('admin-advanced-host'),api,()=>inventory,value=>message(value));bindPhotoControls($('admin-inventory'),value=>message(value));
 // Put the photo report with the photos, and reviews in their own section.
 {const report=$('admin-photo-report'),reviews=$('admin-reviews');if(report){report.classList.add('adm-box');$('admin-photos-host').append(report);}if(reviews){reviews.classList.add('adm-box');$('admin-reviews-host').append(reviews);}}
-async function load(){try{inventory=await api('/api/admin/manage?kind=inventory');signedIn(true);renderInventory();greet();await loadOrders();await loadReservations();loadRates();loadMerchant();await deals.load();await home.load();const settings=await api('/api/admin/settings');$('admin-settings').elements.communityUrl.value=settings.community_url||'';$('admin-settings').elements.financingNotes.value=settings.financing_notes||'';$('admin-settings').elements.holdHours.value=settings.reservation_hold_hours||'';if($('admin-settings').elements.googleReviewsUrl)$('admin-settings').elements.googleReviewsUrl.value=settings.google_reviews_url||'';extras.load();smartImages.load();}catch(e){token='';signedIn(false);message(e.message,'error');}}
+async function load(){try{inventory=await api('/api/admin/manage?kind=inventory');signedIn(true);renderInventory();greet();await loadOrders();await loadReservations();loadRates();loadMerchant();ai.load();await deals.load();await home.load();const settings=await api('/api/admin/settings');$('admin-settings').elements.communityUrl.value=settings.community_url||'';$('admin-settings').elements.financingNotes.value=settings.financing_notes||'';$('admin-settings').elements.holdHours.value=settings.reservation_hold_hours||'';if($('admin-settings').elements.googleReviewsUrl)$('admin-settings').elements.googleReviewsUrl.value=settings.google_reviews_url||'';extras.load();smartImages.load();}catch(e){token='';signedIn(false);message(e.message,'error');}}
 $('admin-signin').addEventListener('submit',async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;button.textContent='Sending…';try{const result=await api('/api/admin/login',{method:'POST',body:JSON.stringify({email:e.target.elements.email.value})});message(result.message,'ok');}catch(e){message(e.message,'error');}finally{button.disabled=false;button.textContent='Send me a sign-in link';}});
 $('admin-filter').addEventListener('input',()=>{shown=40;renderInventory();});
 $('admin-inventory').addEventListener('submit',async e=>{e.preventDefault();const form=e.target,row=inventory.find(v=>v.sku===form.dataset.sku);if(!row)return;const button=form.querySelector('[type=submit]');button.disabled=true;button.textContent='Saving…';const price=form.elements.price.value===''?null:Number(form.elements.price.value);try{await api('/api/admin/manage',{method:'PATCH',body:JSON.stringify({sku:row.sku,price,enabled:form.elements.enabled.checked,updatedAt:row.updated_at,productData:editData(form,row)})});inventory=await api('/api/admin/manage?kind=inventory');renderInventory();renderDashboard();message('Saved ✓ '+(row.product_data?.model||row.sku)+(price?' is now '+money(price):'')+(form.elements.enabled.checked?' and showing on the website.':' and hidden from the website.'),'ok');}catch(err){message(err.message,'error');button.disabled=false;button.textContent='Save';}});
