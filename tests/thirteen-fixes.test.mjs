@@ -33,7 +33,7 @@ test('Hot Deals are placed in the HTML on the server, and any failure leaves the
  const out=injectDeals(home,hotDealsHtml([deal('a|1',850000),deal('e|1',1000000)]));assert.match(out,/id="hotDeals"[^>]*><!--hot-deals--><article class="store-phone"/);assert.equal((out.match(/data-deal-sku=/g)||[]).length,2);
  assert.equal(injectDeals(home,''),home);assert.equal(injectDeals('<p>no markers</p>','<b>x</b>'),'<p>no markers</p>');
  assert.equal(skuFilter(['a|256GB · Blue/Orange','q"x']),'in.("a|256GB · Blue/Orange","q\\"x")');
- const mw=read('middleware.js');assert.match(mw,/matcher:\['\/','\/deals','\/deals\/'\]/);assert.match(mw,/catch\{return pass\(\);\}/);assert.doesNotMatch(mw,/console\.log/);
+ const mw=read('middleware.js');assert.match(mw,/matcher:\['\/','\/deals','\/deals\/',/);assert.match(mw,/catch\{return pass\(\);\}/);assert.doesNotMatch(mw,/console\.log/);
  // run the middleware with a fake network: it must inject deals and never recurse
  const {default:middleware}=await import('../middleware.js');const keep={fetch:globalThis.fetch,u:process.env.SUPABASE_URL,k:process.env.SUPABASE_SERVICE_ROLE_KEY};
  try{process.env.SUPABASE_URL='https://db.test';process.env.SUPABASE_SERVICE_ROLE_KEY='k';
@@ -97,7 +97,7 @@ test('trust strip uses the approved messages and the four policy pages exist and
 test('stock: only confirmed states, never an invented number, and checkout re-checks on the server',()=>{
  assert.equal(stockLabel({}),'');assert.equal(stockLabel({stockStatus:'in_stock'}),'In stock');assert.equal(stockLabel({stockStatus:'in_stock',stockQty:3}),'Only 3 left');assert.equal(stockLabel({stockStatus:'in_stock',stockQty:40}),'In stock');
  assert.equal(stockLabel({stockStatus:'out_of_stock'}),'Out of stock');assert.equal(stockLabel({stockStatus:'confirm'}),'Availability to be confirmed');
- assert.deepEqual(cleanStock({stockStatus:'in_stock',stockQty:0}),{stockStatus:'out_of_stock',stockQty:null});assert.deepEqual(cleanStock({stockStatus:'made-up',stockQty:9}),{stockStatus:'',stockQty:null});assert.deepEqual(cleanStock({stockStatus:'confirm',stockQty:4}),{stockStatus:'confirm',stockQty:null});
+ assert.deepEqual(cleanStock({stockStatus:'in_stock',stockQty:0}),{stockStatus:'out_of_stock',stockQty:null,availabilityDate:''});assert.deepEqual(cleanStock({stockStatus:'made-up',stockQty:9}),{stockStatus:'',stockQty:null,availabilityDate:''});assert.deepEqual(cleanStock({stockStatus:'confirm',stockQty:4}),{stockStatus:'confirm',stockQty:null,availabilityDate:''});
  const rows=[{sku:'a',product_data:{model:'A',stockStatus:'out_of_stock'}},{sku:'b',product_data:{model:'B',stockStatus:'in_stock',stockQty:1}},{sku:'c',product_data:{model:'C'}}];
  assert.match(stockProblem([{sku:'a',quantity:1}],rows),/out of stock/);assert.match(stockProblem([{sku:'b',quantity:1},{sku:'b',quantity:1}],rows),/Only 1/);assert.equal(stockProblem([{sku:'b',quantity:1},{sku:'c',quantity:5}],rows),'');
  const create=read('api/shop/create.mjs');assert.ok(create.indexOf('stockProblem(')<create.indexOf("rpc/shop_create_order_v3',{method"),'stock is checked before the order is created');

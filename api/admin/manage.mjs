@@ -2,6 +2,8 @@ import {notifyOrder} from '../../commerce/notifications.mjs';
 import {validateProductEdit} from '../../commerce/admin-catalogue.mjs';
 import {db,reply,sameOrigin} from '../_shop.mjs';
 import {requireAdmin} from './_auth.mjs';
+import {buildItems,feedStats,SITE,FEED_PATH} from '../../commerce/merchant.mjs';
+import pages from '../../commerce/merchant-products.mjs';
 export default async function handler(req,res){
  if(!['GET','PATCH'].includes(req.method))return reply(res,405,{error:'Method not allowed'});
  let user;try{user=await requireAdmin(req);}catch(e){return reply(res,401,{error:e.message});}
@@ -18,7 +20,15 @@ export default async function handler(req,res){
     for(const r of rows.filter(r=>r.reservation_status==='expired'&&new Date(r.reservation_closed_at||0).getTime()>recent))await notifyOrder(db,r.reference,['reservation_expired']);
     return reply(res,200,rows);
    }
-   return reply(res,400,{error:'Choose inventory, orders or reservations.'});
+   if(kind==='merchant'){
+    // Google Shopping report: the same rules as the public feed, applied to the live catalogue now.
+    const [rows,rates,status]=await Promise.all([db('rpc/shop_deal_catalogue',{method:'POST',body:{}}),db('shop_delivery_rates?select=fee_ngn,enabled'),db('shop_merchant_feed_status?id=eq.google&select=generated_at,stats').catch(()=>[])]);
+    const result=buildItems(rows,{pages,rates});
+    const warn={};for(const w of result.warnings)warn[w.warning]=(warn[w.warning]||0)+1;
+    return reply(res,200,{feedUrl:SITE+FEED_PATH,stats:feedStats(result,rows),lastGenerated:status[0]?.generated_at||null,
+     excluded:result.excluded.map(({id,sku,slug,title,reasons})=>({id,sku,slug,title,reasons})),warnings:Object.entries(warn).map(([warning,count])=>({warning,count}))});
+   }
+   return reply(res,400,{error:'Choose inventory, orders, reservations or merchant.'});
   }
   if(!sameOrigin(req))return reply(res,403,{error:'Use the administrator page.'});
   const {sku,price,enabled,updatedAt,productData}=req.body||{};
