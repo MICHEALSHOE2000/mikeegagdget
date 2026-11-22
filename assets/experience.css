@@ -80,3 +80,10 @@ article.store-phone{position:relative}
 .mg-share{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:14px 0;font-size:.9rem}
 .mg-share a,.mg-share button{display:inline-flex;align-items:center;gap:5px;min-height:40px;padding:0 12px;border:1px solid #dfe3dd;border-radius:999px;background:#fff;color:#143b2a;font:600 .85rem Inter,system-ui,sans-serif;text-decoration:none;cursor:pointer}
 .all-deals{margin-top:40px}.all-deals h2{margin-bottom:4px}
+/* Category pages: full model list for crawlers and shoppers (collapsed by default). */
+.all-models{box-sizing:border-box;width:100%;max-width:1240px;margin:0 auto;padding:8px 20px 28px}
+.all-models summary{cursor:pointer;font-weight:700;color:#0d3b2a;min-height:44px;display:flex;align-items:center}
+.all-models ul{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px 18px}
+.all-models li a{display:block;padding:6px 0;font-size:14px;color:#151819;text-decoration:none;border-bottom:1px solid #eceee9}
+.all-models li a:hover{color:#0d3b2a;text-decoration:underline}
+.all-models summary::after{content:"+";margin-left:10px;font-size:20px;line-height:1}.all-models details[open] summary::after{content:"−"}

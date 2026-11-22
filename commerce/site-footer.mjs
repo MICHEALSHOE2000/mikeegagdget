@@ -20,7 +20,7 @@ export const SITE_FOOTER=`<footer class="mg-footer" id="contact">
 ${col('Shop',[['iPhones','/iphones'],['Samsung','/samsung-phones'],['Google Pixel','/google-pixel-phones'],['iPads &amp; tablets','/shop/ipads/'],['Smartwatches','/shop/watches/'],['Hot Deals','/deals/']])}
 ${col('My Account',[['Saved items','/account/'],['Track an order','/account/'],['My cart','/cart/'],['Swap your phone','/phone-swap/']])}
 ${col('Customer Service',[['Warranty','/warranty-policy/'],['Order tracking','/account/'],['Shipping &amp; Delivery','/delivery-policy/'],['Returns, Refunds &amp; Replacement','/returns-refunds/']])}
-${col('Support',[['Visit our store','/#visit'],['Contact us','https://wa.me/2347086865133'],['Email support','mailto:support@mikeegadget.com.ng'],['Buying guide','/blog/best-uk-used-iphone-shop']])}
+${col('Support',[['About us','/about/'],['Contact us','/contact/'],['FAQ','/faq/'],['Visit our store','/#visit'],['Buying guide','/blog/best-uk-used-iphone-shop']])}
 </div>
 <section class="mg-footer-inner mg-footer-community" data-community hidden><h2>Join Our Gadget Deals Community</h2><button class="btn btn-primary" disabled>Join Group</button><p data-community-note>Our community invite will be available here soon.</p></section>
 <div class="mg-footer-inner mg-footer-bottom"><p>© 2026 <strong>MIKEEGADGETS &amp; COMMUNICATIONS LIMITED</strong>. All rights reserved.</p>

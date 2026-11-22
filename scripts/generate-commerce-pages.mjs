@@ -54,7 +54,9 @@ const productFaqs = (product) => {
     ? `Do you sell UK-used ${product.model}?`
     : `What condition is the ${product.model} available in?`;
   const conditionAnswer = product.brand === "Apple"
-    ? `Mikee Gadget Plug lists UK-used and brand-new iPhone enquiries. Ask which ${product.model} units are available today and request the exact condition before payment.`
+    ? (product.conditions.includes("UK Used")
+      ? `Yes. The ${product.model} is listed as ${product.conditions.join(" and ")}. Our UK-used phones have battery health above 85% and working Face ID, and you can inspect the phone in our Computer Village store before paying.`
+      : `The ${product.model} is currently listed as ${product.conditions.join(" and ")}. See the condition of each option on this page.`)
     : product.brand === "Google"
       ? `This listing is for ${product.conditions[0]}. Ask Mikee Gadget Plug to confirm the exact unit, its condition and current stock before payment.`
       : `Condition depends on the current device available. Ask Mikee Gadget Plug whether the exact ${product.model} offered is new or used and request inspection details.`;
@@ -62,11 +64,11 @@ const productFaqs = (product) => {
   return [
     {
       question: `What is the price of ${product.model} in Nigeria?`,
-      answer: `Select your exact storage, condition and colour to see its listed price. Review your order total at checkout before paying.`
+      answer: `Prices for the ${product.model} are shown on this page for each storage and condition, from our live catalogue. Review your order total at checkout before paying.`
     },
     {
       question: `How much is ${product.model} ${exampleStorage}?`,
-      answer: `Select ${exampleStorage} on this page to see the price where available, or use WhatsApp to request today’s price for that exact variant.`
+      answer: `Select ${exampleStorage} on this page to see its current price.`
     },
     {
       question: `Can I buy ${product.model} and pay in installments?`,
@@ -78,7 +80,7 @@ const productFaqs = (product) => {
     },
     {
       question: `Can I swap my old phone for ${product.model}?`,
-      answer: `You can request a valuation on WhatsApp. Mikee Gadget Plug must inspect or review your current phone before confirming a swap value or balance.`
+      answer: `Yes. Get an estimate for your current iPhone on our swap page or from Mikee AI on this website, then pay the difference. The final swap value is confirmed when we inspect your phone in store.`
     },
     {
       question: "Do you deliver outside Lagos?",
@@ -249,7 +251,7 @@ const renderVariantSelector = (product) => `
       ${product.conditions.length > 1 ? `<label><span>Condition</span><select data-condition-select>${product.conditions.map((condition) => `<option>${escapeHtml(condition)}</option>`).join("")}</select></label>` : `<div class="condition-badge" aria-label="Condition">${escapeHtml(product.conditions[0] || 'Confirm available condition')}</div>`}
     </div>
     <div class="buying-facts">
-      <span><b>Battery health</b>${product.listingPending ? "Details coming soon" : product.brand === "Apple" ? "UK-used units: above 83%; confirm exact reading" : "Reading available for the exact used unit"}</span>
+      <span><b>Battery health</b>${product.listingPending ? "Details coming soon" : product.brand === "Apple" ? "UK-used units: above 85%; confirm exact reading" : "Reading available for the exact used unit"}</span>
       <span><b>Warranty</b>7-day warranty on all products</span>
       <span><b>Delivery</b>Lagos delivery · park pickup nationwide · free store pickup</span>
     </div>

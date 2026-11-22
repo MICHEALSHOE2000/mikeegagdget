@@ -1,10 +1,33 @@
 // Policy pages. Terms and Privacy are the owner's own text (17 Nov 2026); Refund follows the format the owner
 // supplied. Edit this file to change a policy.
-const nav='<ul class="policy-nav"><li><a href="/warranty-policy/">Warranty</a></li><li><a href="/returns-refunds/">Refund &amp; returns</a></li><li><a href="/delivery-policy/">Delivery</a></li><li><a href="/terms/">Terms</a></li><li><a href="/privacy-policy/">Privacy</a></li></ul>';
+import {BUYER_FAQS} from './seo.mjs';
+const nav='<ul class="policy-nav"><li><a href="/about/">About us</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/contact/">Contact</a></li><li><a href="/warranty-policy/">Warranty</a></li><li><a href="/returns-refunds/">Refund &amp; returns</a></li><li><a href="/delivery-policy/">Delivery</a></li><li><a href="/terms/">Terms</a></li><li><a href="/privacy-policy/">Privacy</a></li></ul>';
 const contact='<h2>Contact us</h2><ul class="policy-contact"><li><strong>Email:</strong> <a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a></li><li><strong>WhatsApp / phone:</strong> <a href="https://wa.me/2347086865133">0708 686 5133</a></li><li><strong>Website:</strong> <a href="https://www.mikeegadget.com.ng">www.mikeegadget.com.ng</a></li><li><strong>Store:</strong> 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos</li></ul>';
 const rights='<p>Nothing on this page limits any right you have under Nigerian consumer protection law.</p>';
 const wrap=(h1,body,{ownContact=false}={})=>`<div class="policy-page"><h1>${h1}</h1>${nav}${body}${rights}${ownContact?'':contact}</div>`;
+const h=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const linkify=s=>h(s).replace(/https:\/\/www\.creditdirect\.ng\/know-your-limit/g,'<a href="https://www.creditdirect.ng/know-your-limit" rel="noopener">check your Credit Direct limit</a>');
 export const policyPages=[
+ {path:'about',title:'About Mikee Gadget Plug',description:'Mikee Gadget Plug (MIKEEGADGETS & COMMUNICATIONS LIMITED) sells UK-used and brand-new phones and gadgets from its store in Computer Village, Ikeja, Lagos, with delivery across Nigeria.',html:wrap('About Mikee Gadget Plug',`
+<p><strong>Mikee Gadget Plug</strong> is the trading name of <strong>MIKEEGADGETS &amp; COMMUNICATIONS LIMITED</strong>, a phone and gadget retailer with a physical store in Computer Village, Ikeja, Lagos — Nigeria’s best-known market for phones and electronics.</p>
+<h2>What we sell</h2><p>UK-used and brand-new <a href="/iphones">iPhones</a>, <a href="/samsung-phones">Samsung Galaxy phones</a> and <a href="/google-pixel-phones">Google Pixel phones</a>, plus <a href="/shop/ipads/">iPads</a>, <a href="/shop/tablets/">Samsung tablets</a>, <a href="/shop/watches/">smartwatches</a>, <a href="/shop/airpods/">AirPods</a>, <a href="/shop/audio/">headphones</a>, <a href="/shop/speakers/">speakers</a>, <a href="/shop/accessories/">accessories</a> and PlayStation 5 games.</p>
+<h2>How we sell</h2><ul>
+<li>Every phone has battery health above 85%, and every iPhone has working Face ID.</li>
+<li>Every device comes with a <a href="/warranty-policy/">7-day warranty</a>.</li>
+<li>You can inspect and test a phone in our store, or on pickup, before paying.</li>
+<li>Pay by card (Paystack), bank transfer, or <a href="/financing/">Pay Small Small</a> with Credit Direct; for iPhones you can also pay a 50% down payment in our shop.</li>
+<li><a href="/phone-swap">Swap</a> your current iPhone towards an upgrade.</li>
+<li>Home delivery across Lagos, transport-park delivery to every other state, and free pickup at our store (<a href="/delivery-policy/">delivery policy</a>).</li></ul>
+<h2>Visit us</h2><p>1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos. We open at 10am.</p>`)},
+ {path:'contact',title:'Contact Mikee Gadget Plug',description:'Contact Mikee Gadget Plug in Computer Village, Ikeja, Lagos: call or WhatsApp 0708 686 5133, email support@mikeegadget.com.ng, or visit 1 Ola Ayeni Street. Opens 10am.',html:wrap('Contact Mikee Gadget Plug',`
+<ul class="policy-contact"><li><strong>Call or WhatsApp:</strong> <a href="tel:+2347086865133">0708 686 5133</a> · <a href="https://wa.me/2347086865133">Chat on WhatsApp</a></li>
+<li><strong>Email:</strong> <a href="mailto:support@mikeegadget.com.ng">support@mikeegadget.com.ng</a></li>
+<li><strong>Store:</strong> 1 Ola Ayeni Street, Off Simbiat Abiola Way, Computer Village, Ikeja, Lagos (<a href="https://www.google.com/maps/search/?api=1&amp;query=1%20Ola%20Ayeni%20Street%20Ikeja%20Lagos" rel="noopener">get directions</a>)</li>
+<li><strong>Opening time:</strong> 10am</li>
+<li><strong>Company:</strong> MIKEEGADGETS &amp; COMMUNICATIONS LIMITED, trading as Mikee Gadget Plug</li></ul>
+<p>You can also chat with Mikee AI, our shopping assistant, on any product page for prices, swap estimates and delivery fees.</p>`,{ownContact:true})},
+ {path:'faq',title:'Frequently Asked Questions',description:'Answers about buying phones from Mikee Gadget Plug in Lagos: battery health, Face ID, UK Used vs Brand New, warranty, returns, delivery, payment, Pay Small Small and swaps.',html:wrap('Frequently asked questions',BUYER_FAQS.map(f=>`<h2>${h(f.q)}</h2><p>${linkify(f.a)}</p>`).join('\n'))},
+
  {path:'warranty-policy',title:'Warranty Policy',description:'Mikee Gadget Plug warranty: every device includes a 7-day warranty. How to report a fault and what happens next.',html:wrap('Warranty Policy',`
 <h2>7-day warranty</h2><p>Every product sold by Mikee Gadget Plug includes a 7-day warranty, counted from the day you receive or collect it.</p>
 <h2>Reporting a fault</h2><p>If your product is faulty or is not what you ordered, contact us within the warranty period with your order reference and a description of the problem. We will assess it and arrange the next step with you.</p>
