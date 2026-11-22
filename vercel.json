@@ -243,6 +243,10 @@
       "destination": "/api/shop/catalog?format=google"
     },
     {
+      "source": "/openai-product-feed.jsonl",
+      "destination": "/api/shop/catalog?format=openai"
+    },
+    {
       "source": "/api/assistant",
       "destination": "/api/shop/settings?op=assistant"
     },

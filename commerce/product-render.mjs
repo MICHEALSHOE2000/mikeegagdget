@@ -19,6 +19,24 @@ export function renderProductPage(html,{slug,items,variants}){
   // Other product pages: the variant list shows "Option — ₦price".
   out=out.replace(new RegExp(`(<option value="${reEsc(attr(v.sku))}">[^<—]*— )₦[\\d,]+(</option>)`),`$1${money(v.price)}$2`);
  }
+ // Page data used by the browser when the shopper switches storage: same live prices.
+ for(const v of variants){if(!(v.price>0))continue;const storage=v.sku.slice(v.sku.indexOf('|')+1);
+  out=out.replace(new RegExp(`(${reEsc(JSON.stringify('storage'))}:${reEsc(JSON.stringify(storage))},"price":)\\d+`),`$1${v.price}`);}
+ // Search snippets and buyer FAQs quote the live price, so Google, Bing and AI search read the same number the
+ // shopper sees (a Hot Deal changes it without a rebuild).
+ const live=variants.filter(v=>v.price>0&&!v.reviewRequired&&v.enabled!==false).sort((a,b)=>a.price-b.price);
+ if(live.length){
+  const min=live[0],model=(out.match(/data-product-name="([^"]+)"/)||[])[1]||'';
+  const fromText=`${live.length>1?'from':'for'} ${money(min.price)}`;
+  for(const tag of ['name="description"','property="og:description"','name="twitter:description"'])
+   out=out.replace(new RegExp(`(<meta ${reEsc(tag)} content="[^"]*?)\\b(?:for|from) ₦[\\d,]+`),`$1${fromText}`);
+  const cap=v=>String(v.capacity||v.sku.slice(v.sku.indexOf('|')+1).split(' · ')[0]).trim();
+  const cond=v=>v.condition&&v.condition!=='Confirm condition'?v.condition:'';
+  out=out.replace(/Prices for the ([^<"]{1,80}?) are shown on this page for each storage and condition, from our live catalogue\./g,
+   (_,m)=>`The ${m} currently ${live.length>1?'starts from':'costs'} ${money(min.price)} (${[cap(min),cond(min)].filter(Boolean).join(', ')}) at Mikee Gadget Plug. Prices for each storage and condition are shown on this page from our live catalogue.`);
+  out=out.replace(/Select ([^ <"]{1,20}) on this page to see its current price\./g,(whole,st)=>{const v=live.find(x=>cap(x).toLowerCase()===st.toLowerCase());
+   return v&&model?`The ${model} ${st} is ${money(v.price)}${cond(v)?` (${cond(v)})`:''}. Select ${st} on this page to buy it.`:whole;});
+ }
  // Headline price = the selected (first) storage button's live price.
  const active=out.match(/class="is-active"\s*data-storage="[^"]*"\s*data-price="(\d+)"/);
  if(active)out=out.replace(/(<strong data-product-price>)[^<]*(<\/strong>)/,`$1${money(Number(active[1]))}$2`);

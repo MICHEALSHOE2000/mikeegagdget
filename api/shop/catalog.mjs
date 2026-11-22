@@ -2,6 +2,7 @@ import {db,reply} from '../_shop.mjs';
 import {pricedVariant} from '../../commerce/deals.mjs';
 import {buildItems,feedXml,feedStats} from '../../commerce/merchant.mjs';
 import pages from '../../commerce/merchant-products.mjs';
+import {openaiRows,toJsonl} from '../../commerce/openai-feed.mjs';
 
 // Google Merchant Center product feed, served at /google-merchant-feed.xml (rewrite in vercel.json).
 // Public catalogue data only. If Supabase is unavailable, or the feed would come out empty, it answers 503 so Google
@@ -18,11 +19,22 @@ async function merchantFeed(res){
  res.status(200).setHeader('Content-Type','application/xml; charset=utf-8').setHeader('Cache-Control','public, s-maxage=3600, stale-while-revalidate=86400').setHeader('X-Robots-Tag','noindex');
  return res.send(feedXml(result.items,{generatedAt}));
 }
+// ChatGPT product feed (OpenAI spec, JSONL), served at /openai-product-feed.jsonl. Same eligible items as Google.
+async function openaiFeed(res){
+ let rows,rates;
+ try{[rows,rates]=await Promise.all([db('rpc/shop_deal_catalogue',{method:'POST',body:{}}),db('shop_delivery_rates?select=fee_ngn,enabled')]);}
+ catch{return unavailable(res,'The catalogue could not be read.');}
+ const {rows:feed}=openaiRows(buildItems(rows,{pages,rates}).items);
+ if(!feed.length)return unavailable(res,'No eligible products right now.');
+ res.status(200).setHeader('Content-Type','application/x-ndjson; charset=utf-8').setHeader('Cache-Control','public, s-maxage=3600, stale-while-revalidate=86400').setHeader('X-Robots-Tag','noindex');
+ return res.send(toJsonl(feed));
+}
 function unavailable(res,message){return res.status(503).setHeader('Content-Type','text/plain; charset=utf-8').setHeader('Cache-Control','no-store').setHeader('Retry-After','3600').send(message);}
 
 export default async function handler(req,res){
  if(req.method!=='GET'&&req.method!=='HEAD')return reply(res,405,{error:'Method not allowed'});
  if(req.query?.format==='google')return merchantFeed(res);
+ if(req.query?.format==='openai')return openaiFeed(res);
  try{const rows=await db('rpc/shop_deal_catalogue',{method:'POST',body:{}});
  if(!rows.some(row=>row.product_data?.slug))return reply(res,503,{error:'Catalogue setup is pending.'});
  return reply(res,200,rows.filter(row=>row.product_data?.slug).map(row=>pricedVariant(row,!!row.deal_position)));

@@ -1,4 +1,13 @@
+# Mikee Gadget Plug — crawl rules
+# Search engines and AI search crawlers (Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User and others) may crawl
+# every public page. Account, checkout, admin and API paths are private and not useful in search.
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /account/
+Disallow: /buy/
 
 Sitemap: https://www.mikeegadget.com.ng/sitemap.xml
