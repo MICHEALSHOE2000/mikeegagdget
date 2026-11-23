@@ -43,12 +43,16 @@ test('cards show the crossed-out was-price and the saving; Hot Deals still win',
  assert.doesNotMatch(deal,/Save/);
 });
 
-test('placeholder art is original, on every new iPad, and never sent to Merchant Center', async () => {
- for(const p of IPAD_RANGE_PRODUCTS){
-  assert.equal(bySlug(p.slug).image,`/images/store/ipad-range/${p.slug}.svg`);
-  const svg=await readFile(`images/store/ipad-range/${p.slug}.svg`,'utf8');
-  assert.match(svg,/PHOTO COMING SOON/);assert.doesNotMatch(svg,/<image|href=/);
+test('owner photos on the iPads, original placeholders elsewhere, neither sent to Merchant Center', async () => {
+ for(const p of retailInventory.filter(p=>p.category==='ipads')){
+  assert.ok(p.image,`${p.slug} has an image`);
+  if(p.image.endsWith('.svg')){const svg=await readFile('.'+p.image,'utf8');assert.match(svg,/PHOTO COMING SOON/);assert.doesNotMatch(svg,/<image|href=/);}
+  else for(const w of [160,360,720])await readFile('.'+p.image.replace('-720.webp',`-${w}.webp`));
  }
+ assert.equal(bySlug('ipad-11th-gen').image,'/images/store/ipad/ipad-11th-gen-1-720.webp');
+ assert.equal(bySlug('ipad-7th-gen').image,'/images/store/licensed/ipad-7th-gen-720.webp');
+ assert.equal(bySlug('ipad-9th-gen').image,'/images/store/ipad-range/ipad-9th-gen.svg');
+ assert.match(holdReason('/images/store/ipad/ipad-mini-1-720.webp'),/permission/);
  assert.match(holdReason('/images/store/ipad-range/ipad-mini.svg'),/Placeholder/);
  assert.equal(holdReason('/images/store/pixel-6-1-720.webp'),'');
 });

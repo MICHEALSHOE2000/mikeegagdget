@@ -89,7 +89,8 @@ test('homepage has quick chips and no visible advanced panel; the Shop page has 
 test('trust strip uses the approved messages and the four policy pages exist and are linked',()=>{
  const home=read('index.html'),product=read('iphone-15/index.html');
  for(const t of ['7-day warranty','Free pickup in Computer Village','Delivery across Lagos and to every state','Secure Paystack payment','Pay Small Small with Credit Direct','Computer Village, Ikeja']){assert.ok(home.includes(t),t);assert.ok(product.includes(t),t);}
- assert.match(home,/Test before you pay — in store or on pickup/);assert.equal((product.match(/class="mg-trust"/g)||[]).length,1);
+ assert.match(home,/100% genuine devices/);assert.doesNotMatch(home,/Test before you pay/); // owner, 23 Nov 2026: removed from the trust strip
+ assert.equal((product.match(/class="mg-trust"/g)||[]).length,1);
  for(const p of ['warranty-policy','returns-refunds','delivery-policy','terms','privacy-policy']){assert.ok(existsSync(p+'/index.html'),p);assert.ok(home.includes(`href="/${p}/"`),p);assert.match(read(p+'/index.html'),/Nothing on this page limits any right you have/);}
  assert.match(read('returns-refunds/index.html'),/changed your mind after delivery or collection/);
 });

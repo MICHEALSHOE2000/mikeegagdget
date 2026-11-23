@@ -7,6 +7,15 @@
 const WIFI='Wi‑Fi', CELL='Cellular + Wi‑Fi';
 const SOURCE='iStore Nigeria iPad range, 23 Nov 2026';
 export const IPAD_PLACEHOLDER=slug=>`/images/store/ipad-range/${slug}.svg`;
+// Photos supplied by the owner on 23 Nov 2026 (images/store/ipad/<slug>-<n>-{160,360,720,1280}.webp).
+// They are Apple product images, so they are used on the site but held back from Merchant Center feeds
+// until permission to reuse them is confirmed. Models without a matching photo keep the placeholder art.
+export const IPAD_PHOTOS={
+ 'ipad-pro-13-inch':1,'ipad-pro-11-inch':1,'ipad-air-13-inch-m4':1,'ipad-air-13-inch-m3':2,'ipad-air-13-inch':1,
+ 'ipad-air-11-inch-m3':1,'ipad-air-11-inch':1,'ipad-mini':1,'ipad-11th-gen':1,
+};
+export const ipadPhoto=(slug,n=1)=>`/images/store/ipad/${slug}-${n}-720.webp`;
+export const IPAD_BANNER='/images/store/ipad/ipad-mini-banner-1536.webp';
 
 // [capacity, connectivity, price, wasPrice|null, colour|null]
 const v=([capacity,link,price,was=null,color=null])=>({
@@ -54,7 +63,7 @@ export const IPAD_EXISTING_LINEUP={
  'ipad-air-8th-gen-11-inch-m4':{ipadLine:'air',ipadSize:'11-inch',ipadChip:'M4'},
  'ipad-11th-gen':{ipadLine:'ipad',ipadSize:'11-inch',ipadChip:''},
  'ipad-8th-gen':{ipadLine:'ipad',ipadSize:'10.2-inch',ipadChip:''},
- 'ipad-7th-gen':{ipadLine:'ipad',ipadSize:'10.2-inch',ipadChip:''},
+ 'ipad-7th-gen':{ipadLine:'ipad',ipadSize:'10.2-inch',ipadChip:'',keepLicensedImage:true},
  'ipad-6th-gen':{ipadLine:'ipad',ipadSize:'9.7-inch',ipadChip:''},
 };
 
@@ -74,9 +83,11 @@ export function applyIpadRange(items){
   if(!p.variants.some(x=>x.storage===variant.storage))p.variants.push({...variant});
  }
  // Existing iPads without a photo get the same clean placeholder (held back from Merchant Center feeds).
- for(const [slug,meta] of Object.entries(IPAD_EXISTING_LINEUP)){const p=out.find(x=>x.slug===slug);if(p){Object.assign(p,meta);if(!p.image)p.image=IPAD_PLACEHOLDER(slug);}}
+ for(const [slug,meta] of Object.entries(IPAD_EXISTING_LINEUP)){const p=out.find(x=>x.slug===slug);if(p){const {keepLicensedImage,...lineup}=meta;Object.assign(p,lineup);if(!p.image&&!keepLicensedImage)p.image=IPAD_PLACEHOLDER(slug);}}
  const at=out.findIndex(p=>p.category==='ipads');
  const fresh=IPAD_RANGE_PRODUCTS.filter(np=>!out.some(p=>p.slug===np.slug)).map(np=>structuredClone(np));
  out.splice(at>=0?at:out.length,0,...fresh);
+ for(const [slug,count] of Object.entries(IPAD_PHOTOS)){const p=out.find(x=>x.slug===slug);if(!p)throw Error('No product for iPad photo: '+slug);
+  p.image=ipadPhoto(slug,1);p.gallery=[...new Set([...(p.gallery||[]),...Array.from({length:count-1},(_,i)=>ipadPhoto(slug,i+2))])];}
  return out;
 }

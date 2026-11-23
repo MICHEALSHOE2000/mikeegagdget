@@ -4,6 +4,7 @@
 import {readFile,writeFile} from 'node:fs/promises';
 import {retailInventory} from '../commerce/retail-inventory.mjs';
 import {commerceSite} from '../commerce/catalog.mjs';
+import {IPAD_BANNER} from '../commerce/ipad-range-2026-11-23.mjs';
 
 const FILE='shop/ipads/index.html';
 const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
@@ -26,7 +27,7 @@ const sizeRank=s=>-parseFloat(s)||0;
 products.sort((a,b)=>sizeRank(a.size)-sizeRank(b.size)||(b.chip||'').localeCompare(a.chip||'')||(a.condition==='UK Used')-(b.condition==='UK Used')||b.model.localeCompare(a.model,'en',{numeric:true}));
 const minPrice=list=>Math.min(...list.flatMap(p=>p.variants.map(v=>v.price)));
 // Tiles prefer the owner's own photo; licensed reference shots and placeholders come after.
-const lineImage=list=>(list.find(p=>p.image&&/^\/images\/store\/[^/]+-1-720\.webp$/.test(p.image))||list[0]).image;
+const lineImage=list=>(list.find(p=>p.image&&!p.image.endsWith('.svg')&&!p.image.includes('/licensed/'))||list[0]).image;
 const img=(src,alt,cls='')=>src?`<img class="${cls}" src="${esc(src)}" alt="${esc(alt)}" width="360" height="400" loading="lazy" decoding="async">`:'';
 const storeLink='/contact/';
 
@@ -46,11 +47,12 @@ const detail=l=>{const list=products.filter(p=>p.line===l.id);if(!list.length)re
 <p class="ipx-note">Pay with Paystack, bank transfer or Pay Small Small. Pickup at 1 Ola Ayeni Street, Computer Village, or delivery nationwide.</p></div></div></article>`;};
 
 const section=`<section class="ipx" aria-labelledby="ipx-title">
-<div class="ipx-hero"><p class="ipx-kicker">APPLE iPAD · BRAND NEW</p><h2 id="ipx-title">iPad. <span>Find the one for you.</span></h2><p>iPad Pro, iPad Air, iPad mini and iPad, ready in Computer Village. Test before you pay, or order online.</p>
-<ul class="ipx-trust"><li>Genuine Apple</li><li>7-day warranty</li><li>Test before you pay</li><li>Pay Small Small</li></ul></div>
+<a class="ipx-banner" href="#ipad-mini"><img src="${IPAD_BANNER.replace('-1536.webp','-768.webp')}" srcset="${IPAD_BANNER.replace('-1536.webp','-768.webp')} 768w, ${IPAD_BANNER} 1536w" sizes="(max-width:1240px) 100vw, 1200px" width="1536" height="512" alt="iPad mini. Single-handedly awesome. Available now at Mikee Gadget Plug." fetchpriority="high" decoding="async"></a>
+<div class="ipx-hero"><p class="ipx-kicker">APPLE iPAD · BRAND NEW</p><h2 id="ipx-title">iPad. <span>Find the one for you.</span></h2><p>iPad Pro, iPad Air, iPad mini and iPad, in stock at our Computer Village store and delivered nationwide.</p>
+<ul class="ipx-trust"><li>Genuine Apple</li><li>7-day warranty</li><li>Nationwide delivery</li><li>Pay Small Small</li></ul></div>
 <nav class="ipx-lineup" aria-label="iPad lineup">${tiles}</nav>
 ${LINES.map(detail).join('')}
-<div class="ipx-warranty"><div><p class="ipx-kicker">PEACE OF MIND</p><h2>Every iPad is covered by our 7-day warranty.</h2><p>Inspect and test your iPad in store before you pay. Questions? Our team will help you choose.</p></div><div class="ipx-actions"><a class="ipx-btn ipx-btn-gold" href="/warranty-policy/">Warranty details</a><a class="ipx-btn ipx-btn-light" href="https://wa.me/${esc(commerceSite.whatsappNumber)}?text=${encodeURIComponent('Hello Mikee Gadget Plug, I need help choosing an iPad.')}" target="_blank" rel="noopener">Chat with us</a></div></div>
+<div class="ipx-warranty"><div><p class="ipx-kicker">PEACE OF MIND</p><h2>Every iPad is covered by our 7-day warranty.</h2><p>Genuine Apple iPads from a trusted Computer Village store. Our team will help you choose the right one.</p></div><div class="ipx-actions"><a class="ipx-btn ipx-btn-gold" href="/warranty-policy/">Warranty details</a><a class="ipx-btn ipx-btn-light" href="https://wa.me/${esc(commerceSite.whatsappNumber)}?text=${encodeURIComponent('Hello Mikee Gadget Plug, I need help choosing an iPad.')}" target="_blank" rel="noopener">Chat with us</a></div></div>
 <script type="application/json" id="ipx-data">${JSON.stringify(products).replaceAll('<','\\u003c')}</script>
 </section>`;
 
