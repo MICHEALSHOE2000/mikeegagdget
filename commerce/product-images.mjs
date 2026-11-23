@@ -178,7 +178,7 @@ export const productImages = {
 export const categoryImages = {
  audio: '/images/store/airpods.webp',
  speakers: '', // no approved speaker photo yet: the tile shows the neutral speaker icon
- tablets: '/images/catalog/samsung-tab-s9-category.jpg',
+ tablets: '/images/catalog/samsung-tab-s9-category-720.webp',
  'wifi-only': '/images/store/13-1-360.webp',
  iphones: '/images/store/17promax-1-360.webp',
  samsung: '/images/store/samsung.webp', pixel: '/images/store/pixel.webp',

@@ -1,3 +1,4 @@
+import licensed from '../commerce/licensed-image-sources.json' with {type:'json'};
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -67,8 +68,8 @@ test('cards and category pages show current non-phone products and Confirm Price
 test('verified local images are the only images attached to the new catalog',()=>{
  assert.ok(retailInventory.filter(item=>item.image).length>0);
  assert.ok(retailInventory.every(item=>!item.image||item.image.startsWith('/images/store/')||item.image.startsWith('/images/catalog/')));
- assert.equal(retailInventory.filter(item=>item.image).length,81); // + 10 owner photos + iPhone Duo (2026-11-16/18)
- assert.equal(retailInventory.filter(item=>!item.image).length,117); // 127 − 10 owner photos (iPhone Duo added with its photo)
+ assert.equal(retailInventory.filter(item=>item.image).length,81 + Object.keys(licensed).length);
+ assert.equal(retailInventory.filter(item=>!item.image).length,117 - Object.keys(licensed).length);
 });
 
 test('generic store cards use only the available shop image sizes',()=>{

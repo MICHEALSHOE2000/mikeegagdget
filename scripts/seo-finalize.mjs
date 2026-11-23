@@ -22,6 +22,10 @@ export function finalizePage(html,path){
  const org=ldScript(organizationGraph()).replace('<script type="application/ld+json">','<script type="application/ld+json" data-org>');
  if(ORG.test(out))out=out.replace(ORG,()=>org);else if(LEGACY_GRAPH.test(out))out=out.replace(LEGACY_GRAPH,()=>org);
  else if(path===''&&/<\/head>/.test(out))out=out.replace('</head>',org+'\n</head>');
+ if(path==='' && !out.includes('data-hero-poster-preload')) {
+  const poster=out.match(/<video\b[^>]*\bid="heroVideo"[^>]*\bposter="(\/assets\/hero\/[\w.-]+)"/)?.[1];
+  if(poster)out=out.replace('</head>',`<link data-hero-poster-preload rel="preload" as="image" href="${poster}" fetchpriority="high">\n</head>`);
+ }
  if(ALIASES[path]){
   out=out.replace(/<link rel="canonical"[^>]*>/,`<link rel="canonical" href="${ALIASES[path]}">`).replace(/<meta property="og:url"[^>]*>/,`<meta property="og:url" content="${ALIASES[path]}">`);
  }

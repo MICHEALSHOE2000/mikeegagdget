@@ -1012,6 +1012,27 @@
   },
   {
     "type": "product",
+    "label": "Samsung Galaxy S24 Plus",
+    "route": "/samsung-s24-plus",
+    "brand": "Samsung",
+    "storage": [
+      "256GB"
+    ],
+    "price": 670000,
+    "image": "/images/store/licensed/samsung-s24-plus-720.webp",
+    "keywords": [
+      "Samsung Galaxy S24 Plus",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S24 Plus 256GB",
+      "256GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
     "label": "Samsung Galaxy S23 Ultra",
     "route": "/samsung-s23-ultra",
     "brand": "Samsung",
@@ -1206,6 +1227,144 @@
       "128GB · UK Used",
       "256GB · UK Used",
       "Standard",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S21 FE",
+    "route": "/samsung-s21-fe",
+    "brand": "Samsung",
+    "storage": [
+      "128GB"
+    ],
+    "price": 210000,
+    "image": "/images/store/licensed/samsung-s21-fe-720.webp",
+    "keywords": [
+      "Samsung Galaxy S21 FE",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S21 FE 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S20 Ultra",
+    "route": "/samsung-s20-ultra",
+    "brand": "Samsung",
+    "storage": [
+      "128GB"
+    ],
+    "price": 280000,
+    "image": "/images/store/licensed/samsung-s20-ultra-720.webp",
+    "keywords": [
+      "Samsung Galaxy S20 Ultra",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S20 Ultra 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S10 Lite",
+    "route": "/samsung-s10-lite",
+    "brand": "Samsung",
+    "storage": [
+      "128GB"
+    ],
+    "price": 155000,
+    "image": "/images/store/licensed/samsung-s10-lite-720.webp",
+    "keywords": [
+      "Samsung Galaxy S10 Lite",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S10 Lite 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy S10e",
+    "route": "/samsung-s10e",
+    "brand": "Samsung",
+    "storage": [
+      "128GB"
+    ],
+    "price": 165000,
+    "image": "/images/store/licensed/samsung-s10e-720.webp",
+    "keywords": [
+      "Samsung Galaxy S10e",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy S10e 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy Note 20 Ultra",
+    "route": "/samsung-note-20-ultra",
+    "brand": "Samsung",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 350000,
+    "image": "/images/store/licensed/samsung-note-20-ultra-720.webp",
+    "keywords": [
+      "Samsung Galaxy Note 20 Ultra",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy Note 20 Ultra 128GB",
+      "Samsung Galaxy Note 20 Ultra 256GB",
+      "128GB",
+      "256GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Samsung Galaxy Z Fold 8",
+    "route": "/samsung-z-fold-8",
+    "brand": "Samsung",
+    "storage": [
+      "1TB · 12GB RAM · Warranty",
+      "512GB · 12GB RAM · Warranty",
+      "256GB · 12GB RAM · Warranty",
+      "256GB"
+    ],
+    "price": 1890000,
+    "image": "/images/store/licensed/samsung-z-fold-8-720.webp",
+    "keywords": [
+      "Samsung Galaxy Z Fold 8",
+      "Samsung",
+      "Galaxy",
+      "Samsung Galaxy Z Fold 8 1TB · 12GB RAM · Warranty",
+      "Samsung Galaxy Z Fold 8 512GB · 12GB RAM · Warranty",
+      "Samsung Galaxy Z Fold 8 256GB · 12GB RAM · Warranty",
+      "Samsung Galaxy Z Fold 8 256GB",
+      "1TB · 12GB RAM · Warranty",
+      "512GB · 12GB RAM · Warranty",
+      "256GB · 12GB RAM · Warranty",
+      "256GB",
       "price in Nigeria",
       "Pay Small Small",
       "swap"
@@ -1773,6 +1932,81 @@
       "Google Pixel 9 Pro Fold 512GB · 12GB RAM",
       "256GB",
       "512GB · 12GB RAM",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 8 Pro",
+    "route": "/pixel-8-pro",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "128GB · UK Used",
+      "256GB",
+      "256GB · UK Used"
+    ],
+    "price": 467000,
+    "image": "/images/store/licensed/pixel-8-pro-720.webp",
+    "keywords": [
+      "Google Pixel 8 Pro",
+      "Google",
+      "Pixel",
+      "Google Pixel 8 Pro 128GB",
+      "Google Pixel 8 Pro 128GB · UK Used",
+      "Google Pixel 8 Pro 256GB",
+      "Google Pixel 8 Pro 256GB · UK Used",
+      "128GB",
+      "128GB · UK Used",
+      "256GB",
+      "256GB · UK Used",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 8a",
+    "route": "/pixel-8a",
+    "brand": "Google",
+    "storage": [
+      "128GB"
+    ],
+    "price": 310000,
+    "image": "/images/store/licensed/pixel-8a-720.webp",
+    "keywords": [
+      "Google Pixel 8a",
+      "Google",
+      "Pixel",
+      "Google Pixel 8a 128GB",
+      "128GB",
+      "price in Nigeria",
+      "Pay Small Small",
+      "swap"
+    ]
+  },
+  {
+    "type": "product",
+    "label": "Google Pixel 6 Pro",
+    "route": "/pixel-6-pro",
+    "brand": "Google",
+    "storage": [
+      "128GB",
+      "256GB"
+    ],
+    "price": 350000,
+    "image": "/images/store/licensed/pixel-6-pro-720.webp",
+    "keywords": [
+      "Google Pixel 6 Pro",
+      "Google",
+      "Pixel",
+      "Google Pixel 6 Pro 128GB",
+      "Google Pixel 6 Pro 256GB",
+      "128GB",
+      "256GB",
       "price in Nigeria",
       "Pay Small Small",
       "swap"
@@ -2580,7 +2814,7 @@
       "512GB"
     ],
     "price": null,
-    "image": null,
+    "image": "/images/store/licensed/samsung-s25-edge-720.webp",
     "keywords": [
       "Samsung Galaxy S25 Edge",
       "Samsung",
@@ -2617,27 +2851,6 @@
   },
   {
     "type": "product",
-    "label": "Samsung Galaxy S24 Plus",
-    "route": "/samsung-s24-plus",
-    "brand": "Samsung",
-    "storage": [
-      "256GB"
-    ],
-    "price": 670000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S24 Plus",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S24 Plus 256GB",
-      "256GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
     "label": "Samsung Galaxy S23 Plus",
     "route": "/samsung-s23-plus",
     "brand": "Samsung",
@@ -2652,48 +2865,6 @@
       "Galaxy",
       "Samsung Galaxy S23 Plus 256GB",
       "256GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S21 FE",
-    "route": "/samsung-s21-fe",
-    "brand": "Samsung",
-    "storage": [
-      "128GB"
-    ],
-    "price": 210000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S21 FE",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S21 FE 128GB",
-      "128GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S20 Ultra",
-    "route": "/samsung-s20-ultra",
-    "brand": "Samsung",
-    "storage": [
-      "128GB"
-    ],
-    "price": 280000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S20 Ultra",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S20 Ultra 128GB",
-      "128GB",
       "price in Nigeria",
       "Pay Small Small",
       "swap"
@@ -2756,48 +2927,6 @@
       "Samsung",
       "Galaxy",
       "Samsung Galaxy S10 128GB",
-      "128GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S10 Lite",
-    "route": "/samsung-s10-lite",
-    "brand": "Samsung",
-    "storage": [
-      "128GB"
-    ],
-    "price": 155000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S10 Lite",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S10 Lite 128GB",
-      "128GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy S10e",
-    "route": "/samsung-s10e",
-    "brand": "Samsung",
-    "storage": [
-      "128GB"
-    ],
-    "price": 165000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy S10e",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy S10e 128GB",
       "128GB",
       "price in Nigeria",
       "Pay Small Small",
@@ -2902,30 +3031,6 @@
   },
   {
     "type": "product",
-    "label": "Samsung Galaxy Note 20 Ultra",
-    "route": "/samsung-note-20-ultra",
-    "brand": "Samsung",
-    "storage": [
-      "128GB",
-      "256GB"
-    ],
-    "price": 350000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Note 20 Ultra",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Note 20 Ultra 128GB",
-      "Samsung Galaxy Note 20 Ultra 256GB",
-      "128GB",
-      "256GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
     "label": "Samsung Galaxy Note 10 Plus",
     "route": "/samsung-note-10-plus",
     "brand": "Samsung",
@@ -2943,36 +3048,6 @@
       "Samsung Galaxy Note 10 Plus 512GB",
       "256GB",
       "512GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Samsung Galaxy Z Fold 8",
-    "route": "/samsung-z-fold-8",
-    "brand": "Samsung",
-    "storage": [
-      "1TB · 12GB RAM · Warranty",
-      "512GB · 12GB RAM · Warranty",
-      "256GB · 12GB RAM · Warranty",
-      "256GB"
-    ],
-    "price": 1890000,
-    "image": null,
-    "keywords": [
-      "Samsung Galaxy Z Fold 8",
-      "Samsung",
-      "Galaxy",
-      "Samsung Galaxy Z Fold 8 1TB · 12GB RAM · Warranty",
-      "Samsung Galaxy Z Fold 8 512GB · 12GB RAM · Warranty",
-      "Samsung Galaxy Z Fold 8 256GB · 12GB RAM · Warranty",
-      "Samsung Galaxy Z Fold 8 256GB",
-      "1TB · 12GB RAM · Warranty",
-      "512GB · 12GB RAM · Warranty",
-      "256GB · 12GB RAM · Warranty",
-      "256GB",
       "price in Nigeria",
       "Pay Small Small",
       "swap"
@@ -3523,36 +3598,6 @@
   },
   {
     "type": "product",
-    "label": "Google Pixel 8 Pro",
-    "route": "/pixel-8-pro",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "128GB · UK Used",
-      "256GB",
-      "256GB · UK Used"
-    ],
-    "price": 467000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 8 Pro",
-      "Google",
-      "Pixel",
-      "Google Pixel 8 Pro 128GB",
-      "Google Pixel 8 Pro 128GB · UK Used",
-      "Google Pixel 8 Pro 256GB",
-      "Google Pixel 8 Pro 256GB · UK Used",
-      "128GB",
-      "128GB · UK Used",
-      "256GB",
-      "256GB · UK Used",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
     "label": "Google Pixel 8",
     "route": "/pixel-8",
     "brand": "Google",
@@ -3576,27 +3621,6 @@
       "128GB · UK Used",
       "256GB",
       "256GB · UK Used",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 8a",
-    "route": "/pixel-8a",
-    "brand": "Google",
-    "storage": [
-      "128GB"
-    ],
-    "price": 310000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 8a",
-      "Google",
-      "Pixel",
-      "Google Pixel 8a 128GB",
-      "128GB",
       "price in Nigeria",
       "Pay Small Small",
       "swap"
@@ -3672,30 +3696,6 @@
       "Pixel",
       "Google Pixel 7a 128GB",
       "128GB",
-      "price in Nigeria",
-      "Pay Small Small",
-      "swap"
-    ]
-  },
-  {
-    "type": "product",
-    "label": "Google Pixel 6 Pro",
-    "route": "/pixel-6-pro",
-    "brand": "Google",
-    "storage": [
-      "128GB",
-      "256GB"
-    ],
-    "price": 350000,
-    "image": null,
-    "keywords": [
-      "Google Pixel 6 Pro",
-      "Google",
-      "Pixel",
-      "Google Pixel 6 Pro 128GB",
-      "Google Pixel 6 Pro 256GB",
-      "128GB",
-      "256GB",
       "price in Nigeria",
       "Pay Small Small",
       "swap"

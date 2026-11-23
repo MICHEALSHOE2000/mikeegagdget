@@ -1,6 +1,8 @@
 // Customer-facing inventory. All prices are final Naira prices; supplier prices and markups are not stored here.
 import {repairCatalogue} from "./catalogue-repair.mjs";
 import {applyApprovedPrices} from "./approved-prices-2026-11-16.mjs";
+import licensedImages from './licensed-image-sources.json' with {type:'json'};
+
 export const retailInventory = Object.freeze(applyApprovedPrices(repairCatalogue([
   {
     "brand": "Apple",
@@ -3836,7 +3838,10 @@ export const retailInventory = Object.freeze(applyApprovedPrices(repairCatalogue
     ],
     "colors": []
   }
-])));
+])).map(item => {
+  if (item.image || !Object.hasOwn(licensedImages, item.slug)) return item;
+  return {...item, image: `/images/store/licensed/${item.slug}-720.webp`};
+}));
 
 export const replacedPhoneModels = Object.freeze([...new Set(retailInventory.filter(item => item.isPhone).map(item => `${item.brand}|${item.model}`))]);
 
