@@ -45,7 +45,8 @@ test('unverified Samsung models retain placeholders and detail galleries use ass
    const path=`/images/store/licensed/${product.slug}-720.webp`;
    assert.deepEqual(product.images,[path]);
    const page=readFileSync(`${product.slug}/index.html`,'utf8');
-   assert.ok(page.includes(licensed[product.slug].source));
+   const credit = licensed[product.slug];
+   assert.ok(page.includes(credit.terms ? credit.source : `courtesy of ${credit.author}`));
    assert.ok(page.includes(`data-gallery-image="${path}"`));
    continue;
   }

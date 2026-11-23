@@ -2306,3 +2306,5 @@ body[data-product-slug^="google-pixel"] .purchase-actions .commerce-button-dark{
 body[data-product-slug^="google-pixel"] .purchase-actions .commerce-button-ghost{background:#f6f0e4;color:#153b2a;border-color:#916c2c}
 
 @media(max-width:800px){body[data-product-slug^="google-pixel"] .mobile-purchase-bar a:first-child{background:#153b2a;color:#fff}body[data-product-slug^="google-pixel"] .mobile-purchase-bar a:nth-child(2){background:#dfbf76;color:#111318}body[data-product-slug^="google-pixel"] .mobile-purchase-bar a:last-child{background:#f6f0e4;color:#153b2a}}
+
+.product-gallery:has(img[src*="/store/revenes/"]) .product-thumbnails { flex-wrap: wrap; }
