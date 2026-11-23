@@ -129,3 +129,5 @@
 @media (max-width:400px){.mg-bank{padding:14px}.mg-bank-totals{gap:8px}.mg-bank-totals div{padding:10px}.mg-bank-totals dt{font-size:11px}}
 .mg-res-totals div:first-child{grid-column:1/-1}
 .mg-line-stock{margin:2px 0 0;font-size:13px;font-weight:600;color:#0f7a4f}
+.store-was .save-badge,#gadget-price .save-badge{font-size:11px;font-weight:700;letter-spacing:.02em;white-space:nowrap;color:#123b30;background:#e8f1ec;border:1px solid #b9d3c6;border-radius:3px;padding:1px 6px}
+#gadget-price del{color:#646870;font-weight:400;margin-right:6px}

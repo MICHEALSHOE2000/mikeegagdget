@@ -36,6 +36,7 @@ const makeVariant = v => ({
  storage:v.storage,
  price:v.price,
  regularPrice:v.regularPrice,
+ compareAtPrice:v.compareAtPrice>v.price?v.compareAtPrice:undefined,
  offerId:v.offerId,
  ram:v.ram,
  color:v.color,
