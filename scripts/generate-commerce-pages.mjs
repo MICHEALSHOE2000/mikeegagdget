@@ -1,3 +1,4 @@
+import {modelImageCredit} from '../commerce/image-credit.mjs';
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -207,7 +208,7 @@ const renderProductArtwork = (product) => {
           ${media(product.images[0],product.model,true)
             .replace('sizes="(max-width:600px) 45vw, 280px"', 'sizes="(max-width:800px) 100vw, 52vw"')
             .replace('<img ', '<img data-main-image ')}
-        </div>
+        </div>${modelImageCredit(product.slug,product.images[0])}
         <div class="product-thumbnails" aria-label="${escapeHtml(product.model)} images">
           ${galleryImages.map((image, index) => `
             <button type="button" class="${index === 0 ? "is-active" : ""}" data-gallery-image="${escapeHtml(image)}" aria-label="Show ${escapeHtml(product.model)} image ${index + 1}">

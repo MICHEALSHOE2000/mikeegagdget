@@ -4,6 +4,7 @@ import {readFileSync, existsSync} from 'node:fs';
 import {products} from '../commerce/catalog.mjs';
 import {storeItems} from '../commerce/storefront-data.mjs';
 import {choices} from '../commerce/upgrade-core.mjs';
+import licensed from '../commerce/licensed-image-sources.json' with {type:'json'};
 const manifest=JSON.parse(readFileSync('commerce/samsung-image-sources.json','utf8'));
 
 test('approved Samsung photographs reach every assigned listing and buying choice',()=>{
@@ -40,6 +41,14 @@ test('Samsung responsive images and gallery thumbnails are valid local WebP file
 test('unverified Samsung models retain placeholders and detail galleries use assigned assets',()=>{
  for(const product of products.filter(p=>p.brand==='Samsung')){
   const source=manifest.sources.find(s=>s.listings.includes(product.slug));
+  if(licensed[product.slug]){
+   const path=`/images/store/licensed/${product.slug}-720.webp`;
+   assert.deepEqual(product.images,[path]);
+   const page=readFileSync(`${product.slug}/index.html`,'utf8');
+   assert.ok(page.includes(licensed[product.slug].source));
+   assert.ok(page.includes(`data-gallery-image="${path}"`));
+   continue;
+  }
   if(!source){assert.deepEqual(product.images,[]);continue;}
   const page=readFileSync(`${product.slug}/index.html`,'utf8');
   for(const photo of source.photos){
