@@ -46,7 +46,8 @@ export const IMAGE_HOLDS={
  '/images/catalog/iphone-xr':'Apple support-site image; permission to reuse not confirmed',
 };
 const baseOf=u=>String(u||'').replace(/-(160|360|720|1280)\.webp$/,'').replace(/\.(webp|jpe?g|png)$/,'');
-export const holdReason=url=>IMAGE_HOLDS[baseOf(url)]||'';
+// Placeholder artwork (e.g. the iPad range) is never sent as a product photo.
+export const holdReason=url=>IMAGE_HOLDS[baseOf(url)]||(/\/images\/store\/ipad-range\/|\.svg$/.test(String(url||''))?'Placeholder artwork, not a product photo':/\/images\/store\/ipad\//.test(String(url||''))?'Apple product image; permission to reuse not confirmed':'');
 const absolute=u=>!u?'':/^https:\/\//.test(u)?u:u.startsWith('/')?SITE+u:'';
 const larger=u=>/-720\.webp$/.test(u)?u:u; // 720px photos are the largest generated size
 

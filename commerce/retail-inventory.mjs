@@ -1,10 +1,11 @@
 // Customer-facing inventory. All prices are final Naira prices; supplier prices and markups are not stored here.
 import {repairCatalogue} from "./catalogue-repair.mjs";
 import {applyApprovedPrices} from "./approved-prices-2026-11-16.mjs";
+import {applyIpadRange} from "./ipad-range-2026-11-23.mjs";
 import pixelGalleries from './revenes-pixel-gallery.json' with {type:'json'};
 import licensedImages from './licensed-image-sources.json' with {type:'json'};
 
-export const retailInventory = Object.freeze(applyApprovedPrices(repairCatalogue([
+export const retailInventory = Object.freeze(applyIpadRange(applyApprovedPrices(repairCatalogue([
   {
     "brand": "Apple",
     "model": "iPhone 18 Pro",
@@ -3852,7 +3853,7 @@ export const retailInventory = Object.freeze(applyApprovedPrices(repairCatalogue
     ],
     "colors": []
   }
-])).map(item => {
+]))).map(item => {
   const photos = pixelGalleries[item.slug];
   const reference = licensedImages[item.slug];
   if (!photos && !reference) return item;

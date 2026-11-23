@@ -10,6 +10,7 @@ const exists=async f=>access(f).then(()=>true,()=>false);
 const imageUsers=new Map();
 let variants=0,missingPrice=0,invalid=0,missingImage=0;
 for(const p of retailInventory){
+ if(p.image?.startsWith('/images/store/ipad-range/')){missingImage++;add(p,'Placeholder art, no product photo yet',p.image,'Upload an approved photo in Admin → Product details → Photos','High','Manual: add photo');}
  if(!p.image){missingImage++;add(p,'No product photo','','Upload an approved photo in Admin → Product details → Photos','High','Manual: add photo');}
  else{if(p.image.startsWith('/')&&!await exists('.'+p.image))add(p,'Photo file is missing from the site',p.image,'Replace the photo','High','Manual: replace photo');imageUsers.set(p.image,[...(imageUsers.get(p.image)||[]),p]);}
  if(BRAND_CATEGORIES[p.brand]&&!BRAND_CATEGORIES[p.brand].includes(p.category))add(p,'Brand and category do not match',`${p.brand} / ${p.category}`,'','Medium','Manual: confirm category');

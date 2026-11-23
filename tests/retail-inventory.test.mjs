@@ -13,10 +13,10 @@ const price=(slug,storage)=>record(slug)?.variants.find(variant=>variant.storage
 
 test('all supplied products and variants are represented once with conditions kept separate',()=>{
  const original=retailInventory.filter(p=>p.category!=='wifi-only');
- assert.equal(original.length,183);
+ assert.equal(original.length,192); // +9 iPad models (iPad range, 23 Nov 2026)
  assert.equal(retailInventory.filter(p=>p.category==='wifi-only').length,16);
  assert.equal(new Set(retailInventory.map(p=>p.slug)).size,retailInventory.length);
- assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),582);
+ assert.equal(retailInventory.reduce((sum,p)=>sum+p.variants.length,0),619); // +37 iPad variants (23 Nov 2026)
  assert.equal(storeItems.length,retailInventory.length);
  for(const p of original.filter(p=>p.category==='iphones'&&!p.slug.startsWith('iphone-18-')&&p.slug!=='iphone-duo'))assert.equal(p.condition,'UK Used');
 
@@ -68,8 +68,9 @@ test('cards and category pages show current non-phone products and Confirm Price
 test('verified local images are the only images attached to the new catalog',()=>{
  assert.ok(retailInventory.filter(item=>item.image).length>0);
  assert.ok(retailInventory.every(item=>!item.image||item.image.startsWith('/images/store/')||item.image.startsWith('/images/catalog/')));
- assert.equal(retailInventory.filter(item=>item.image).length,81 + Object.keys(licensed).length);
- assert.equal(retailInventory.filter(item=>!item.image).length,118 - Object.keys(licensed).length);
+ // 12 iPads carry placeholder art (images/store/ipad-range/) until the owner uploads photos.
+ assert.equal(retailInventory.filter(item=>item.image).length,93 + Object.keys(licensed).length);
+ assert.equal(retailInventory.filter(item=>!item.image).length,115 - Object.keys(licensed).length);
 });
 
 test('generic store cards use only the available shop image sizes',()=>{

@@ -7,7 +7,7 @@ import {escape,money} from '../assets/storefront-ui.mjs';
 const SITE='https://www.mikeegadget.com.ng';
 const SKIP=new Set(['node_modules','.git','.vercel','supabase','tests','docs','templates','landing-pages']);
 const NOINDEX=new Set(['cart','checkout','checkout/complete','account','buy','admin','admin/deals']);
-const TRUST='<ul class="mg-trust" aria-label="Why shop with Mikee Gadget Plug"><li>7-day warranty</li><li>Test before you pay — in store or on pickup</li><li>Free pickup in Computer Village</li><li>Delivery across Lagos and to every state</li><li>Secure Paystack payment</li><li>Pay Small Small with Credit Direct</li><li><a href="/#visit">Visit our store — Computer Village, Ikeja</a></li></ul>';
+const TRUST='<ul class="mg-trust" aria-label="Why shop with Mikee Gadget Plug"><li>7-day warranty</li><li>100% genuine devices</li><li>Free pickup in Computer Village</li><li>Delivery across Lagos and to every state</li><li>Secure Paystack payment</li><li>Pay Small Small with Credit Direct</li><li><a href="/#visit">Visit our store — Computer Village, Ikeja</a></li></ul>';
 const CSS='<link rel="stylesheet" href="/assets/experience.css">';
 import {SITE_FOOTER,FOOTER_CSS} from '../commerce/site-footer.mjs';
 const bySlug=new Map(retailInventory.map(p=>[p.slug,p]));
