@@ -1,9 +1,9 @@
 {
-  "products": 198,
-  "variants": 581,
-  "variantsWithoutPrice": 231,
-  "invalidVariants": 49,
-  "productsWithoutPhoto": 117,
+  "products": 199,
+  "variants": 582,
+  "variantsWithoutPrice": 232,
+  "invalidVariants": 51,
+  "productsWithoutPhoto": 85,
   "productsSharingAPhoto": 0,
-  "reportRows": 440
+  "reportRows": 412
 }

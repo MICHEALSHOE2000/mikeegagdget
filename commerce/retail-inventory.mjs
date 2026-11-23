@@ -1,6 +1,7 @@
 // Customer-facing inventory. All prices are final Naira prices; supplier prices and markups are not stored here.
 import {repairCatalogue} from "./catalogue-repair.mjs";
 import {applyApprovedPrices} from "./approved-prices-2026-11-16.mjs";
+import pixelGalleries from './revenes-pixel-gallery.json' with {type:'json'};
 import licensedImages from './licensed-image-sources.json' with {type:'json'};
 
 export const retailInventory = Object.freeze(applyApprovedPrices(repairCatalogue([
@@ -1830,6 +1831,19 @@ export const retailInventory = Object.freeze(applyApprovedPrices(repairCatalogue
         "storage": "Standard",
         "price": 220000
       }
+    ],
+    "colors": []
+  },
+  {
+    "brand": "Samsung",
+    "model": "Samsung Galaxy Buds FE",
+    "category": "audio",
+    "condition": "Confirm condition",
+    "slug": "samsung-galaxy-buds-fe",
+    "isPhone": false,
+    "image": "",
+    "variants": [
+      {"storage": "Standard", "price": null, "enabled": false, "reviewRequired": true}
     ],
     "colors": []
   },
@@ -3839,8 +3853,12 @@ export const retailInventory = Object.freeze(applyApprovedPrices(repairCatalogue
     "colors": []
   }
 ])).map(item => {
-  if (item.image || !Object.hasOwn(licensedImages, item.slug)) return item;
-  return {...item, image: `/images/store/licensed/${item.slug}-720.webp`};
+  const photos = pixelGalleries[item.slug];
+  const reference = licensedImages[item.slug];
+  if (!photos && !reference) return item;
+  const image = item.image || `/images/store/licensed/${item.slug}-720.webp`;
+  const gallery = photos ? [...new Set([...(item.gallery || []), ...photos.map(photo => photo.image)])] : item.gallery;
+  return {...item, image, gallery};
 }));
 
 export const replacedPhoneModels = Object.freeze([...new Set(retailInventory.filter(item => item.isPhone).map(item => `${item.brand}|${item.model}`))]);
@@ -3868,7 +3886,7 @@ export const retailPhoneProducts = Object.freeze(retailInventory.filter(item => 
   defaultStorage: item.variants[0]?.storage || "Confirm variant",
   colors: item.colors.length ? item.colors : ["Ask for today’s available colours"],
   conditions: [...new Set(item.variants.map(v=>v.condition||item.condition))],
-  images: item.image ? [item.image, ...(item.gallery || [])].slice(0, 3) : [],
+  images: item.image ? [item.image, ...(item.gallery || [])] : [],
   stockStatus: "Available to Order",
   easyBuyEligible: true,
   swapEligible: true,

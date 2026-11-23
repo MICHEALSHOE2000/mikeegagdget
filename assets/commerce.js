@@ -179,8 +179,16 @@ document.querySelectorAll("[data-gallery-image]").forEach((button) => {
     const mainImage = gallery?.querySelector("[data-main-image]");
     if (!gallery || !mainImage) return;
     mainImage.closest('.device-media')?.classList.add('is-loading');
-    mainImage.removeAttribute('srcset');
-    mainImage.src = button.dataset.galleryImage;
+    const image = button.dataset.galleryImage;
+    if (image.startsWith('/images/store/revenes/') && image.endsWith('-720.webp')) {
+      const small = image.replace('-720.webp', '-360.webp');
+      mainImage.sizes = '(max-width:800px) 100vw, 52vw';
+      mainImage.srcset = `${small} 360w, ${image} 720w`;
+      mainImage.src = small;
+    } else {
+      mainImage.removeAttribute('srcset');
+      mainImage.src = image;
+    }
     gallery.querySelectorAll("[data-gallery-image]").forEach((item) => {
       item.classList.toggle("is-active", item === button);
     });
