@@ -71,6 +71,8 @@ test('the iPad page has the premium showcase above the full catalogue', async ()
 test('the applied migration is additive and matches the catalogue', async () => {
  const sql=await readFile('supabase/migrations/20261123100000_ipad_range.sql','utf8')+await readFile('supabase/migrations/20261123100100_ipad_air_m4_variants.sql','utf8');
  assert.doesNotMatch(sql.replace(/^--.*$/gm,''),/\b(update|delete|drop|truncate|alter)\b/i);
+ const photos=await readFile('supabase/migrations/20261123110000_ipad_range_photos.sql','utf8');
+ assert.match(photos,/where product_data->>'priceSource'='iStore Nigeria iPad range, 23 Nov 2026'/);
  assert.equal((sql.match(/on conflict \(sku\) do nothing/g)||[]).length,2);
  for(const p of IPAD_RANGE_PRODUCTS)for(const v of p.variants)assert.ok(sql.includes(`'${p.slug}','${p.model}','${v.storage}'`)&&sql.includes(`,${v.price},`),`${p.slug} ${v.storage} in migration`);
  assert.doesNotMatch(sql,/'ipad-air-8th-gen-11-inch-m4\|256GB · Wi‑Fi'/);
