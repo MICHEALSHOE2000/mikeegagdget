@@ -31,6 +31,10 @@ export function finalizePage(html,path){
  }
  if(pageLd[path]){const tag=`<script type="application/ld+json" data-page-ld>`;out=out.replace(/<script type="application\/ld\+json" data-page-ld>[\s\S]*?<\/script>\s*/,'');
   out=out.replace('</head>',ldScript(pageLd[path]()).replace('<script type="application/ld+json">',tag)+'\n</head>');}
+ // Analytics (GA4 + Microsoft Clarity) on every public page; never on admin pages.
+ if(!/^admin(\/|$)/.test(path)&&!out.includes('/assets/site-analytics.js')&&out.includes('</head>'))out=out.replace('</head>','<script src="/assets/site-analytics.js"></script>\n</head>');
+ // Pages showing a customer's own details are masked in Clarity recordings.
+ if(/^(checkout|checkout\/complete|account|buy)$/.test(path))out=out.replace(/<main(?![^>]*data-clarity-mask)/,'<main data-clarity-mask="true"');
  return out;
 }
 export const LLMS_TXT=`# Mikee Gadget Plug
