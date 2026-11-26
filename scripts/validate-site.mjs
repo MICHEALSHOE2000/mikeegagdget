@@ -125,7 +125,9 @@ for (const product of products) {
   assert(!/"@type":"Offer"[^}]*"price":(0|null)/.test(html), `${product.slug}: structured data must not contain an unpriced offer.`);}
   assert(html.includes(`rel="canonical" href="${commerceSite.baseUrl}${product.route}"`), `${product.slug}: canonical URL is incorrect.`);
   assert(html.includes(`property="og:title"`), `${product.slug}: Open Graph title is missing.`);
-  assert(html.includes(`"@type":"Product"`), `${product.slug}: Product schema is missing.`);
+  {// Product markup only where there is a real photo (Google rejects merchant listings without an image).
+   const img=retailInventory.find(p=>p.slug===product.slug)?.image||'',photo=img&&!/\.svg$/.test(img);
+   assert(html.includes(`"@type":"Product"`)===Boolean(photo), `${product.slug}: Product schema ${photo?'is missing':'must be left out until the product has a photo'}.`);}
   assert(html.includes(`"@type":"BreadcrumbList"`), `${product.slug}: Breadcrumb schema is missing.`);
   assert(html.includes(`"@type":"FAQPage"`), `${product.slug}: FAQ schema is missing.`);
   assert(html.includes(`class="mobile-purchase-bar"`), `${product.slug}: sticky mobile purchase bar is missing.`);

@@ -127,6 +127,10 @@ export function buildItems(rows,{pages,rates}={}){
  return {items,excluded,warnings};
 }
 
+// Delivery times confirmed by the owner (26 Nov 2026): Lagos same day; Abuja and other South-West states within
+// 1 day; every other zone within 2 days. Nigeria-wide markup therefore says: dispatched the same day, 0–2 days in transit.
+export const DELIVERY_TIME={'@type':'ShippingDeliveryTime',handlingTime:{'@type':'QuantitativeValue',minValue:0,maxValue:0,unitCode:'DAY'},transitTime:{'@type':'QuantitativeValue',minValue:0,maxValue:2,unitCode:'DAY'}};
+
 const xml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'})[c]).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');
 const naira=n=>`${Number(n).toFixed(2)} NGN`;
 const lagosDate=d=>`${d}T00:00+01:00`;
@@ -137,17 +141,27 @@ export function feedXml(items,{generatedAt=new Date().toISOString()}={}){
 }
 
 // Structured data for one product page, built from the same eligible items as the feed.
+// Follows Google's merchant-listing rules: every variant has an image; a ProductGroup has a description and
+// says what its variants differ by (storage as "size", colour only when every variant names one). Variants
+// with no colour are left out of a colour group rather than given a made-up colour.
 export function productJsonLd(slug,items){
- const list=items.filter(i=>i.slug===slug);if(!list.length)return null;const first=list[0];
+ const all=items.filter(i=>i.slug===slug&&i.image);if(!all.length)return null;const first=all[0];
  const page=first.url.split('?')[0];
- const variant=i=>({'@type':'Product',sku:i.id,name:i.title,image:[i.image,...i.additionalImages],description:i.description,...(i.colour?{color:i.colour}:{}),...(i.gtin?{gtin:i.gtin}:{}),...(i.mpn?{mpn:i.mpn}:{}),
-  brand:{'@type':'Brand',name:i.brand},itemCondition:SCHEMA_CONDITION[i.googleCondition],
-  offers:{'@type':'Offer',url:i.url,priceCurrency:'NGN',price:i.salePrice??i.price,availability:i.availabilitySchema,itemCondition:SCHEMA_CONDITION[i.googleCondition],
-   seller:{'@type':'Organization',name:STORE_NAME},
-   ...(i.shippingPrice!==null?{shippingDetails:{'@type':'OfferShippingDetails',shippingRate:{'@type':'MonetaryAmount',value:i.shippingPrice,currency:'NGN'},shippingDestination:{'@type':'DefinedRegion',addressCountry:'NG'}}}:{})}});
- const colours=new Set(list.map(i=>i.colour).filter(Boolean));
- return {'@context':'https://schema.org','@type':'ProductGroup',name:first.model.toLowerCase().startsWith(first.brand.toLowerCase())?first.model:`${first.brand} ${first.model}`,productGroupID:slug,url:page,brand:{'@type':'Brand',name:first.brand},
-  ...(colours.size>1?{variesBy:['https://schema.org/color']}:{}),hasVariant:list.map(variant)};
+ const groupName=first.model.toLowerCase().startsWith(first.brand.toLowerCase())?first.model:`${first.brand} ${first.model}`;
+ const coloured=all.filter(i=>i.colour),colours=new Set(coloured.map(i=>i.colour));
+ const byColour=colours.size>1;const list=byColour?coloured:all;
+ const bySize=new Set(list.map(i=>i.size).filter(Boolean)).size>1;
+ const offer=i=>({'@type':'Offer',url:i.url,priceCurrency:'NGN',price:i.salePrice??i.price,availability:i.availabilitySchema,itemCondition:SCHEMA_CONDITION[i.googleCondition],
+  seller:{'@type':'Organization',name:STORE_NAME},
+  ...(i.shippingPrice!==null?{shippingDetails:{'@type':'OfferShippingDetails',shippingRate:{'@type':'MonetaryAmount',value:i.shippingPrice,currency:'NGN'},shippingDestination:{'@type':'DefinedRegion',addressCountry:'NG'},...(DELIVERY_TIME?{deliveryTime:DELIVERY_TIME}:{})}}:{})});
+ const product=i=>({'@type':'Product',sku:i.id,name:i.title,image:[i.image,...i.additionalImages],description:i.description,...(i.colour?{color:i.colour}:{}),...(i.size?{size:i.size}:{}),...(i.gtin?{gtin:i.gtin}:{}),...(i.mpn?{mpn:i.mpn}:{}),
+  brand:{'@type':'Brand',name:i.brand},itemCondition:SCHEMA_CONDITION[i.googleCondition],offers:offer(i)});
+ if(list.length===1)return {'@context':'https://schema.org',...product(list[0]),url:page};
+ const conditions=[...new Set(list.map(i=>i.googleCondition==='new'?'Brand New':'UK Used'))].join(' and ');
+ const variesBy=[...(bySize?['https://schema.org/size']:[]),...(byColour?['https://schema.org/color']:[])];
+ return {'@context':'https://schema.org','@type':'ProductGroup',name:groupName,productGroupID:slug,url:page,brand:{'@type':'Brand',name:first.brand},
+  description:`${groupName} (${conditions}) at ${STORE_NAME}, Computer Village, Ikeja, Lagos. Prices in Naira, 7-day warranty, delivery across Nigeria or free store pickup.`,
+  image:first.image,...(variesBy.length?{variesBy}:{}),hasVariant:list.map(product)};
 }
 
 // Summary numbers for the admin "Google Shopping" section.

@@ -85,7 +85,7 @@ test('product page render: live structured data and live prices replace build-ti
  const {items}=buildItems(rows,{pages,rates:RATES});
  const out=renderProductPage(html,{slug:'iphone-16-pro-max',items,variants:rows.map(r=>({...r.product_data,sku:r.sku,price:r.price_ngn}))});
  assert.match(out,/data-storage="256GB"\s*data-price="1234000"/);assert.match(out,/<span class="storage-price">₦1,234,000<\/span>/);assert.match(out,/<strong data-product-price>₦1,234,000<\/strong>/);
- const ld=JSON.parse(out.match(/<script type="application\/ld\+json" data-product-schema>([\s\S]*?)<\/script>/)[1]);assert.equal(ld['@type'],'ProductGroup');assert.equal(ld.hasVariant[0].offers.price,1234000);
+ const ld=JSON.parse(out.match(/<script type="application\/ld\+json" data-product-schema>([\s\S]*?)<\/script>/)[1]);assert.equal(ld['@type'],'Product','one variant is a plain Product');assert.equal(ld.offers.price,1234000);assert.ok(ld.image?.length);
  assert.equal(out.length-html.length<4000,true);assert.ok(out.includes('<footer'));
 });
 test('feed endpoint: XML with the right headers; a database outage or an empty result never replaces a good feed',async()=>{
@@ -110,7 +110,7 @@ test('middleware renders product pages from live data and falls back to the stat
   globalThis.fetch=async url=>{url=String(url);if(url.startsWith('https://shop.test/'))return new Response(page,{headers:{'content-type':'text/html'}});
    if(url.includes('checkout_inventory'))return Response.json([row('iphone-16-pro-max|256GB',1220000,{model:'iPhone 16 Pro Max',condition:'UK Used',capacity:'256GB',storage:'256GB',colors:[]})]);
    if(url.includes('shop_delivery_rates'))return Response.json(RATES);if(url.includes('shop_deal_settings'))return Response.json([{skus:[]}]);return new Response('',{status:404});};
-  const res=await middleware(new Request('https://shop.test/iphone-16-pro-max'));assert.equal(res.headers.get('x-mg-render'),'product');const html=await res.text();assert.match(html,/"@type":"ProductGroup"/);assert.match(html,/InStock/);
+  const res=await middleware(new Request('https://shop.test/iphone-16-pro-max'));assert.equal(res.headers.get('x-mg-render'),'product');const html=await res.text();assert.match(html,/"@type":"Product"/);assert.match(html,/InStock/);
   assert.equal((await middleware(new Request('https://shop.test/checkout/'))).headers.get('x-middleware-next'),'1');
   assert.equal((await middleware(new Request('https://shop.test/not-a-product'))).headers.get('x-middleware-next'),'1');
   globalThis.fetch=async()=>{throw Error('down');};assert.equal((await middleware(new Request('https://shop.test/iphone-16-pro-max'))).headers.get('x-middleware-next'),'1');
@@ -138,4 +138,15 @@ test('migration: additive, only fills variants with no availability, logs every 
  assert.match(sql,/coalesce\(product_data->>'stockStatus',''\)=''/);assert.match(sql,/enabled and price_ngn>0/);assert.match(sql,/insert into public\.shop_availability_changes/);
  assert.match(read('supabase/merchant-center-rollback.sql'),/availabilitySource'='owner-confirmed'/);
  assert.ok(Object.keys(IMAGE_HOLDS).length>0);
+});
+test('merchant-listing markup meets Google rules: images, group description, variesBy, no made-up colours',()=>{
+ const mk=(cap,price,colors)=>row(`iphone-16-pro-max|${cap}`,price,{model:'iPhone 16 Pro Max',condition:'UK Used',capacity:cap,storage:cap,colors});
+ const group=rows=>productJsonLd('iphone-16-pro-max',buildItems(rows,{pages,rates:RATES}).items);
+ const a=group([mk('256GB',1500000,['Desert Titanium','Black Titanium']),mk('512GB',1700000,['Desert Titanium']),mk('1TB',1900000,[])]);
+ assert.equal(a['@type'],'ProductGroup');assert.ok(a.description&&a.image);
+ assert.deepEqual(a.variesBy,['https://schema.org/size','https://schema.org/color']);
+ assert.equal(a.hasVariant.length,3,'the 1TB with no colour is left out of a colour group');
+ for(const v of a.hasVariant){assert.ok(v.image?.[0]&&v.color&&v.size&&v.offers.price>0);const t=v.offers.shippingDetails.deliveryTime;assert.equal(t.handlingTime.maxValue,0);assert.equal(t.transitTime.maxValue,2);assert.equal(t.transitTime.unitCode,'DAY');}
+ const b=group([mk('256GB',1500000,[]),mk('512GB',1700000,[])]);
+ assert.deepEqual(b.variesBy,['https://schema.org/size']);assert.ok(b.hasVariant.every(v=>!('color' in v)));
 });

@@ -26,6 +26,8 @@ export function productMeta(p){
 // Offers only for variants with an approved price; availability is stated only when the store has confirmed it.
 export function productSchema(p,url,image){
  const offers=priced(p).map(v=>({'@type':'Offer',name:`${p.model} ${v.storage}`,priceCurrency:'NGN',price:v.price,url:`${url}?storage=${encodeURIComponent(v.storage)}`,...(CONDITION[v.condition||p.condition]?{itemCondition:CONDITION[v.condition||p.condition]}:{}),...(v.stockStatus==='in_stock'?{availability:'https://schema.org/InStock'}:v.stockStatus==='out_of_stock'?{availability:'https://schema.org/OutOfStock'}:{}),seller:{'@type':'Organization',name:'Mikee Gadget Plug'}}));
+ // Google rejects product markup without a real photo, so products without one (or with placeholder art) get none.
+ if(!image||/\.svg($|\?)/.test(image))return null;
  return {'@context':'https://schema.org','@type':'Product',name:p.model,brand:{'@type':'Brand',name:p.brand},description:productMeta(p).description,sku:p.slug,url,...(image?{image:[image]}:{}),...(offers.length?{offers}:{})};
 }
 export function applyExperience(html,file){
@@ -46,7 +48,7 @@ export function applyExperience(html,file){
   out=setMeta(out,'name','description',description);out=setMeta(out,'property','og:title',title);out=setMeta(out,'property','og:description',description);out=setMeta(out,'property','og:url',url);out=setMeta(out,'property','og:type','product');
   if(image)out=setMeta(out,'property','og:image',image);
   if(!/<link rel="canonical"/.test(out))out=out.replace('</head>',`<link rel="canonical" href="${url}">\n</head>`);
-  const schema='<script type="application/ld+json" data-product-schema>'+JSON.stringify(productSchema(product,url,image)).replace(/</g,'\\u003c')+'</script>';
+  const ld=productSchema(product,url,image),schema=ld?'<script type="application/ld+json" data-product-schema>'+JSON.stringify(ld).replace(/</g,'\\u003c')+'</script>':'';
   out=out.replace(/\s*<script type="application\/ld\+json" data-product-schema>[\s\S]*?<\/script>/g,'').replace(/\s*<script type="application\/ld\+json">\{"@context":"https:\/\/schema\.org","@type":"Product"[\s\S]*?<\/script>/g,'');
   out=out.replace('</head>',schema+'\n</head>');
   if(!out.includes('class="mg-trust"')&&!out.includes('why-mikee-gadget-plug-bar'))out=out.replace('</header>','</header>'+TRUST);
