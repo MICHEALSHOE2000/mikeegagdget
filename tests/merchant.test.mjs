@@ -146,7 +146,7 @@ test('merchant-listing markup meets Google rules: images, group description, var
  assert.equal(a['@type'],'ProductGroup');assert.ok(a.description&&a.image);
  assert.deepEqual(a.variesBy,['https://schema.org/size','https://schema.org/color']);
  assert.equal(a.hasVariant.length,3,'the 1TB with no colour is left out of a colour group');
- for(const v of a.hasVariant){assert.ok(v.image?.[0]&&v.color&&v.size&&v.offers.price>0);}
+ for(const v of a.hasVariant){assert.ok(v.image?.[0]&&v.color&&v.size&&v.offers.price>0);const t=v.offers.shippingDetails.deliveryTime;assert.equal(t.handlingTime.maxValue,0);assert.equal(t.transitTime.maxValue,2);assert.equal(t.transitTime.unitCode,'DAY');}
  const b=group([mk('256GB',1500000,[]),mk('512GB',1700000,[])]);
  assert.deepEqual(b.variesBy,['https://schema.org/size']);assert.ok(b.hasVariant.every(v=>!('color' in v)));
 });

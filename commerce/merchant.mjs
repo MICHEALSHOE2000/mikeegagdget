@@ -127,9 +127,9 @@ export function buildItems(rows,{pages,rates}={}){
  return {items,excluded,warnings};
 }
 
-// Google asks for delivery times in shipping details. Left empty until the owner confirms real handling and
-// transit days (see the delivery policy draft note); nothing is guessed.
-export const DELIVERY_TIME=null;
+// Delivery times confirmed by the owner (26 Nov 2026): Lagos same day; Abuja and other South-West states within
+// 1 day; every other zone within 2 days. Nigeria-wide markup therefore says: dispatched the same day, 0–2 days in transit.
+export const DELIVERY_TIME={'@type':'ShippingDeliveryTime',handlingTime:{'@type':'QuantitativeValue',minValue:0,maxValue:0,unitCode:'DAY'},transitTime:{'@type':'QuantitativeValue',minValue:0,maxValue:2,unitCode:'DAY'}};
 
 const xml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'})[c]).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');
 const naira=n=>`${Number(n).toFixed(2)} NGN`;
