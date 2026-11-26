@@ -31,6 +31,9 @@ export function finalizePage(html,path){
  }
  if(pageLd[path]){const tag=`<script type="application/ld+json" data-page-ld>`;out=out.replace(/<script type="application\/ld\+json" data-page-ld>[\s\S]*?<\/script>\s*/,'');
   out=out.replace('</head>',ldScript(pageLd[path]()).replace('<script type="application/ld+json">',tag)+'\n</head>');}
+ // Every footer links to the blog home, so search engines find each guide from any page.
+ const guideLink='<li><a href="/blog/best-uk-used-iphone-shop">Buying guide</a></li>';
+ if(out.includes(guideLink)&&!out.includes('<li><a href="/blog/">Blog</a></li>'))out=out.replace(guideLink,`${guideLink}<li><a href="/blog/">Blog</a></li><li><a href="/blog/phone-prices-in-nigeria-today">Phone prices today</a></li>`);
  // Analytics (GA4 + Microsoft Clarity) on every public page; never on admin pages.
  if(!/^admin(\/|$)/.test(path)&&!out.includes('/assets/site-analytics.js')&&out.includes('</head>'))out=out.replace('</head>','<script src="/assets/site-analytics.js"></script>\n</head>');
  // Pages showing a customer's own details are masked in Clarity recordings.
