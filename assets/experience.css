@@ -87,3 +87,18 @@ article.store-phone{position:relative}
 .all-models li a{display:block;padding:6px 0;font-size:14px;color:#151819;text-decoration:none;border-bottom:1px solid #eceee9}
 .all-models li a:hover{color:#0d3b2a;text-decoration:underline}
 .all-models summary::after{content:"+";margin-left:10px;font-size:20px;line-height:1}.all-models details[open] summary::after{content:"−"}
+/* Buy Now / Pay Small Small feedback (dead-click fixes, Nov 2026): instant spinner, clear problems, highlighted option. */
+.commerce-button.is-loading,.btn.is-loading,#gadget-buy.is-loading{position:relative;pointer-events:none;opacity:.85}
+.commerce-button.is-loading::after,.btn.is-loading::after,#gadget-buy.is-loading::after{content:"";display:inline-block;width:1em;height:1em;margin-left:.55em;vertical-align:-.15em;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:mg-spin .7s linear infinite}
+@keyframes mg-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.commerce-button.is-loading::after,.btn.is-loading::after,#gadget-buy.is-loading::after{animation-duration:2s}}
+[data-selection-status].is-problem,[data-financing-message]:not(:empty),#gadget-message:has(a){color:#9b2c1f;font-weight:600}
+[data-selection-status] a,[data-financing-message] a,#gadget-message a,#checkout-error a{color:#0d6b3c;font-weight:700;text-decoration:underline}
+.variant-field.is-missing{border-radius:12px;box-shadow:0 0 0 2px #c0392b;animation:mg-nudge .35s ease-in-out 2}
+@keyframes mg-nudge{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.variant-field.is-missing{animation:none}}
+.hero-link{color:inherit;text-decoration:none}
+.hero-link:focus-visible{outline:3px solid #e1bd70;outline-offset:4px;border-radius:4px}
+.product-hero-copy h1.is-jump{cursor:pointer}
+.purchase-actions .commerce-button,.product-hero-copy .purchase-actions .commerce-button,.mobile-purchase-bar .commerce-button,.mobile-purchase-bar a{min-height:44px}
+.selector-pills.is-only button{cursor:default}
