@@ -1,9 +1,11 @@
+import {reviewPreview,previewLocked} from '../_catalogue-preview.mjs';
 import {db,reply,sameOrigin,verify} from '../_shop.mjs';
 import {requireAdmin} from './_auth.mjs';
 import {notifyOrder} from '../../commerce/notifications.mjs';
 // Emails sent after each reservation action (customer only; never claims more than the database recorded).
 const RESERVATION_EMAILS={confirm:['reservation_confirmed'],ready:['ready_for_pickup'],paid:['payment_received','order_completed'],cancel:['reservation_cancelled'],reject:['reservation_cancelled'],expire:['reservation_expired'],no_show:[],extend:['reservation_confirmed']};
 export default async function handler(req,res){
+ if(reviewPreview())return previewLocked(res);
  let admin;try{admin=await requireAdmin(req);}catch(e){return reply(res,401,{error:e.message});}
  try{
   if(req.method!=='PATCH')return reply(res,405,{error:'Method not allowed'});

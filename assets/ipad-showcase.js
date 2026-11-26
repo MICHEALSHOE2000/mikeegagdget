@@ -2,6 +2,13 @@
 const dataEl=document.getElementById('ipx-data');
 if(dataEl){
  const products=JSON.parse(dataEl.textContent);
+ const response=await fetch('/api/shop/catalog',{cache:'no-store'}).catch(()=>null);
+ const live=response?.ok?await response.json():[];
+ for(const p of products){
+  const rows=live.filter(r=>r.slug===p.slug&&r.price>0&&r.enabled!==false&&!r.reviewRequired);
+  p.image=rows.find(r=>r.image)?.image||'';
+  p.variants=rows.flatMap(r=>(r.colors?.length?r.colors:['']).map(color=>({...r,color,link:r.connectivity||'',was:r.deal?r.originalPrice:r.compareAtPrice})));
+ }
  const money=n=>'₦'+Number(n).toLocaleString('en-NG');
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
  const swatch={Midnight:'#2e3440',Starlight:'#efe7da','Space Grey':'#5b5e63','Space Gray':'#5b5e63',Silver:'#e3e4e5',Blue:'#9fb7cf',Purple:'#b7a8cf',Pink:'#e9c6cc',Yellow:'#f1dd8a'};
@@ -12,7 +19,7 @@ if(dataEl){
   const model=()=>products.find(p=>p.slug===state.model);
   const pills=(name,values,current,ok,label=v=>v)=>{const box=el.querySelector(`[data-choice="${name}"]`);box.innerHTML=values.map(v=>`<button type="button" class="ipx-pill${name==='color'?' ipx-swatch':''}${v===current?' is-on':''}" data-value="${esc(v)}" aria-pressed="${v===current}"${ok(v)?'':' disabled'}${name==='color'?` style="--sw:${swatch[v]||'#ccc'}" aria-label="${esc(v)}" title="${esc(v)}"`:''}>${name==='color'?'':esc(label(v))}</button>`).join('');};
   const render=()=>{
-   const m=model();if(!m)return;const vs=m.variants.filter(v=>v.enabled!==false);if(!vs.length){el.querySelector('[data-price]').textContent='Ask for availability';return;}
+   const m=model();if(!m)return;const vs=m.variants.filter(v=>v.enabled!==false);if(!vs.length){el.querySelector('[data-price]').textContent='Currently unavailable';el.querySelector('[data-buy]').removeAttribute('href');el.querySelector('[data-was]').textContent='';el.querySelector('[data-save]').textContent='';el.querySelector('[data-stock]').textContent='';return;}
    const caps=uniq(vs.map(v=>v.capacity)).sort((a,b)=>capRank(a)-capRank(b));
    if(!caps.includes(state.capacity))state.capacity=caps[0];
    const links=uniq(vs.map(v=>v.link)).sort();
@@ -41,12 +48,4 @@ if(dataEl){
    render();});
   render();return render;
  });
- // Live prices and stock from the store catalogue (owner edits in Admin show here without a rebuild).
- fetch('/api/shop/catalog').then(r=>r.ok?r.json():[]).then(rows=>{
-  if(!Array.isArray(rows)||!rows.length)return;const bySku=new Map(rows.map(r=>[r.sku,r]));
-  for(const p of products)for(const v of p.variants){const r=bySku.get(v.sku);if(!r)continue;
-   if(r.enabled===false||!(r.price>0)){v.enabled=false;continue;}
-   v.price=r.price;v.was=r.deal&&r.originalPrice>r.price?r.originalPrice:(r.compareAtPrice>r.price?r.compareAtPrice:null);v.stockStatus=r.stockStatus;}
-  lines.forEach(render=>render());
- }).catch(()=>{});
 }

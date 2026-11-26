@@ -1,3 +1,4 @@
+import {setProductImage} from './live-product-image.mjs';
 import {readCart,saveCart,addToCart,cartLine} from '../commerce/cart.mjs';
 import {showAddedToCart} from './cart-ui.mjs';
 import {lgasFor} from '../commerce/nigeria-states-lgas.mjs';
@@ -6,7 +7,7 @@ import {rateTable,seedRows,quote} from '../commerce/delivery-rates.mjs';
 import {BANK_ACCOUNTS,PAYMENT_WHATSAPP} from '../commerce/bank-details.mjs';
 import {escape,money,activateImages,optionLabel,stockLabel} from './storefront-ui.mjs';
 const $=id=>document.getElementById(id),query=new URLSearchParams(location.search);
-const data=await fetch('/api/shop/catalog').then(r=>{if(!r.ok)throw Error('Offline catalogue');return r.json().then(rows=>{if(!Array.isArray(rows)||!rows.length)throw Error('Catalogue setup pending');return rows;});}).catch(()=>fetch('/assets/shop-data.json').then(r=>{if(!r.ok)throw Error('Catalogue unavailable');return r.json();})).catch(()=>[]);
+const data=await fetch('/api/shop/catalog').then(r=>{if(!r.ok)throw Error('Offline catalogue');return r.json().then(rows=>{if(!Array.isArray(rows)||!rows.length)throw Error('Catalogue setup pending');return rows;});}).catch(()=>[]);
 const find=sku=>data.find(v=>v.sku===sku);
 let cart=readCart(localStorage);
 const chosenColor=(v,color)=>v.colors.length===1?v.colors[0]:v.colors.includes(color)?color:'';
@@ -118,7 +119,7 @@ if(form){
  const syncButton=()=>{const b=form.querySelector('[type=submit]');if(!busy)b.textContent=reserving()?'Reserve Now — Pay at Pickup':'Place Order';syncNote();};
  const cdOption=form.querySelector('[data-credit-direct-option]');
  const wanted=query.get('payment');if(wanted==='paystack')form.querySelector('[name=paymentMethod][value=paystack]').checked=true;
- fetch('/api/shop/settings').then(r=>r.ok?r.json():null).catch(()=>null).then(settings=>{rates=rateTable(settings?.deliveryRates||seedRows());updateDelivery();if(settings?.financing?.available){if(wanted==='credit_direct')cdOption.checked=true;}else{cdOption.disabled=true;cdOption.closest('.mg-pay-card').classList.add('is-unavailable');cdOption.closest('.mg-pay-card').querySelector('.mg-pay-desc').textContent='Currently unavailable. Choose bank transfer or Paystack.';if(cdOption.checked)form.querySelector('[name=paymentMethod][value=bank_transfer]').checked=true;}syncNote();});
+ fetch('/api/shop/settings').then(r=>r.ok?r.json():null).catch(()=>null).then(settings=>{if(settings?.readOnly){form.querySelector('[type=submit]').disabled=true;$('checkout-error').textContent='Read-only preview. You can review totals and delivery options here.';}rates=rateTable(settings?.deliveryRates||seedRows());updateDelivery();if(settings?.financing?.available){if(wanted==='credit_direct')cdOption.checked=true;}else{cdOption.disabled=true;cdOption.closest('.mg-pay-card').classList.add('is-unavailable');cdOption.closest('.mg-pay-card').querySelector('.mg-pay-desc').textContent='Currently unavailable. Choose bank transfer or Paystack.';if(cdOption.checked)form.querySelector('[name=paymentMethod][value=bank_transfer]').checked=true;}syncNote();});
  $('payment-options').addEventListener('change',syncNote);syncNote();updateDelivery();el.pickupDate.addEventListener('change',()=>check('pickupDate'));
  let requestId=crypto.randomUUID();
  form.addEventListener('input',()=>{if(!busy)requestId=crypto.randomUUID();});
@@ -176,7 +177,11 @@ if($('payment-status')){
   }catch{$('confirm-title').textContent='We could not check your payment yet';$('payment-status').textContent='Please check again, or contact us with your order reference.';$('confirm-icon').classList.add('is-waiting');}finally{button.disabled=false;}};
  $('check-payment').addEventListener('click',check);await check();
 }
-if($('gadget-variant')){if(query.has('sku')&&find(query.get('sku')))$('gadget-variant').value=query.get('sku');const update=()=>{const v=find($('gadget-variant').value);const ok=purchasableVariant(v);$('gadget-price').innerHTML=v?.price>0?(v.deal?'<del>'+money(v.originalPrice)+'</del> '+money(v.price)+' · -10%':v.compareAtPrice>v.price?'<del><span class="sr-only">Was </span>'+money(v.compareAtPrice)+'</del> '+money(v.price)+' <span class="save-badge">Save '+money(v.compareAtPrice-v.price)+'</span>':money(v.price)):'Not available yet';const stock=$('gadget-stock');if(stock){const label=stockLabel(v);stock.textContent=label;stock.className=label?'mg-stock'+(v?.stockStatus==='out_of_stock'?' is-out':''):'';}for(const id of ['gadget-buy','gadget-cart'])$(id).disabled=!ok;};$('gadget-variant').addEventListener('change',update);update();for(const [id,go]of[['gadget-buy',true],['gadget-cart',false]])$(id).addEventListener('click',()=>{try{add($('gadget-variant').value,'',go);$('gadget-message').textContent='Added to cart.';}catch(e){$('gadget-message').textContent=e.message;}});}
+if($('gadget-variant')){
+ const options=$('gadget-variant'),slug=location.pathname.split('/').filter(Boolean)[0];
+ const variants=data.filter(row=>row.slug===slug&&purchasableVariant(row));
+ options.replaceChildren(...variants.map(v=>new Option([v.storage,v.condition,money(v.price)].filter(Boolean).join(' · '),v.sku)));
+ if(query.has('sku')&&find(query.get('sku')))$('gadget-variant').value=query.get('sku');const update=()=>{const v=find($('gadget-variant').value);const ok=purchasableVariant(v);setProductImage(options.closest('.checkout-grid'),v?.image||'',v?.model||slug);$('gadget-price').innerHTML=v?.price>0?(v.deal?'<del>'+money(v.originalPrice)+'</del> '+money(v.price)+' · -10%':v.compareAtPrice>v.price?'<del><span class="sr-only">Was </span>'+money(v.compareAtPrice)+'</del> '+money(v.price)+' <span class="save-badge">Save '+money(v.compareAtPrice-v.price)+'</span>':money(v.price)):'Not available yet';const stock=$('gadget-stock');if(stock){const label=stockLabel(v);stock.textContent=label;stock.className=label?'mg-stock'+(v?.stockStatus==='out_of_stock'?' is-out':''):'';}for(const id of ['gadget-buy','gadget-cart'])$(id).disabled=!ok;};$('gadget-variant').addEventListener('change',update);update();for(const [id,go]of[['gadget-buy',true],['gadget-cart',false]])$(id).addEventListener('click',()=>{try{add($('gadget-variant').value,'',go);$('gadget-message').textContent='Added to cart.';}catch(e){$('gadget-message').textContent=e.message;}});}
 activateImages();
 
 // Pay Small Small: Credit Direct only. The instalment button is enabled once the server confirms Credit Direct is configured.

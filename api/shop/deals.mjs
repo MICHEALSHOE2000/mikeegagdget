@@ -1,6 +1,13 @@
+import {previewCatalogue} from '../../commerce/catalogue-rollout.mjs';
+import {reviewPreview,previewLocked,publicShop} from '../_catalogue-preview.mjs';
 import {db,reply} from '../_shop.mjs';
 import {pricedVariant,eligibleDeals} from '../../commerce/deals.mjs';
 export default async function handler(req,res){
+ if(reviewPreview()){
+  if(req.method!=='GET'||req.query?.op||req.query?.format)return previewLocked(res);
+  try{return reply(res,200,eligibleDeals(previewCatalogue(await publicShop('catalog'))));}
+  catch{return reply(res,503,{error:'The catalogue could not be loaded.'});}
+ }
  if(req.method!=='GET')return reply(res,405,{error:'Method not allowed'});
  try{const rows=await db('rpc/shop_deal_catalogue',{method:'POST',body:{}});return reply(res,200,eligibleDeals(rows.filter(r=>r.deal_position).sort((a,b)=>a.deal_position-b.deal_position).map(r=>pricedVariant(r,true))));}
  catch{return reply(res,503,{error:'Deals are temporarily unavailable.'});}

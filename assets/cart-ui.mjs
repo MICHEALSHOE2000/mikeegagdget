@@ -71,9 +71,9 @@ export function initCartBadges(){
  addEventListener('pageshow',refreshCartBadges);
 }
 
-let overlay,lastFocus,catalogPromise;
+let overlay,lastFocus;
 // Prices for every line come from the same catalogue the shop uses; the server still re-prices at payment.
-function catalog(){return catalogPromise??=fetch('/api/shop/catalog').then(r=>r.ok?r.json():Promise.reject()).then(rows=>Array.isArray(rows)&&rows.length?rows:Promise.reject()).catch(()=>fetch('/assets/shop-data.json').then(r=>r.ok?r.json():[])).catch(()=>[]);}
+function catalog(){return fetch('/api/shop/catalog',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject()).then(rows=>Array.isArray(rows)&&rows.length?rows:Promise.reject()).catch(()=>[]);}
 function build(){
  ensureStyle();
  overlay=document.createElement('div');overlay.className='mg-cart-overlay';overlay.hidden=true;

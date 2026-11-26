@@ -1,3 +1,4 @@
+import {reviewPreview,previewLocked} from '../_catalogue-preview.mjs';
 import {db,paystack,reply,sameOrigin,env} from '../_shop.mjs';
 import {validateCheckout} from '../../commerce/checkout-validation.mjs';
 import {skuFilter} from '../../commerce/home-render.mjs';
@@ -14,6 +15,7 @@ async function linkCreditDirect(req,res,config){
  catch{return reply(res,409,{error:'This checkout session could not be linked.'});}
 }
 export default async function handler(req,res){
+ if(reviewPreview())return previewLocked(res);
  if(req.method!=='POST')return reply(res,405,{error:'Method not allowed'});
  try{
   if(!sameOrigin(req))return reply(res,403,{error:'Please submit from the checkout page.'});

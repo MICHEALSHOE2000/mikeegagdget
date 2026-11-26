@@ -1,3 +1,5 @@
+import {reviewPreview,previewLocked,publicShop} from '../_catalogue-preview.mjs';
+import {previewCatalogue} from '../../commerce/catalogue-rollout.mjs';
 import {db,reply} from '../_shop.mjs';
 import {pricedVariant} from '../../commerce/deals.mjs';
 import {buildItems,feedXml,feedStats} from '../../commerce/merchant.mjs';
@@ -32,6 +34,11 @@ async function openaiFeed(res){
 function unavailable(res,message){return res.status(503).setHeader('Content-Type','text/plain; charset=utf-8').setHeader('Cache-Control','no-store').setHeader('Retry-After','3600').send(message);}
 
 export default async function handler(req,res){
+ if(reviewPreview()){
+  if(req.method!=='GET'||req.query?.op||req.query?.format)return previewLocked(res);
+  try{return reply(res,200,previewCatalogue(await publicShop('catalog')));}
+  catch{return reply(res,503,{error:'The catalogue could not be loaded.'});}
+ }
  if(req.method!=='GET'&&req.method!=='HEAD')return reply(res,405,{error:'Method not allowed'});
  if(req.query?.format==='google')return merchantFeed(res);
  if(req.query?.format==='openai')return openaiFeed(res);

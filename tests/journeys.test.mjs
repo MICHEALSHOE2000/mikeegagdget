@@ -11,7 +11,7 @@ async function setup(path,url){
  for(const key of ['window','document','location','history','sessionStorage','HTMLElement'])globalThis[key]=key==='window'?dom.window:dom.window[key];
  globalThis.matchMedia=()=>({matches:false,addEventListener(){}});dom.window.matchMedia=globalThis.matchMedia;
  dom.window.HTMLElement.prototype.scrollIntoView=function(){};
- globalThis.fetch=async url=>({ok:true,json:async()=>JSON.parse(readFileSync('.'+url,'utf8'))});
+ globalThis.fetch=async url=>({ok:true,json:async()=>url==='/api/shop/settings'?{}:JSON.parse(readFileSync(url==='/api/shop/catalog'?'assets/shop-data.json':'.'+url,'utf8'))});
  dom.window.eval(await readFile('assets/tiktok-pixel.js','utf8'));
  dom.window.eval(await readFile('assets/landing-page.js','utf8'));
  return dom;
@@ -161,12 +161,12 @@ test('new colour groups cannot send a Burgundy quote at the Silver/Blue price',a
  assert.equal(new URL(href).searchParams.get('sku'),'iphone-18-pro-max|512GB · Burgundy');
  assert.equal(new URL(href).searchParams.get('color'),'Burgundy');
  document.querySelector('[data-capacity="256GB"]').click();
- document.querySelector('[data-color="Silver"]').click();
- assert.equal(document.querySelector('[data-action="buy"]').hasAttribute('href'),false);
- assert.match(document.querySelector('[data-product-price]').textContent,/Not available yet/);
- document.querySelector('[data-color="Glacier"]').click();
- assert.equal(document.querySelector('[data-capacity="256GB"]').getAttribute('aria-pressed'),'true');
- assert.equal(document.querySelector('[data-action="buy"]').hasAttribute('href'),false);
+ const silver=document.querySelector('[data-color="Silver"]');
+ if(silver){silver.click();const sku=new URL(document.querySelector('[data-action="buy"]').href).searchParams.get('sku');assert.ok(!sku.includes('Burgundy'));}
+ const glacier=document.querySelector('[data-color="Glacier"]');glacier.click();
+ const next=new URL(document.querySelector('[data-action="buy"]').href);
+ assert.equal(next.searchParams.get('color'),'Glacier');
+ assert.match(next.searchParams.get('sku'),/Glacier/);
  dom.window.close();
 });
 

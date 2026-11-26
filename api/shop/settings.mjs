@@ -1,9 +1,15 @@
+import {reviewPreview,previewLocked,publicShop} from '../_catalogue-preview.mjs';
 import {db,reply} from '../_shop.mjs';
 import {financingStatus} from '../../commerce/financing-provider.mjs';
 import {publicReview} from '../../commerce/reviews.mjs';
 import {skuFilter} from '../../commerce/home-render.mjs';
 import {seedRows} from '../../commerce/delivery-rates.mjs';
 export default async function handler(req,res){
+ if(reviewPreview()){
+  if(req.method!=='GET'||req.query?.op||req.query?.format)return previewLocked(res);
+  try{return reply(res,200,{...await publicShop('settings'),readOnly:true,financing:{available:false}});}
+  catch{return reply(res,503,{error:'The catalogue could not be loaded.'});}
+ }
  // The sales assistant shares this function (/api/assistant rewrites here).
  if(req.query?.op==='assistant'){const {assistantHandler}=await import('../_assistant.mjs');return assistantHandler(req,res);}
  if(req.query?.op==='whatsapp'){const {whatsappHandler}=await import('../_ai-whatsapp.mjs');return whatsappHandler(req,res);}

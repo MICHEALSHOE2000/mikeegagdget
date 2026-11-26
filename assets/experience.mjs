@@ -1,11 +1,11 @@
 // Sitewide shopping extras: wishlist hearts, Quick View, customer reviews and the account page.
 // Everything here decorates the existing cards and pages; it does not change their structure.
 import {readWishlist,toggleWishlist,WISHLIST_KEY} from '../commerce/wishlist.mjs';
-import {mergeLiveCatalogue} from '../commerce/catalogue-live.mjs';
+import {loadCatalogue} from '../commerce/catalogue-live.mjs';
 import {escape,money,media,card,priceText,listable,stockLabel,activateImages,conditionText,optionLabel} from './storefront-ui.mjs';
 const HEART='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.500 4.600 13.300a4.700 4.700 0 0 1 6.600-6.700l.8.800.8-.800a4.700 4.700 0 0 1 6.600 6.700Z"/></svg>';
-let catalogPromise,settingsPromise;
-export function loadCatalogue(){return catalogPromise??=fetch('/assets/store-catalog.json').then(r=>r.json()).then(async items=>{try{const r=await fetch('/api/shop/catalog');if(r.ok)items=mergeLiveCatalogue(items,await r.json());}catch{}return items;});}
+export {loadCatalogue};
+let settingsPromise;
 const loadSettings=()=>settingsPromise??=fetch('/api/shop/settings').then(r=>r.ok?r.json():{}).catch(()=>({}));
 function css(){if(document.querySelector('link[data-mg-experience]'))return;const l=document.createElement('link');l.rel='stylesheet';l.href='/assets/experience.css';l.dataset.mgExperience='';document.head.append(l);}
 

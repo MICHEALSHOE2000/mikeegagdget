@@ -1,3 +1,4 @@
+import {reviewPreview,previewLocked} from '../_catalogue-preview.mjs';
 import {createHmac,timingSafeEqual} from 'node:crypto';
 import {db,env,reply,verify} from '../_shop.mjs';
 import {creditDirectConfig,verifyCreditDirectWebhook,readCreditDirectEvent,CREDIT_DIRECT_EVENTS} from '../../commerce/credit-direct.mjs';
@@ -14,6 +15,7 @@ export async function creditDirectWebhook(raw,headers,res,settings=creditDirectC
  return reply(res,200,{received:true,status});
 }
 export default async function handler(req,res){
+ if(reviewPreview())return previewLocked(res);
  if(req.method!=='POST')return reply(res,405,{error:'Method not allowed'});
  try{
   const parts=[];let size=0;for await(const part of req){size+=part.length;if(size>1048576)return reply(res,413,{error:'Payload too large'});parts.push(Buffer.from(part));}

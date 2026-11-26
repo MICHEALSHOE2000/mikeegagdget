@@ -1,6 +1,8 @@
+import {reviewPreview,previewLocked} from '../_catalogue-preview.mjs';
 import {db,reply,verify} from '../_shop.mjs';
 import {orderSummary} from '../../commerce/order-summary.mjs';
 export default async function handler(req,res){
+ if(reviewPreview())return previewLocked(res);
  if(req.method!=='GET')return reply(res,405,{error:'Method not allowed'});
  const reference=String(req.query?.reference||'');
  if(!/^MGP2-[a-f0-9]{32}$/.test(reference))return reply(res,400,{error:'Invalid order reference.'});

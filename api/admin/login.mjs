@@ -1,6 +1,8 @@
+import {reviewPreview,previewLocked} from '../_catalogue-preview.mjs';
 import {env,reply,sameOrigin} from '../_shop.mjs';
 import {ADMIN_EMAIL} from './_auth.mjs';
 export default async function handler(req,res){
+ if(reviewPreview())return previewLocked(res);
  if(req.method!=='POST')return reply(res,405,{error:'Method not allowed'});
  try{
   if(!sameOrigin(req))return reply(res,403,{error:'Use the administrator sign-in page.'});

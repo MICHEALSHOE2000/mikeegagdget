@@ -24,5 +24,5 @@ export function validateProductEdit(current,input){
  if('mpn' in input){const m=String(input.mpn||'').trim();if(m.length>70||/[<>]/.test(m))throw Error('Invalid MPN.');ids.mpn=m;}
  const photos=cleanPhotos(input.images);
  // With photo records, only an approved photo is ever published as the product image.
- return {...current,capacity,colors,condition:input.condition,image:photos&&photos.length?primaryPhoto(photos):image,description,...stock,...ids,...(photos?{images:photos}:{})};
+ return {...current,colourMode:['auto','priority','optional'].includes(input.colourMode)?input.colourMode:current.colourMode||'auto',capacity,colors,condition:input.condition,image:photos&&photos.length?primaryPhoto(photos):image,description,...stock,...ids,...(photos?{images:photos}:{})};
 }

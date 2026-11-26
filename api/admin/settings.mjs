@@ -1,9 +1,11 @@
+import {reviewPreview,previewLocked} from '../_catalogue-preview.mjs';
 import {db,reply,sameOrigin} from '../_shop.mjs';
 import {requireAdmin} from './_auth.mjs';
 import {validateReview,validGoogleReviewsUrl} from '../../commerce/reviews.mjs';
 const SETUP='Reviews are not set up yet: the reviews database migration has not been applied.';
 // Store settings, plus (kind=reviews) administrator-entered customer testimonials.
 export default async function handler(req,res){
+ if(reviewPreview())return previewLocked(res);
  let user;try{user=await requireAdmin(req);}catch(e){return reply(res,401,{error:e.message});}
  const reviews=req.query?.kind==='reviews',delivery=req.query?.kind==='delivery';
  try{

@@ -1,7 +1,8 @@
 import {addToCart} from '../commerce/cart.mjs';
 import {financePlan} from '../commerce/upgrade-core.mjs';
 import {financeMessage} from '../commerce/order-messages.mjs';
-import {activateImages} from './storefront-ui.mjs';
+import {loadCatalogue} from '../commerce/catalogue-live.mjs';
+import {activateImages,escape} from './storefront-ui.mjs';
 activateImages();
 import { calculatePlan } from "../easy-buy/easy-buy-core.mjs";
 import {selectedCondition as conditionFor} from '../commerce/conditions.mjs';
@@ -45,11 +46,11 @@ let searchIndexPromise;
 
 function loadSearchIndex() {
   if (!searchIndexPromise) {
-    searchIndexPromise = fetch("/assets/catalog-search.json")
-      .then((response) => {
-        if (!response.ok) throw new Error("The phone search index could not be loaded.");
-        return response.json();
-      });
+    searchIndexPromise = loadCatalogue().then(items=>items.map(p=>{
+      const storage=[...new Set(p.variants.map(v=>v.capacity||v.storage))];
+      return {type:'product',label:p.model,route:p.route,brand:p.brand||'',storage,image:p.image,
+        keywords:[p.model,p.brand,p.category,...storage,...p.conditions],price:Math.min(...p.variants.map(v=>v.price))};
+    })).catch(error=>{searchIndexPromise=null;throw error;});
   }
   return searchIndexPromise;
 }
@@ -109,13 +110,13 @@ function renderSearchResults(input, container, index) {
           : "Storage to confirm";
 
     return `
-      <a class="search-result-link" href="${route}">
+      <a class="search-result-link" href="${escape(route)}">
         <span class="search-result-visual">
-          ${item.image ? `<img src="${item.image}" alt="">` : item.brand.slice(0, 2).toUpperCase()}
+          ${item.image ? `<img src="${escape(item.image)}" alt="">` : escape(item.brand.slice(0, 2).toUpperCase())}
         </span>
         <span class="search-result-copy">
-          <strong>${item.label}</strong>
-          <small>${subtitle}</small>
+          <strong>${escape(item.label)}</strong>
+          <small>${escape(subtitle)}</small>
         </span>
         <span class="search-result-price">${item.price ? `From ${naira.format(item.price)}` : "Check price"}</span>
       </a>`;

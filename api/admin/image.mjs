@@ -1,3 +1,4 @@
+import {reviewPreview,previewLocked} from '../_catalogue-preview.mjs';
 import {db,env,reply,sameOrigin} from '../_shop.mjs';
 import {requireAdmin} from './_auth.mjs';
 import {cleanPhotos,primaryPhoto} from '../../commerce/product-photos.mjs';
@@ -67,6 +68,7 @@ export async function approve(body,user){
  return (await db('shop_image_uploads?id=eq.'+id,{method:'PATCH',body:{status:'approved',public_url:url,assigned_slug:slug,assigned_color:color||null,assigned_skus:linked,source,licence,reviewed_by:user.id,reviewed_at:new Date().toISOString()}}))[0];
 }
 export default async function handler(req,res){
+ if(reviewPreview())return previewLocked(res);
  const kind=req.query?.kind||'';
  if(!['GET','POST','PATCH'].includes(req.method)||(req.method==='GET'&&kind!=='staged'))return reply(res,405,{error:'Method not allowed'});
  if(req.method!=='GET'&&!sameOrigin(req))return reply(res,403,{error:'Use the administrator page.'});

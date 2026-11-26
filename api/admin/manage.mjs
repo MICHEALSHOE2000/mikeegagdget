@@ -1,3 +1,4 @@
+import {reviewPreview,previewLocked} from '../_catalogue-preview.mjs';
 import {notifyOrder} from '../../commerce/notifications.mjs';
 import {validateProductEdit} from '../../commerce/admin-catalogue.mjs';
 import {db,reply,sameOrigin} from '../_shop.mjs';
@@ -51,6 +52,7 @@ export async function updateKnowledge(b,user,{dbi=db}={}){
  return [200,saved?.[0]||{key}];
 }
 export default async function handler(req,res){
+ if(reviewPreview())return previewLocked(res);
  if(!['GET','PATCH'].includes(req.method))return reply(res,405,{error:'Method not allowed'});
  let user;try{user=await requireAdmin(req);}catch(e){return reply(res,401,{error:e.message});}
  try{

@@ -229,5 +229,40 @@
     "licence": "Merchant-confirmed reuse permission (2026-10-12)",
     "source": "https://neostore.ng/shop/cmsku9oq300dlkkpvtijug71t",
     "original": "https://images.neostore.ng/shop/c2053b64-8fe4-4181-97a3-78636a2f75a8-WhatsApp Image 2026-08-08 at 9.36.59 PM (1).webp"
+  },
+  "apple-watch-ultra-2": {
+    "title": "Apple Watch Ultra 2.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Apple_Watch_Ultra_2.jpg",
+    "author": "Pangalau",
+    "licence": "CC BY-SA 4.0",
+    "terms": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "jbl-clip-5": {
+    "title": "JBL Clip 5.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:JBL_Clip_5.jpg",
+    "author": "Kyu3a",
+    "licence": "CC BY-SA 4.0",
+    "terms": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "samsung-galaxy-buds": {
+    "title": "Samsung Galaxy buds.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Samsung_Galaxy_buds.jpg",
+    "author": "Kārlis Dambrāns",
+    "licence": "CC BY 2.0",
+    "terms": "https://creativecommons.org/licenses/by/2.0"
+  },
+  "samsung-s20-fe": {
+    "title": "Samsung Galaxy S20 FE Back.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Samsung_Galaxy_S20_FE_Back.jpg",
+    "author": "X-SHLIED",
+    "licence": "CC BY-SA 4.0",
+    "terms": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "samsung-z-fold-4": {
+    "title": "Samsung Galaxy Z Fold 4.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Samsung_Galaxy_Z_Fold_4.jpg",
+    "author": "Hajoon0102",
+    "licence": "CC BY-SA 4.0",
+    "terms": "https://creativecommons.org/licenses/by-sa/4.0"
   }
 }
