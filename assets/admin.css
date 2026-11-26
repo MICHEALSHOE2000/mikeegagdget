@@ -68,7 +68,7 @@
 .adm-order-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--line)}
 .adm-order-grid p{margin:2px 0}
 .adm-contact{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px!important}
-.adm-contact a{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600;color:var(--g-dark);text-decoration:none;min-height:38px}
+.adm-contact a{display:inline-flex;max-width:100%;overflow-wrap:anywhere;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600;color:var(--g-dark);text-decoration:none;min-height:38px}
 .adm-items{list-style:none;margin:0;padding:10px 0;border-top:1px solid var(--line)}
 .adm-items li{display:flex;justify-content:space-between;gap:12px;padding:4px 0;font-size:15px}
 .adm-total{display:flex;justify-content:space-between;margin:0;padding:10px 0;border-top:1px solid var(--line);font-size:17px}

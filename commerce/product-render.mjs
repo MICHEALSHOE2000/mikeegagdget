@@ -10,7 +10,8 @@ const reEsc=s=>String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 export function renderProductPage(html,{slug,items,variants}){
  let out=html;
  const ld=productJsonLd(slug,items);
- if(ld&&SCHEMA.test(out))out=out.replace(SCHEMA,`<script type="application/ld+json" data-product-schema>${JSON.stringify(ld).replace(/</g,'\\u003c')}</script>`);
+ if(ld){const tag=`<script type="application/ld+json" data-product-schema>${JSON.stringify(ld).replace(/</g,'\\u003c')}</script>`;
+  out=SCHEMA.test(out)?out.replace(SCHEMA,()=>tag):out.replace('</head>',()=>tag+'\n</head>');}
  for(const v of variants){
   if(!(v.price>0))continue;const storage=v.sku.slice(v.sku.indexOf('|')+1);
   // Phone pages: storage buttons carry the price as data and text.

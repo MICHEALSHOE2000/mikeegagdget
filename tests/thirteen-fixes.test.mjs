@@ -114,12 +114,13 @@ test('SEO: product pages have unique titles/descriptions, canonical, OG tags and
  for(const p of retailInventory){const f=p.slug+'/index.html';if(!existsSync(f))continue;const html=read(f),m=productMeta(p);
   assert.ok(html.includes('<link rel="canonical"'),f);for(const og of ['og:title','og:description','og:url','og:type'])assert.ok(html.includes(`property="${og}"`),f+' '+og);
   assert.doesNotMatch(html.match(/<title>[\s\S]*?<\/title>/)[0],/Confirm condition|\| [a-z0-9-]+ \|/,f);
-  assert.equal((html.match(/data-product-schema/g)||[]).length,1,f);titles.add(m.title);descs.add(m.description);
+  const photo=p.image&&!p.image.endsWith('.svg');assert.equal((html.match(/data-product-schema/g)||[]).length,photo?1:0,f);titles.add(m.title);descs.add(m.description);
   assert.doesNotMatch(html,/aggregateRating|reviewCount/,f);}
  assert.equal(titles.size,descs.size);
  const priced=retailInventory.find(p=>p.variants.some(v=>v.price>0)),unpriced=retailInventory.find(p=>!p.variants.some(v=>v.price>0));
- const s=productSchema(priced,'https://x/'+priced.slug,'');assert.ok(s.offers.every(o=>o.price>0&&o.priceCurrency==='NGN'&&!('availability' in o)),'no availability claim without confirmed stock');
- if(unpriced)assert.equal('offers' in productSchema(unpriced,'https://x/u',''),false,'no fabricated offer for an unpriced product');
+ assert.equal(productSchema(priced,'https://x/'+priced.slug,''),null,'no product markup without a photo');assert.equal(productSchema(priced,'https://x/'+priced.slug,'https://x/a.svg'),null,'placeholder art is not a photo');
+ const s=productSchema(priced,'https://x/'+priced.slug,'https://x/a.webp');assert.ok(s.offers.every(o=>o.price>0&&o.priceCurrency==='NGN'&&!('availability' in o)),'no availability claim without confirmed stock');
+ if(unpriced)assert.equal('offers' in productSchema(unpriced,'https://x/u','https://x/u.webp'),false,'no fabricated offer for an unpriced product');
  assert.match(read('cart/index.html'),/<meta name="robots" content="noindex,follow">/);assert.match(read('cart/index.html'),/property="og:url" content="https:\/\/www\.mikeegadget\.com\.ng\/cart\/"/);
  const once=read('iphone-15/index.html');assert.equal(applyExperience(applyExperience(once,'iphone-15/index.html'),'iphone-15/index.html'),applyExperience(once,'iphone-15/index.html'));
 });
