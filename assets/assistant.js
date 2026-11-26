@@ -76,7 +76,8 @@ function applyReply(rep,{from='assistant'}={}){
  if(rep.handoff||rep.paused){session.watch=true;startPolling();}
 }
 async function send(raw){
- const text=String(raw||'').trim();if(!text||busy)return;
+ const text=String(raw||'').trim();if(!text)return;
+ if(busy){error('One moment — Mikee is still replying to your last message.');return;}
  if(text.length>500){error('Please keep messages under 500 characters.');return;}
  busy=true;ui.root.classList.add('is-busy');error('');ui.text.value='';grow();suggestions([]);
  const me={from:'customer',text};session.messages.push(me);render(me);typing(true);

@@ -49,7 +49,7 @@ test('Pay Small Small never routes to EasyBuy and the footer has no financing it
  const product=await readFile('iphone-17-pro/index.html','utf8');assert.match(product,/data-action="easyBuy" href="\/financing\/\?sku=/);
  const shop=await readFile('assets/storefront.js','utf8');assert.doesNotMatch(shop,/`\/easybuy\/\?\$\{q\}`/.source==='x'?/x/:/method==='easy'\)q\.set/);
  const fin=await readFile('financing/index.html','utf8');assert.doesNotMatch(fin,/not available online yet|coming soon|on hold/i);assert.match(fin,/apply online/);
- const js=await readFile('assets/shopping.js','utf8');assert.match(js,/data-credit-direct disabled/);assert.match(js,/financing\?\.available/);
+ const js=await readFile('assets/shopping.js','utf8');assert.match(js,/const st=await settings;\s*if\(!st\?\.financing\?\.available\)/,'the Credit Direct button always answers: it waits for the check, then continues or explains');assert.match(js,/financing\?\.available/);
 });
 test('one page per model: condition and SIM are variant choices, not separate pages',async()=>{
  const {resolveVariant}=await import('../commerce/variant-selection.mjs');

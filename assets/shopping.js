@@ -1,16 +1,20 @@
-import {readCart,saveCart,addToCart,cartLine} from '../commerce/cart.mjs';
+import {readCart,saveCart,addToCart,cartLine,saveColourPref,readColourPrefs,colourPrefNotes} from '../commerce/cart.mjs';
 import {showAddedToCart} from './cart-ui.mjs';
 import {lgasFor} from '../commerce/nigeria-states-lgas.mjs';
 import {EMAIL,PHONE,PICKUP_WINDOW_DAYS,lagosToday,addDays} from '../commerce/checkout-validation.mjs';
 import {rateTable,seedRows,quote} from '../commerce/delivery-rates.mjs';
 import {BANK_ACCOUNTS,PAYMENT_WHATSAPP} from '../commerce/bank-details.mjs';
 import {escape,money,activateImages,optionLabel,stockLabel} from './storefront-ui.mjs';
+import {logIssue,whatsappOrderHref} from './client-log.mjs';
 const $=id=>document.getElementById(id),query=new URLSearchParams(location.search);
-const data=await fetch('/api/shop/catalog').then(r=>{if(!r.ok)throw Error('Offline catalogue');return r.json().then(rows=>{if(!Array.isArray(rows)||!rows.length)throw Error('Catalogue setup pending');return rows;});}).catch(()=>fetch('/assets/shop-data.json').then(r=>{if(!r.ok)throw Error('Catalogue unavailable');return r.json();})).catch(()=>[]);
+// Taps that arrive before the catalogue has loaded are answered instead of ignored.
+let shopReady=false;for(const id of ['gadget-buy','gadget-cart'])$(id)?.addEventListener('click',()=>{if(shopReady)return;const m=$('gadget-message');if(m)m.textContent='Loading the latest price… tap again in a moment.';});
+const data=await fetch('/api/shop/catalog',typeof AbortSignal!=='undefined'&&AbortSignal.timeout?{signal:AbortSignal.timeout(8000)}:{}).then(r=>{if(!r.ok)throw Error('Offline catalogue');return r.json().then(rows=>{if(!Array.isArray(rows)||!rows.length)throw Error('Catalogue setup pending');return rows;});}).catch(()=>fetch('/assets/shop-data.json').then(r=>{if(!r.ok)throw Error('Catalogue unavailable');return r.json();})).catch(()=>[]);
+shopReady=true;
 const find=sku=>data.find(v=>v.sku===sku);
 let cart=readCart(localStorage);
 const chosenColor=(v,color)=>v.colors.length===1?v.colors[0]:v.colors.includes(color)?color:'';
-function add(sku,color='',go=false){const v=find(sku);if(!v)throw Error('Choose a valid product.');if(!(v.price>0)||v.enabled===false||v.reviewRequired)throw Error('This option is not available yet.');if(v.stockStatus==='out_of_stock')throw Error('This option is out of stock.');color=chosenColor(v,color);if(v.colors.length&&!color)throw Error('Please select a colour on the product page.');window.mgTrack?.('add_to_cart',{currency:'NGN',value:v.price,items:[{item_id:sku,item_name:v.model,item_variant:v.storage,price:v.price,quantity:1}]});if(go){location.assign('/checkout/?'+new URLSearchParams({sku,color}));return;}const saved=addToCart(localStorage,{sku,color,quantity:1});cart=saved;render();showAddedToCart({model:v.model,image:v.image,storage:[v.capacity||v.storage,v.connectivity].filter(Boolean).join(' · '),color,condition:v.condition,quantity:cartLine(saved,sku,color)?.quantity||1,price:v.price});}
+function add(sku,color='',go=false){const v=find(sku);if(!v)throw Error('Choose a valid product.');if(!(v.price>0)||v.enabled===false||v.reviewRequired)throw Error('This option is not available yet.');if(v.stockStatus==='out_of_stock')throw Error('This option is out of stock.');const wanted=color;color=chosenColor(v,color);if(v.colors.length&&!color)throw Error('Please select a colour on the product page.');if(!v.colors.length)saveColourPref(localStorage,sku,wanted);window.mgTrack?.('add_to_cart',{currency:'NGN',value:v.price,items:[{item_id:sku,item_name:v.model,item_variant:v.storage,price:v.price,quantity:1}]});if(go){location.assign('/checkout/?'+new URLSearchParams({sku,color}));return;}const saved=addToCart(localStorage,{sku,color,quantity:1});cart=saved;render();showAddedToCart({model:v.model,image:v.image,storage:[v.capacity||v.storage,v.connectivity].filter(Boolean).join(' · '),color,condition:v.condition,quantity:cartLine(saved,sku,color)?.quantity||1,price:v.price});}
 // ---- Cart and checkout rendering. A line is identified by its exact variant SKU plus colour. ----
 const purchasableVariant=v=>!!v&&v.price>0&&v.enabled!==false&&!v.reviewRequired&&v.stockStatus!=='out_of_stock';
 const lineDetails=(v,row)=>{const size=optionLabel(v?.capacity||v?.storage||'');return [size,row.color&&!size.includes(row.color)?row.color:(v?.colourNote&&!row.color?'Colour confirmed with you':null),v?.condition,v?.connectivity?(v.simNote?`${v.connectivity} (${v.simNote})`:v.connectivity):null,v?.activation&&v.activation!=='To be confirmed'?v.activation:null].filter(Boolean);};
@@ -43,7 +47,7 @@ function render(){
 }
 if(query.has('sku')&&$('checkout-form')){
  // Buy Now puts the exact variant in the saved cart (without doubling it) and checks out the whole cart.
- try{const v=find(query.get('sku'));if(!v)throw Error('This variant is not in the catalogue.');const color=chosenColor(v,query.get('color'));if(v.colors.length&&!color)throw Error('Choose the colour on the product page before buying.');
+ try{const v=find(query.get('sku'));if(!v)throw Error('This variant is not in the catalogue.');const color=chosenColor(v,query.get('color'));if(!v.colors.length)saveColourPref(localStorage,v.sku,query.get('color')||'');if(v.colors.length&&!color)throw Error('Choose the colour on the product page before buying.');
  if(!purchasableVariant(v))throw Error('This option has no confirmed price yet, so it cannot be paid for. Choose another option.');
  if(!cartLine(cart,v.sku,color))cart=addToCart(localStorage,{sku:v.sku,color,quantity:1});
  }catch(e){$('checkout-error').textContent=e.message;}
@@ -61,6 +65,8 @@ addEventListener('mikee:cart',()=>{if($('cart-items')){cart=readCart(localStorag
 const form=$('checkout-form');
 if(form){
  const el=form.elements,DOMAINS=['gmail.com','yahoo.com','outlook.com','icloud.com','hotmail.com'];
+ // Colour wishes for phones sold "colour to confirm" go into the order notes so the team sees them.
+ {const lines=colourPrefNotes(cart,readColourPrefs(localStorage),sku=>{const v=find(sku);return v?[v.model,v.capacity||v.storage].filter(Boolean).join(' '):sku;});if(lines.length&&el.notes&&!/Preferred colour/.test(el.notes.value))el.notes.value=[el.notes.value.trim(),...lines].filter(Boolean).join('\n').slice(0,1000);}
  // Email: suggest "@gmail.com" before an "@" is typed, then common domains; any other address can still be typed.
  const suggestBox=$('email-suggest');let suggestions=[];
  const suggest=v=>{v=v.trim();if(!v||/\s/.test(v))return [];const at=v.indexOf('@');if(at<0)return v.length>=3?[v+'@gmail.com']:[];const local=v.slice(0,at),dom=v.slice(at+1).toLowerCase();if(!local||dom.includes('@'))return [];return DOMAINS.filter(d=>d.startsWith(dom)&&d!==dom).map(d=>local+'@'+d);};
@@ -137,7 +143,7 @@ if(form){
    if(result.provider==='reservation'){location.assign(new URL(result.url,location.origin).href);return;}
    if(result.provider==='credit_direct'){const {openCreditDirect}=await import('./credit-direct-checkout.js');await openCreditDirect(result,text=>{error.textContent=text;});done();return;}
    const url=new URL(result.url,location.origin);if(!(url.hostname==='checkout.paystack.com'&&url.protocol==='https:')&&url.origin!==location.origin)throw Error('Invalid payment destination.');location.assign(url.href);
-  }catch(e){error.textContent=e instanceof SyntaxError?'Checkout is not connected in this preview yet.':e.message;done();}
+  }catch(e){error.textContent=e instanceof SyntaxError?'Checkout is not connected in this preview yet.':e.message;error.insertAdjacentHTML('beforeend',` <a href="${whatsappOrderHref('items in my cart')}" target="_blank" rel="noopener">Order on WhatsApp instead</a>`);logIssue('checkout_submit_failed',{payment:el.paymentMethod?.value,skus:cart.map(i=>i.sku).join(', '),message:e.message});done();}
  });
 }
 if($('payment-status')){
@@ -176,12 +182,23 @@ if($('payment-status')){
   }catch{$('confirm-title').textContent='We could not check your payment yet';$('payment-status').textContent='Please check again, or contact us with your order reference.';$('confirm-icon').classList.add('is-waiting');}finally{button.disabled=false;}};
  $('check-payment').addEventListener('click',check);await check();
 }
-if($('gadget-variant')){if(query.has('sku')&&find(query.get('sku')))$('gadget-variant').value=query.get('sku');const update=()=>{const v=find($('gadget-variant').value);const ok=purchasableVariant(v);$('gadget-price').innerHTML=v?.price>0?(v.deal?'<del>'+money(v.originalPrice)+'</del> '+money(v.price)+' · -10%':v.compareAtPrice>v.price?'<del><span class="sr-only">Was </span>'+money(v.compareAtPrice)+'</del> '+money(v.price)+' <span class="save-badge">Save '+money(v.compareAtPrice-v.price)+'</span>':money(v.price)):'Not available yet';const stock=$('gadget-stock');if(stock){const label=stockLabel(v);stock.textContent=label;stock.className=label?'mg-stock'+(v?.stockStatus==='out_of_stock'?' is-out':''):'';}for(const id of ['gadget-buy','gadget-cart'])$(id).disabled=!ok;};$('gadget-variant').addEventListener('change',update);update();for(const [id,go]of[['gadget-buy',true],['gadget-cart',false]])$(id).addEventListener('click',()=>{try{add($('gadget-variant').value,'',go);$('gadget-message').textContent='Added to cart.';}catch(e){$('gadget-message').textContent=e.message;}});}
+if($('gadget-variant')){if(query.has('sku')&&find(query.get('sku')))$('gadget-variant').value=query.get('sku');const update=()=>{const v=find($('gadget-variant').value);const ok=purchasableVariant(v);$('gadget-price').innerHTML=v?.price>0?(v.deal?'<del>'+money(v.originalPrice)+'</del> '+money(v.price)+' · -10%':v.compareAtPrice>v.price?'<del><span class="sr-only">Was </span>'+money(v.compareAtPrice)+'</del> '+money(v.price)+' <span class="save-badge">Save '+money(v.compareAtPrice-v.price)+'</span>':money(v.price)):'Not available yet';const stock=$('gadget-stock');if(stock){const label=stockLabel(v);stock.textContent=label;stock.className=label?'mg-stock'+(v?.stockStatus==='out_of_stock'?' is-out':''):'';}for(const id of ['gadget-buy','gadget-cart']){$(id).disabled=false;$(id).classList.toggle('is-unbuyable',!ok);}};$('gadget-variant').addEventListener('change',update);update();for(const [id,go]of[['gadget-buy',true],['gadget-cart',false]])$(id).addEventListener('click',()=>{const b=$(id);if(b.classList.contains('is-loading'))return;if(go){b.classList.add('is-loading');b.setAttribute('aria-busy','true');}$('gadget-message').textContent='';try{add($('gadget-variant').value,'',go);if(!go)$('gadget-message').textContent='Added to cart.';else setTimeout(()=>{b.classList.remove('is-loading');b.removeAttribute('aria-busy');},12000);}catch(e){b.classList.remove('is-loading');b.removeAttribute('aria-busy');const v=find($('gadget-variant').value);$('gadget-message').innerHTML=escape(e.message)+` <a href="${escape(whatsappOrderHref(v?.model||document.querySelector('h1')?.textContent||'device',v?.storage||''))}" target="_blank" rel="noopener">Tap here to order on WhatsApp.</a>`;logIssue('gadget_buy_failed',{sku:$('gadget-variant').value,action:go?'buy':'cart',message:e.message});}});addEventListener('pageshow',()=>{$('gadget-buy').classList.remove('is-loading');$('gadget-buy').removeAttribute('aria-busy');});}
 activateImages();
 
 // Pay Small Small: Credit Direct only. The instalment button is enabled once the server confirms Credit Direct is configured.
-if($('financing-selection')){const sku=query.get('sku')||query.get('phone'),v=find(sku),color=query.get('color')||'';const ready=v&&v.price>0&&v.enabled!==false&&!v.reviewRequired;
- if(v)$('financing-selection').innerHTML=`<h2>${escape(v.model)}</h2><p>${escape(v.storage)} · ${escape(v.condition)}</p><p>${ready?money(v.price):'Price coming soon'}</p><p class="checkout-actions"><button type="button" class="btn btn-primary" data-credit-direct disabled>Continue to Credit Direct</button> ${ready?'<button type="button" class="btn" data-outright>Buy outright with Paystack</button>':''} <a href="/${escape(v.slug)}/?storage=${encodeURIComponent(v.storage)}">View device</a></p><p data-financing-message role="alert"></p>`;
- const say=t=>{const el=document.querySelector('[data-financing-message]');if(el)el.textContent=t;};
- document.querySelector('[data-outright]')?.addEventListener('click',()=>{try{add(v.sku||sku,color,true);}catch(e){say(e.message);}});
- fetch('/api/shop/settings').then(r=>r.ok?r.json():null).catch(()=>null).then(settings=>{const button=document.querySelector('[data-credit-direct]');if(!settings?.financing?.available)return;$('financing-status').textContent='Apply for instalments with Credit Direct. Credit Direct decides approval, down payment and repayments.';if(!button||!ready)return;button.disabled=false;button.addEventListener('click',()=>{try{add(v.sku||sku,color,false);location.assign('/checkout/?payment=credit_direct');}catch(e){say(e.message);}});});}
+if($('financing-selection')){const sku=query.get('sku')||query.get('phone'),v=find(sku),color=query.get('color')||'';const ready=purchasableVariant(v);
+ const waLink=`<a href="${escape(whatsappOrderHref(v?.model||'device',[v?.storage,color].filter(Boolean).join(' · ')+' with Pay Small Small'))}" target="_blank" rel="noopener">Tap here to order on WhatsApp.</a>`;
+ if(!v){$('financing-selection').innerHTML=`<p data-financing-message role="alert">Choose a device first: open it in the shop and tap “Pay Small Small”. ${waLink}</p>`;if(sku)logIssue('financing_unknown_sku',{sku});}
+ else $('financing-selection').innerHTML=`<h2>${escape(v.model)}</h2><p>${escape(v.storage)} · ${escape(v.condition)}${color?' · '+escape(color):''}</p><p>${ready?money(v.price):'Price coming soon'}</p><p class="checkout-actions"><button type="button" class="btn btn-primary" data-credit-direct>Continue to Credit Direct</button> ${ready?'<button type="button" class="btn" data-outright>Buy outright with Paystack</button>':''} <a href="/${escape(v.slug)}/?storage=${encodeURIComponent(v.storage)}">View device</a></p><p data-financing-message role="alert"></p>`;
+ const say=html=>{const el=document.querySelector('[data-financing-message]');if(el)el.innerHTML=html;};
+ const busy=(b,on)=>{if(!b)return;b.classList.toggle('is-loading',on);b.setAttribute('aria-busy',String(on));b.disabled=on;};
+ document.querySelector('[data-outright]')?.addEventListener('click',e=>{busy(e.currentTarget,true);try{add(v.sku||sku,color,true);}catch(err){busy(e.currentTarget,false);say(escape(err.message)+' '+waLink);logIssue('financing_outright_failed',{sku,message:err.message});}});
+ const settings=fetch('/api/shop/settings').then(r=>r.ok?r.json():null).catch(()=>null);
+ settings.then(st=>{if(st?.financing?.available)$('financing-status').textContent='Apply for instalments with Credit Direct. Credit Direct decides approval, down payment and repayments.';});
+ // The button always answers: it waits for the Credit Direct check, then continues or says why it can't.
+ document.querySelector('[data-credit-direct]')?.addEventListener('click',async e=>{const button=e.currentTarget;if(button.classList.contains('is-loading'))return;busy(button,true);say('');
+  const st=await settings;
+  if(!st?.financing?.available){busy(button,false);say(`Pay Small Small is not available online right now.${ready?' You can buy outright with Paystack, or':''} ${waLink}`);logIssue('financing_unavailable',{sku});return;}
+  if(!ready){busy(button,false);say(`This option can’t be paid for online yet. ${waLink}`);logIssue('financing_not_purchasable',{sku});return;}
+  try{add(v.sku||sku,color,false);location.assign('/checkout/?payment=credit_direct');setTimeout(()=>busy(button,false),12000);}catch(err){busy(button,false);say(escape(err.message)+' '+waLink);logIssue('financing_add_failed',{sku,message:err.message});}});
+}

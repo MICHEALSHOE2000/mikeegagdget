@@ -160,13 +160,16 @@ test('new colour groups cannot send a Burgundy quote at the Silver/Blue price',a
  let href=document.querySelector('[data-action="buy"]').href;
  assert.equal(new URL(href).searchParams.get('sku'),'iphone-18-pro-max|512GB · Burgundy');
  assert.equal(new URL(href).searchParams.get('color'),'Burgundy');
+ // Dead-click fix (Nov 2026): only colours that can be bought are offered, and a tap on storage moves the colour to
+ // one that can be bought for it, so Buy Now always leads to checkout with that exact SKU and its own price.
  document.querySelector('[data-capacity="256GB"]').click();
- document.querySelector('[data-color="Silver"]').click();
- assert.equal(document.querySelector('[data-action="buy"]').hasAttribute('href'),false);
- assert.match(document.querySelector('[data-product-price]').textContent,/Not available yet/);
- document.querySelector('[data-color="Glacier"]').click();
  assert.equal(document.querySelector('[data-capacity="256GB"]').getAttribute('aria-pressed'),'true');
- assert.equal(document.querySelector('[data-action="buy"]').hasAttribute('href'),false);
+ const chosen=document.querySelector('[data-color][aria-pressed="true"]').dataset.color;
+ href=document.querySelector('[data-action="buy"]').href;const sku=new URL(href).searchParams.get('sku');
+ assert.ok(sku.startsWith('iphone-18-pro-max|256GB'),sku);assert.equal(new URL(href).searchParams.get('color'),chosen);
+ const product=JSON.parse(document.getElementById('product-data').textContent),v=product.variants.find(x=>'iphone-18-pro-max|'+x.storage===sku);
+ assert.ok(v&&v.price>0&&(!(v.colors||[]).length||(v.colors||[]).includes(chosen)),'the SKU sold in the chosen colour, at its own price');
+ assert.match(document.querySelector('[data-product-price]').textContent,new RegExp(v.price.toLocaleString('en-NG')));
  dom.window.close();
 });
 
