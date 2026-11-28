@@ -3,6 +3,7 @@ import {mountHome} from './admin-home.mjs';
 import {stockFields,photoFields,readExtras,addPhoto,bindPhotoControls,mountExtras} from './admin-extras.mjs';
 import {mountSmartImages} from './admin-images.mjs';
 import {mountAssistant} from './admin-ai.mjs';
+import {mountQuick} from './admin-quick.mjs';
 import {escape,money} from './storefront-ui.mjs';
 const $=id=>document.getElementById(id);
 // Keep the short-lived access token in memory only. Never log or render it.
@@ -20,7 +21,7 @@ async function api(path,options={}){const r=await fetch(path,{...options,headers
 const signedIn=on=>{$('admin-signin-wrap').hidden=on;$('admin-tools').hidden=!on;};
 
 // ---------- Sections (tabs) ----------
-const TABS=['home','orders','reservations','ai','products','deals','photos','reviews','merchant','delivery','settings'];
+const TABS=['home','quick','orders','reservations','ai','products','deals','photos','reviews','merchant','delivery','settings'];
 function openTab(name,{scroll=true}={}){if(!TABS.includes(name))name='home';for(const b of document.querySelectorAll('[data-tab]'))b.classList.toggle('is-active',b.dataset.tab===name);for(const p of document.querySelectorAll('[data-panel]'))p.hidden=p.dataset.panel!==name;try{sessionStorage.setItem('mikee-admin-tab',name);}catch{}if(scroll)scrollTo({top:0,behavior:'smooth'});}
 document.querySelector('.adm-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)openTab(b.dataset.tab);});
 
@@ -119,6 +120,7 @@ const rateRow=r=>`<form class="adm-rate" data-rate="${escape(r.id)}"><span class
 function renderRates(){$('admin-rates-lagos').innerHTML=rates.filter(r=>r.scope==='lagos_lga').map(rateRow).join('');$('admin-rates-states').innerHTML=rates.filter(r=>r.scope==='state').map(rateRow).join('');}
 // ---- Mikee AI inbox and knowledge base ----
 const ai=mountAssistant({api,message,escape,money});
+mountQuick($('admin-quick-host'),{api,message,reload:async()=>{try{inventory=await api('/api/admin/manage?kind=inventory');renderInventory();}catch{}}});
 
 // ---- Google Shopping (Merchant Center) ----
 let merchant=null;
