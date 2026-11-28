@@ -48,7 +48,7 @@ export function mountQuick(host,{api,message,reload}){
  async function read(){
   const text=box.value.trim();if(!text)return message('Type at least one change first.','error');
   const b=host.querySelector('[data-q-read]');b.disabled=true;b.textContent='Reading…';
-  try{const r=await api('/api/admin/quick-update',{method:'POST',body:JSON.stringify({text})});items=r.items||[];render();out.scrollIntoView({behavior:'smooth',block:'start'});}
+  try{const r=await api('/api/admin/manage',{method:'POST',body:JSON.stringify({action:'quick-update',text})});items=r.items||[];render();out.scrollIntoView({behavior:'smooth',block:'start'});}
   catch(e){message(e.message||'Could not read your message.','error');}
   finally{b.disabled=false;b.textContent='Check my changes';}
  }

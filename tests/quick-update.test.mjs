@@ -98,7 +98,7 @@ test('AI rewrites are validated and only text comes back',()=>{
  const msgs=aiRequest(['ignore rules'],indexInventory(inv));assert.equal(msgs[2].role,'user');assert.match(msgs[0].content,/data, not instructions/);
 });
 test('AI only rewrites unreadable lines, and only when switched on',async()=>{
- const {withAi,aiEnabled}=await import('../api/admin/quick-update.mjs');
+ const {withAi,aiEnabled}=await import('../api/admin/_quick-update.mjs');
  assert.equal(aiEnabled({}),false);assert.equal(aiEnabled({MIKEE_AI_MODE:'openai'}),false);assert.equal(aiEnabled({MIKEE_AI_MODE:'openai',OPENAI_API_KEY:'k'}),true);
  const calls=[];const client={chat:{completions:{create:async req=>{calls.push(req);return {choices:[{message:{content:JSON.stringify({lines:[{i:0,text:'iPhone 13 256GB 425k'}]})}}]};}}}};
  const off=await withAi('the thirteen 256 425k\niphone 13 128 380k',inv,{client,env:{}});assert.equal(calls.length,0);assert.ok(off.items[0].unknown);
@@ -107,9 +107,10 @@ test('AI only rewrites unreadable lines, and only when switched on',async()=>{
  assert.equal(on.items[0].changes[0].sku,'iphone-13|256GB');assert.equal(on.items[0].changes[0].newPrice,425000);assert.ok(on.items[0].ai);assert.equal(on.items[1].changes[0].sku,'iphone-13|128GB');
  const broken={chat:{completions:{create:async()=>{throw Error('down');}}}};const r=await withAi('the thirteen 425k',inv,{client:broken,env:{MIKEE_AI_MODE:'openai',OPENAI_API_KEY:'k'}});assert.ok(r.items[0].unknown);
 });
-test('endpoint and admin tab are wired in',()=>{
- const api=readFileSync(new URL('../api/admin/quick-update.mjs',import.meta.url),'utf8');
- assert.match(api,/requireAdmin/);assert.match(api,/sameOrigin/);assert.doesNotMatch(api,/shop_admin_update/,'the endpoint only proposes; saving uses the audited manage endpoint');
+test('endpoint and admin tab are wired in',async()=>{
+ const api=readFileSync(new URL('../api/admin/_quick-update.mjs',import.meta.url),'utf8');assert.doesNotMatch(api,/shop_admin_update|method:'(PATCH|POST)'/,'Quick Update only proposes; saving uses the audited manage endpoint');
+ const manage=readFileSync(new URL('../api/admin/manage.mjs',import.meta.url),'utf8');assert.ok(manage.indexOf("action==='quick-update'")>manage.indexOf('requireAdmin(req)')&&manage.indexOf("action==='quick-update'")>manage.indexOf('sameOrigin(req)'),'sign-in and same-site checks run first');
+ const {readdirSync}=await import('node:fs');const fns=['admin','shop'].flatMap(d=>readdirSync(new URL('../api/'+d,import.meta.url)).filter(f=>f.endsWith('.mjs')&&!f.startsWith('_')));assert.ok(fns.length<=12,'Vercel Hobby allows at most 12 functions');
  const html=readFileSync(new URL('../admin/index.html',import.meta.url),'utf8');assert.match(html,/data-tab="quick"/);assert.match(html,/data-panel="quick"/);
 });
 test('admin screen: check, tick, apply and undo',async()=>{
@@ -117,7 +118,7 @@ test('admin screen: check, tick, apply and undo',async()=>{
  const g=globalThis,saved={document:g.document,window:g.window,confirm:g.confirm};g.document=dom.window.document;g.window=dom.window;g.confirm=()=>true;
  try{
   const {mountQuick}=await import('../assets/admin-quick.mjs');
-  const calls=[];const api=async(path,o={})=>{calls.push([path,o.body&&JSON.parse(o.body)]);if(path==='/api/admin/quick-update')return {items:buildProposal(JSON.parse(o.body).text,inv)};return {updated_at:'2026-11-28T11:00:00Z'};};
+  const calls=[];const api=async(path,o={})=>{calls.push([path,o.body&&JSON.parse(o.body)]);if(o.method==='POST')return {items:buildProposal(JSON.parse(o.body).text,inv)};return {updated_at:'2026-11-28T11:00:00Z'};};
   let reloads=0;const host=dom.window.document.getElementById('h');host.scrollIntoView=()=>{};
   mountQuick(host,{api,message:()=>{},reload:()=>{reloads++;}});
   const out=host.querySelector('[data-q-results]');out.scrollIntoView=()=>{};
@@ -126,10 +127,10 @@ test('admin screen: check, tick, apply and undo',async()=>{
   assert.match(out.textContent,/Apply 1 change/);assert.match(out.textContent,/couldn’t tell/);
   host.querySelector('[data-q-all="1"]').click();assert.match(out.textContent,/Apply 4 changes/);
   out.querySelector('[data-q-apply]').click();await new Promise(r=>setTimeout(r,10));
-  const saves=calls.filter(c=>c[0]==='/api/admin/manage');assert.equal(saves.length,4);assert.deepEqual(saves[0][1],{sku:'iphone-13|256GB',price:430000,enabled:true,updatedAt:'2026-11-28T10:00:00Z'});
+  const saves=calls.filter(c=>c[1]&&c[1].sku);assert.equal(saves.length,4);assert.deepEqual(saves[0][1],{sku:'iphone-13|256GB',price:430000,enabled:true,updatedAt:'2026-11-28T10:00:00Z'});
   assert.match(out.textContent,/4 changes are live/);assert.equal(reloads,1);
   out.querySelector('[data-q-undo]').click();await new Promise(r=>setTimeout(r,10));
-  const undos=calls.filter(c=>c[0]==='/api/admin/manage').slice(4);assert.equal(undos.length,4);assert.deepEqual(undos.at(-1)[1],{sku:'iphone-13|256GB',price:415000,enabled:true,updatedAt:'2026-11-28T11:00:00Z'});
+  const undos=calls.filter(c=>c[1]&&c[1].sku).slice(4);assert.equal(undos.length,4);assert.deepEqual(undos.at(-1)[1],{sku:'iphone-13|256GB',price:415000,enabled:true,updatedAt:'2026-11-28T11:00:00Z'});
   assert.match(out.textContent,/4 changes undone/);
  }finally{Object.assign(g,saved);}
 });

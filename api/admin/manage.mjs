@@ -5,6 +5,7 @@ import {requireAdmin} from './_auth.mjs';
 import {buildItems,feedStats,SITE,FEED_PATH} from '../../commerce/merchant.mjs';
 import pages from '../../commerce/merchant-products.mjs';
 import {LEAD_STATUSES,KNOWLEDGE,knowledgeMap} from '../../commerce/assistant.mjs';
+import {quickUpdate} from './_quick-update.mjs';
 const ID=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 // Status, notes, pause/resume, attention, read and manual replies for one conversation.
 export async function updateConversation(b,{dbi=db,sendWa}={}){
@@ -51,7 +52,7 @@ export async function updateKnowledge(b,user,{dbi=db}={}){
  return [200,saved?.[0]||{key}];
 }
 export default async function handler(req,res){
- if(!['GET','PATCH'].includes(req.method))return reply(res,405,{error:'Method not allowed'});
+ if(!['GET','PATCH','POST'].includes(req.method))return reply(res,405,{error:'Method not allowed'});
  let user;try{user=await requireAdmin(req);}catch(e){return reply(res,401,{error:e.message});}
  try{
   if(req.method==='GET'){
@@ -93,6 +94,8 @@ export default async function handler(req,res){
    return reply(res,400,{error:'Choose inventory, orders, reservations, merchant, conversations or knowledge.'});
   }
   if(!sameOrigin(req))return reply(res,403,{error:'Use the administrator page.'});
+  // Quick Update only proposes changes; nothing is saved by this call.
+  if(req.method==='POST')return req.body?.action==='quick-update'?reply(res,...await quickUpdate(req.body)):reply(res,400,{error:'Unknown action.'});
   // Mikee AI inbox and knowledge base.
   if(req.body?.conversationId)return reply(res,...await updateConversation(req.body));
   if(req.body?.knowledgeKey)return reply(res,...await updateKnowledge(req.body,user));
