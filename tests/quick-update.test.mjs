@@ -133,3 +133,18 @@ test('admin screen: check, tick, apply and undo',async()=>{
   assert.match(out.textContent,/4 changes undone/);
  }finally{Object.assign(g,saved);}
 });
+test('sign-in links return to the preview being tested, and to the shop in production',async()=>{
+ const {default:login}=await import('../api/admin/login.mjs');
+ const keep={...process.env},realFetch=globalThis.fetch;const seen=[];
+ globalThis.fetch=async url=>{seen.push(String(url));return {ok:true,status:200};};
+ const res={status(){return this;},setHeader(){return this;},json(d){this.body=d;return this;}};
+ try{
+  Object.assign(process.env,{SUPABASE_URL:'https://db.example',SUPABASE_SERVICE_ROLE_KEY:'k',SHOP_ORIGIN:'https://mikeegadget.com.ng',VERCEL_ENV:'preview',VERCEL_BRANCH_URL:'shop-git-quick.vercel.app'});
+  await login({method:'POST',headers:{origin:'https://shop-git-quick.vercel.app'},body:{email:'aderintomicheal6@gmail.com'}},res);
+  assert.match(decodeURIComponent(seen[0]),/redirect_to=https:\/\/shop-git-quick\.vercel\.app\/admin\//);
+  process.env.VERCEL_ENV='production';
+  await login({method:'POST',headers:{origin:'https://mikeegadget.com.ng'},body:{email:'aderintomicheal6@gmail.com'}},res);
+  assert.match(decodeURIComponent(seen[1]),/redirect_to=https:\/\/mikeegadget\.com\.ng\/admin\//);
+  await login({method:'POST',headers:{origin:'https://evil.example'},body:{email:'aderintomicheal6@gmail.com'}},res);assert.equal(seen.length,2,'other sites are refused');
+ }finally{process.env=keep;globalThis.fetch=realFetch;}
+});

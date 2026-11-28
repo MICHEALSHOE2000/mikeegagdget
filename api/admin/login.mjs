@@ -5,7 +5,8 @@ export default async function handler(req,res){
  try{
   if(!sameOrigin(req))return reply(res,403,{error:'Use the administrator sign-in page.'});
   if(String(req.body?.email||'').trim().toLowerCase()!==ADMIN_EMAIL)return reply(res,403,{error:'Use the configured administrator email.'});
-  const redirect=new URL('/admin/',env('SHOP_ORIGIN')).href;
+  // On a preview deployment the link returns to that preview, so new admin features can be tried before release.
+  const redirect=new URL('/admin/',process.env.VERCEL_ENV==='preview'?req.headers.origin:env('SHOP_ORIGIN')).href;
   const r=await fetch(env('SUPABASE_URL')+'/auth/v1/otp?redirect_to='+encodeURIComponent(redirect),{method:'POST',headers:{apikey:(process.env.SUPABASE_PUBLISHABLE_KEY||env('SUPABASE_SERVICE_ROLE_KEY')),'Content-Type':'application/json'},body:JSON.stringify({email:ADMIN_EMAIL,create_user:true}),signal:AbortSignal.timeout(15000)});
   if(r.status===429)return reply(res,429,{error:'Too many sign-in emails were requested. Wait about an hour, request one new link, then open only that newest email.'});
  if(!r.ok)return reply(res,503,{error:'Sign-in email could not be sent. Check email delivery settings or try again later.'});
